@@ -4,9 +4,20 @@ using UnityEngine.UI;
 
 public class PlayerConnectManager : MonoBehaviour {
 
+    private static PlayerConnectManager instance;
+    public static PlayerConnectManager GetInstance()
+    {
+        return instance;
+    }
+
     private GameObject canvas;
     private Transform[] playerSlots;
     private List<ConnectedPlayer> connectedPlayers = new List<ConnectedPlayer>();
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
@@ -29,16 +40,22 @@ public class PlayerConnectManager : MonoBehaviour {
     }
 
     //TODO: Add correct player based on joystick
-    public void AddPlayer()
+    public void AddPlayer(int gamepadIndex)
     {
         if (connectedPlayers.Count == playerSlots.Length)
             return;
+
+        foreach (ConnectedPlayer item in connectedPlayers)
+        {
+            if (item.gamepadIndex == gamepadIndex)
+                return;
+        }
 
         playerSlots[connectedPlayers.Count].GetChild(0).gameObject.SetActive(false);
         playerSlots[connectedPlayers.Count].GetChild(1).gameObject.SetActive(true);
 
         ConnectedPlayer newConnectedPlayer = new ConnectedPlayer();
-        newConnectedPlayer.joystick = null;
+        newConnectedPlayer.gamepadIndex = gamepadIndex;
         newConnectedPlayer.avatar = playerSlots[connectedPlayers.Count].GetChild(1).GetComponent<Image>().color;
         connectedPlayers.Add(newConnectedPlayer);
     }
@@ -66,7 +83,7 @@ public class PlayerConnectManager : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            AddPlayer();
+            //AddPlayer();
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
@@ -80,7 +97,7 @@ public class PlayerConnectManager : MonoBehaviour {
 
     struct ConnectedPlayer
     {
-        public string joystick;
+        public int gamepadIndex;
         public Color avatar;
     }
 }
