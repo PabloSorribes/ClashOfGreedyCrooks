@@ -5,19 +5,26 @@ using UnityEngine;
 public class Shooting : MonoBehaviour {
 
     public GameObject bullet;
+    public GameObject bulletSpawnPoint;
 
 
 	// Use this for initialization
 	void Start () {
-		
+        
 	}
 	
 	// Update is called once per frame
 	void Update () {
         if (Input.GetButtonDown("Fire1"))
         {
-            bullet = Instantiate(bullet, transform.position, Quaternion.identity) as GameObject;
-            bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 10);
+            Shoot();
         }
 	}
+
+    //Spanws the bullet
+    public void Shoot()
+    {
+        Instantiate(bullet.transform, bulletSpawnPoint.transform.position, Quaternion.identity);
+
+    }
 }
