@@ -8,10 +8,24 @@ public class Projectile : MonoBehaviour {
     private int dmg;
     GameObject player;
 
+    private float deathTimer;
+
+    //Time until the bullet is destroyed
+    public float defaultTime = 5;
+
 
     private void Update()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
+
+        deathTimer += Time.deltaTime;
+
+        if (deathTimer > defaultTime)
+        {
+            Destroy(gameObject);
+
+            deathTimer = 0;
+        }
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -22,9 +36,6 @@ public class Projectile : MonoBehaviour {
             player = collision.gameObject;
             //player.GetComponent<Player>().health-=dmg;
         }
-        else
-        {
-
-        }
+      
     }
 }
