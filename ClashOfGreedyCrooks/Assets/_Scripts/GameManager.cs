@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour {
     private void Awake()
     {
         instance = this;
-        
     }
 
     private void Start()
@@ -31,12 +30,12 @@ public class GameManager : MonoBehaviour {
     }
 
 
-    public void AddPlayer()
+    public void AddPlayer(int playerNr, int gamepadIndex)
     {
 
     }
 
-    public void RemovePlayer()
+    public void RemovePlayer(int playerNr)
     {
 
     }
