@@ -34,11 +34,17 @@ public class GameStateManager : MonoBehaviour {
         }
     }
 
-    /// <summary>
-    /// Changes the scene
-    /// </summary>
-    /// <param name="newState"></param>
-    public void SetState(State newState)
+	public State GetState()
+	{
+		State tempState = state;
+		return tempState;
+	}
+
+	/// <summary>
+	/// Changes the scene
+	/// </summary>
+	/// <param name="newState"></param>
+	public void SetState(State newState)
     {
         if (newState == State.MainMenu)
             OnMainMenuState();

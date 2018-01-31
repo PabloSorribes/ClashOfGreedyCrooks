@@ -24,16 +24,25 @@ public class TestPlayer : MonoBehaviour
 	{
 		dt = Time.deltaTime;
 
+		CalculateMovement();
 		MovePlayer();
+	}
+
+	private void CalculateMovement()
+	{
+		movement = new Vector3(directionalInputLeftStick.x, 0f, directionalInputLeftStick.z);
+		aimAngle = Mathf.Atan2(directionalInputRightStick.x, directionalInputRightStick.z) * Mathf.Rad2Deg;
 	}
 
 	private void MovePlayer()
 	{
-		aimAngle = Mathf.Atan2(directionalInputRightStick.x, directionalInputRightStick.z) * Mathf.Rad2Deg;
-		movement = new Vector3(directionalInputLeftStick.x, 0f, directionalInputLeftStick.z);
-
 		transform.position += movement * dt * speed;
 		transform.rotation = Quaternion.AngleAxis(aimAngle, Vector3.up);
+	}
+
+	public void Shoot()
+	{
+
 	}
 
 	public void SetDirectionalInput(Vector3 leftStick, Vector3 rightStick)

@@ -19,7 +19,8 @@ public class NewCameraController : MonoBehaviour
 
         Vector3 newPosition = centerPoint + offset;
 
-        transform.position = Vector3.SmoothDamp(transform.position, newPosition)
+		//Commented out this line since it returned an error -fippan
+        //transform.position = Vector3.SmoothDamp(transform.position, newPosition)
     }
 
     Vector3 GetCenterPoint()
