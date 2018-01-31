@@ -7,6 +7,7 @@ public class Shooting : MonoBehaviour {
     public GameObject bullet;
     public GameObject bulletSpawnPoint;
 
+    private Transform bulletspawned;
 
 	// Use this for initialization
 	void Start () {
@@ -24,7 +25,7 @@ public class Shooting : MonoBehaviour {
     //Spanws the bullet
     public void Shoot()
     {
-        Instantiate(bullet.transform, bulletSpawnPoint.transform.position, Quaternion.identity);
-
+        bulletspawned = Instantiate(bullet.transform, bulletSpawnPoint.transform.position, Quaternion.identity);
+        bulletspawned.rotation = bulletSpawnPoint.transform.rotation;
     }
 }
