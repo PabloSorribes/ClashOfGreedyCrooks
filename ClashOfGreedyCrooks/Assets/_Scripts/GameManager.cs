@@ -3,7 +3,6 @@ using XInputDotNetPure;
 
 public class GameManager : MonoBehaviour
 {
-
 	private static GameManager instance;
 	public static GameManager GetInstance()
 	{
@@ -37,12 +36,12 @@ public class GameManager : MonoBehaviour
 	{
 		for (int i = 0; i < 3; ++i)
 		{
-			PlayerIndex testPlayerIndex = (PlayerIndex)i;
-			GamePadState testState = GamePad.GetState(testPlayerIndex);
+			PlayerIndex testGamepadIndex = (PlayerIndex)i;
+			GamePadState testState = GamePad.GetState(testGamepadIndex);
 			if (testState.IsConnected)
 			{
-				Debug.Log(string.Format("GamePad found {0}", testPlayerIndex));
-				players[i].playerIndex = (int)testPlayerIndex;
+				Debug.Log(string.Format("GamePad found {0}", testGamepadIndex));
+				//players[i].gamepadIndex = (int)testGamepadIndex;
 			}
 		}
 	}
@@ -55,38 +54,41 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public void AddPlayer(int playerIndex)
-	{
-		//TODO: Add back the code that was lost
-	}
+    public void AddPlayer(int playerIndex, int gamepadIndex)
+    {
+        players[playerIndex].connected = true;
+        players[playerIndex].playerIndex = playerIndex;
+        players[playerIndex].gamepadIndex = gamepadIndex;
+    }
 
-	public void RemovePlayer(int playerIndex)
-	{
-
-	}
-
-	public int GetPlayersCount()
-	{
-		int count = 0;
-		for (int i = 0; i < players.Length; i++)
-		{
-			//TODO: Add back the code that was lost
-
-			count++;
-		}
-
-		return count;
-	}
-
-	public void ResetGame()
+    public void RemovePlayer(int playerIndex)
 	{
 
 	}
+
+    public int GetPlayersCount()
+    {
+        int count = 0;
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (players[i].connected)
+                count++;
+        }
+        return count;
+    }
+
+    public void ResetGame()
+	{
+
+	}
+
 
 	private struct Player
 	{
 		public bool connected;
 		public int playerIndex;
-		public GameObject champion;
-	}
+        public int gamepadIndex;
+        public GameObject champion;
+        public PlayerController pc;
+    }
 }
