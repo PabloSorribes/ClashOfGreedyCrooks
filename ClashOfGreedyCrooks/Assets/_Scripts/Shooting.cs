@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Instantiates a bullet in the direction that the player is facing.
+/// </summary>
 public class Shooting : MonoBehaviour {
 
     public GameObject bullet;
@@ -9,11 +12,6 @@ public class Shooting : MonoBehaviour {
 
     private Transform bulletspawned;
 
-	// Use this for initialization
-	void Start () {
-        
-	}
-	
 	// Update is called once per frame
 	void Update () {
         if (Input.GetButtonDown("Fire1"))
