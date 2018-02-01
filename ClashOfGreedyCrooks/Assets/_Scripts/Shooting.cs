@@ -12,7 +12,7 @@ public class Shooting : MonoBehaviour {
 
     private Transform bulletspawned;
 
-	// Update is called once per frame
+	//TODO: Input should come through the PlayerController / which button activates it should be derived from the PlayerController.
 	void Update () {
         if (Input.GetButtonDown("Fire1"))
         {
