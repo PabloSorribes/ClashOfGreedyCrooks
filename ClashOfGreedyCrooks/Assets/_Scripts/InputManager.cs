@@ -28,7 +28,6 @@ public class InputManager : MonoBehaviour
 
 	private void Start()
 	{
-		gameState = GameStateManager.GetInstance().GetState();
 
 		//For testing
 		//gameState = State.Arena;
@@ -70,9 +69,7 @@ public class InputManager : MonoBehaviour
 		{
 			prevState[i] = state[i];
 			state[i] = GamePad.GetState((PlayerIndex)i);
-
-
-			switch ((int)gameState)
+			switch (gameState.GetHashCode())
 			{
 				case 0: //Main Menu
 					
@@ -81,7 +78,6 @@ public class InputManager : MonoBehaviour
 					break;
 
 				case  1: //Player Connect
-
 					// Detect if a button was pressed this frame
 					if (prevState[i].Buttons.A == ButtonState.Released &&
 							state[i].Buttons.A == ButtonState.Pressed)
@@ -193,7 +189,7 @@ public class InputManager : MonoBehaviour
 			gameState = State.Arena;
 		}
 		Debug.Log(gameState.ToString());
-	}
+    }
 
 
 	//void FixedUpdate()

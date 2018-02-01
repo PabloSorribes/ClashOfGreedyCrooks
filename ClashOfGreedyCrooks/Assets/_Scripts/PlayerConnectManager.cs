@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerConnectManager : MonoBehaviour
 {
-
     private static PlayerConnectManager instance;
     public static PlayerConnectManager GetInstance()
     {
@@ -56,6 +54,7 @@ public class PlayerConnectManager : MonoBehaviour
             connectedPlayers[i].connected = false;
             connectedPlayers[i].ready = false;
             connectedPlayers[i].gamepadIndex = 99;
+            connectedPlayers[i].avatar = Color.black;
         }
     }
 
@@ -99,7 +98,6 @@ public class PlayerConnectManager : MonoBehaviour
 
         ConnectedPlayer newConnectedPlayer = new ConnectedPlayer();
         newConnectedPlayer.connected = true;
-        newConnectedPlayer.playerIndex = playerIndex;
         newConnectedPlayer.gamepadIndex = gamepadIndex;
         newConnectedPlayer.avatar = playerSlots[playerIndex].GetChild(1).GetComponent<Image>().color;
         connectedPlayers[playerIndex] = newConnectedPlayer;
@@ -145,6 +143,7 @@ public class PlayerConnectManager : MonoBehaviour
                 connectedPlayers[i].connected = false;
                 connectedPlayers[i].ready = false;
                 connectedPlayers[i].gamepadIndex = 99;
+                connectedPlayers[i].avatar = Color.black;
             }
         }
     }
@@ -177,11 +176,12 @@ public class PlayerConnectManager : MonoBehaviour
     
     public void GoToPickingPhase()
     {
-        foreach (ConnectedPlayer cp in connectedPlayers)
+        for (int i = 0; i < connectedPlayers.Length; i++)
         {
-            if (cp.ready)
-                gm.AddPlayer(cp.playerIndex, cp.gamepadIndex, cp.avatar);
+            if (connectedPlayers[i].connected)
+                gm.AddPlayer(i, connectedPlayers[i].gamepadIndex, connectedPlayers[i].avatar);
         }
+
         GameStateManager.GetInstance().SetState(State.Picking);
     }
 
@@ -189,7 +189,6 @@ public class PlayerConnectManager : MonoBehaviour
     {
         public bool connected;
         public bool ready;
-        public int playerIndex;
         public int gamepadIndex;
         public Color avatar;
     }

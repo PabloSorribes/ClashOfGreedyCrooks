@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Linq;
 
-public class PickingManager : MonoBehaviour {
-
+public class PickingManager : MonoBehaviour
+{
     private static PickingManager instance;
     public static PickingManager GetInstance()
     {
@@ -18,7 +18,7 @@ public class PickingManager : MonoBehaviour {
     private GameObject[] weaponPrefabs;
     private Champion[] spawnedChampions;
     private int playersConnected;
-    private Player[] players;
+    private Player[] players = new Player[4];
 
     private void Awake()
     {
@@ -28,19 +28,17 @@ public class PickingManager : MonoBehaviour {
     private void Start()
     {
         gm = GameManager.GetInstance().GetComponent<GameManager>();
-        playersConnected = GameManager.GetInstance().GetPlayersCount();
+        playersConnected = GameManager.GetInstance().GetPlayersConnected();
         LoadResources();
         GameObject newArena = Instantiate(arena);
         spawnedArena = newArena;
         GetChilds(spawnPositions, "Waypoints/Pool");
         GetChilds(playerPositions, "Waypoints/Picked");
         GetChilds(avatars, "Avatars");
-        SetAvatars();
         Shuffle(championPrefabs);
         Shuffle(weaponPrefabs);
         SpawnChampions();
         SpawnWeapons();
-        GetPlayerInfo();
         //TODO: Players should be able to nerf champions.
     }
 
@@ -65,18 +63,7 @@ public class PickingManager : MonoBehaviour {
         for (int i = 0; i < waypointsParent.childCount; i++)
             array[i] = waypointsParent.GetChild(i);
     }
-
-    private void SetAvatars()
-    {
-        for (int i = 0; i < avatars.Length; i++)
-        {
-            if (gm.GetPlayerAvatar(i) != Color.black)
-                avatars[i].GetComponent<SpriteRenderer>().color = gm.GetPlayerAvatar(i);
-            else
-                avatars[i].gameObject.SetActive(false);
-        }
-    }
-
+    
     /// <summary>
     /// Switching place of items in an array.
     /// </summary>
@@ -114,14 +101,48 @@ public class PickingManager : MonoBehaviour {
         }
     }
 
-    private void GetPlayerInfo()
+    /// <summary>
+    /// Gets player information from GameManager when scene is loaded.
+    /// </summary>
+    /// <param name="connected"></param>
+    /// <param name="avatar"></param>
+    /// <param name="playerIndex"></param>
+    /// <param name="gamepadIndex"></param>
+    public void SetPlayerInfo(bool connected, Color avatar, int playerIndex, int gamepadIndex)
     {
+        players[playerIndex].connected = connected;
+        players[playerIndex].avatar = avatar;
+        players[playerIndex].gamepadIndex = gamepadIndex;
 
+        //SetAvatar(playerIndex, avatar);
+    }
+
+    private void SetAvatar(int index, Color avatar)
+    {
+        if (avatar != Color.black)
+            avatars[index].GetComponent<SpriteRenderer>().color = avatar;
+        else
+            avatars[index].gameObject.SetActive(false);
     }
 
     public void PickChampion(int gamepadIndex, int button)
     {
-
+        Debug.Log(gamepadIndex);
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (players[i].gamepadIndex == gamepadIndex)
+            {
+                if (players[i].hasChampion)
+                {
+                    return;
+                }
+                else
+                {
+                    OnPickChampion(i, button);
+                    return;
+                }
+            }
+        }
     }
 
     private void OnPickChampion(int playerIndex, int champion)
@@ -144,13 +165,35 @@ public class PickingManager : MonoBehaviour {
             spawnedChampions[champion].playerIndex = playerIndex;
             spawnedChampions[champion].health *= .5f;
         }
+
+        for (int i = 0; i < spawnedChampions.Length; i++)
+        {
+            if (!spawnedChampions[i].picked)
+                return;
+            else
+                OnAllChampionsPicked();
+        }
+    }
+
+    private void OnAllChampionsPicked()
+    {
+        for (int i = 0; i < players.Length; i++)
+        {
+            for (int j = 0; j < spawnedChampions.Length; j++)
+            {
+                if (spawnedChampions[j].playerIndex == i)
+                    gm.AddPlayer(i, spawnedChampions[j].champion);
+            }
+        }
+
+        GameStateManager.GetInstance().SetState(State.Arena);
     }
 
     private struct Player
     {
+        public bool hasChampion;
         public bool connected;
         public Color avatar;
-        public int playerIndex;
         public int gamepadIndex;
     }
 
