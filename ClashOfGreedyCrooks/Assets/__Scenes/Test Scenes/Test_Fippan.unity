@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 183157081}
   - component: {fileID: 183157080}
   m_Layer: 0
-  m_Name: InputManager
+  m_Name: _InputManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -771,11 +771,11 @@ GameObject:
   - component: {fileID: 1545327038}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1545327036
 Transform:
   m_ObjectHideFlags: 0
@@ -813,7 +813,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1545327035}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7994cd8f03ff1a4090b10b7e45d7c26, type: 3}
+  m_Script: {fileID: 11500000, guid: 83ec294fdc25e8f4f8cd10306a036c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
