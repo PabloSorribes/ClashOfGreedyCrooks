@@ -3,22 +3,39 @@ using System.Linq;
 
 public class PickingManager : MonoBehaviour {
 
-    private GameObject arena;
+    private static PickingManager instance;
+    public static PickingManager GetInstance()
+    {
+        return instance;
+    }
+
+    private GameManager gm;
+    private GameObject arena, spawnedArena;
     private Transform[] spawnPositions = new Transform[4];
     private Transform[] playerPositions = new Transform[4];
+    private Transform[] avatars = new Transform[4];
     private GameObject[] championPrefabs;
     private GameObject[] weaponPrefabs;
     private Champion[] spawnedChampions;
     private int playersConnected;
     private Player[] players;
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Start()
     {
+        gm = GameManager.GetInstance().GetComponent<GameManager>();
         playersConnected = GameManager.GetInstance().GetPlayersCount();
         LoadResources();
-        Instantiate(arena);
+        GameObject newArena = Instantiate(arena);
+        spawnedArena = newArena;
         GetChilds(spawnPositions, "Waypoints/Pool");
         GetChilds(playerPositions, "Waypoints/Picked");
+        GetChilds(avatars, "Avatars");
+        SetAvatars();
         Shuffle(championPrefabs);
         Shuffle(weaponPrefabs);
         SpawnChampions();
@@ -43,10 +60,21 @@ public class PickingManager : MonoBehaviour {
     private void GetChilds(Transform[] array, string path)
     {
         Transform waypointsParent;
-        waypointsParent = arena.transform.Find(path);
+        waypointsParent = spawnedArena.transform.Find(path);
 
         for (int i = 0; i < waypointsParent.childCount; i++)
             array[i] = waypointsParent.GetChild(i);
+    }
+
+    private void SetAvatars()
+    {
+        for (int i = 0; i < avatars.Length; i++)
+        {
+            if (gm.GetPlayerAvatar(i) != Color.black)
+                avatars[i].GetComponent<SpriteRenderer>().color = gm.GetPlayerAvatar(i);
+            else
+                avatars[i].gameObject.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -115,29 +143,6 @@ public class PickingManager : MonoBehaviour {
             spawnedChampions[champion].champion.transform.position = playerPositions[playerIndex].position;
             spawnedChampions[champion].playerIndex = playerIndex;
             spawnedChampions[champion].health *= .5f;
-        }
-    }
-
-    private void Update()
-    {
-        //Player1
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            PickChampion(0, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            PickChampion(0, 1);
-        }
-
-        //Player2
-        if (Input.GetKeyDown(KeyCode.Keypad1))
-        {
-            PickChampion(1, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad2))
-        {
-            PickChampion(1, 1);
         }
     }
 
