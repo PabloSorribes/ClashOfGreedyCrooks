@@ -23,6 +23,7 @@ public class InputManager : MonoBehaviour
 	private void Start()
 	{
 		gameState = GameStateManager.GetInstance().GetState();
+		//players[0]
 
 		AddConnectedGamepads();
 	}
@@ -48,7 +49,7 @@ public class InputManager : MonoBehaviour
 		}
 	}
 
-	public void GetPlayers(PlayerController[] players)
+	public void SetPlayerReferences(PlayerController[] players)
 	{
 		players.CopyTo(this.players, 0);
 	}
