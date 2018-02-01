@@ -28,56 +28,32 @@ public class GameManager : MonoBehaviour
 		{
 			Destroy(FindObjectOfType<GameStateManager>().gameObject);
 		}
-
-		AddConnectedGamepads();
 	}
 
-	private void AddConnectedGamepads()
+	public void AddPlayer(int playerIndex, int gamepadIndex)
 	{
-		for (int i = 0; i < 3; ++i)
+		players[playerIndex].connected = true;
+		players[playerIndex].playerIndex = playerIndex;
+		players[playerIndex].gamepadIndex = gamepadIndex;
+	}
+
+	public void RemovePlayer(int playerIndex)
+	{
+
+	}
+
+	public int GetPlayersCount()
+	{
+		int count = 0;
+		for (int i = 0; i < players.Length; i++)
 		{
-			PlayerIndex testGamepadIndex = (PlayerIndex)i;
-			GamePadState testState = GamePad.GetState(testGamepadIndex);
-			if (testState.IsConnected)
-			{
-				Debug.Log(string.Format("GamePad found {0}", testGamepadIndex));
-				//players[i].gamepadIndex = (int)testGamepadIndex;
-			}
+			if (players[i].connected)
+				count++;
 		}
+		return count;
 	}
 
-	void Update()
-	{
-		for (int i = 0; i < 3; ++i)
-		{
-			InputManager.instance.CheckForInputs(players[i].playerIndex);
-		}
-	}
-
-    public void AddPlayer(int playerIndex, int gamepadIndex)
-    {
-        players[playerIndex].connected = true;
-        players[playerIndex].playerIndex = playerIndex;
-        players[playerIndex].gamepadIndex = gamepadIndex;
-    }
-
-    public void RemovePlayer(int playerIndex)
-	{
-
-	}
-
-    public int GetPlayersCount()
-    {
-        int count = 0;
-        for (int i = 0; i < players.Length; i++)
-        {
-            if (players[i].connected)
-                count++;
-        }
-        return count;
-    }
-
-    public void ResetGame()
+	public void ResetGame()
 	{
 
 	}
@@ -87,8 +63,8 @@ public class GameManager : MonoBehaviour
 	{
 		public bool connected;
 		public int playerIndex;
-        public int gamepadIndex;
-        public GameObject champion;
-        public PlayerController pc;
-    }
+		public int gamepadIndex;
+		public GameObject champion;
+		public PlayerController pc;
+	}
 }
