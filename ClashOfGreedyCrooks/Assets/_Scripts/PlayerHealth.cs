@@ -6,10 +6,12 @@ public class PlayerHealth : MonoBehaviour {
 
     private int maxHealth = 100;
     public int currentHealth;
-    Projectile projectile;
+    TimeManager timeManager;
 
     // Use this for initialization
     void Start () {
+        timeManager = TimeManager.GetInstance();
+
         currentHealth = maxHealth;
 	}
 	
@@ -17,6 +19,9 @@ public class PlayerHealth : MonoBehaviour {
 	void Update () {
         if (currentHealth <= 0)
         {
+            //timeManager.StartFreezeFrame();
+
+            
             Destroy(gameObject);
         }       
 	}
@@ -25,4 +30,10 @@ public class PlayerHealth : MonoBehaviour {
     {
         currentHealth -= p_damage;            
     }
+    //TODO: Fix freeze frame!
+
+    //private void OnDestroy()
+    //{
+    //    TimeManager.GetInstance().StartFreezeFrame();
+    //}
 }

@@ -5,6 +5,12 @@ using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour {
 
+    private static TimeManager instance;
+    public static TimeManager GetInstance()
+    {
+        return instance;
+    }
+
     private float trackTime = 120;
 
     private bool isPaused;
@@ -13,14 +19,8 @@ public class TimeManager : MonoBehaviour {
 
     public Text timer;
 
-
-	// Use this for initialization
-	void Start () {
-        
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update () {
 
         trackTime -= Time.deltaTime;
         timer.text = "Timer: " + Mathf.Floor(trackTime);
@@ -28,7 +28,13 @@ public class TimeManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             PauseGame();
-        }   
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartCoroutine(FreezeFrame(0.1f));
+            Time.timeScale = 0;
+        }
     }
 
     private void PauseGame()
@@ -53,4 +59,19 @@ public class TimeManager : MonoBehaviour {
         }
 
     }
+
+    public void StartFreezeFrame()
+    {
+        StartCoroutine(FreezeFrame(1f));
+    }
+
+
+    public IEnumerator FreezeFrame(float waitTime)
+    {
+        
+        yield return new WaitForSecondsRealtime(waitTime);
+        Time.timeScale = 1;
+       
+    }
+    
 }
