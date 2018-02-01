@@ -4,19 +4,17 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour {
 
-    public int speed;
-    private int dmg;
-    GameObject player;
+    public int projectileSpeed = 20;
+    public int damage = 50;
 
     private float deathTimer;
 
     //Time until the bullet is destroyed
-    public float defaultTime = 5;
-
+    private float defaultTime = 5;
 
     private void Update()
     {
-        transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        transform.Translate(Vector3.forward * Time.deltaTime * projectileSpeed);
 
         deathTimer += Time.deltaTime;
 
@@ -33,8 +31,9 @@ public class Projectile : MonoBehaviour {
 
         if (collision.gameObject.tag=="Player")
         {
-            player = collision.gameObject;
-            //player.GetComponent<Player>().health-=dmg;
+            collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+
+            Destroy(gameObject);
         }
       
     }

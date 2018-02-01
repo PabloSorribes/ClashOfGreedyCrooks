@@ -10,13 +10,20 @@ public class Shooting : MonoBehaviour {
     public GameObject bullet;
     public GameObject bulletSpawnPoint;
 
+    private float timer;
+    private float shootDisable = 0.5f;
+
     private Transform bulletspawned;
 
 	//TODO: Input should come through the PlayerController / which button activates it should be derived from the PlayerController.
 	void Update () {
-        if (Input.GetButtonDown("Fire1"))
+
+        timer += Time.deltaTime;
+
+        if (Input.GetButtonDown("Fire1") && timer > shootDisable)
         {
             Shoot();
+            timer = 0;
         }
 	}
 
