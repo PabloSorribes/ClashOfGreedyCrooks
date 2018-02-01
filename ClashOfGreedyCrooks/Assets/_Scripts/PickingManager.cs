@@ -4,23 +4,26 @@ using System.Linq;
 public class PickingManager : MonoBehaviour {
 
     private GameObject arena;
-    private Transform[] spawnPositions;
-    private Transform[] playerPositions;
+    private Transform[] spawnPositions = new Transform[4];
+    private Transform[] playerPositions = new Transform[4];
     private GameObject[] championPrefabs;
     private GameObject[] weaponPrefabs;
     private Champion[] spawnedChampions;
     private int playersConnected;
+    private Player[] players;
 
     private void Start()
     {
         playersConnected = GameManager.GetInstance().GetPlayersCount();
         LoadResources();
         Instantiate(arena);
-        GetPositions();
+        GetChilds(spawnPositions, "Waypoints/Pool");
+        GetChilds(playerPositions, "Waypoints/Picked");
         Shuffle(championPrefabs);
         Shuffle(weaponPrefabs);
         SpawnChampions();
         SpawnWeapons();
+        GetPlayerInfo();
         //TODO: Players should be able to nerf champions.
     }
 
@@ -37,16 +40,13 @@ public class PickingManager : MonoBehaviour {
     /// <summary>
     /// Finds the childs in waypoint holder in the instantiated arena.
     /// </summary>
-    private void GetPositions()
+    private void GetChilds(Transform[] array, string path)
     {
         Transform waypointsParent;
-        waypointsParent = arena.transform.Find("Waypoints");
-        spawnPositions = new Transform[waypointsParent.childCount / 2];
-        playerPositions = new Transform[waypointsParent.childCount / 2];
-        for (int i = 0; i < spawnPositions.Length; i++)
-            spawnPositions[i] = waypointsParent.GetChild(i);
-        for (int i = 0; i < playerPositions.Length; i++)
-            playerPositions[i] = waypointsParent.GetChild(i + spawnPositions.Length);
+        waypointsParent = arena.transform.Find(path);
+
+        for (int i = 0; i < waypointsParent.childCount; i++)
+            array[i] = waypointsParent.GetChild(i);
     }
 
     /// <summary>
@@ -86,7 +86,17 @@ public class PickingManager : MonoBehaviour {
         }
     }
 
-    public void PickChampion(int playerIndex, int champion)
+    private void GetPlayerInfo()
+    {
+
+    }
+
+    public void PickChampion(int gamepadIndex, int button)
+    {
+
+    }
+
+    private void OnPickChampion(int playerIndex, int champion)
     {
         foreach (Champion item in spawnedChampions)
         {
@@ -129,6 +139,14 @@ public class PickingManager : MonoBehaviour {
         {
             PickChampion(1, 1);
         }
+    }
+
+    private struct Player
+    {
+        public bool connected;
+        public Color avatar;
+        public int playerIndex;
+        public int gamepadIndex;
     }
 
     private struct Champion
