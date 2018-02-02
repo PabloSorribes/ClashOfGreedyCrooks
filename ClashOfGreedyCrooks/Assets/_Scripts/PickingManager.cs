@@ -127,22 +127,15 @@ public class PickingManager : MonoBehaviour
 
     public void PickChampion(int gamepadIndex, int button)
     {
-        Debug.Log(gamepadIndex);
         for (int i = 0; i < players.Length; i++)
-        {
             if (players[i].gamepadIndex == gamepadIndex)
-            {
                 if (players[i].hasChampion)
-                {
                     return;
-                }
                 else
                 {
                     OnPickChampion(i, button);
                     return;
                 }
-            }
-        }
     }
 
     private void OnPickChampion(int playerIndex, int champion)
@@ -167,24 +160,31 @@ public class PickingManager : MonoBehaviour
         }
 
         for (int i = 0; i < spawnedChampions.Length; i++)
-        {
             if (!spawnedChampions[i].picked)
                 return;
             else
-                OnAllChampionsPicked();
-        }
+                if (IsAllChampionsPicked())
+                    OnAllChampionsPicked();
+    }
+
+    private bool IsAllChampionsPicked()
+    {
+        int picked = 0;
+        for (int i = 0; i < spawnedChampions.Length; i++)
+            if (spawnedChampions[i].picked)
+                picked++;
+        if (picked == spawnedChampions.Length)
+            return true;
+        else
+            return false;
     }
 
     private void OnAllChampionsPicked()
     {
         for (int i = 0; i < players.Length; i++)
-        {
             for (int j = 0; j < spawnedChampions.Length; j++)
-            {
                 if (spawnedChampions[j].playerIndex == i)
-                    gm.AddPlayer(i, spawnedChampions[j].champion);
-            }
-        }
+                    gm.AddChampion(i, spawnedChampions[j].champion);
 
         GameStateManager.GetInstance().SetState(State.Arena);
     }

@@ -34,19 +34,22 @@ public class GameManager : MonoBehaviour
             Destroy(FindObjectOfType<GameStateManager>().gameObject);
         }
 
-        FillConnectedPlayersArray();
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i].gamepadIndex = 99;
+        }
     }
 
     //Fill ConnectedPlayers with empty ConnectedPlayer and their "bool connected" set to false.
-    private void FillConnectedPlayersArray()
-    {
-        for (int i = 0; i < players.Length; i++)
-        {
-            players[i].connected = false;
-            players[i].gamepadIndex = 99;
-            players[i].avatar = Color.black;
-        }
-    }
+    //private void FillConnectedPlayersArray()
+    //{
+    //    for (int i = 0; i < players.Length; i++)
+    //    {
+    //        players[i].connected = false;
+    //        players[i].gamepadIndex = 99;
+    //        players[i].avatar = Color.black;
+    //    }
+    //}
 
     /// <summary>
     /// Call from PlayerConnectManager.
@@ -56,9 +59,13 @@ public class GameManager : MonoBehaviour
     /// <param name="avatar"></param>
 	public void AddPlayer(int playerIndex, int gamepadIndex, Color avatar)
     {
-        players[playerIndex].connected = true;
-        players[playerIndex].gamepadIndex = gamepadIndex;
-        players[playerIndex].avatar = avatar;
+        Player newPlayer = new Player
+        {
+            connected = true,
+            gamepadIndex = gamepadIndex,
+            avatar = avatar
+        };
+        players[playerIndex] = newPlayer;
     }
 
     /// <summary>
@@ -66,30 +73,18 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="playerIndex"></param>
     /// <param name="champion"></param>
-    public void AddPlayer(int playerIndex, GameObject champion)
+    public void AddChampion(int playerIndex, GameObject champion)
     {
         players[playerIndex].champion = champion;
-    }
-
-    public void RemovePlayer(int playerIndex)
-    {
-
     }
 
     public int GetPlayersConnected()
     {
         int count = 0;
         for (int i = 0; i < players.Length; i++)
-        {
             if (players[i].connected)
                 count++;
-        }
         return count;
-    }
-
-    public void ResetGame()
-    {
-
     }
 
     private void OnSceneChanged(Scene newScene, LoadSceneMode loadingMode)
@@ -97,9 +92,7 @@ public class GameManager : MonoBehaviour
         if (newScene.name == "Picking")
         {
             for (int i = 0; i < players.Length; i++)
-            {
                 PickingManager.GetInstance().SetPlayerInfo(players[i].connected, players[i].avatar, i, players[i].gamepadIndex);
-            }
         }
 
         if (newScene.name == "Arena01")
@@ -119,6 +112,8 @@ public class GameManager : MonoBehaviour
                 GameObject spawnedPlayer = Instantiate(newPlayer);
                 players[i].playerObject = spawnedPlayer;
                 players[i].pc = spawnedPlayer.GetComponent<PlayerController>();
+
+                Debug.Log("SpawnPlayers: " + players[i].pc);
             }
         }
     }
@@ -133,11 +128,11 @@ public class GameManager : MonoBehaviour
             newPlayersArray[i] = players[i];
         }
 
-        Player playerToSort;
         //Sort by gameIndex
-        for (int i = 0; i < newPlayersArray.Length; i++)
+        Player playerToSort;
+        for (int i = 0; i < newPlayersArray.Length - 1; i++)
         {
-            for (int j = 0; j < newPlayersArray.Length; j++)
+            for (int j = i + 1; j < newPlayersArray.Length; j++)
             {
                 if (newPlayersArray[i].gamepadIndex > newPlayersArray[j].gamepadIndex)
                 {
@@ -146,13 +141,15 @@ public class GameManager : MonoBehaviour
                     newPlayersArray[i] = playerToSort;
                 }
             }
+            Debug.Log("newPlayersArray gamepadIndex" + newPlayersArray[i].gamepadIndex);
+            Debug.Log("newPlayersArray playerController: " + newPlayersArray[i].pc);
         }
 
-        PlayerController[] pcArray = new PlayerController[newPlayersArray.Length];
-
+        PlayerController[] pcArray = new PlayerController[GetPlayersConnected()];
         for (int i = 0; i < pcArray.Length; i++)
         {
             pcArray[i] = newPlayersArray[i].pc;
+            Debug.Log("pcArray player controllers: " + pcArray[i]);
         }
 
         InputManager.instance.SetPlayerReferences(pcArray);
