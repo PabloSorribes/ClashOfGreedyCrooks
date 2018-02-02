@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using XInputDotNetPure;
-using UnityEngine.SceneManagement;
 
 public class InputManager : MonoBehaviour
 {
@@ -23,11 +22,11 @@ public class InputManager : MonoBehaviour
 
 	private void OnEnable()
 	{
-		SceneManager.sceneLoaded += OnSceneChanged;
 	}
 
 	private void Start()
 	{
+		GameStateManager.GetInstance().OnStateChanged += UpdateGameState;
 
 		//For testing
 		//gameState = State.Arena;
@@ -36,16 +35,23 @@ public class InputManager : MonoBehaviour
 		AddConnectedGamepads();
 	}
 
+	private void UpdateGameState(State newGameState)
+	{
+		gameState = newGameState;
+		print("(IM)State Changed to: " + gameState);
+
+	}
+
 	/// <summary>
 	/// Checks first four gamepad slots and assigns each connected gamepad successively.
 	/// </summary>
 	private void AddConnectedGamepads()
 	{
-		//TODO: Change array to be variable in size in relation to connected gamepads
+		//TODO: Change array to be a variable size in relation to connected gamepads
 		//TODO: Expand ConnectedGamepads method to detect disconnected/newly connected gamepads and adapt array
 		for (int i = 0; i < 3; ++i)
 		{
-			// PlayerIndex type corresponds to gamepadIndex in project (Can't rename XInput types)
+			//PlayerIndex type corresponds to gamepadIndex in project (Can't rename XInput types)
 			//Only applicable in this context
 			PlayerIndex testGamepadIndex = (PlayerIndex)i;
 			GamePadState testState = GamePad.GetState(testGamepadIndex);
@@ -69,15 +75,18 @@ public class InputManager : MonoBehaviour
 		{
 			prevState[i] = state[i];
 			state[i] = GamePad.GetState((PlayerIndex)i);
+
+
 			switch (gameState.GetHashCode())
 			{
 				case 0: //Main Menu
 					
-					//TODO: Poll through inputs on all controllers and call relevant method
+					//TODO: Poll through relevant inputs on all controllers and call relevant methods
 
 					break;
 
-				case  1: //Player Connect
+				case  1: //Player Connect Phase
+						
 					// Detect if a button was pressed this frame
 					if (prevState[i].Buttons.A == ButtonState.Released &&
 							state[i].Buttons.A == ButtonState.Pressed)
@@ -101,7 +110,7 @@ public class InputManager : MonoBehaviour
 
 					break;
 
-				case 2: //Picking
+				case 2: //Picking Phase
 
 					if (prevState[i].Buttons.A == ButtonState.Released &&
 							state[i].Buttons.A == ButtonState.Pressed)
@@ -136,12 +145,13 @@ public class InputManager : MonoBehaviour
 
 					break;
 
-				case 3: //Arena
+				case 3: //Arena Phase
 
 					Vector3 leftStick = new Vector3(state[i].ThumbSticks.Left.X, 0f, state[i].ThumbSticks.Left.Y);
 					Vector3 rightStick = new Vector3(state[i].ThumbSticks.Right.X, 0f, state[i].ThumbSticks.Right.Y);
 					//Send directional input data to each player
 					players[i].SetDirectionalInput(leftStick, rightStick);
+
 
 					if (state[i].Triggers.Left > 0)
 					{
@@ -150,7 +160,7 @@ public class InputManager : MonoBehaviour
 
 					if (state[i].Triggers.Right > 0)
 					{
-						//players[i].Shoot();
+						players[i].Shoot();
 					}
 
 					if (prevState[i].Buttons.LeftShoulder == ButtonState.Released &&
@@ -162,7 +172,7 @@ public class InputManager : MonoBehaviour
 					if (prevState[i].Buttons.RightShoulder == ButtonState.Released &&
 							state[i].Buttons.RightShoulder == ButtonState.Pressed)
 					{
-						//players[i].Shoot();
+						players[i].Shoot();
 					}
 
 					break;
@@ -170,37 +180,16 @@ public class InputManager : MonoBehaviour
 		}
 	}
 
-	private void OnSceneChanged(Scene newScene, LoadSceneMode loadingMode)
+
+	void FixedUpdate()
 	{
-		if (newScene.name == "MainMenu")
+		for (int i = 0; i < gamepadIndex.Count; ++i)
 		{
-			gameState = State.MainMenu;
+			//SetVibration should be sent in a slower rate.
+			//Set vibration according to triggers
+			GamePad.SetVibration((PlayerIndex)i, state[i].Triggers.Left, state[i].Triggers.Right);
 		}
-		if (newScene.name == "PlayerConnect")
-		{
-			gameState = State.PlayerConnect;
-		}
-		if (newScene.name == "Picking")
-		{
-			gameState = State.Picking;
-		}
-		if (newScene.name == "Arena01")
-		{
-			gameState = State.Arena;
-		}
-		Debug.Log(gameState.ToString());
-    }
-
-
-	//void FixedUpdate()
-	//{
-	//	for (int i = 0; i < gamepadIndex.Count; ++i)
-	//	{
-	//		//SetVibration should be sent in a slower rate.
-	//		//Set vibration according to triggers
-	//		GamePad.SetVibration((PlayerIndex)i, state[i].Triggers.Left, state[i].Triggers.Right);
-	//	}
-	//}
+	}
 
 	//void OnGUI()
 	//{

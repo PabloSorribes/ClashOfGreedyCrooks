@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 //TODO: Move global enums to own script?
 public enum State { MainMenu, PlayerConnect, Picking, Arena };
+public enum PauseState { Paused, NotPaused };
 
 public class GameStateManager : MonoBehaviour
 {
@@ -13,18 +14,18 @@ public class GameStateManager : MonoBehaviour
 		return instance;
 	}
 
-	private State state;
-
-	public enum PauseState { Paused, NotPaused };
+	private State gameState;
 	private PauseState pauseState;
+
+	public delegate void StateChanged(State newGameState);
+	public event StateChanged OnStateChanged;
+
+	//public System.Action<State> OnStateChanged;
 
 	private void Awake()
 	{
 		instance = this;
-	}
 
-	private void Start()
-	{
 		DontDestroyOnLoad(gameObject);
 
 		if (instance == null)
@@ -35,11 +36,21 @@ public class GameStateManager : MonoBehaviour
 		{
 			Destroy(FindObjectOfType<GameStateManager>().gameObject);
 		}
+
 	}
 
+	private void Start()
+	{
+		SceneManager.sceneLoaded += OnSceneChanged;
+	}
+
+	/// <summary>
+	/// Get the current State
+	/// </summary>
+	/// <returns></returns>
 	public State GetState()
 	{
-		State tempState = state;
+		State tempState = gameState;
 		return tempState;
 	}
 
@@ -57,13 +68,10 @@ public class GameStateManager : MonoBehaviour
 			OnPickingState();
 		else if (newState == State.Arena)
 			OnArenaState();
-
-		state = newState;
 	}
 
 	private void OnMainMenuState()
 	{
-		GameManager.GetInstance().ResetGame();
 		SceneManager.LoadScene("MainMenu");
 	}
 
@@ -94,6 +102,14 @@ public class GameStateManager : MonoBehaviour
 			OnNotPausedState();
 
 		pauseState = newState;
+	}
+
+	private void OnSceneChanged(Scene newScene, LoadSceneMode loadingMode)
+	{
+		gameState = (State)newScene.buildIndex;
+
+		OnStateChanged(gameState);
+		print("(GSM)State Changed to: " + gameState);
 	}
 
 	private void OnPausedState()
