@@ -256,7 +256,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 7
-  playernumber: 2
 --- !u!54 &929776506
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -330,7 +329,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 7
-  playernumber: 1
 --- !u!4 &1275426650
 Transform:
   m_ObjectHideFlags: 0

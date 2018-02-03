@@ -3,38 +3,38 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private static GameManager instance;
-    public static GameManager GetInstance()
-    {
-        return instance;
-    }
+	private static GameManager instance;
+	public static GameManager GetInstance
+	{
+		get
+		{
+			return instance;
+		}
+	}
 
-    private Player[] players = new Player[4];
+	private Player[] players = new Player[4];
 
-    private void Awake()
-    {
-        instance = this;
-    }
+	private void Awake()
+	{
+		if (instance == null)
+		{
+			instance = this;
+			DontDestroyOnLoad(this.gameObject);
+		}
+		else
+		{
+			Destroy(gameObject);
+		}
+	}
 
-    private void OnEnable()
+	private void OnEnable()
     {
-        SceneManager.sceneLoaded += OnSceneChanged;
+		GameStateManager.GetInstance.GameStateChanged += OnGameStateChanged;
     }
 
     private void Start()
     {
-        DontDestroyOnLoad(gameObject);
-
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (FindObjectOfType<GameStateManager>().gameObject != this.gameObject)
-        {
-            Destroy(FindObjectOfType<GameStateManager>().gameObject);
-        }
-
-        for (int i = 0; i < players.Length; i++)
+		for (int i = 0; i < players.Length; i++)
         {
             players[i].gamepadIndex = 99;
         }
@@ -87,15 +87,15 @@ public class GameManager : MonoBehaviour
         return count;
     }
 
-    private void OnSceneChanged(Scene newScene, LoadSceneMode loadingMode)
+    private void OnGameStateChanged(GameState newGameState)
     {
-        if (newScene.name == "Picking")
+        if (newGameState == GameState.Picking)
         {
             for (int i = 0; i < players.Length; i++)
-                PickingManager.GetInstance().SetPlayerInfo(players[i].connected, players[i].avatar, i, players[i].gamepadIndex);
+                PickingManager.GetInstance.SetPlayerInfo(players[i].connected, players[i].avatar, i, players[i].gamepadIndex);
         }
 
-        if (newScene.name == "Arena01")
+        if (newGameState == GameState.Arena)
         {
             SpawnPlayers();
             SendInfoToInputManager();
@@ -152,7 +152,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("pcArray player controllers: " + pcArray[i]);
         }
 
-        InputManager.instance.SetPlayerReferences(pcArray);
+        InputManager.GetInstance.SetPlayerReferences(pcArray);
     }
 
     private struct Player

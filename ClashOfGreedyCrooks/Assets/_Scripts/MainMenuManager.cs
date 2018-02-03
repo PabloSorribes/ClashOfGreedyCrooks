@@ -23,7 +23,7 @@ public class MainMenuManager : MonoBehaviour {
 	/// Load the Player Connect-scene.
 	/// </summary>
 	public void NewGame() {
-		GameStateManager.GetInstance().SetState(State.PlayerConnect);
+		GameStateManager.GetInstance.SetState(GameState.PlayerConnect);
 	}
 
 

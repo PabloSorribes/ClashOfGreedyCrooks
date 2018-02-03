@@ -48,7 +48,7 @@ public class CameraController : MonoBehaviour {
         }
 
         focusLevel = FindObjectOfType<FocusLevel>();
-        gameMan = GameManager.GetInstance();
+        gameMan = GameManager.GetInstance;
 	}
 	
 	// Update is called once per frame

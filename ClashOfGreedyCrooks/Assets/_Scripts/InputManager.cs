@@ -5,53 +5,50 @@ using XInputDotNetPure;
 
 public class InputManager : MonoBehaviour
 {
-	public static InputManager instance;
+	private static InputManager instance;
+	public static InputManager GetInstance
+	{
+		get
+		{
+			return instance;
+		}
+	}
 
-	private State gameState;
+	private GameState gameState;
+
+	private PlayerController[] players = new PlayerController[4];
 
 	private List<PlayerIndex> gamepadIndex = new List<PlayerIndex>();
 	private GamePadState[] state = new GamePadState[4];
 	private GamePadState[] prevState = new GamePadState[4];
-
-	private PlayerController[] players = new PlayerController[4];
 
 	private void Awake()
 	{
 		instance = this;
 	}
 
-	private void OnEnable()
-	{
-	}
-
 	private void Start()
 	{
-		GameStateManager.GetInstance().OnStateChanged += UpdateGameState;
-
-		//For testing
-		//gameState = State.Arena;
-		//players[0] = FindObjectOfType<PlayerController>();
+		GameStateManager.GetInstance.GameStateChanged += OnGameStateChanged;
+		gameState = GameStateManager.GetInstance.GetState();
 
 		AddConnectedGamepads();
 	}
 
-	private void UpdateGameState(State newGameState)
+	private void OnGameStateChanged(GameState newGameState)
 	{
 		gameState = newGameState;
-		print("(IM)State Changed to: " + gameState);
-
 	}
 
 	/// <summary>
 	/// Checks first four gamepad slots and assigns each connected gamepad successively.
 	/// </summary>
+	//TODO: Expand to detect disconnected/newly connected gamepads and adapt array accordingly.
 	private void AddConnectedGamepads()
 	{
-		//TODO: Change array to be a variable size in relation to connected gamepads
-		//TODO: Expand ConnectedGamepads method to detect disconnected/newly connected gamepads and adapt array
 		for (int i = 0; i < 3; ++i)
 		{
-			//PlayerIndex type corresponds to gamepadIndex in project (Can't rename XInput types)
+			//Note: "PlayerIndex" enum type corresponds to "gamepadIndex" variable in project since it can't be renamed (XInput).
 			//Only applicable in this context
 			PlayerIndex testGamepadIndex = (PlayerIndex)i;
 			GamePadState testState = GamePad.GetState(testGamepadIndex);
@@ -63,9 +60,14 @@ public class InputManager : MonoBehaviour
 		}
 	}
 
-	public void SetPlayerReferences(PlayerController[] players)
+	void FixedUpdate()
 	{
-		players.CopyTo(this.players, 0);
+		for (int i = 0; i < gamepadIndex.Count; ++i)
+		{
+			//SetVibration should be sent in a slower rate.
+			//Set vibration according to triggers. FOR FUTURE REFERENCE.
+			GamePad.SetVibration((PlayerIndex)i, state[i].Triggers.Left, state[i].Triggers.Right);
+		}
 	}
 
 	void Update()
@@ -76,29 +78,29 @@ public class InputManager : MonoBehaviour
 			prevState[i] = state[i];
 			state[i] = GamePad.GetState((PlayerIndex)i);
 
-
+			//TODO: Modify to handle inputs with events instead.
 			switch (gameState.GetHashCode())
 			{
 				case 0: //Main Menu
-					
+
 					//TODO: Poll through relevant inputs on all controllers and call relevant methods
 
 					break;
 
-				case  1: //Player Connect Phase
-						
+				case 1: //Player Connect Phase
+
 					// Detect if a button was pressed this frame
 					if (prevState[i].Buttons.A == ButtonState.Released &&
 							state[i].Buttons.A == ButtonState.Pressed)
 					{
-						PlayerConnectManager.GetInstance().AddPlayer((int)gamepadIndex[i]);
+						PlayerConnectManager.GetInstance.AddPlayer((int)gamepadIndex[i]);
 						Debug.Log("Player " + i + " pressed button A on Gamepad " + i);
 					}
 
 					if (prevState[i].Buttons.B == ButtonState.Released &&
 							state[i].Buttons.B == ButtonState.Pressed)
 					{
-						PlayerConnectManager.GetInstance().RemovePlayer((int)gamepadIndex[i]);
+						PlayerConnectManager.GetInstance.RemovePlayer((int)gamepadIndex[i]);
 
 						Debug.Log("Player " + i + " pressed button B on Gamepad " + i);
 					}
@@ -115,14 +117,14 @@ public class InputManager : MonoBehaviour
 					if (prevState[i].Buttons.A == ButtonState.Released &&
 							state[i].Buttons.A == ButtonState.Pressed)
 					{
-						PickingManager.GetInstance().PickChampion(i, 0);
+						PickingManager.GetInstance.PickChampion(i, 0);
 						Debug.Log("Player " + i + " pressed button A on Gamepad " + i);
 					}
 
 					if (prevState[i].Buttons.B == ButtonState.Released &&
 							state[i].Buttons.B == ButtonState.Pressed)
 					{
-						PickingManager.GetInstance().PickChampion(i, 1);
+						PickingManager.GetInstance.PickChampion(i, 1);
 
 						Debug.Log("Player " + i + " pressed button B on Gamepad " + i);
 					}
@@ -130,7 +132,7 @@ public class InputManager : MonoBehaviour
 					if (prevState[i].Buttons.X == ButtonState.Released &&
 							state[i].Buttons.X == ButtonState.Pressed)
 					{
-						PickingManager.GetInstance().PickChampion(i, 2);
+						PickingManager.GetInstance.PickChampion(i, 2);
 
 						Debug.Log("Player " + i + " pressed button X on Gamepad " + i);
 					}
@@ -138,10 +140,11 @@ public class InputManager : MonoBehaviour
 					if (prevState[i].Buttons.Y == ButtonState.Released &&
 							state[i].Buttons.Y == ButtonState.Pressed)
 					{
-						PickingManager.GetInstance().PickChampion(i, 3);
+						PickingManager.GetInstance.PickChampion(i, 3);
 
 						Debug.Log("Player " + i + " pressed button Y on Gamepad " + i);
 					}
+
 
 					break;
 
@@ -180,31 +183,8 @@ public class InputManager : MonoBehaviour
 		}
 	}
 
-
-	void FixedUpdate()
+	public void SetPlayerReferences(PlayerController[] players)
 	{
-		for (int i = 0; i < gamepadIndex.Count; ++i)
-		{
-			//SetVibration should be sent in a slower rate.
-			//Set vibration according to triggers
-			GamePad.SetVibration((PlayerIndex)i, state[i].Triggers.Left, state[i].Triggers.Right);
-		}
+		players.CopyTo(this.players, 0);
 	}
-
-	//void OnGUI()
-	//{
-	//	for (int i = 0; i < gamepadIndex.Count; ++i)
-	//	{
-	//		string text = string.Format("Player {0} \n", i);
-	//		text += string.Format("IsConnected {0} Packet #{1}\n", state[i].IsConnected, state[i].PacketNumber);
-	//		text += string.Format("\tTriggers {0} {1}\n", state[i].Triggers.Left, state[i].Triggers.Right);
-	//		text += string.Format("\tD-Pad {0} {1} {2} {3}\n", state[i].DPad.Up, state[i].DPad.Right, state[i].DPad.Down, state[i].DPad.Left);
-	//		text += string.Format("\tButtons Start {0} Back {1} Guide {2}\n", state[i].Buttons.Start, state[i].Buttons.Back, state[i].Buttons.Guide);
-	//		text += string.Format("\tButtons LeftStick {0} RightStick {1} LeftShoulder {2} RightShoulder {3}\n", state[i].Buttons.LeftStick, state[i].Buttons.RightStick, state[i].Buttons.LeftShoulder, state[i].Buttons.RightShoulder);
-	//		text += string.Format("\tButtons A {0} B {1} X {2} Y {3}\n", state[i].Buttons.A, state[i].Buttons.B, state[i].Buttons.X, state[i].Buttons.Y);
-	//		text += string.Format("\tSticks Left {0} {1} Right {2} {3}\n", state[i].ThumbSticks.Left.X, state[i].ThumbSticks.Left.Y, state[i].ThumbSticks.Right.X, state[i].ThumbSticks.Right.Y);
-	//		GUI.Label(new Rect(0 + i * 160, 0, Screen.width, Screen.height), text);
-	//	}
-
-	//}
 }

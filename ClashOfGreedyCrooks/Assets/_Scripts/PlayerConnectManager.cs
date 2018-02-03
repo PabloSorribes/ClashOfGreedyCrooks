@@ -4,12 +4,15 @@ using UnityEngine.UI;
 public class PlayerConnectManager : MonoBehaviour
 {
     private static PlayerConnectManager instance;
-    public static PlayerConnectManager GetInstance()
-    {
-        return instance;
-    }
+    public static PlayerConnectManager GetInstance
+	{
+		get
+		{
+			return instance;
+		}
+	}
 
-    private GameManager gm;
+	private GameManager gm;
     private GameObject canvas;
     private Transform[] playerSlots;
     private GameObject startGameText;
@@ -23,7 +26,7 @@ public class PlayerConnectManager : MonoBehaviour
 
     private void Start()
     {
-        gm = GameManager.GetInstance().GetComponent<GameManager>();
+        gm = GameManager.GetInstance.GetComponent<GameManager>();
         InstantiateCanvas();
         startGameText = canvas.transform.Find("StartText").gameObject;
         startGameText.SetActive(false);
@@ -194,7 +197,7 @@ public class PlayerConnectManager : MonoBehaviour
                 gm.AddPlayer(i, connectedPlayers[i].gamepadIndex, connectedPlayers[i].avatar);
         }
 
-        GameStateManager.GetInstance().SetState(State.Picking);
+        GameStateManager.GetInstance.SetState(GameState.Picking);
     }
 
     struct ConnectedPlayer

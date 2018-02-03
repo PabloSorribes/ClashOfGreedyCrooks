@@ -4,12 +4,15 @@ using System.Linq;
 public class PickingManager : MonoBehaviour
 {
     private static PickingManager instance;
-    public static PickingManager GetInstance()
-    {
-        return instance;
-    }
+    public static PickingManager GetInstance
+	{
+		get
+		{
+			return instance;
+		}
+	}
 
-    private GameManager gm;
+	private GameManager gm;
     private GameObject arena, spawnedArena;
     private Transform[] spawnPositions = new Transform[4];
     private Transform[] playerPositions = new Transform[4];
@@ -27,8 +30,8 @@ public class PickingManager : MonoBehaviour
 
     private void Start()
     {
-        gm = GameManager.GetInstance().GetComponent<GameManager>();
-        playersConnected = GameManager.GetInstance().GetPlayersConnected();
+        gm = GameManager.GetInstance.GetComponent<GameManager>();
+        playersConnected = GameManager.GetInstance.GetPlayersConnected();
         LoadResources();
         GameObject newArena = Instantiate(arena);
         spawnedArena = newArena;
@@ -186,7 +189,7 @@ public class PickingManager : MonoBehaviour
                 if (spawnedChampions[j].playerIndex == i)
                     gm.AddChampion(i, spawnedChampions[j].champion);
 
-        GameStateManager.GetInstance().SetState(State.Arena);
+        GameStateManager.GetInstance.SetState(GameState.Arena);
     }
 
     private struct Player

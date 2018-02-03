@@ -1,45 +1,44 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 //TODO: Move global enums to own script?
-public enum State { MainMenu, PlayerConnect, Picking, Arena };
+public enum GameState { MainMenu, PlayerConnect, Picking, Arena };
 public enum PauseState { Paused, NotPaused };
 
 public class GameStateManager : MonoBehaviour
 {
-
 	private static GameStateManager instance;
-	public static GameStateManager GetInstance()
+	public static GameStateManager GetInstance
 	{
-		return instance;
+		get
+		{
+			return instance;
+		}
 	}
 
-	private State gameState;
+	private GameState gameState;
 	private PauseState pauseState;
 
-	public delegate void StateChanged(State newGameState);
-	public event StateChanged OnStateChanged;
-
-	//public System.Action<State> OnStateChanged;
+	public System.Action<GameState> GameStateChanged;
 
 	private void Awake()
 	{
 		instance = this;
 
-		DontDestroyOnLoad(gameObject);
-
-		if (instance == null)
-		{
-			instance = this;
-		}
-		else if (FindObjectOfType<GameStateManager>().gameObject != this.gameObject)
-		{
-			Destroy(FindObjectOfType<GameStateManager>().gameObject);
-		}
-
+		//	if (instance == null)
+		//	{
+		//		instance = this;
+		//		DontDestroyOnLoad(this.gameObject);
+		//	}
+		//	else if (FindObjectOfType<GameStateManager>().gameObject != this.gameObject)
+		//	{
+		//		Destroy(FindObjectOfType<GameStateManager>().gameObject);
+		//	}
 	}
 
-	private void Start()
+	private void OnEnable()
 	{
 		SceneManager.sceneLoaded += OnSceneChanged;
 	}
@@ -48,9 +47,9 @@ public class GameStateManager : MonoBehaviour
 	/// Get the current State
 	/// </summary>
 	/// <returns></returns>
-	public State GetState()
+	public GameState GetState()
 	{
-		State tempState = gameState;
+		GameState tempState = gameState;
 		return tempState;
 	}
 
@@ -58,15 +57,15 @@ public class GameStateManager : MonoBehaviour
 	/// Changes the scene
 	/// </summary>
 	/// <param name="newState"></param>
-	public void SetState(State newState)
+	public void SetState(GameState newState)
 	{
-		if (newState == State.MainMenu)
+		if (newState == GameState.MainMenu)
 			OnMainMenuState();
-		else if (newState == State.PlayerConnect)
+		else if (newState == GameState.PlayerConnect)
 			OnPlayerConnectState();
-		else if (newState == State.Picking)
+		else if (newState == GameState.Picking)
 			OnPickingState();
-		else if (newState == State.Arena)
+		else if (newState == GameState.Arena)
 			OnArenaState();
 	}
 
@@ -104,12 +103,21 @@ public class GameStateManager : MonoBehaviour
 		pauseState = newState;
 	}
 
+	/// <summary>
+	/// Subscribed method for SceneLoaded Event. Runs when new scene is loaded.
+	/// </summary>
+	/// <param name="newScene"></param>
+	/// <param name="loadingMode"></param>
 	private void OnSceneChanged(Scene newScene, LoadSceneMode loadingMode)
 	{
-		gameState = (State)newScene.buildIndex;
+		gameState = (GameState)newScene.buildIndex;
 
-		OnStateChanged(gameState);
-		print("(GSM)State Changed to: " + gameState);
+		if (GameStateChanged != null)
+		{
+			GameStateChanged(gameState);
+		}
+
+		print("GameState Changed to: " + gameState);
 	}
 
 	private void OnPausedState()
