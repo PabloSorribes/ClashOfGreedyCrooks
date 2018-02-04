@@ -7,39 +7,18 @@ using UnityEngine.SceneManagement;
 public enum GameState { MainMenu, PlayerConnect, Picking, Arena };
 public enum PauseState { Paused, NotPaused };
 
-public class GameStateManager : MonoBehaviour
+public class GameStateManager : GenericSingleton<GameStateManager>
 {
-	private static GameStateManager instance;
-	public static GameStateManager GetInstance
-	{
-		get
-		{
-			return instance;
-		}
-	}
-
 	private GameState gameState;
 	private PauseState pauseState;
 
 	public System.Action<GameState> GameStateChanged;
 
+
 	private void Awake()
 	{
-		instance = this;
-
-		//	if (instance == null)
-		//	{
-		//		instance = this;
-		//		DontDestroyOnLoad(this.gameObject);
-		//	}
-		//	else if (FindObjectOfType<GameStateManager>().gameObject != this.gameObject)
-		//	{
-		//		Destroy(FindObjectOfType<GameStateManager>().gameObject);
-		//	}
-	}
-
-	private void OnEnable()
-	{
+		//base.Awake();
+		gameState = (GameState)SceneManager.GetActiveScene().buildIndex;
 		SceneManager.sceneLoaded += OnSceneChanged;
 	}
 
@@ -116,8 +95,7 @@ public class GameStateManager : MonoBehaviour
 		{
 			GameStateChanged(gameState);
 		}
-
-		print("GameState Changed to: " + gameState);
+		//Debug.Log("(GSM) State Changed: " + gameState);
 	}
 
 	private void OnPausedState()

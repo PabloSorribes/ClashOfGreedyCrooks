@@ -1,46 +1,41 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : GenericSingleton<GameManager>
 {
-	private static GameManager instance;
-	public static GameManager GetInstance
-	{
-		get
-		{
-			return instance;
-		}
-	}
 
 	private Player[] players = new Player[4];
 
-	private void Awake()
-	{
-		if (instance == null)
-		{
-			instance = this;
-			DontDestroyOnLoad(this.gameObject);
-		}
-		else
-		{
-			Destroy(gameObject);
-		}
-	}
-
-	private void OnEnable()
-    {
-		GameStateManager.GetInstance.GameStateChanged += OnGameStateChanged;
-    }
 
     private void Start()
     {
+		OnGameStateChanged(GameStateManager.GetInstance.GetState());
+		GameStateManager.GetInstance.GameStateChanged += OnGameStateChanged;
+		
 		for (int i = 0; i < players.Length; i++)
         {
             players[i].gamepadIndex = 99;
         }
     }
 
-    //Fill ConnectedPlayers with empty ConnectedPlayer and their "bool connected" set to false.
+    private void OnGameStateChanged(GameState newGameState)
+    {
+		if (newGameState == GameState.Picking)
+        {
+            for (int i = 0; i < players.Length; i++)
+			{
+                PickingManager.GetInstance.SetPlayerInfo(players[i].connected, players[i].avatar, i, players[i].gamepadIndex);
+			}
+        }
+
+        if (newGameState == GameState.Arena)
+        {
+            SpawnPlayers();
+            SendInfoToInputManager();
+        }
+		//Debug.Log("(GM) State Changed: " + newGameState);
+	}
+    
+	//Fill ConnectedPlayers with empty ConnectedPlayer and their "bool connected" set to false.
     //private void FillConnectedPlayersArray()
     //{
     //    for (int i = 0; i < players.Length; i++)
@@ -87,20 +82,6 @@ public class GameManager : MonoBehaviour
         return count;
     }
 
-    private void OnGameStateChanged(GameState newGameState)
-    {
-        if (newGameState == GameState.Picking)
-        {
-            for (int i = 0; i < players.Length; i++)
-                PickingManager.GetInstance.SetPlayerInfo(players[i].connected, players[i].avatar, i, players[i].gamepadIndex);
-        }
-
-        if (newGameState == GameState.Arena)
-        {
-            SpawnPlayers();
-            SendInfoToInputManager();
-        }
-    }
 
     private void SpawnPlayers()
     {
@@ -118,6 +99,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+	//CAUTION: Will run into problems if starting Arena phase directly from editor.
     private void SendInfoToInputManager()
     {
         Player[] newPlayersArray = new Player[players.Length];
@@ -128,7 +110,7 @@ public class GameManager : MonoBehaviour
             newPlayersArray[i] = players[i];
         }
 
-        //Sort by gameIndex
+        //Sort by gamepadIndex
         Player playerToSort;
         for (int i = 0; i < newPlayersArray.Length - 1; i++)
         {
@@ -155,7 +137,7 @@ public class GameManager : MonoBehaviour
         InputManager.GetInstance.SetPlayerReferences(pcArray);
     }
 
-    private struct Player
+	private struct Player
     {
         public bool connected;
         public int gamepadIndex;

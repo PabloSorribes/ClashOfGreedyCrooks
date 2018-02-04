@@ -10,7 +10,7 @@ public class PlayerHealth : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        timeManager = TimeManager.GetInstance();
+        timeManager = TimeManager.GetInstance;
 
         currentHealth = maxHealth;
 	}

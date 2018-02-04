@@ -3,16 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using XInputDotNetPure;
 
-public class InputManager : MonoBehaviour
+public class InputManager : GenericSingleton<InputManager>
 {
-	private static InputManager instance;
-	public static InputManager GetInstance
-	{
-		get
-		{
-			return instance;
-		}
-	}
 
 	private GameState gameState;
 
@@ -22,15 +14,11 @@ public class InputManager : MonoBehaviour
 	private GamePadState[] state = new GamePadState[4];
 	private GamePadState[] prevState = new GamePadState[4];
 
-	private void Awake()
-	{
-		instance = this;
-	}
 
 	private void Start()
 	{
+		OnGameStateChanged(GameStateManager.GetInstance.GetState());
 		GameStateManager.GetInstance.GameStateChanged += OnGameStateChanged;
-		gameState = GameStateManager.GetInstance.GetState();
 
 		AddConnectedGamepads();
 	}
@@ -38,6 +26,7 @@ public class InputManager : MonoBehaviour
 	private void OnGameStateChanged(GameState newGameState)
 	{
 		gameState = newGameState;
+		//Debug.Log("(IM) State Changed: " + gameState);
 	}
 
 	/// <summary>
