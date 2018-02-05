@@ -2,148 +2,22 @@
 
 public class GameManager : GenericSingleton<GameManager>
 {
-
-	private Player[] players = new Player[4];
-
-
     private void Start()
     {
 		OnGameStateChanged(GameStateManager.GetInstance.GetState());
 		GameStateManager.GetInstance.GameStateChanged += OnGameStateChanged;
-		
-		for (int i = 0; i < players.Length; i++)
-        {
-            players[i].gamepadIndex = 99;
-        }
     }
 
     private void OnGameStateChanged(GameState newGameState)
     {
 		if (newGameState == GameState.Picking)
         {
-            for (int i = 0; i < players.Length; i++)
-			{
-                PickingManager.GetInstance.SetPlayerInfo(players[i].connected, players[i].avatar, i, players[i].gamepadIndex);
-			}
+            
         }
 
         if (newGameState == GameState.Arena)
         {
-            SpawnPlayers();
-            SendInfoToInputManager();
+            
         }
-		//Debug.Log("(GM) State Changed: " + newGameState);
 	}
-    
-	//Fill ConnectedPlayers with empty ConnectedPlayer and their "bool connected" set to false.
-    //private void FillConnectedPlayersArray()
-    //{
-    //    for (int i = 0; i < players.Length; i++)
-    //    {
-    //        players[i].connected = false;
-    //        players[i].gamepadIndex = 99;
-    //        players[i].avatar = Color.black;
-    //    }
-    //}
-
-    /// <summary>
-    /// Call from PlayerConnectManager.
-    /// </summary>
-    /// <param name="playerIndex"></param>
-    /// <param name="gamepadIndex"></param>
-    /// <param name="avatar"></param>
-	public void AddPlayer(int playerIndex, int gamepadIndex, Color avatar)
-    {
-        Player newPlayer = new Player
-        {
-            connected = true,
-            gamepadIndex = gamepadIndex,
-            avatar = avatar
-        };
-        players[playerIndex] = newPlayer;
-    }
-
-    /// <summary>
-    /// Call from PickingManager.
-    /// </summary>
-    /// <param name="playerIndex"></param>
-    /// <param name="champion"></param>
-    public void AddChampion(int playerIndex, GameObject champion)
-    {
-        players[playerIndex].champion = champion;
-    }
-
-    public int GetPlayersConnected()
-    {
-        int count = 0;
-        for (int i = 0; i < players.Length; i++)
-            if (players[i].connected)
-                count++;
-        return count;
-    }
-
-
-    private void SpawnPlayers()
-    {
-        for (int i = 0; i < players.Length; i++)
-        {
-            if (players[i].connected)
-            {
-                GameObject newPlayer = Resources.Load("PlayerPrefab") as GameObject;
-                GameObject spawnedPlayer = Instantiate(newPlayer);
-                players[i].playerObject = spawnedPlayer;
-                players[i].pc = spawnedPlayer.GetComponent<PlayerController>();
-
-                Debug.Log("SpawnPlayers: " + players[i].pc);
-            }
-        }
-    }
-
-	//CAUTION: Will run into problems if starting Arena phase directly from editor.
-    private void SendInfoToInputManager()
-    {
-        Player[] newPlayersArray = new Player[players.Length];
-
-        //Copy Players to newPlayersArray
-        for (int i = 0; i < players.Length; i++)
-        {
-            newPlayersArray[i] = players[i];
-        }
-
-        //Sort by gamepadIndex
-        Player playerToSort;
-        for (int i = 0; i < newPlayersArray.Length - 1; i++)
-        {
-            for (int j = i + 1; j < newPlayersArray.Length; j++)
-            {
-                if (newPlayersArray[i].gamepadIndex > newPlayersArray[j].gamepadIndex)
-                {
-                    playerToSort = newPlayersArray[j];
-                    newPlayersArray[j] = newPlayersArray[i];
-                    newPlayersArray[i] = playerToSort;
-                }
-            }
-            Debug.Log("newPlayersArray gamepadIndex" + newPlayersArray[i].gamepadIndex);
-            Debug.Log("newPlayersArray playerController: " + newPlayersArray[i].pc);
-        }
-
-        PlayerController[] pcArray = new PlayerController[GetPlayersConnected()];
-        for (int i = 0; i < pcArray.Length; i++)
-        {
-            pcArray[i] = newPlayersArray[i].pc;
-            Debug.Log("pcArray player controllers: " + pcArray[i]);
-        }
-
-        InputManager.GetInstance.SetPlayerReferences(pcArray);
-    }
-
-	private struct Player
-    {
-        public bool connected;
-        public int gamepadIndex;
-        public Color avatar;
-        public GameObject champion;
-        public GameObject playerObject;
-        public PlayerController pc;
-    }
 }

@@ -1249,6 +1249,7 @@ GameObject:
   - component: {fileID: 33071846658745832}
   - component: {fileID: 23042852027025126}
   - component: {fileID: 95842341368351596}
+  - component: {fileID: 114813917005631380}
   m_Layer: 0
   m_Name: The_Bride_2
   m_TagString: Untagged
@@ -4834,3 +4835,22 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114813917005631380
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1875638673258120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a92ad232037d04e8f743caaf264867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthMin: 80
+  healthMax: 90
+  movementMin: 0
+  movementMax: 0
+  damageMin: 0
+  damageMax: 0
+  attackSpeedMin: 0
+  attackSpeedMax: 0
