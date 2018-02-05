@@ -14,6 +14,9 @@ public class InputManager : GenericSingleton<InputManager>
 	private GamePadState[] state = new GamePadState[4];
 	private GamePadState[] prevState = new GamePadState[4];
 
+	//For testing: variables
+	public static bool setTrueForTesting = false;
+	public static GameState manualGameStateOverride;
 
 	private void Start()
 	{
@@ -21,6 +24,18 @@ public class InputManager : GenericSingleton<InputManager>
 		GameStateManager.GetInstance.GameStateChanged += OnGameStateChanged;
 
 		AddConnectedGamepads();
+
+
+		//For testing: Set references to players in scene with PlayerController scripts
+		if (setTrueForTesting)
+		{
+			for (int i = 0; i < gamepadIndex.Count; i++)
+			{
+				players[i] = FindObjectOfType<PlayerController>();
+			}
+			//Set GameState to be able to change what part of inputs to use regardless of current scene
+			gameState = manualGameStateOverride;
+		}
 	}
 
 	private void OnGameStateChanged(GameState newGameState)
@@ -40,7 +55,7 @@ public class InputManager : GenericSingleton<InputManager>
 			//Note: "PlayerIndex" enum type corresponds to "gamepadIndex" variable in project since it can't be renamed (XInput).
 			//Only applicable in this context
 			PlayerIndex testGamepadIndex = (PlayerIndex)i;
-			GamePadState testState = GamePad.GetState(testGamepadIndex);
+			GamePadState testState = GamePad.GetState(testGamepadIndex, GamePadDeadZone.Circular);
 			if (testState.IsConnected)
 			{
 				Debug.Log(string.Format("GamePad found {0}", testGamepadIndex));
@@ -65,18 +80,18 @@ public class InputManager : GenericSingleton<InputManager>
 		for (int i = 0; i < gamepadIndex.Count; ++i)
 		{
 			prevState[i] = state[i];
-			state[i] = GamePad.GetState((PlayerIndex)i);
+			state[i] = GamePad.GetState((PlayerIndex)i, GamePadDeadZone.Circular);
 
 			//TODO: Modify to handle inputs with events instead.
-			switch (gameState.GetHashCode())
+			switch (gameState)
 			{
-				case 0: //Main Menu
+				case GameState.MainMenu:
 
 					//TODO: Poll through relevant inputs on all controllers and call relevant methods
 
 					break;
 
-				case 1: //Player Connect Phase
+				case GameState.PlayerConnect:
 
 					// Detect if a button was pressed this frame
 					if (prevState[i].Buttons.A == ButtonState.Released &&
@@ -101,7 +116,7 @@ public class InputManager : GenericSingleton<InputManager>
 
 					break;
 
-				case 2: //Picking Phase
+				case GameState.Picking:
 
 					if (prevState[i].Buttons.A == ButtonState.Released &&
 							state[i].Buttons.A == ButtonState.Pressed)
@@ -137,7 +152,7 @@ public class InputManager : GenericSingleton<InputManager>
 
 					break;
 
-				case 3: //Arena Phase
+				case GameState.Arena:
 
 					Vector3 leftStick = new Vector3(state[i].ThumbSticks.Left.X, 0f, state[i].ThumbSticks.Left.Y);
 					Vector3 rightStick = new Vector3(state[i].ThumbSticks.Right.X, 0f, state[i].ThumbSticks.Right.Y);
@@ -170,6 +185,7 @@ public class InputManager : GenericSingleton<InputManager>
 					break;
 			}
 		}
+
 	}
 
 	public void SetPlayerReferences(PlayerController[] players)

@@ -24,19 +24,16 @@ public class PlayerController : MonoBehaviour
 	{
 		dt = Time.deltaTime;
 
-		CalculateMovement();
 		MovePlayer();
-	}
-
-	private void CalculateMovement()
-	{
-		movement = new Vector3(directionalInputLeftStick.x, 0f, directionalInputLeftStick.z);
-		aimAngle = Mathf.Atan2(directionalInputRightStick.x, directionalInputRightStick.z) * Mathf.Rad2Deg;
 	}
 
 	private void MovePlayer()
 	{
-		transform.position += movement * dt * speed;
+		movement = new Vector3(directionalInputLeftStick.x, 0f, directionalInputLeftStick.z);
+		movement = movement.normalized * speed * dt;
+		transform.position += movement;
+
+		aimAngle = Mathf.Atan2(directionalInputRightStick.x, directionalInputRightStick.z) * Mathf.Rad2Deg;
 		transform.rotation = Quaternion.AngleAxis(aimAngle, Vector3.up);
 	}
 
@@ -48,7 +45,11 @@ public class PlayerController : MonoBehaviour
 	public void SetDirectionalInput(Vector3 leftStick, Vector3 rightStick)
 	{
 		directionalInputLeftStick = leftStick;
-		directionalInputRightStick = rightStick;
+
+		if (Mathf.Abs(rightStick.x) > 0.19f || Mathf.Abs(rightStick.z) > 0.19f)
+		{
+			directionalInputRightStick = rightStick;
+		}
 	}
 
 
