@@ -63,8 +63,6 @@ public class PlayerHealth : MonoBehaviour {
         currentHealth -= deathZoneDamage;
     }
 
-
-    //TODO: Fix freeze frame!
     //TODO: Talk to ArenaManager and what values should i send?
     private void OnDestroy()
     {

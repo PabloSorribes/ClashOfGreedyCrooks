@@ -25,7 +25,7 @@ public class ArenaManager : GenericSingleton<ArenaManager> {
 
     public void HandlePlayerDeath (GameObject playerThatDied)
     {
-
+        TimeManager.GetInstance.StartFreezeFrame(1f);
     }
 
 

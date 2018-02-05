@@ -69,9 +69,9 @@ public class TimeManager : GenericSingleton<TimeManager>
 
 	}
 
-	public void StartFreezeFrame()
+	public void StartFreezeFrame(float timeFreeze)
 	{
-		StartCoroutine(FreezeFrame(1f));
+		StartCoroutine(FreezeFrame(timeFreeze));
 	}
 
 
