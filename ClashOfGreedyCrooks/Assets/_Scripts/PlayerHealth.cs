@@ -65,9 +65,9 @@ public class PlayerHealth : MonoBehaviour {
 
 
     //TODO: Fix freeze frame!
-    //TODO: Talk to GameManager
+    //TODO: Talk to ArenaManager and what values should i send?
     private void OnDestroy()
     {
-        TimeManager.GetInstance.StartFreezeFrame();
+        ArenaManager.GetInstance.HandlePlayerDeath(this.gameObject);
     }
 }

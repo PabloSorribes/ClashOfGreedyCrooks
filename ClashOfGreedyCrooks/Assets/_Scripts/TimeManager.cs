@@ -3,25 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TimeManager : MonoBehaviour
+public class TimeManager : GenericSingleton<TimeManager>
 {
-
-	private static TimeManager instance;
-	public static TimeManager GetInstance
-	{
-		get
-		{
-			return instance;
-		}
-	}
-
-	private float trackTime = 120;
+	public float trackTime = 120;
 
 	private bool isPaused;
+
+    private float normalTimeScale = 1;
+    private float slowMoTimeScale = 0.2f;
+    private float lerpTime = 1f;
 
 	public GameObject player;
 
 	public Text timer;
+    public System.Action TimeIsUp;
 
 	// Update is called once per frame
 	void Update()
@@ -30,6 +25,8 @@ public class TimeManager : MonoBehaviour
 		trackTime -= Time.deltaTime;
 		timer.text = "Timer: " + Mathf.Floor(trackTime);
 
+        //lerpTime = ;
+
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
 			PauseGame();
@@ -37,9 +34,14 @@ public class TimeManager : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			StartCoroutine(FreezeFrame(0.1f));
-			Time.timeScale = 0;
+			StartCoroutine(FreezeFrame(2f));
+			Time.timeScale = Mathf.Lerp(normalTimeScale, slowMoTimeScale, lerpTime);
 		}
+
+        if (trackTime <= 0)
+        {
+            TimeIsUp();
+        }
 	}
 
 	private void PauseGame()
@@ -51,7 +53,9 @@ public class TimeManager : MonoBehaviour
 
 			isPaused = true;
 
-			player.GetComponent<Shooting>().enabled = false;
+            //TODO: This should be set by the player, by getting an Event Delegate 
+            //from the GameStateManager which says if the game is paused or not.
+            player.GetComponent<Shooting>().enabled = false;
 		}
 
 		else

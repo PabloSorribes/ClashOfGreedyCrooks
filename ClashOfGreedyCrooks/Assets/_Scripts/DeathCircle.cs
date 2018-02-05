@@ -32,7 +32,7 @@ public class DeathCircle : GenericSingleton<DeathCircle>
     {
         transform.localScale = Vector3.MoveTowards(transform.localScale, targetScale, contractionSpeed * Time.deltaTime);
 
-        //TODO: Should be called by GameManager OR TimeManager
+        //DEBUG: To trigger the shrinking manualy
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             ChangeSize(true);
