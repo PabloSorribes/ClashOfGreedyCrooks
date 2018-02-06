@@ -12,13 +12,16 @@ public class PickingManager : MonoBehaviour
 		}
 	}
 
+    //Loads from resources
     private GameObject arena, spawnedArena;
-    private Transform[] spawnPositions = new Transform[4];
-    private Transform[] playerPositions = new Transform[4];
-    private Transform[] avatars = new Transform[4];
     private GameObject playerPrefab;
     private GameObject[] championPrefabs;
     private GameObject[] weaponPrefabs;
+    private Sprite[] buttons;
+
+    private Transform[] spawnPositions = new Transform[4];
+    private Transform[] playerPositions = new Transform[4];
+    private Transform[] avatars = new Transform[4];
     private GameObject[] spawnedChampions;
 
     private void Awake()
@@ -39,6 +42,7 @@ public class PickingManager : MonoBehaviour
         Shuffle(weaponPrefabs);
         SpawnChampions();
         SpawnWeapons();
+        AssignChampionButton();
         //TODO: Players should be able to nerf champions.
     }
 
@@ -51,6 +55,7 @@ public class PickingManager : MonoBehaviour
         playerPrefab = Resources.Load("PlayerPrefab") as GameObject;
         championPrefabs = Resources.LoadAll("Champions", typeof(Object)).Cast<GameObject>().ToArray();
         weaponPrefabs = Resources.LoadAll("Weapons", typeof(Object)).Cast<GameObject>().ToArray();
+        buttons = Resources.LoadAll("Picking/Sprites/Buttons", typeof(Object)).Cast<Sprite>().ToArray();
     }
 
     /// <summary>
@@ -113,11 +118,24 @@ public class PickingManager : MonoBehaviour
         }
     }
 
+    private void AssignChampionButton()
+    {
+        for (int i = 0; i < spawnedChampions.Length; i++)
+        {
+            Instantiate(buttons[i], spawnedChampions[i].transform.Find("ChampionButton"));
+        }
+    }
+
     public void PickChampion(int gamepadIndex, int button)
     {
         for (int i = 0; i < PlayerManager.players.Length; i++)
             if (PlayerManager.players[i].Gamepad == gamepadIndex)
-                if (PlayerManager.players[i].HasChampion)
+                if (PlayerManager.players[i].ChoosingPenalty)
+                {
+                    ChoosePenalty(i, gamepadIndex, button);
+                    PlayerManager.players[i].ChoosingPenalty = false;
+                }
+                else if (PlayerManager.players[i].HasChampion)
                     return;
                 else
                 {
@@ -138,10 +156,13 @@ public class PickingManager : MonoBehaviour
             spawnedChampions[champion].GetComponent<Champion>().Picked = true;
             spawnedChampions[champion].GetComponent<Champion>().PlayerIndex = playerIndex;
         }
-        else if (spawnedChampions[champion].GetComponent<Champion>().Picked)
+        else if (spawnedChampions[champion].GetComponent<Champion>().Picked && !spawnedChampions[champion].GetComponent<Champion>().Locked)
         {
-            spawnedChampions[champion].transform.position = playerPositions[playerIndex].position;
-            spawnedChampions[champion].GetComponent<Champion>().PlayerIndex = playerIndex;
+            spawnedChampions[champion].GetComponent<Champion>().Locked = true;
+            spawnedChampions[champion].GetComponent<Penalty>().ShowButtons();
+
+            //spawnedChampions[champion].transform.position = playerPositions[playerIndex].position;
+            //spawnedChampions[champion].GetComponent<Champion>().PlayerIndex = playerIndex;
         }
 
         for (int i = 0; i < spawnedChampions.Length; i++)
@@ -150,6 +171,20 @@ public class PickingManager : MonoBehaviour
             else
                 if (IsAllChampionsPicked())
                     OnAllChampionsPicked();
+    }
+
+    private void ChoosePenalty(int playerIndex, int gamepadIndex, int button)
+    {
+        for (int i = 0; i < spawnedChampions.Length; i++)
+        {
+            if (spawnedChampions[i].GetComponent<Champion>().PlayerIndex == gamepadIndex)
+            {
+                spawnedChampions[i].GetComponent<Penalty>().AddPenalty((Nerf)button, 1);
+                spawnedChampions[i].GetComponent<Champion>().Locked = false;
+                spawnedChampions[i].transform.position = playerPositions[playerIndex].position;
+                spawnedChampions[i].GetComponent<Champion>().PlayerIndex = playerIndex;
+            }
+        }
     }
 
     private bool IsAllChampionsPicked()

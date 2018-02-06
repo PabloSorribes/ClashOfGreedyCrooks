@@ -10,6 +10,7 @@ public class Champion : MonoBehaviour {
 
     private int playerIndex;
     private bool picked;
+    private bool locked;
 
     //Properties
     public float Health
@@ -63,6 +64,7 @@ public class Champion : MonoBehaviour {
 
     public int PlayerIndex { get; set; }
     public bool Picked { get; set; }
+    public bool Locked { get; set; }
 
     //Starting values
     [SerializeField] private float healthMin;

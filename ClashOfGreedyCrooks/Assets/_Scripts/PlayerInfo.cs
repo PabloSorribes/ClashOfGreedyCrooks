@@ -4,6 +4,7 @@ public class PlayerInfo : MonoBehaviour
 {
     private bool connected;
     private bool ready;
+    private bool choosingPenalty;
     private int player;
     private int gamepad;
     private Color32 avatar;
@@ -11,6 +12,7 @@ public class PlayerInfo : MonoBehaviour
 
     public bool Connected { get; set; }
     public bool Ready { get; set; }
+    public bool ChoosingPenalty { get; set; }
     public int Player { get; set; }
     public int Gamepad { get; set; }
     public Color32 Avatar { get; set; }
