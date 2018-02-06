@@ -105,9 +105,9 @@ public class Champion : MonoBehaviour {
 
     private void SetBaseStats()
     {
-        penalty.AddPenalty(Nerf.Health, 10 - (10 - (int)Health));
-        penalty.AddPenalty(Nerf.Movement, 10 - (10 - (int)Movement));
-        penalty.AddPenalty(Nerf.Damage, 10 - (10 - (int)Damage));
-        penalty.AddPenalty(Nerf.AttackSpeed, 10 - (10 - (int)AttackSpeed));
+        penalty.AddPenalty(Nerf.Health, 10 - (int)Health);
+        penalty.AddPenalty(Nerf.Movement, 10 - (int)Movement);
+        penalty.AddPenalty(Nerf.Damage, 10 - (int)Damage);
+        penalty.AddPenalty(Nerf.AttackSpeed, 10 - (int)AttackSpeed);
     }
 }

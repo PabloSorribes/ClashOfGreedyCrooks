@@ -50,12 +50,16 @@ public class Penalty : MonoBehaviour
 
     private void ReduceStat(Transform stat, int amount)
     {
-        for (int i = stat.childCount - 1; i > stat.childCount - (stat.childCount - amount) - 1; i--)
+        int penalties = amount;
+        for (int i = stat.childCount - 1; i >= 0; i--)
         {
             if (stat.GetChild(i).gameObject.activeInHierarchy)
             {
                 stat.GetChild(i).gameObject.SetActive(false);
+                penalties--;
             }
+            if (penalties == 0)
+                return;
         }
     }
 }
