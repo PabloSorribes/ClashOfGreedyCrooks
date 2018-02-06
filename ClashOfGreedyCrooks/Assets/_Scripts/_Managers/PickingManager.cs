@@ -12,16 +12,14 @@ public class PickingManager : MonoBehaviour
 		}
 	}
 
-	private GameManager gm;
     private GameObject arena, spawnedArena;
     private Transform[] spawnPositions = new Transform[4];
     private Transform[] playerPositions = new Transform[4];
     private Transform[] avatars = new Transform[4];
+    private GameObject playerPrefab;
     private GameObject[] championPrefabs;
     private GameObject[] weaponPrefabs;
-    private Champion[] spawnedChampions;
-    private int playersConnected;
-    private Player[] players = new Player[4];
+    private GameObject[] spawnedChampions;
 
     private void Awake()
     {
@@ -30,14 +28,13 @@ public class PickingManager : MonoBehaviour
 
     private void Start()
     {
-        gm = GameManager.GetInstance.GetComponent<GameManager>();
-        playersConnected = GameManager.GetInstance.GetPlayersConnected();
         LoadResources();
         GameObject newArena = Instantiate(arena);
         spawnedArena = newArena;
         GetChilds(spawnPositions, "Waypoints/Pool");
         GetChilds(playerPositions, "Waypoints/Picked");
         GetChilds(avatars, "Avatars");
+        SetAvatarsPlayers();
         Shuffle(championPrefabs);
         Shuffle(weaponPrefabs);
         SpawnChampions();
@@ -51,6 +48,7 @@ public class PickingManager : MonoBehaviour
     private void LoadResources()
     {
         arena = Resources.Load("Arenas/PickingTestArena") as GameObject;
+        playerPrefab = Resources.Load("PlayerPrefab") as GameObject;
         championPrefabs = Resources.LoadAll("Champions", typeof(Object)).Cast<GameObject>().ToArray();
         weaponPrefabs = Resources.LoadAll("Weapons", typeof(Object)).Cast<GameObject>().ToArray();
     }
@@ -67,6 +65,15 @@ public class PickingManager : MonoBehaviour
             array[i] = waypointsParent.GetChild(i);
     }
     
+    private void SetAvatarsPlayers()
+    {
+        for (int i = 0; i < PlayerManager.players.Length; i++)
+            if (PlayerManager.players[i].Connected)
+                avatars[i].GetComponent<SpriteRenderer>().color = PlayerManager.players[i].Avatar;
+            else
+                avatars[i].gameObject.SetActive(false);
+    }
+
     /// <summary>
     /// Switching place of items in an array.
     /// </summary>
@@ -83,56 +90,34 @@ public class PickingManager : MonoBehaviour
             array[i] = target;
         }
     }
-
+    
     private void SpawnChampions()
     {
-        spawnedChampions = new Champion[playersConnected];
-        for (int i = 0; i < playersConnected; i++)
-        {
-            GameObject newChampion = Instantiate(championPrefabs[i], spawnPositions[i].position, Quaternion.identity);
-            spawnedChampions[i].champion = newChampion;
-            spawnedChampions[i].playerIndex = 99;
-            spawnedChampions[i].health = 100;
-        }
+        spawnedChampions = new GameObject[PlayerManager.GetPlayersConnected()];
+
+        for (int i = 0; i < PlayerManager.GetPlayersConnected(); i++)
+            if (PlayerManager.players[i].Connected)
+            {
+                GameObject newChampion = Instantiate(championPrefabs[i].gameObject, spawnPositions[i].position, Quaternion.identity);
+                spawnedChampions[i] = newChampion;
+                spawnedChampions[i].GetComponent<Champion>().PlayerIndex = 99;
+            }
     }
 
     private void SpawnWeapons()
     {
         for (int i = 0; i < spawnedChampions.Length; i++)
         {
-            Instantiate(weaponPrefabs[i], spawnedChampions[i].champion.transform.Find("WeaponHold"));
+            GameObject newWeapon = Instantiate(weaponPrefabs[i], spawnedChampions[i].gameObject.transform.Find("WeaponHold"));
+            newWeapon.name = weaponPrefabs[i].name;
         }
-    }
-
-    /// <summary>
-    /// Gets player information from GameManager when scene is loaded.
-    /// </summary>
-    /// <param name="connected"></param>
-    /// <param name="avatar"></param>
-    /// <param name="playerIndex"></param>
-    /// <param name="gamepadIndex"></param>
-    public void SetPlayerInfo(bool connected, Color avatar, int playerIndex, int gamepadIndex)
-    {
-        players[playerIndex].connected = connected;
-        players[playerIndex].avatar = avatar;
-        players[playerIndex].gamepadIndex = gamepadIndex;
-
-        //SetAvatar(playerIndex, avatar);
-    }
-
-    private void SetAvatar(int index, Color avatar)
-    {
-        if (avatar != Color.black)
-            avatars[index].GetComponent<SpriteRenderer>().color = avatar;
-        else
-            avatars[index].gameObject.SetActive(false);
     }
 
     public void PickChampion(int gamepadIndex, int button)
     {
-        for (int i = 0; i < players.Length; i++)
-            if (players[i].gamepadIndex == gamepadIndex)
-                if (players[i].hasChampion)
+        for (int i = 0; i < PlayerManager.players.Length; i++)
+            if (PlayerManager.players[i].Gamepad == gamepadIndex)
+                if (PlayerManager.players[i].HasChampion)
                     return;
                 else
                 {
@@ -143,27 +128,24 @@ public class PickingManager : MonoBehaviour
 
     private void OnPickChampion(int playerIndex, int champion)
     {
-        foreach (Champion item in spawnedChampions)
-        {
-            if (item.playerIndex == playerIndex)
+        foreach (GameObject item in spawnedChampions)
+            if (item.GetComponent<Champion>().PlayerIndex == playerIndex)
                 return;
-        }
 
-        if (!spawnedChampions[champion].picked)
+        if (!spawnedChampions[champion].GetComponent<Champion>().Picked)
         {
-            spawnedChampions[champion].champion.transform.position = playerPositions[playerIndex].position;
-            spawnedChampions[champion].picked = true;
-            spawnedChampions[champion].playerIndex = playerIndex;
+            spawnedChampions[champion].transform.position = playerPositions[playerIndex].position;
+            spawnedChampions[champion].GetComponent<Champion>().Picked = true;
+            spawnedChampions[champion].GetComponent<Champion>().PlayerIndex = playerIndex;
         }
-        else if (spawnedChampions[champion].picked)
+        else if (spawnedChampions[champion].GetComponent<Champion>().Picked)
         {
-            spawnedChampions[champion].champion.transform.position = playerPositions[playerIndex].position;
-            spawnedChampions[champion].playerIndex = playerIndex;
-            spawnedChampions[champion].health *= .5f;
+            spawnedChampions[champion].transform.position = playerPositions[playerIndex].position;
+            spawnedChampions[champion].GetComponent<Champion>().PlayerIndex = playerIndex;
         }
 
         for (int i = 0; i < spawnedChampions.Length; i++)
-            if (!spawnedChampions[i].picked)
+            if (!spawnedChampions[i].GetComponent<Champion>().Picked)
                 return;
             else
                 if (IsAllChampionsPicked())
@@ -174,7 +156,7 @@ public class PickingManager : MonoBehaviour
     {
         int picked = 0;
         for (int i = 0; i < spawnedChampions.Length; i++)
-            if (spawnedChampions[i].picked)
+            if (spawnedChampions[i].GetComponent<Champion>().Picked)
                 picked++;
         if (picked == spawnedChampions.Length)
             return true;
@@ -184,31 +166,25 @@ public class PickingManager : MonoBehaviour
 
     private void OnAllChampionsPicked()
     {
-        for (int i = 0; i < players.Length; i++)
+        PlayerManager.SetSpawnedPlayersArrayLenght();
+        for (int i = 0; i < PlayerManager.players.Length; i++)
             for (int j = 0; j < spawnedChampions.Length; j++)
-                if (spawnedChampions[j].playerIndex == i)
-                    gm.AddChampion(i, spawnedChampions[j].champion);
-
+                if (spawnedChampions[j].GetComponent<Champion>().PlayerIndex == i)
+                    SpawnPlayer(i, j);
+        
+        PlayerManager.SendInfoToInputManager();
         GameStateManager.GetInstance.SetState(GameState.Arena);
     }
 
-    private struct Player
+    private void SpawnPlayer(int playerIndex, int championIndex)
     {
-        public bool hasChampion;
-        public bool connected;
-        public Color avatar;
-        public int gamepadIndex;
-    }
+        GameObject newPlayer = Instantiate(playerPrefab);
+        newPlayer.GetComponent<PlayerInfo>().Player = PlayerManager.players[playerIndex].Player;
+        newPlayer.GetComponent<PlayerInfo>().Gamepad = PlayerManager.players[playerIndex].Gamepad;
 
-    private struct Champion
-    {
-        public GameObject champion;
-        public bool picked;
-        public int playerIndex;
-        public float health;
-        public float movement;
-        public float damage;
-        public float attackSpeed;
-    }
+        spawnedChampions[championIndex].transform.SetParent(newPlayer.transform);
+        spawnedChampions[championIndex].transform.localPosition = Vector3.zero;
 
+        PlayerManager.AddSpawnedPlayer(newPlayer);
+    }
 }

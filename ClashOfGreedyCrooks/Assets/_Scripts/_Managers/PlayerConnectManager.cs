@@ -5,18 +5,16 @@ public class PlayerConnectManager : MonoBehaviour
 {
     private static PlayerConnectManager instance;
     public static PlayerConnectManager GetInstance
-	{
-		get
-		{
-			return instance;
-		}
-	}
+    {
+        get
+        {
+            return instance;
+        }
+    }
 
-	private GameManager gm;
     private GameObject canvas;
     private Transform[] playerSlots;
     private GameObject startGameText;
-    private ConnectedPlayer[] connectedPlayers;
     private bool allReady;
 
     private void Awake()
@@ -26,12 +24,11 @@ public class PlayerConnectManager : MonoBehaviour
 
     private void Start()
     {
-        gm = GameManager.GetInstance.GetComponent<GameManager>();
         InstantiateCanvas();
         startGameText = canvas.transform.Find("StartText").gameObject;
         startGameText.SetActive(false);
         FillPlayerSlotsArray();
-        FillConnectedPlayersArray();
+        PlayerManager.FillPlayersArray();
     }
 
     private void InstantiateCanvas()
@@ -48,19 +45,6 @@ public class PlayerConnectManager : MonoBehaviour
             playerSlots[i] = playerSlot.GetChild(i);
     }
 
-    //Fill ConnectedPlayers with empty ConnectedPlayer and their "bool connected" set to false.
-    private void FillConnectedPlayersArray()
-    {
-        connectedPlayers = new ConnectedPlayer[playerSlots.Length];
-        for (int i = 0; i < connectedPlayers.Length; i++)
-        {
-            connectedPlayers[i].connected = false;
-            connectedPlayers[i].ready = false;
-            connectedPlayers[i].gamepadIndex = 99;
-            connectedPlayers[i].avatar = Color.black;
-        }
-    }
-
     /// <summary>
     /// Called from InputManager.
     /// </summary>
@@ -74,25 +58,25 @@ public class PlayerConnectManager : MonoBehaviour
         }
 
         //Check if gamepad is connected. If connected set ready. Else if connected and ready end function.
-        for (int i = 0; i < connectedPlayers.Length; i++)
+        for (int i = 0; i < PlayerManager.players.Length; i++)
         {
-            if (connectedPlayers[i].gamepadIndex == gamepadIndex)
+            if (PlayerManager.players[i].Gamepad == gamepadIndex)
             {
-                if (!connectedPlayers[i].ready)
+                if (!PlayerManager.players[i].Ready)
                 {
                     Ready(i);
                     ReadyCheck();
                     return;
                 }
-                else if (connectedPlayers[i].ready)
+                else if (PlayerManager.players[i].Ready)
                     return;
             }
         }
 
         //Assign gamepad to first available player slot.
-        for (int i = 0; i < connectedPlayers.Length; i++)
+        for (int i = 0; i < PlayerManager.players.Length; i++)
         {
-            if (!connectedPlayers[i].connected)
+            if (!PlayerManager.players[i].Connected)
             {
                 OnAddPlayer(i, gamepadIndex);
                 return;
@@ -104,13 +88,11 @@ public class PlayerConnectManager : MonoBehaviour
     {
         playerSlots[playerIndex].GetChild(0).gameObject.SetActive(false);
         playerSlots[playerIndex].GetChild(1).gameObject.SetActive(true);
-        ConnectedPlayer newConnectedPlayer = new ConnectedPlayer
-        {
-            connected = true,
-            gamepadIndex = gamepadIndex,
-            avatar = playerSlots[playerIndex].GetChild(1).GetComponent<Image>().color
-        };
-        connectedPlayers[playerIndex] = newConnectedPlayer;
+
+        PlayerManager.players[playerIndex].Connected = true;
+        PlayerManager.players[playerIndex].Player = playerIndex;
+        PlayerManager.players[playerIndex].Gamepad = gamepadIndex;
+        PlayerManager.players[playerIndex].Avatar = playerSlots[playerIndex].GetChild(1).GetComponent<Image>().color;
 
         if (startGameText.activeInHierarchy)
             startGameText.SetActive(false);
@@ -122,14 +104,14 @@ public class PlayerConnectManager : MonoBehaviour
     /// <param name="gamepadIndex"></param>
     public void RemovePlayer(int gamepadIndex)
     {
-        for (int i = 0; i < connectedPlayers.Length; i++)
-            if (connectedPlayers[i].gamepadIndex == gamepadIndex)
-                if (connectedPlayers[i].ready)
+        for (int i = 0; i < PlayerManager.players.Length; i++)
+            if (PlayerManager.players[i].Gamepad == gamepadIndex)
+                if (PlayerManager.players[i].Ready)
                 {
                     UnReady(i);
                     return;
                 }
-                else if (!connectedPlayers[i].ready)
+                else if (!PlayerManager.players[i].Ready)
                 {
                     OnRemovePlayer(gamepadIndex);
                     return;
@@ -138,30 +120,27 @@ public class PlayerConnectManager : MonoBehaviour
 
     public void OnRemovePlayer(int gamepadIndex)
     {
-        for (int i = 0; i < connectedPlayers.Length; i++)
-            if (connectedPlayers[i].gamepadIndex == gamepadIndex)
+        for (int i = 0; i < PlayerManager.players.Length; i++)
+            if (PlayerManager.players[i].Gamepad == gamepadIndex)
             {
                 playerSlots[i].GetChild(0).gameObject.SetActive(true);
                 playerSlots[i].GetChild(1).gameObject.SetActive(false);
-                connectedPlayers[i] = new ConnectedPlayer
-                {
-                    connected = false,
-                    ready = false,
-                    gamepadIndex = 99,
-                    avatar = Color.black
-                };
+
+                PlayerManager.players[i].Connected = false;
+                PlayerManager.players[i].Player = 99;
+                PlayerManager.players[i].Gamepad = 99;
             }
     }
 
     private void Ready(int pos)
     {
-        connectedPlayers[pos].ready = true;
+        PlayerManager.players[pos].Ready = true;
         playerSlots[pos].GetChild(2).gameObject.SetActive(true);
     }
 
     private void UnReady(int pos)
     {
-        connectedPlayers[pos].ready = false;
+        PlayerManager.players[pos].Ready = false;
         playerSlots[pos].GetChild(2).gameObject.SetActive(false);
         allReady = false;
         if (startGameText.activeInHierarchy)
@@ -173,12 +152,12 @@ public class PlayerConnectManager : MonoBehaviour
         int connections = 0;
         int connectedAndReady = 0;
 
-        for (int i = 0; i < connectedPlayers.Length; i++)
+        for (int i = 0; i < PlayerManager.players.Length; i++)
 
-            if (connectedPlayers[i].connected)
+            if (PlayerManager.players[i].Connected)
             {
                 connections++;
-                if (connectedPlayers[i].ready)
+                if (PlayerManager.players[i].Ready)
                     connectedAndReady++;
             }
 
@@ -191,20 +170,6 @@ public class PlayerConnectManager : MonoBehaviour
 
     public void GoToPickingPhase()
     {
-        for (int i = 0; i < connectedPlayers.Length; i++)
-        {
-            if (connectedPlayers[i].connected)
-                gm.AddPlayer(i, connectedPlayers[i].gamepadIndex, connectedPlayers[i].avatar);
-        }
-
         GameStateManager.GetInstance.SetState(GameState.Picking);
-    }
-
-    struct ConnectedPlayer
-    {
-        public bool connected;
-        public bool ready;
-        public int gamepadIndex;
-        public Color avatar;
     }
 }
