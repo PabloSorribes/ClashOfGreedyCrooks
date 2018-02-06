@@ -268,6 +268,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4113009806696776}
+  - component: {fileID: 114861516269588284}
   m_Layer: 0
   m_Name: ChampionButton
   m_TagString: Untagged
@@ -576,7 +577,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4833714086973002}
   m_Layer: 0
-  m_Name: Power
+  m_Name: Damage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1383,6 +1384,7 @@ GameObject:
   - component: {fileID: 23042852027025126}
   - component: {fileID: 95842341368351596}
   - component: {fileID: 114459155786936144}
+  - component: {fileID: 114092861565044022}
   m_Layer: 0
   m_Name: The_Bride_3
   m_TagString: Untagged
@@ -1622,7 +1624,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1876630667173248}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4710975288515882}
@@ -5014,6 +5016,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114092861565044022
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1875638673258120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 435fee23d0f44be4a8fc381cc8532fba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114459155786936144
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5025,14 +5038,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64a92ad232037d04e8f743caaf264867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthMin: 70
-  healthMax: 80
-  movementMin: 0
-  movementMax: 0
-  damageMin: 0
-  damageMax: 0
-  attackSpeedMin: 0
-  attackSpeedMax: 0
+  healthMin: 3
+  healthMax: 8
+  movementMin: 5
+  movementMax: 9
+  damageMin: 4
+  damageMax: 7
+  attackSpeedMin: 5
+  attackSpeedMax: 9
+--- !u!114 &114861516269588284
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1163321665284350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51688542211ee9743a58ea5b168018d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212146268011475310
 SpriteRenderer:
   m_ObjectHideFlags: 1

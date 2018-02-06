@@ -5,12 +5,12 @@ public class PickingManager : MonoBehaviour
 {
     private static PickingManager instance;
     public static PickingManager GetInstance
-	{
-		get
-		{
-			return instance;
-		}
-	}
+    {
+        get
+        {
+            return instance;
+        }
+    }
 
     //Loads from resources
     private GameObject arena, spawnedArena;
@@ -43,7 +43,6 @@ public class PickingManager : MonoBehaviour
         SpawnChampions();
         SpawnWeapons();
         AssignChampionButton();
-        //TODO: Players should be able to nerf champions.
     }
 
     /// <summary>
@@ -55,7 +54,7 @@ public class PickingManager : MonoBehaviour
         playerPrefab = Resources.Load("PlayerPrefab") as GameObject;
         championPrefabs = Resources.LoadAll("Champions", typeof(Object)).Cast<GameObject>().ToArray();
         weaponPrefabs = Resources.LoadAll("Weapons", typeof(Object)).Cast<GameObject>().ToArray();
-        buttons = Resources.LoadAll("Picking/Sprites/Buttons", typeof(Object)).Cast<Sprite>().ToArray();
+        buttons = Resources.LoadAll("Picking/Sprites/Buttons", typeof(Sprite)).Cast<Sprite>().ToArray();
     }
 
     /// <summary>
@@ -69,7 +68,7 @@ public class PickingManager : MonoBehaviour
         for (int i = 0; i < waypointsParent.childCount; i++)
             array[i] = waypointsParent.GetChild(i);
     }
-    
+
     private void SetAvatarsPlayers()
     {
         for (int i = 0; i < PlayerManager.players.Length; i++)
@@ -95,7 +94,7 @@ public class PickingManager : MonoBehaviour
             array[i] = target;
         }
     }
-    
+
     private void SpawnChampions()
     {
         spawnedChampions = new GameObject[PlayerManager.GetPlayersConnected()];
@@ -122,7 +121,10 @@ public class PickingManager : MonoBehaviour
     {
         for (int i = 0; i < spawnedChampions.Length; i++)
         {
-            Instantiate(buttons[i], spawnedChampions[i].transform.Find("ChampionButton"));
+            Transform buttonParent = spawnedChampions[i].transform.Find("ChampionButton");
+            SpriteRenderer championButton = buttonParent.gameObject.AddComponent<SpriteRenderer>();
+            Sprite newButton = Instantiate(buttons[i], buttonParent);
+            championButton.sprite = newButton;
         }
     }
 
@@ -134,6 +136,7 @@ public class PickingManager : MonoBehaviour
                 {
                     ChoosePenalty(i, gamepadIndex, button);
                     PlayerManager.players[i].ChoosingPenalty = false;
+                    return;
                 }
                 else if (PlayerManager.players[i].HasChampion)
                     return;
@@ -144,47 +147,40 @@ public class PickingManager : MonoBehaviour
                 }
     }
 
-    private void OnPickChampion(int playerIndex, int champion)
+    private void OnPickChampion(int playerIndex, int button)
     {
-        foreach (GameObject item in spawnedChampions)
-            if (item.GetComponent<Champion>().PlayerIndex == playerIndex)
-                return;
-
-        if (!spawnedChampions[champion].GetComponent<Champion>().Picked)
+        if (!spawnedChampions[button].GetComponent<Champion>().Picked)
         {
-            spawnedChampions[champion].transform.position = playerPositions[playerIndex].position;
-            spawnedChampions[champion].GetComponent<Champion>().Picked = true;
-            spawnedChampions[champion].GetComponent<Champion>().PlayerIndex = playerIndex;
+            spawnedChampions[button].transform.position = playerPositions[playerIndex].position;
+            spawnedChampions[button].GetComponent<Champion>().Picked = true;
+            spawnedChampions[button].GetComponent<Champion>().PlayerIndex = playerIndex;
+            PlayerManager.players[playerIndex].HasChampion = true;
         }
-        else if (spawnedChampions[champion].GetComponent<Champion>().Picked && !spawnedChampions[champion].GetComponent<Champion>().Locked)
+        else if (spawnedChampions[button].GetComponent<Champion>().Picked && !spawnedChampions[button].GetComponent<Champion>().Locked)
         {
-            spawnedChampions[champion].GetComponent<Champion>().Locked = true;
-            spawnedChampions[champion].GetComponent<Penalty>().ShowButtons();
-
-            //spawnedChampions[champion].transform.position = playerPositions[playerIndex].position;
-            //spawnedChampions[champion].GetComponent<Champion>().PlayerIndex = playerIndex;
+            spawnedChampions[button].GetComponent<Champion>().Locked = true;
+            spawnedChampions[button].GetComponent<Champion>().PlayerIndex = playerIndex;
+            spawnedChampions[button].GetComponent<Penalty>().Buttons(true);
+            PlayerManager.players[playerIndex].ChoosingPenalty = true;
+            PlayerManager.players[playerIndex].HasChampion = true;
         }
 
-        for (int i = 0; i < spawnedChampions.Length; i++)
-            if (!spawnedChampions[i].GetComponent<Champion>().Picked)
-                return;
-            else
-                if (IsAllChampionsPicked())
-                    OnAllChampionsPicked();
+        if (IsAllChampionsPicked())
+            OnAllChampionsPicked();
     }
 
     private void ChoosePenalty(int playerIndex, int gamepadIndex, int button)
     {
         for (int i = 0; i < spawnedChampions.Length; i++)
-        {
-            if (spawnedChampions[i].GetComponent<Champion>().PlayerIndex == gamepadIndex)
+            if (spawnedChampions[i].GetComponent<Champion>().PlayerIndex == playerIndex)
             {
                 spawnedChampions[i].GetComponent<Penalty>().AddPenalty((Nerf)button, 1);
                 spawnedChampions[i].GetComponent<Champion>().Locked = false;
                 spawnedChampions[i].transform.position = playerPositions[playerIndex].position;
-                spawnedChampions[i].GetComponent<Champion>().PlayerIndex = playerIndex;
+                spawnedChampions[i].GetComponent<Penalty>().Buttons(false);
+                PlayerManager.players[spawnedChampions[i].GetComponent<Champion>().LastPlayerIndex].HasChampion = false;
+                return;
             }
-        }
     }
 
     private bool IsAllChampionsPicked()
@@ -206,7 +202,7 @@ public class PickingManager : MonoBehaviour
             for (int j = 0; j < spawnedChampions.Length; j++)
                 if (spawnedChampions[j].GetComponent<Champion>().PlayerIndex == i)
                     SpawnPlayer(i, j);
-        
+
         PlayerManager.SendInfoToInputManager();
         GameStateManager.GetInstance.SetState(GameState.Arena);
     }
@@ -217,8 +213,10 @@ public class PickingManager : MonoBehaviour
         newPlayer.GetComponent<PlayerInfo>().Player = PlayerManager.players[playerIndex].Player;
         newPlayer.GetComponent<PlayerInfo>().Gamepad = PlayerManager.players[playerIndex].Gamepad;
 
-        spawnedChampions[championIndex].transform.SetParent(newPlayer.transform);
+        spawnedChampions[championIndex].transform.SetParent(newPlayer.transform.Find("Champion"));
         spawnedChampions[championIndex].transform.localPosition = Vector3.zero;
+        spawnedChampions[championIndex].transform.Find("StatsHolder").gameObject.SetActive(false);
+        spawnedChampions[championIndex].transform.Find("ChampionButton").gameObject.SetActive(false);
 
         PlayerManager.AddSpawnedPlayer(newPlayer);
     }

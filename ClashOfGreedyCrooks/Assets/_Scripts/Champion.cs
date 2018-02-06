@@ -9,6 +9,7 @@ public class Champion : MonoBehaviour {
     private float attackSpeed;
 
     private int playerIndex;
+    private int lastPlayerIndex;
     private bool picked;
     private bool locked;
 
@@ -62,7 +63,19 @@ public class Champion : MonoBehaviour {
         }
     }
 
-    public int PlayerIndex { get; set; }
+    public int PlayerIndex
+    {
+        get
+        {
+            return playerIndex;
+        }
+        set
+        {
+            LastPlayerIndex = PlayerIndex;
+            playerIndex = value;
+        }
+    }
+    public int LastPlayerIndex { get; set; }
     public bool Picked { get; set; }
     public bool Locked { get; set; }
 
@@ -76,11 +89,25 @@ public class Champion : MonoBehaviour {
     [SerializeField] private float attackSpeedMin;
     [SerializeField] private float attackSpeedMax;
 
+    private Penalty penalty;
+
     private void Start()
     {
-        Health = Random.Range(healthMin, healthMax);
-        Movement = Random.Range(movementMin, movementMax);
-        Damage = Random.Range(damageMin, damageMax);
-        AttackSpeed = Random.Range(attackSpeedMin, attackSpeedMax);
+        penalty = GetComponent<Penalty>();
+
+        Health = (int)Random.Range(healthMin, healthMax + 1);
+        Movement = (int)Random.Range(movementMin, movementMax + 1);
+        Damage = (int)Random.Range(damageMin, damageMax + 1);
+        AttackSpeed = (int)Random.Range(attackSpeedMin, attackSpeedMax + 1);
+        
+        SetBaseStats();
+    }
+
+    private void SetBaseStats()
+    {
+        penalty.AddPenalty(Nerf.Health, 10 - (10 - (int)Health));
+        penalty.AddPenalty(Nerf.Movement, 10 - (10 - (int)Movement));
+        penalty.AddPenalty(Nerf.Damage, 10 - (10 - (int)Damage));
+        penalty.AddPenalty(Nerf.AttackSpeed, 10 - (10 - (int)AttackSpeed));
     }
 }

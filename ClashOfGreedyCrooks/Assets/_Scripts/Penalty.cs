@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 
-public enum Nerf { Health, Movement, Damage, AttackSpeed }
+public enum Nerf { Health, Damage, Movement, AttackSpeed }
 
-public class Penalty : MonoBehaviour {
-
+public class Penalty : MonoBehaviour
+{
     private Champion champion;
     private Transform health, movement, damage, attackSpeed;
     private GameObject penaltyButtons;
 
-    private void Start()
+    private void Awake()
     {
         champion = GetComponent<Champion>();
         health = transform.Find("StatsHolder/Health");
@@ -19,9 +19,9 @@ public class Penalty : MonoBehaviour {
         penaltyButtons.SetActive(false);
     }
 
-    public void ShowButtons()
+    public void Buttons(bool show)
     {
-        penaltyButtons.SetActive(true);
+        penaltyButtons.SetActive(show);
     }
 
     public void AddPenalty(Nerf newPenalty, int amount)
@@ -31,17 +31,30 @@ public class Penalty : MonoBehaviour {
             champion.Health -= amount;
             ReduceStat(health, amount);
         }
+        else if (newPenalty == Nerf.Movement)
+        {
+            champion.Movement -= amount;
+            ReduceStat(movement, amount);
+        }
+        else if (newPenalty == Nerf.Damage)
+        {
+            champion.Damage -= amount;
+            ReduceStat(damage, amount);
+        }
+        else if (newPenalty == Nerf.AttackSpeed)
+        {
+            champion.AttackSpeed -= amount;
+            ReduceStat(attackSpeed, amount);
+        }
     }
 
     private void ReduceStat(Transform stat, int amount)
     {
-        int penalties = amount;
-        for (int i = stat.childCount - 1; i >= 0; i--)
+        for (int i = stat.childCount - 1; i > stat.childCount - (stat.childCount - amount) - 1; i--)
         {
-            if (health.GetChild(i).gameObject.activeInHierarchy && penalties > 0)
+            if (stat.GetChild(i).gameObject.activeInHierarchy)
             {
-                health.GetChild(i).gameObject.SetActive(false);
-                penalties--;
+                stat.GetChild(i).gameObject.SetActive(false);
             }
         }
     }
