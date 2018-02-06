@@ -367,10 +367,7 @@ MonoBehaviour:
         ObjectType: 15
       ID: 1755085759
       Guid: 8e474652dac50c4ea0dec98d1479529a
-  ExpandedItems:
-  - /ClashOfGreedyCrooks_Wwise
-  - /ClashOfGreedyCrooks_Wwise/SoundBanks
-  - /ClashOfGreedyCrooks_Wwise/SoundBanks/Default Work Unit
+  ExpandedItems: []
   m_lastPopulateTimePsrt1: 0
   m_lastPopulateTimePart2: 0
   autoPopulateEnabled: 1

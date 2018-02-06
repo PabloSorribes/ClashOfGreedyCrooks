@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="11" SoundbankVersion="128">
+	<RootPaths>
+		<ProjectRoot>D:\Dropbox\WwiseProjects\ClashOfGreedyCrooks_Wwise\</ProjectRoot>
+		<SourceFilesRoot>D:\Dropbox\WwiseProjects\ClashOfGreedyCrooks_Wwise\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>D:\Dropbox\WwiseProjects\ClashOfGreedyCrooks_Wwise\..\..\..\UnityProjects\ClashOfGreedyCrooks\ClashOfGreedyCrooksGit\ClashOfGreedyCrooks\Assets\StreamingAssets\Audio\GeneratedSoundBanks\</SoundBanksRoot>
+		<ExternalSourcesInputFile></ExternalSourcesInputFile>
+		<ExternalSourcesOutputRoot>D:\Dropbox\WwiseProjects\ClashOfGreedyCrooks_Wwise\GeneratedSoundBanks\Windows\</ExternalSourcesOutputRoot>
+	</RootPaths>
+	<DialogueEvents/>
+	<StreamedFiles/>
+	<MediaFilesNotInAnyBank/>
+	<SoundBanks>
+		<SoundBank Id="1238300023" Language="SFX">
+			<ObjectPath>\SoundBanks\Default Work Unit\WwiseSoundBank</ObjectPath>
+			<ShortName>WwiseSoundBank</ShortName>
+			<Path>WwiseSoundBank.bnk</Path>
+			<IncludedEvents>
+				<Event Id="3854123299" Name="Amb_Arena" ObjectPath="\Events\Default Work Unit\Arena\Amb_Arena"/>
+				<Event Id="2552542987" Name="Amb_Menu" ObjectPath="\Events\Default Work Unit\Menu\Amb_Menu"/>
+				<Event Id="2983184963" Name="Amb_Picking" ObjectPath="\Events\Default Work Unit\Picking\Amb_Picking"/>
+				<Event Id="69462689" Name="ButtonAccept" ObjectPath="\Events\Default Work Unit\Menu\ButtonAccept"/>
+				<Event Id="891695653" Name="ButtonDecline" ObjectPath="\Events\Default Work Unit\Menu\ButtonDecline"/>
+				<Event Id="2164585015" Name="ButtonDisconnect" ObjectPath="\Events\Default Work Unit\Menu\ButtonDisconnect"/>
+				<Event Id="3035572085" Name="ButtonHover" ObjectPath="\Events\Default Work Unit\Menu\ButtonHover"/>
+				<Event Id="2024546869" Name="ButtonJoin" ObjectPath="\Events\Default Work Unit\Menu\ButtonJoin"/>
+			</IncludedEvents>
+			<IncludedMemoryFiles>
+				<File Id="155623093" Language="SFX">
+					<ShortName>RamisStupidMaze Amb Bellows Loop.wav</ShortName>
+					<Path>SFX\RamisStupidMaze Amb Bellows Loop_F17FB28C.wem</Path>
+				</File>
+				<File Id="216512846" Language="SFX">
+					<ShortName>Menu_Right.wav</ShortName>
+					<Path>SFX\Menu_Right_1C9C67B2.wem</Path>
+				</File>
+				<File Id="219030280" Language="SFX">
+					<ShortName>SFX_AmbienceLoop.wav</ShortName>
+					<Path>SFX\SFX_AmbienceLoop_1C9C67B2.wem</Path>
+				</File>
+				<File Id="332006768" Language="SFX">
+					<ShortName>RamisStupidMaze Amb Lava Loop.wav</ShortName>
+					<Path>SFX\RamisStupidMaze Amb Lava Loop_F17FB28C.wem</Path>
+				</File>
+				<File Id="417477558" Language="SFX">
+					<ShortName>Menu_Left.wav</ShortName>
+					<Path>SFX\Menu_Left_1C9C67B2.wem</Path>
+				</File>
+				<File Id="472709809" Language="SFX">
+					<ShortName>RamisStupidMaze Ambience City Loop.wav</ShortName>
+					<Path>SFX\RamisStupidMaze Ambience City Loop_F17FB28C.wem</Path>
+				</File>
+				<File Id="638273282" Language="SFX">
+					<ShortName>Menu_Enter.wav</ShortName>
+					<Path>SFX\Menu_Enter_1C9C67B2.wem</Path>
+				</File>
+				<File Id="665953086" Language="SFX">
+					<ShortName>RamisStupidMaze Ambience_01_Loop01.wav</ShortName>
+					<Path>SFX\RamisStupidMaze Ambience_01_Loop01_1C9C67B2.wem</Path>
+				</File>
+				<File Id="949856728" Language="SFX">
+					<ShortName>Menu_Up.wav</ShortName>
+					<Path>SFX\Menu_Up_1C9C67B2.wem</Path>
+				</File>
+				<File Id="961877663" Language="SFX">
+					<ShortName>RamisStupidMaze Ambience_01_Loop02.wav</ShortName>
+					<Path>SFX\RamisStupidMaze Ambience_01_Loop02_1C9C67B2.wem</Path>
+				</File>
+				<File Id="1009353758" Language="SFX">
+					<ShortName>Menu_Down.wav</ShortName>
+					<Path>SFX\Menu_Down_1C9C67B2.wem</Path>
+				</File>
+				<File Id="1058002671" Language="SFX">
+					<ShortName>RamisStupidMaze Chandelier Flag Loop.wav</ShortName>
+					<Path>SFX\RamisStupidMaze Chandelier Flag Loop_F17FB28C.wem</Path>
+				</File>
+			</IncludedMemoryFiles>
+		</SoundBank>
+		<SoundBank Id="1355168291" Language="SFX">
+			<ObjectPath>Init</ObjectPath>
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+		</SoundBank>
+	</SoundBanks>
+</SoundBanksInfo>
