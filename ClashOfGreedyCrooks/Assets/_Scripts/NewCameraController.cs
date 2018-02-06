@@ -11,7 +11,7 @@ public class NewCameraController : MonoBehaviour
     public float smoothTime = .5f;
 
     public float minZoom = 40f;
-    public float maxZoom = 10f;
+    public float maxZoom = 15f;
     public float zoomLimiter = 50f;
 
     private Vector3 velocity;
@@ -61,6 +61,7 @@ public class NewCameraController : MonoBehaviour
     void Zoom()
     {
         float newZoom = Mathf.Lerp(maxZoom, minZoom, GetGreatestDistance() / zoomLimiter);
+        
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, newZoom, Time.deltaTime);
     }
 
@@ -71,7 +72,16 @@ public class NewCameraController : MonoBehaviour
         {
             bounds.Encapsulate(targets[i].position);
         }
-        return bounds.size.x;
+
+        if (bounds.size.x > bounds.size.z)
+        {
+            return bounds.size.x;
+        }
+        else
+            return bounds.size.z;
+
+        
+
     }
 
 
