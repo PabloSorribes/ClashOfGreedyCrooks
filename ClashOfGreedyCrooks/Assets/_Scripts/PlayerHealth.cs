@@ -9,13 +9,15 @@ public class PlayerHealth : MonoBehaviour {
 
     private int maxHealth = 100;
     public int currentHealth;
-
+    
+    [Header("DEATH CIRCLE VALUES")]
     public float hurtCooldown = 2;
     private float timer;
     public bool insideDeathCircle;
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         rigidbody = GetComponent<Rigidbody>();
         
         timeManager = TimeManager.GetInstance;
@@ -24,7 +26,8 @@ public class PlayerHealth : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         timer += Time.deltaTime;
 
         if (timer > hurtCooldown && !insideDeathCircle)

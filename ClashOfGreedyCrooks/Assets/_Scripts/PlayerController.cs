@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [HideInInspector]public Shooting shootS;
+
 	public float speed = 5f;
 	private float aimAngle = 0f;
 	private float dt = 0f;
@@ -18,6 +20,8 @@ public class PlayerController : MonoBehaviour
 		directionalInputLeftStick = Vector3.zero;
 		directionalInputRightStick = Vector3.zero;
 		movement = Vector3.zero;
+
+        shootS = GetComponent<Shooting>();
 	}
 
 	private void Update()
@@ -39,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
 	public void Shoot()
 	{
-		Debug.Log("SHOOT");
+        shootS.Shoot();
 	}
 
 	public void SetDirectionalInput(Vector3 leftStick, Vector3 rightStick)

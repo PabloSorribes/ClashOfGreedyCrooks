@@ -7,13 +7,15 @@ using UnityEngine;
 /// </summary>
 public class Shooting : MonoBehaviour {
 
-    public GameObject bullet;
+    public Projectile proj;
+
+    
     public GameObject bulletSpawnPoint;
 
     private float timer;
     private float shootDisable = 0.5f;
 
-    private Transform bulletspawned;
+    private GameObject bulletspawned;
 
 	//TODO: Input should come through the PlayerController / which button activates it should be derived from the PlayerController.
 	void Update () {
@@ -27,10 +29,12 @@ public class Shooting : MonoBehaviour {
         }
 	}
 
-    //Spanws the bullet
+    //Spawns the bullet
     public void Shoot()
     {
-        bulletspawned = Instantiate(bullet.transform, bulletSpawnPoint.transform.position, Quaternion.identity);
-        bulletspawned.rotation = bulletSpawnPoint.transform.rotation;
+        bulletspawned = Instantiate(proj.gameObject, bulletSpawnPoint.transform.position, Quaternion.identity);
+        bulletspawned.transform.rotation = bulletSpawnPoint.transform.rotation;
+
+        
     }
 }
