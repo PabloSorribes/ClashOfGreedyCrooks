@@ -1,0 +1,384 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 413668057a3e73f4a97cd8ac3f205e05, type: 3}
+  m_Name: AkWwiseProjectData
+  m_EditorClassIdentifier: 
+  CurrentPluginConfig: 
+  EventWwu:
+  - PhysicalPath: Events\Arena.wwu
+    ParentPhysicalPath: Events\Default Work Unit.wwu
+    Guid: '{E52B8E58-C44B-4E89-A971-04B07B43562E}'
+    m_lastTimePsrt1: -1132618493
+    m_lastTimePart2: -1999279758
+    List:
+    - Name: Amb_Arena
+      Path: Default Work Unit\Arena\Amb_Arena
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Arena
+        ObjectType: 12
+      - ElementName: Amb_Arena
+        ObjectType: 3
+      ID: -440843997
+      Guid: 7533c0d90b1a8e4792eb152cd88c3596
+      minDuration: 0
+      maxDuration: 0
+      maxAttenuation: 0
+  - PhysicalPath: Events\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    Guid: '{C6B8209A-7D37-42B2-926F-48BFBB077421}'
+    m_lastTimePsrt1: 1114805239
+    m_lastTimePart2: -1999279759
+    List: []
+  - PhysicalPath: Events\Menu.wwu
+    ParentPhysicalPath: Events\Default Work Unit.wwu
+    Guid: '{F063B003-F567-4D8D-A550-B819B198AD6B}'
+    m_lastTimePsrt1: 1090179430
+    m_lastTimePart2: -1999279572
+    List:
+    - Name: Amb_Menu
+      Path: Default Work Unit\Menu\Amb_Menu
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Menu
+        ObjectType: 12
+      - ElementName: Amb_Menu
+        ObjectType: 3
+      ID: -1742424309
+      Guid: 2f26809ee791db4ea7591a6b636d0799
+      minDuration: 0
+      maxDuration: 0
+      maxAttenuation: 0
+    - Name: ButtonAccept
+      Path: Default Work Unit\Menu\ButtonAccept
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Menu
+        ObjectType: 12
+      - ElementName: ButtonAccept
+        ObjectType: 3
+      ID: 69462689
+      Guid: c2008e0cb795c143a345170bb4b1f4c0
+      minDuration: 0
+      maxDuration: 0
+      maxAttenuation: 0
+    - Name: ButtonDecline
+      Path: Default Work Unit\Menu\ButtonDecline
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Menu
+        ObjectType: 12
+      - ElementName: ButtonDecline
+        ObjectType: 3
+      ID: 891695653
+      Guid: 73ba54003f7d364f8c76b24edb5436c2
+      minDuration: 0
+      maxDuration: 0
+      maxAttenuation: 0
+    - Name: ButtonDisconnect
+      Path: Default Work Unit\Menu\ButtonDisconnect
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Menu
+        ObjectType: 12
+      - ElementName: ButtonDisconnect
+        ObjectType: 3
+      ID: -2130382281
+      Guid: 8ce5b3d8d86db541823f3f90661d4d03
+      minDuration: 0
+      maxDuration: 0
+      maxAttenuation: 0
+    - Name: ButtonHover
+      Path: Default Work Unit\Menu\ButtonHover
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Menu
+        ObjectType: 12
+      - ElementName: ButtonHover
+        ObjectType: 3
+      ID: -1259395211
+      Guid: 4fbd1cd3f8792047aba39ebd254a1b80
+      minDuration: 0
+      maxDuration: 0
+      maxAttenuation: 0
+    - Name: ButtonJoin
+      Path: Default Work Unit\Menu\ButtonJoin
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Menu
+        ObjectType: 12
+      - ElementName: ButtonJoin
+        ObjectType: 3
+      ID: 2024546869
+      Guid: ec9a053f9f6e4543a1e6138fb258a149
+      minDuration: 0
+      maxDuration: 0
+      maxAttenuation: 0
+  - PhysicalPath: Events\Picking.wwu
+    ParentPhysicalPath: Events\Default Work Unit.wwu
+    Guid: '{7A96020D-A01B-4610-BEB6-878174648428}'
+    m_lastTimePsrt1: -5882610
+    m_lastTimePart2: -1999279576
+    List:
+    - Name: Amb_Picking
+      Path: Default Work Unit\Picking\Amb_Picking
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Picking
+        ObjectType: 12
+      - ElementName: Amb_Picking
+        ObjectType: 3
+      ID: -1311782333
+      Guid: 88691906045af04194fab7fa316043af
+      minDuration: 0
+      maxDuration: 0
+      maxAttenuation: 0
+  AuxBusWwu:
+  - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    Guid: '{74561D15-2566-4F82-8108-C6BBCF25E51F}'
+    m_lastTimePsrt1: -2080060578
+    m_lastTimePart2: -1999279771
+    List: []
+  StateWwu:
+  - PhysicalPath: States\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    Guid: '{77A5B357-27CF-415C-89CE-57706E398CB0}'
+    m_lastTimePsrt1: 1251084157
+    m_lastTimePart2: -1999279771
+    List: []
+  SwitchWwu:
+  - PhysicalPath: Switches\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    Guid: '{96264372-17CB-401B-91A7-26765877DB05}'
+    m_lastTimePsrt1: 1251244584
+    m_lastTimePart2: -1999279771
+    List: []
+  BankWwu:
+  - PhysicalPath: SoundBanks\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    Guid: '{DAE56C0E-4DE9-4D6C-90FD-EEF80EB052B0}'
+    m_lastTimePsrt1: 1582321478
+    m_lastTimePart2: -1999279759
+    List:
+    - Name: WwiseSoundBank
+      Path: Default Work Unit\WwiseSoundBank
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: WwiseSoundBank
+        ObjectType: 7
+      ID: 1238300023
+      Guid: 9f934bafb9a65b419557b77800b41107
+  RtpcWwu:
+  - PhysicalPath: Game Parameters\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    Guid: '{51E4C911-D780-490C-B5A8-51D0C74EC654}'
+    m_lastTimePsrt1: 1251535319
+    m_lastTimePart2: -1999279771
+    List: []
+  TriggerWwu:
+  - PhysicalPath: Triggers\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    Guid: '{B88C6F35-0FF7-4271-88F3-E60A00D811A0}'
+    m_lastTimePsrt1: 1251409981
+    m_lastTimePart2: -1999279771
+    List: []
+  AcousticTextureWwu:
+  - PhysicalPath: Virtual Acoustics\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    Guid: '{FB832004-EA52-4F30-982E-4215E0836720}'
+    m_lastTimePsrt1: 1251359831
+    m_lastTimePart2: -1999279771
+    List: []
+  - PhysicalPath: Virtual Acoustics\Factory Reflect Acoustic Textures.wwu
+    ParentPhysicalPath: 
+    Guid: '{463D666B-3CA8-4FA5-8B4A-5FEF12B883F6}'
+    m_lastTimePsrt1: -519285149
+    m_lastTimePart2: -1999279991
+    List:
+    - Name: Acoustic_Banner
+      Path: Factory Reflect Acoustic Textures\Textures\Acoustic_Banner
+      PathAndIcons:
+      - ElementName: Factory Reflect Acoustic Textures
+        ObjectType: 12
+      - ElementName: Textures
+        ObjectType: 4
+      - ElementName: Acoustic_Banner
+        ObjectType: 15
+      ID: -126323319
+      Guid: f2532d2fccda8e408b8898b1b52a26d6
+    - Name: Anechoic
+      Path: Factory Reflect Acoustic Textures\Textures\Anechoic
+      PathAndIcons:
+      - ElementName: Factory Reflect Acoustic Textures
+        ObjectType: 12
+      - ElementName: Textures
+        ObjectType: 4
+      - ElementName: Anechoic
+        ObjectType: 15
+      ID: 1873957695
+      Guid: 32c20a8be202de4ebeacfdd1a900e3ed
+    - Name: Brick
+      Path: Factory Reflect Acoustic Textures\Textures\Brick
+      PathAndIcons:
+      - ElementName: Factory Reflect Acoustic Textures
+        ObjectType: 12
+      - ElementName: Textures
+        ObjectType: 4
+      - ElementName: Brick
+        ObjectType: 15
+      ID: 504532776
+      Guid: a9a586b004f2534ca838bdb18b18f6d6
+    - Name: Carpet
+      Path: Factory Reflect Acoustic Textures\Textures\Carpet
+      PathAndIcons:
+      - ElementName: Factory Reflect Acoustic Textures
+        ObjectType: 12
+      - ElementName: Textures
+        ObjectType: 4
+      - ElementName: Carpet
+        ObjectType: 15
+      ID: -1882360988
+      Guid: 8975223456dc604296c4b9f4b669092b
+    - Name: Concrete
+      Path: Factory Reflect Acoustic Textures\Textures\Concrete
+      PathAndIcons:
+      - ElementName: Factory Reflect Acoustic Textures
+        ObjectType: 12
+      - ElementName: Textures
+        ObjectType: 4
+      - ElementName: Concrete
+        ObjectType: 15
+      ID: 841620460
+      Guid: 001cf85c9628e04aaf7c3080bdaba682
+    - Name: Cork_Tiles
+      Path: Factory Reflect Acoustic Textures\Textures\Cork_Tiles
+      PathAndIcons:
+      - ElementName: Factory Reflect Acoustic Textures
+        ObjectType: 12
+      - ElementName: Textures
+        ObjectType: 4
+      - ElementName: Cork_Tiles
+        ObjectType: 15
+      ID: -1099468548
+      Guid: 19c9d2305f92434189063dbb3c4ae5e2
+    - Name: Curtains
+      Path: Factory Reflect Acoustic Textures\Textures\Curtains
+      PathAndIcons:
+      - ElementName: Factory Reflect Acoustic Textures
+        ObjectType: 12
+      - ElementName: Textures
+        ObjectType: 4
+      - ElementName: Curtains
+        ObjectType: 15
+      ID: -1366806192
+      Guid: 339ee6f8975c6849b508a1535f2d66e8
+    - Name: Drywall
+      Path: Factory Reflect Acoustic Textures\Textures\Drywall
+      PathAndIcons:
+      - ElementName: Factory Reflect Acoustic Textures
+        ObjectType: 12
+      - ElementName: Textures
+        ObjectType: 4
+      - ElementName: Drywall
+        ObjectType: 15
+      ID: -624659732
+      Guid: f4e3a4680b4c8746a8b8a84db93dbc8f
+    - Name: Fabric
+      Path: Factory Reflect Acoustic Textures\Textures\Fabric
+      PathAndIcons:
+      - ElementName: Factory Reflect Acoustic Textures
+        ObjectType: 12
+      - ElementName: Textures
+        ObjectType: 4
+      - ElementName: Fabric
+        ObjectType: 15
+      ID: 1970351858
+      Guid: 32d581836edbed4ea7a3bc7b0a0b8ba8
+    - Name: Mountain
+      Path: Factory Reflect Acoustic Textures\Textures\Mountain
+      PathAndIcons:
+      - ElementName: Factory Reflect Acoustic Textures
+        ObjectType: 12
+      - ElementName: Textures
+        ObjectType: 4
+      - ElementName: Mountain
+        ObjectType: 15
+      ID: 513139656
+      Guid: 313793c51a00b44a98dd9b033a8c8eab
+    - Name: Tile
+      Path: Factory Reflect Acoustic Textures\Textures\Tile
+      PathAndIcons:
+      - ElementName: Factory Reflect Acoustic Textures
+        ObjectType: 12
+      - ElementName: Textures
+        ObjectType: 4
+      - ElementName: Tile
+        ObjectType: 15
+      ID: -1657378743
+      Guid: c4da82a82a13b747ba9db9907ba29cc0
+    - Name: Wood
+      Path: Factory Reflect Acoustic Textures\Textures\Wood
+      PathAndIcons:
+      - ElementName: Factory Reflect Acoustic Textures
+        ObjectType: 12
+      - ElementName: Textures
+        ObjectType: 4
+      - ElementName: Wood
+        ObjectType: 15
+      ID: 2058049674
+      Guid: 96bcff1fe76f9e48ba6c7c14a71391ae
+    - Name: Wood_Bright
+      Path: Factory Reflect Acoustic Textures\Textures\Wood_Bright
+      PathAndIcons:
+      - ElementName: Factory Reflect Acoustic Textures
+        ObjectType: 12
+      - ElementName: Textures
+        ObjectType: 4
+      - ElementName: Wood_Bright
+        ObjectType: 15
+      ID: -32444547
+      Guid: e5d1857ba2c1634e9a13cec54b641adc
+    - Name: Wood_Deep
+      Path: Factory Reflect Acoustic Textures\Textures\Wood_Deep
+      PathAndIcons:
+      - ElementName: Factory Reflect Acoustic Textures
+        ObjectType: 12
+      - ElementName: Textures
+        ObjectType: 4
+      - ElementName: Wood_Deep
+        ObjectType: 15
+      ID: 1755085759
+      Guid: 8e474652dac50c4ea0dec98d1479529a
+  ExpandedItems:
+  - /ClashOfGreedyCrooks_Wwise
+  - /ClashOfGreedyCrooks_Wwise/SoundBanks
+  - /ClashOfGreedyCrooks_Wwise/SoundBanks/Default Work Unit
+  m_lastPopulateTimePsrt1: 0
+  m_lastPopulateTimePart2: 0
+  autoPopulateEnabled: 1
+  basePath: Audio\GeneratedSoundBanks
+  language: English(US)
+  defaultPoolSize: 4096
+  lowerPoolSize: 2048
+  streamingPoolSize: 1024
+  preparePoolSize: 0
+  memoryCutoffThreshold: 0.95
+  callbackManagerBufferSize: 4

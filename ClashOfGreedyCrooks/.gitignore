@@ -48,9 +48,9 @@ $RECYCLE.BIN/
 ###############
 #### Wwise ####
 ###############
-/Assets/Wwise/Editor/ProjectData
+#/Assets/Wwise/Editor/ProjectData
 .cache/*
-.akd
-.prof
-.wsettings
-.validationcache
+#.akd
+#.prof
+#.wsettings
+#.validationcache
