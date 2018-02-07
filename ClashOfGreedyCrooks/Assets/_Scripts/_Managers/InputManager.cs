@@ -16,7 +16,7 @@ public class InputManager : GenericSingleton<InputManager>
 	private GamePadState[] prevState = new GamePadState[4];
 
 	//Input polling variables
-	private bool rightTriggerReleased = true;
+	private bool[] rightTriggerReleased = new bool[4];
 
 	//Variables for testing, set from Manager Initialization
 	public static bool setTrueForTesting = false;
@@ -27,6 +27,10 @@ public class InputManager : GenericSingleton<InputManager>
 		OnGameStateChanged(GameStateManager.GetInstance.GetState());
 		GameStateManager.GetInstance.GameStateChanged += OnGameStateChanged;
 
+		for (int i = 0; i < 4; i++)
+		{
+			rightTriggerReleased[i] = true;
+		}
 		AddConnectedGamepads();
 
 
@@ -163,15 +167,15 @@ public class InputManager : GenericSingleton<InputManager>
 						//TODO: Alt. Fire or Skill
 					}
 
-					if (state[i].Triggers.Right >= 0.05f && rightTriggerReleased)
+					if (state[i].Triggers.Right >= 0.05f && rightTriggerReleased[i])
 					{
 						players[i].Shoot();
 
-						rightTriggerReleased = false;
+						rightTriggerReleased[i] = false;
 					}
 					if(state[i].Triggers.Right < 0.05f)
 					{
-						rightTriggerReleased = true;
+						rightTriggerReleased[i] = true;
 					}
 
 
