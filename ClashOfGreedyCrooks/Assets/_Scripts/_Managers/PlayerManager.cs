@@ -9,7 +9,11 @@ public static class PlayerManager
     {
         players = new PlayerInfo[4];
         for (int i = 0; i < players.Length; i++)
-            players[i] = new PlayerInfo(99, 99);
+            players[i] = new PlayerInfo
+            {
+                Player = 99,
+                Gamepad = 99
+            };           
     }
 
     public static int GetPlayersConnected()

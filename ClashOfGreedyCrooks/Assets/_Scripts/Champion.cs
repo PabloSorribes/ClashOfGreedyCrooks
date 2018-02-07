@@ -2,6 +2,8 @@
 
 public class Champion : MonoBehaviour {
 
+    private Penalty penalty;
+    
     //Variables
     private float health;
     private float movement;
@@ -79,7 +81,7 @@ public class Champion : MonoBehaviour {
     public bool Picked { get; set; }
     public bool Locked { get; set; }
 
-    //Starting values
+    //Starting values (set in inspector)
     [SerializeField] private float healthMin;
     [SerializeField] private float healthMax;
     [SerializeField] private float movementMin;
@@ -88,9 +90,7 @@ public class Champion : MonoBehaviour {
     [SerializeField] private float damageMax;
     [SerializeField] private float attackSpeedMin;
     [SerializeField] private float attackSpeedMax;
-
-    private Penalty penalty;
-
+    
     private void Start()
     {
         penalty = GetComponent<Penalty>();

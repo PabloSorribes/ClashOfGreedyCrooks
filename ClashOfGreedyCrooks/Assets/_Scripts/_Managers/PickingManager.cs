@@ -12,12 +12,13 @@ public class PickingManager : MonoBehaviour
 		}
 	}
 
-	//Loads from resources
-	private GameObject arena, spawnedArena;
+    #region LoadsFromResources
+    private GameObject arena, spawnedArena;
 	private GameObject playerPrefab;
 	private GameObject[] championPrefabs;
 	private GameObject[] weaponPrefabs;
 	private Sprite[] buttons;
+    #endregion
 
 	private Transform[] spawnPositions = new Transform[4];
 	private Transform[] playerPositions = new Transform[4];
@@ -44,10 +45,7 @@ public class PickingManager : MonoBehaviour
 		SpawnWeapons();
 		AssignChampionButton();
 	}
-
-	/// <summary>
-	/// Loads all resources needed.
-	/// </summary>
+    
 	private void LoadResources()
 	{
 		arena = Resources.Load("Arenas/PickingTestArena") as GameObject;
@@ -56,10 +54,7 @@ public class PickingManager : MonoBehaviour
 		weaponPrefabs = Resources.LoadAll("Weapons", typeof(Object)).Cast<GameObject>().ToArray();
 		buttons = Resources.LoadAll("Picking/Sprites/Buttons", typeof(Sprite)).Cast<Sprite>().ToArray();
 	}
-
-	/// <summary>
-	/// Finds the childs in waypoint holder in the instantiated arena.
-	/// </summary>
+    
 	private void GetChilds(Transform[] array, string path)
 	{
 		Transform waypointsParent;
@@ -117,6 +112,9 @@ public class PickingManager : MonoBehaviour
 		}
 	}
 
+    /// <summary>
+    /// Instantiates a button sprite above champion head.
+    /// </summary>
 	private void AssignChampionButton()
 	{
 		for (int i = 0; i < spawnedChampions.Length; i++)
@@ -128,6 +126,11 @@ public class PickingManager : MonoBehaviour
 		}
 	}
 
+    /// <summary>
+    /// Called from InputManager.
+    /// </summary>
+    /// <param name="gamepadIndex"></param>
+    /// <param name="button"></param>
 	public void PickChampion(int gamepadIndex, int button)
 	{
 		for (int i = 0; i < PlayerManager.players.Length; i++)
@@ -174,7 +177,7 @@ public class PickingManager : MonoBehaviour
 		for (int i = 0; i < spawnedChampions.Length; i++)
 			if (spawnedChampions[i].GetComponent<Champion>().PlayerIndex == playerIndex)
 			{
-				spawnedChampions[i].GetComponent<Penalty>().AddPenalty((Nerf)button, 1);
+				spawnedChampions[i].GetComponent<Penalty>().AddPenalty((Nerf)button, 2);
 				spawnedChampions[i].GetComponent<Champion>().Locked = false;
 				spawnedChampions[i].transform.position = playerPositions[playerIndex].position;
 				spawnedChampions[i].GetComponent<Penalty>().Buttons(false);
@@ -207,26 +210,42 @@ public class PickingManager : MonoBehaviour
 		GameStateManager.GetInstance.SetState(GameState.Arena);
 	}
 
+    /// <summary>
+    /// Instantiates a player prefab and attach a champion to it.
+    /// </summary>
+    /// <param name="playerIndex"></param>
+    /// <param name="championIndex"></param>
 	private void SpawnPlayer(int playerIndex, int championIndex)
 	{
 		GameObject newPlayer = Instantiate(playerPrefab);
-		newPlayer.GetComponent<PlayerInfo>().Player = PlayerManager.players[playerIndex].Player;
-		newPlayer.GetComponent<PlayerInfo>().Gamepad = PlayerManager.players[playerIndex].Gamepad;
 
-		spawnedChampions[championIndex].transform.SetParent(newPlayer.transform.Find("Champion"));
-		spawnedChampions[championIndex].transform.localPosition = Vector3.zero;
-        spawnedChampions[championIndex].transform.rotation = newPlayer.transform.rotation;
-        spawnedChampions[championIndex].transform.Find("StatsHolder").gameObject.SetActive(false);
-		spawnedChampions[championIndex].transform.Find("ChampionButton").gameObject.SetActive(false);
+        //References
+        PlayerInfo playerInfo = newPlayer.GetComponent<PlayerInfo>();
+        Transform champion = spawnedChampions[championIndex].transform;
+        Champion championScript = spawnedChampions[championIndex].GetComponent<Champion>();
 
+        //Player
+        playerInfo.Player = PlayerManager.players[playerIndex].Player;
+        playerInfo.Gamepad = PlayerManager.players[playerIndex].Gamepad;
+        playerInfo.SetDontDestroyOnLoad();
+
+        //Champion
+        champion.SetParent(newPlayer.transform.Find("Champion"));
+        champion.localPosition = Vector3.zero;
+        champion.rotation = newPlayer.transform.rotation;
+        champion.Find("StatsHolder").gameObject.SetActive(false);
+        champion.Find("ChampionButton").gameObject.SetActive(false);
+
+        //Enable scripts
 		newPlayer.GetComponent<Shooting>().enabled = true;
 		newPlayer.GetComponent<PlayerHealth>().enabled = true;
 
-		newPlayer.GetComponent<PlayerHealth>().SetStartHealth(spawnedChampions[championIndex].GetComponent<Champion>().Health * 10);
-		newPlayer.GetComponent<PlayerController>().speed = spawnedChampions[championIndex].GetComponent<Champion>().Movement;
-		newPlayer.GetComponent<Shooting>().damage = spawnedChampions[championIndex].GetComponent<Champion>().Damage;
-		newPlayer.GetComponent<PlayerController>().attackSpeed = spawnedChampions[championIndex].GetComponent<Champion>().AttackSpeed * .1f;
+        //Player stats
+		newPlayer.GetComponent<PlayerHealth>().SetStartHealth(championScript.Health * 10);
+		newPlayer.GetComponent<Shooting>().damage = championScript.Damage;
+		newPlayer.GetComponent<PlayerController>().speed = championScript.Movement;
+		newPlayer.GetComponent<PlayerController>().attackSpeed = championScript.AttackSpeed * .1f;
 
-		PlayerManager.AddSpawnedPlayer(newPlayer);
+        PlayerManager.AddSpawnedPlayer(newPlayer);
 	}
 }

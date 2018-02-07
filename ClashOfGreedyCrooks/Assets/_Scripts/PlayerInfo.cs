@@ -18,13 +18,7 @@ public class PlayerInfo : MonoBehaviour
     public Color32 Avatar { get; set; }
     public bool HasChampion { get; set; }
 
-    public PlayerInfo(int player, int gamepad)
-    {
-        Player = player;
-        Gamepad = gamepad;
-    }
-
-    private void Start()
+    public void SetDontDestroyOnLoad()
     {
         DontDestroyOnLoad(gameObject);
     }
