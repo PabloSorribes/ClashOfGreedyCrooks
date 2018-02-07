@@ -5,9 +5,19 @@ using UnityEngine;
 /// <summary>
 /// Courtesy of: https://answers.unity.com/questions/582223/scaling-objects-over-time.html
 /// </summary>
-public class DeathCircle : GenericSingleton<DeathCircle>
+public class DeathCircle : MonoBehaviour
 {
-    private float startSize = 1;
+	//CODECHANGE: Removed the singleton inheritance and replaced with a simple static since global access is all we need.
+	private static DeathCircle instance;
+	public static DeathCircle GetInstance
+	{
+		get
+		{
+			return instance;
+		}
+	}
+
+	private float startSize = 1;
     private float maxSize = 5;
     private float minSize = 0.3f;
 

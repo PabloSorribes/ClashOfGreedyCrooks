@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 54106180864647138}
   - component: {fileID: 114474752412571030}
   m_Layer: 0
-  m_Name: PlayerPrefab
+  m_Name: PlayerPrefabTest
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -208,4 +208,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ec294fdc25e8f4f8cd10306a036c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shootS: {fileID: 0}
   speed: 5
+  attackSpeed: 0

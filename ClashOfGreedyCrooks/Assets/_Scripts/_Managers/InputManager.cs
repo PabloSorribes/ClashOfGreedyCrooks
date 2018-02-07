@@ -5,16 +5,20 @@ using XInputDotNetPure;
 
 public class InputManager : GenericSingleton<InputManager>
 {
-
 	private GameState gameState;
 
+	//Player references variables
 	private PlayerController[] players = new PlayerController[4];
 
+	//Gamepad variables
 	private List<PlayerIndex> gamepadIndex = new List<PlayerIndex>();
 	private GamePadState[] state = new GamePadState[4];
 	private GamePadState[] prevState = new GamePadState[4];
 
-	//For testing: variables
+	//Input polling variables
+	private bool rightTriggerReleased = true;
+
+	//Variables for testing, set from Manager Initialization
 	public static bool setTrueForTesting = false;
 	public static GameState manualGameStateOverride;
 
@@ -33,7 +37,7 @@ public class InputManager : GenericSingleton<InputManager>
 			{
 				players[i] = FindObjectOfType<PlayerController>();
 			}
-			//Set GameState to be able to change what part of inputs to use regardless of current scene
+			//For testing: Set GameState to be able to change what part of inputs to use regardless of current scene
 			gameState = manualGameStateOverride;
 		}
 	}
@@ -93,20 +97,18 @@ public class InputManager : GenericSingleton<InputManager>
 
 				case GameState.PlayerConnect:
 
-					// Detect if a button was pressed this frame
 					if (prevState[i].Buttons.A == ButtonState.Released &&
 							state[i].Buttons.A == ButtonState.Pressed)
 					{
 						PlayerConnectManager.GetInstance.AddPlayer((int)gamepadIndex[i]);
-						Debug.Log("Player " + i + " pressed button A on Gamepad " + i);
+						//Debug.Log("Player " + i + " pressed button A on Gamepad " + i);
 					}
 
 					if (prevState[i].Buttons.B == ButtonState.Released &&
 							state[i].Buttons.B == ButtonState.Pressed)
 					{
 						PlayerConnectManager.GetInstance.RemovePlayer((int)gamepadIndex[i]);
-
-						Debug.Log("Player " + i + " pressed button B on Gamepad " + i);
+						//Debug.Log("Player " + i + " pressed button B on Gamepad " + i);
 					}
 					if (prevState[i].Buttons.Start == ButtonState.Released &&
 							state[i].Buttons.Start == ButtonState.Pressed)
@@ -122,33 +124,29 @@ public class InputManager : GenericSingleton<InputManager>
 							state[i].Buttons.A == ButtonState.Pressed)
 					{
 						PickingManager.GetInstance.PickChampion(i, 0);
-						Debug.Log("Player " + i + " pressed button A on Gamepad " + i);
+						//Debug.Log("Player " + i + " pressed button A on Gamepad " + i);
 					}
 
 					if (prevState[i].Buttons.B == ButtonState.Released &&
 							state[i].Buttons.B == ButtonState.Pressed)
 					{
 						PickingManager.GetInstance.PickChampion(i, 1);
-
-						Debug.Log("Player " + i + " pressed button B on Gamepad " + i);
+						//Debug.Log("Player " + i + " pressed button B on Gamepad " + i);
 					}
 
 					if (prevState[i].Buttons.X == ButtonState.Released &&
 							state[i].Buttons.X == ButtonState.Pressed)
 					{
 						PickingManager.GetInstance.PickChampion(i, 2);
-
-						Debug.Log("Player " + i + " pressed button X on Gamepad " + i);
+						//Debug.Log("Player " + i + " pressed button X on Gamepad " + i);
 					}
 
 					if (prevState[i].Buttons.Y == ButtonState.Released &&
 							state[i].Buttons.Y == ButtonState.Pressed)
 					{
 						PickingManager.GetInstance.PickChampion(i, 3);
-
-						Debug.Log("Player " + i + " pressed button Y on Gamepad " + i);
+						//Debug.Log("Player " + i + " pressed button Y on Gamepad " + i);
 					}
-
 
 					break;
 
@@ -165,10 +163,17 @@ public class InputManager : GenericSingleton<InputManager>
 						//TODO: Alt. Fire or Skill
 					}
 
-					if (state[i].Triggers.Right > 0)
+					if (state[i].Triggers.Right >= 0.05f && rightTriggerReleased)
 					{
 						players[i].Shoot();
+
+						rightTriggerReleased = false;
 					}
+					if(state[i].Triggers.Right < 0.05f)
+					{
+						rightTriggerReleased = true;
+					}
+
 
 					if (prevState[i].Buttons.LeftShoulder == ButtonState.Released &&
 							state[i].Buttons.LeftShoulder == ButtonState.Pressed)

@@ -3,8 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TimeManager : GenericSingleton<TimeManager>
+public class TimeManager : MonoBehaviour
 {
+	private static TimeManager instance;
+	public static TimeManager GetInstance
+	{
+		get
+		{
+			return instance;
+		}
+	}
+
 	public float trackTime = 120;
 
 	private bool isPaused;
