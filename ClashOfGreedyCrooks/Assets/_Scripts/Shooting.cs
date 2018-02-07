@@ -11,7 +11,6 @@ public class Shooting : MonoBehaviour {
     public float damage = 20;
 
     public Projectile proj;
-
     
     public Transform bulletSpawnPoint;
 
@@ -40,10 +39,11 @@ public class Shooting : MonoBehaviour {
     //Spawns the bullet
     public void Shoot()
     {
+
         bulletspawned = Instantiate(proj.gameObject, bulletSpawnPoint.position, Quaternion.identity);
         bulletspawned.transform.rotation = bulletSpawnPoint.transform.rotation;
         bulletspawned.GetComponent<Projectile>().damage = damage;
         bulletspawned.GetComponent<Projectile>().projectileSpeed = projectileSpeed;
-
+        bulletspawned.GetComponent<Projectile>().player = gameObject;
     }
 }

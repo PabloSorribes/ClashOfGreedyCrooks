@@ -9,6 +9,8 @@ public class Projectile : MonoBehaviour {
 
     private float deathTimer;
 
+    public GameObject player;
+
     //Time until the bullet is destroyed
     private float defaultTime = 5;
 
@@ -29,12 +31,13 @@ public class Projectile : MonoBehaviour {
     public void OnCollisionEnter(Collision collision)
     {
 
-        if (collision.gameObject.tag=="Player")
+        if (collision.gameObject.tag=="Player" && player.GetComponent<Shooting>() != this.gameObject)
         {
             collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
 
             
         }
+
         Destroy(gameObject);
       
     }
