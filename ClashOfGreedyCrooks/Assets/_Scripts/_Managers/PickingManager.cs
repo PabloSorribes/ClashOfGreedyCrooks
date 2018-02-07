@@ -102,7 +102,7 @@ public class PickingManager : MonoBehaviour
 		for (int i = 0; i < PlayerManager.GetPlayersConnected(); i++)
 			if (PlayerManager.players[i].Connected)
 			{
-				GameObject newChampion = Instantiate(championPrefabs[i].gameObject, spawnPositions[i].position, Quaternion.identity);
+				GameObject newChampion = Instantiate(championPrefabs[i].gameObject, spawnPositions[i].position, spawnPositions[i].rotation);
 				spawnedChampions[i] = newChampion;
 				spawnedChampions[i].GetComponent<Champion>().PlayerIndex = 99;
 			}
@@ -215,7 +215,8 @@ public class PickingManager : MonoBehaviour
 
 		spawnedChampions[championIndex].transform.SetParent(newPlayer.transform.Find("Champion"));
 		spawnedChampions[championIndex].transform.localPosition = Vector3.zero;
-		spawnedChampions[championIndex].transform.Find("StatsHolder").gameObject.SetActive(false);
+        spawnedChampions[championIndex].transform.rotation = newPlayer.transform.rotation;
+        spawnedChampions[championIndex].transform.Find("StatsHolder").gameObject.SetActive(false);
 		spawnedChampions[championIndex].transform.Find("ChampionButton").gameObject.SetActive(false);
 
 		newPlayer.GetComponent<Shooting>().enabled = true;

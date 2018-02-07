@@ -99,15 +99,15 @@ public class Champion : MonoBehaviour {
         Movement = (int)Random.Range(movementMin, movementMax + 1);
         Damage = (int)Random.Range(damageMin, damageMax + 1);
         AttackSpeed = (int)Random.Range(attackSpeedMin, attackSpeedMax + 1);
-        
-        SetBaseStats();
+
+        UpdateStartingStatsUI();
     }
 
-    private void SetBaseStats()
+    private void UpdateStartingStatsUI()
     {
-        penalty.AddPenalty(Nerf.Health, 10 - (int)Health);
-        penalty.AddPenalty(Nerf.Movement, 10 - (int)Movement);
-        penalty.AddPenalty(Nerf.Damage, 10 - (int)Damage);
-        penalty.AddPenalty(Nerf.AttackSpeed, 10 - (int)AttackSpeed);
+        penalty.SetStartingStats(Nerf.Health, 10 - (int)Health);
+        penalty.SetStartingStats(Nerf.Movement, 10 - (int)Movement);
+        penalty.SetStartingStats(Nerf.Damage, 10 - (int)Damage);
+        penalty.SetStartingStats(Nerf.AttackSpeed, 10 - (int)AttackSpeed);
     }
 }

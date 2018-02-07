@@ -231,6 +231,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1711077258965644, guid: 2419d704342ddf84ba52979a43f6ad40, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2419d704342ddf84ba52979a43f6ad40, type: 2}
   m_IsPrefabParent: 0
@@ -328,8 +332,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targets: []
-  offset: {x: 0, y: 50, z: -30}
-  smoothTime: 0.5
+  offset: {x: 0, y: 30, z: -15}
+  smoothTime: 0.2
   minZoom: 45
   maxZoom: 15
   zoomLimiter: 35

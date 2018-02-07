@@ -2,11 +2,12 @@
 
 public static class PlayerManager
 {
-    public static PlayerInfo[] players = new PlayerInfo[4];
+    public static PlayerInfo[] players;
     public static GameObject[] spawnedPlayers;
 
     public static void FillPlayersArray()
     {
+        players = new PlayerInfo[4];
         for (int i = 0; i < players.Length; i++)
             players[i] = new PlayerInfo(99, 99);
     }
