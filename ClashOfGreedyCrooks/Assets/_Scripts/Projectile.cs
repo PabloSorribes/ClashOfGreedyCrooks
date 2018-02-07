@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour {
 
-    public int projectileSpeed = 20;
-    public int damage = 50;
+    public float projectileSpeed = 20;
+    public float damage = 20;
 
     private float deathTimer;
 
@@ -33,8 +33,9 @@ public class Projectile : MonoBehaviour {
         {
             collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
 
-            Destroy(gameObject);
+            
         }
+        Destroy(gameObject);
       
     }
 }

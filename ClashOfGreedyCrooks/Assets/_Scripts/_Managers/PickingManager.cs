@@ -218,6 +218,14 @@ public class PickingManager : MonoBehaviour
         spawnedChampions[championIndex].transform.Find("StatsHolder").gameObject.SetActive(false);
         spawnedChampions[championIndex].transform.Find("ChampionButton").gameObject.SetActive(false);
 
+        newPlayer.GetComponent<Shooting>().enabled = true;
+        newPlayer.GetComponent<PlayerHealth>().enabled = true;
+
+        newPlayer.GetComponent<PlayerHealth>().SetStartHealth(spawnedChampions[championIndex].GetComponent<Champion>().Health * 10);
+        newPlayer.GetComponent<PlayerController>().speed = spawnedChampions[championIndex].GetComponent<Champion>().Movement;
+        newPlayer.GetComponent<Shooting>().damage = spawnedChampions[championIndex].GetComponent<Champion>().Damage;
+        newPlayer.GetComponent<PlayerController>().attackSpeed = spawnedChampions[championIndex].GetComponent<Champion>().AttackSpeed * .1f;
+
         PlayerManager.AddSpawnedPlayer(newPlayer);
     }
 }

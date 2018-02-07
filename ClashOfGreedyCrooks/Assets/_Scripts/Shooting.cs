@@ -7,18 +7,26 @@ using UnityEngine;
 /// </summary>
 public class Shooting : MonoBehaviour {
 
+    public float projectileSpeed = 20;
+    public float damage = 20;
+
     public Projectile proj;
 
     
-    public GameObject bulletSpawnPoint;
+    public Transform bulletSpawnPoint;
 
     private float timer;
     private float shootDisable = 0.5f;
 
     private GameObject bulletspawned;
 
-	//TODO: Input should come through the PlayerController / which button activates it should be derived from the PlayerController.
-	void Update () {
+    //TODO: Input should come through the PlayerController / which button activates it should be derived from the PlayerController.
+    private void Start()
+    {
+        bulletSpawnPoint = transform.Find("Champion").GetChild(0).Find("WeaponHold").GetChild(0).Find("Muzzle");
+    }
+
+    void Update () {
 
         timer += Time.deltaTime;
 
@@ -32,9 +40,10 @@ public class Shooting : MonoBehaviour {
     //Spawns the bullet
     public void Shoot()
     {
-        bulletspawned = Instantiate(proj.gameObject, bulletSpawnPoint.transform.position, Quaternion.identity);
+        bulletspawned = Instantiate(proj.gameObject, bulletSpawnPoint.position, Quaternion.identity);
         bulletspawned.transform.rotation = bulletSpawnPoint.transform.rotation;
+        bulletspawned.GetComponent<Projectile>().damage = damage;
+        bulletspawned.GetComponent<Projectile>().projectileSpeed = projectileSpeed;
 
-        
     }
 }

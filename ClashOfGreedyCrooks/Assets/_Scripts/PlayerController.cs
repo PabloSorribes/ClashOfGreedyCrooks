@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
 	private float aimAngle = 0f;
 	private float dt = 0f;
 
+    public float attackSpeed;
+    private bool cooldown;
+
 	private Vector3 movement;
 	private Vector3 directionalInputLeftStick;
 	private Vector3 directionalInputRightStick;
@@ -43,8 +46,19 @@ public class PlayerController : MonoBehaviour
 
 	public void Shoot()
 	{
-        shootS.Shoot();
+        if (!cooldown)
+        {
+            shootS.Shoot();
+            cooldown = true;
+            Invoke("CooldownTimer", attackSpeed);
+
+        }
 	}
+
+    private void CooldownTimer()
+    {
+        cooldown = false;
+    } 
 
 	public void SetDirectionalInput(Vector3 leftStick, Vector3 rightStick)
 	{

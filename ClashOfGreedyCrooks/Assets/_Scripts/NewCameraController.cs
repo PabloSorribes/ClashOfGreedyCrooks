@@ -20,6 +20,10 @@ public class NewCameraController : MonoBehaviour
     void Start()
     {
         cam = GetComponent<Camera>();
+        foreach (GameObject player in PlayerManager.spawnedPlayers)
+        {
+            targets.Add(player.transform);
+        }
     }
 
     private void LateUpdate()
