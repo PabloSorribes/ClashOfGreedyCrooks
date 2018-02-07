@@ -28,6 +28,8 @@ public class Projectile : MonoBehaviour {
         }
     }
 
+    
+
     public void OnCollisionEnter(Collision collision)
     {
 
@@ -36,9 +38,11 @@ public class Projectile : MonoBehaviour {
             collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
 
             
+            Destroy(gameObject);
         }
 
-        Destroy(gameObject);
+     
+
       
     }
 }
