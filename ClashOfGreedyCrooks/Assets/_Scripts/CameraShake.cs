@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Source: https://answers.unity.com/questions/212189/camera-shake.html
+/// </summary>
 public class CameraShake : MonoBehaviour
 {
     public bool isShaking;//For other scripts to know if the camera is shaking
@@ -51,6 +54,8 @@ public class CameraShake : MonoBehaviour
         originalPos = transform.position;
         OriginalRot = transform.rotation;
 
+
+        //TODO: Figure out what dis is
         shakeIntensity = 0.3f;
         shakeDecay = 0.02f;
         isShaking = true;
