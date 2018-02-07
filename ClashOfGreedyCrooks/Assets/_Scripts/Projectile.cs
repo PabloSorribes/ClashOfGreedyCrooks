@@ -31,7 +31,7 @@ public class Projectile : MonoBehaviour {
     public void OnCollisionEnter(Collision collision)
     {
 
-        if (collision.gameObject.tag=="Player" && player.GetComponent<Shooting>() != this.gameObject)
+        if (collision.gameObject.tag == "Player" && collision.gameObject != this.player)
         {
             collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
 
