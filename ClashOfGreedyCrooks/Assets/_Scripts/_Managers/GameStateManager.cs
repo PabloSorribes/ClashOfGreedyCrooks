@@ -5,12 +5,12 @@ using UnityEngine.SceneManagement;
 
 //TODO: Move global enums to own script?
 public enum GameState { MainMenu, PlayerConnect, Picking, Arena };
-public enum PauseState { Paused, NotPaused };
+public enum OurPauseState { Paused, NotPaused };
 
 public class GameStateManager : GenericSingleton<GameStateManager>
 {
 	private GameState gameState;
-	private PauseState pauseState;
+	private OurPauseState pauseState;
 
 	public System.Action<GameState> GameStateChanged;
 
@@ -72,11 +72,11 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 	/// Pause or unpause the game
 	/// </summary>
 	/// <param name="newState"></param>
-	public void SetPausedState(PauseState newState)
+	public void SetPausedState(OurPauseState newState)
 	{
-		if (newState == PauseState.Paused)
+		if (newState == OurPauseState.Paused)
 			OnPausedState();
-		else if (newState == PauseState.NotPaused)
+		else if (newState == OurPauseState.NotPaused)
 			OnNotPausedState();
 
 		pauseState = newState;
