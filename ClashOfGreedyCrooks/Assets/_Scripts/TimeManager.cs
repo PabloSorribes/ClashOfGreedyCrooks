@@ -30,6 +30,7 @@ public class TimeManager : MonoBehaviour
     private float slowMoTimeScale = 0.2f;
     private float lerpTime = 1f;
 
+    //TODO: PauseState-actions should be done through InputManager
 	public GameObject player;
 
     private void Start()
@@ -40,23 +41,22 @@ public class TimeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
 	{
-
 		trackTime -= Time.deltaTime;
 		timer.text = "Timer: " + Mathf.Floor(trackTime);
 
-        //lerpTime = ;
-
+        //TODO: Add controller support
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
 			PauseGame();
 		}
 
+        //TODO: Remove this debug button
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
             StartFreezeFrame(2f);
-			
 		}
 
+        //Fire event of TimeIsUp on a single frame
         if (trackTime <= 0 && !timeEnded)
         {
             timeEnded = true;
@@ -87,22 +87,21 @@ public class TimeManager : MonoBehaviour
 
             player.GetComponent<Shooting>().enabled = true;
 		}
-
 	}
 
-	public void StartFreezeFrame(float timeFreeze)
+    /// <summary>
+    /// Slows down the game. <paramref name="timeToFreeze"/> is amount of seconds that the slowMo should be.
+    /// </summary>
+    /// <param name="timeToFreeze"></param>
+	public void StartFreezeFrame(float timeToFreeze)
 	{
-		StartCoroutine(FreezeFrame(timeFreeze));
+		StartCoroutine(FreezeFrameLength(timeToFreeze));
         Time.timeScale = Mathf.Lerp(normalTimeScale, slowMoTimeScale, lerpTime);
     }
 
-
-	public IEnumerator FreezeFrame(float waitTime)
+	public IEnumerator FreezeFrameLength(float waitTime)
 	{
-
 		yield return new WaitForSecondsRealtime(waitTime);
 		Time.timeScale = 1;
-
 	}
-
 }
