@@ -17,7 +17,12 @@ public class DeathCircle : MonoBehaviour
 		}
 	}
 
-	private float startSize = 1;
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    private float startSize = 1;
     private float maxSize = 5;
     private float minSize = 0.3f;
 

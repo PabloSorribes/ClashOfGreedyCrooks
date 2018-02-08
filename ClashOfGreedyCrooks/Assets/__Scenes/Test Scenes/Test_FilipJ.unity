@@ -831,7 +831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5495ae739b16603469ca5b38a9d1f445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trackTime: 2
+  trackTime: 1
   player: {fileID: 610805125}
   timer: {fileID: 511940363}
 --- !u!4 &1376642960
@@ -858,7 +858,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 808c0ff9cb37dc04faeab4d15e972c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tMan: {fileID: 1376642959}
   dCirc: {fileID: 727842655}
 --- !u!1001 &1413070386
 Prefab:

@@ -19,8 +19,10 @@ public class TimeManager : MonoBehaviour
         instance = this;
     }
 
-    public float trackTime = 10;
+    public float trackTime;
     private bool timeEnded = false;
+	public Text timer;
+    public System.Action TimeIsUp;
 
 	private bool isPaused;
 
@@ -30,8 +32,6 @@ public class TimeManager : MonoBehaviour
 
 	public GameObject player;
 
-	public Text timer;
-    public System.Action TimeIsUp;
 
     private void Start()
     {
@@ -67,7 +67,6 @@ public class TimeManager : MonoBehaviour
 
 	private void PauseGame()
 	{
-
 		if (!isPaused)
 		{
 			Time.timeScale = 0;

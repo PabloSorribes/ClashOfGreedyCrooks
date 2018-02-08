@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class ArenaManager : MonoBehaviour
 {
-    private float time;
-    public TimeManager tMan;
-    public DeathCircle dCirc;
-
 	private static ArenaManager instance;
 	public static ArenaManager GetInstance
 	{
@@ -22,12 +18,10 @@ public class ArenaManager : MonoBehaviour
         instance = this;
     }
 
-
 	private void Start()
 	{
-        tMan.TimeIsUp += HandleEndTime;
-		//TimeManager.TimeIsUp += HandleEndTime;
-	}
+        TimeManager.GetInstance.TimeIsUp += HandleEndTime;
+    }
 
 	public void HandleEndTime()
 	{
@@ -36,15 +30,11 @@ public class ArenaManager : MonoBehaviour
 
 	private void ShrinkDeathCircle()
 	{
-        dCirc.ChangeSize(true);
-		//gameObject.GetComponent<DeathCircle>().ChangeSize(true);
+        DeathCircle.GetInstance.ChangeSize(true);
 	}
 
 	public void HandlePlayerDeath(GameObject playerThatDied)
 	{
 		TimeManager.GetInstance.StartFreezeFrame(1f);
-
     }
-
-
 }
