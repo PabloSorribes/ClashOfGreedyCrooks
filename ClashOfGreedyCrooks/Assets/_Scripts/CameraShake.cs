@@ -2,11 +2,26 @@
 using System.Collections;
 
 /// <summary>
+/// Has to be on the Main Camera object.
 /// Source: https://answers.unity.com/questions/212189/camera-shake.html
 /// </summary>
 public class CameraShake : MonoBehaviour
 {
-    public bool isShaking;//For other scripts to know if the camera is shaking
+    private static CameraShake instance;
+    public static CameraShake GetInstance
+    {
+        get
+        {
+            return instance;
+        }
+    }
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    public bool isShaking;      //For other scripts to know if the camera is shaking
 
     public float intensity;
 
@@ -15,12 +30,9 @@ public class CameraShake : MonoBehaviour
     private Vector3 originalPos;
     private Quaternion OriginalRot;
 
-    
-
     void Start()
     {
         isShaking = false;
-
     }
 
 
