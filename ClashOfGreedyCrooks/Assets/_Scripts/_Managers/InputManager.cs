@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using XInputDotNetPure;
 
 public class InputManager : GenericSingleton<InputManager>
@@ -195,10 +196,29 @@ public class InputManager : GenericSingleton<InputManager>
 			}
 		}
 
-	}
+        //For debuging reasons
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SceneManager.LoadScene("PlayerConnect");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SceneManager.LoadScene("Picking");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SceneManager.LoadScene("Arena01");
+        }
+
+    }
 
 	public void SetPlayerReferences(PlayerController[] players)
 	{
 		players.CopyTo(this.players, 0);
 	}
+
 }
