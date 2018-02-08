@@ -5038,14 +5038,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64a92ad232037d04e8f743caaf264867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthMin: 3
+  healthMin: 5
   healthMax: 8
   movementMin: 5
   movementMax: 9
   damageMin: 4
   damageMax: 7
   attackSpeedMin: 5
-  attackSpeedMax: 9
+  attackSpeedMax: 10
 --- !u!114 &114861516269588284
 MonoBehaviour:
   m_ObjectHideFlags: 1
