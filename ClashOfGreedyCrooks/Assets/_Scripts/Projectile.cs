@@ -47,6 +47,11 @@ public class Projectile : MonoBehaviour {
 
 			Destroy(gameObject);
         }
+
+        if(collision.gameObject.tag == "Wall")
+        {
+            Destroy(gameObject);
+        }
     }
 
 

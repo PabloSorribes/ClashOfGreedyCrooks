@@ -140,8 +140,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c886921e60085cb4bb240622fd5be19c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SetTrueForTesting: 0
-  gameStateOverride: 3
 --- !u!4 &676503825
 Transform:
   m_ObjectHideFlags: 0
@@ -222,18 +220,6 @@ Prefab:
     - target: {fileID: 4140669800309320, guid: 2419d704342ddf84ba52979a43f6ad40, type: 2}
       propertyPath: m_RootOrder
       value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1853904371515020, guid: 2419d704342ddf84ba52979a43f6ad40, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1807552992209368, guid: 2419d704342ddf84ba52979a43f6ad40, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1711077258965644, guid: 2419d704342ddf84ba52979a43f6ad40, type: 2}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2419d704342ddf84ba52979a43f6ad40, type: 2}
