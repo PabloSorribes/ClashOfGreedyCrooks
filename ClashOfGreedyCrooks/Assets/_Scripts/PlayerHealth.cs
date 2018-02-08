@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour {
 
     private TimeManager timeManager;
-    private Rigidbody rigidbody;
+    private Rigidbody rb;
 
     private Slider healthBar;
 
@@ -24,7 +24,7 @@ public class PlayerHealth : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
         
         timeManager = TimeManager.GetInstance;
 
@@ -51,14 +51,14 @@ public class PlayerHealth : MonoBehaviour {
             timer = 0;
         }
 
-        if (rigidbody.IsSleeping())
+        if (rb.IsSleeping())
         {
-            rigidbody.WakeUp();
+            rb.WakeUp();
         }
 
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+			gameObject.SetActive(false);
         }
 	}
 
@@ -73,9 +73,9 @@ public class PlayerHealth : MonoBehaviour {
       
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
-        }
-    }
+			gameObject.SetActive(false);
+		}
+	}
 
     /// <summary>
     /// Should be called by DeathCircle
@@ -94,10 +94,10 @@ public class PlayerHealth : MonoBehaviour {
         healthBar.value = healthPrecentage;
     }
     //TODO: Talk to ArenaManager and what values should i send?
-    private void OnDestroy()
+    private void OnDisable()
     {
         DeathParticles();
-        ArenaManager.GetInstance.HandlePlayerDeath(this.gameObject);
+		ArenaManager.GetInstance.HandlePlayerDeath(this.gameObject);
     }
 
     private void DeathParticles ()
