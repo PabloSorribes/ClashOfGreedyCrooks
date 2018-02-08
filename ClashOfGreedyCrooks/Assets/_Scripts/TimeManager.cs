@@ -14,21 +14,32 @@ public class TimeManager : MonoBehaviour
 		}
 	}
 
-	public float trackTime = 120;
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    public float trackTime = 10;
+    private bool timeEnded = false;
 
 	private bool isPaused;
 
-    public float normalTimeScale = 1;
-    public float slowMoTimeScale = 0.2f;
-    public float lerpTime = 1f;
+    private float normalTimeScale = 1;
+    private float slowMoTimeScale = 0.2f;
+    private float lerpTime = 1f;
 
 	public GameObject player;
 
 	public Text timer;
     public System.Action TimeIsUp;
 
-	// Update is called once per frame
-	void Update()
+    private void Start()
+    {
+        timeEnded = false;
+    }
+
+    // Update is called once per frame
+    void Update()
 	{
 
 		trackTime -= Time.deltaTime;
@@ -43,12 +54,13 @@ public class TimeManager : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			StartCoroutine(FreezeFrame(2f));
-			Time.timeScale = Mathf.Lerp(normalTimeScale, slowMoTimeScale, lerpTime);
+            StartFreezeFrame(2f);
+			
 		}
 
-        if (trackTime <= 0)
+        if (trackTime <= 0 && !timeEnded)
         {
+            timeEnded = true;
             TimeIsUp();
         }
 	}
@@ -81,7 +93,8 @@ public class TimeManager : MonoBehaviour
 	public void StartFreezeFrame(float timeFreeze)
 	{
 		StartCoroutine(FreezeFrame(timeFreeze));
-	}
+        Time.timeScale = Mathf.Lerp(normalTimeScale, slowMoTimeScale, lerpTime);
+    }
 
 
 	public IEnumerator FreezeFrame(float waitTime)

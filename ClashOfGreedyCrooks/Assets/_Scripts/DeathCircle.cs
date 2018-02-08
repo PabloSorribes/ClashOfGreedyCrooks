@@ -67,8 +67,7 @@ public class DeathCircle : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             ChangeSize(true);
-            emit = true;
-            particleFade = true;
+            
 
         }
     }
@@ -83,6 +82,9 @@ public class DeathCircle : MonoBehaviour
         currScale = Mathf.Clamp(currScale, minSize, maxSize + 1);
 
         targetScale = baseScale * currScale;
+
+        emit = true;
+        particleFade = true;
     }
 
     private void StartCircleFadeIn()
