@@ -173,7 +173,7 @@ public class InputManager : GenericSingleton<InputManager>
 
 						rightTriggerReleased[i] = false;
 					}
-					if(state[i].Triggers.Right < 0.05f)
+					else if(state[i].Triggers.Right < 0.05f)
 					{
 						rightTriggerReleased[i] = true;
 					}

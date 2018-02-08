@@ -25,17 +25,6 @@ public class Shooting : MonoBehaviour {
         bulletSpawnPoint = transform.Find("Champion").GetChild(0).Find("WeaponHold").GetChild(0).Find("Muzzle");
     }
 
-    void Update () {
-
-        timer += Time.deltaTime;
-
-        if (Input.GetButtonDown("Fire1") && timer > shootDisable)
-        {
-            Shoot();
-            timer = 0;
-        }
-	}
-
     //Spawns the bullet
     public void Shoot()
     {
