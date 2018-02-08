@@ -21,9 +21,13 @@ public class PlayerHealth : MonoBehaviour {
     private float timer;
     public bool insideDeathCircle;
 
+	FMODUnity.StudioEventEmitter a_deathSound;
+
     // Use this for initialization
     void Start ()
     {
+		InitializeAudio();
+
         rb = GetComponent<Rigidbody>();
         
         timeManager = TimeManager.GetInstance;
@@ -34,7 +38,13 @@ public class PlayerHealth : MonoBehaviour {
 
 	}
 
-    public void SetStartHealth(float startHealth)
+	private void InitializeAudio() {
+		a_deathSound = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
+		a_deathSound.Event = "event:/Arena/playerDeath";
+		a_deathSound.Preload = true;
+	}
+
+	public void SetStartHealth(float startHealth)
     {
         maxHealth = currentHealth = startHealth;
         //CalculateHealthPrecentage();
@@ -96,7 +106,8 @@ public class PlayerHealth : MonoBehaviour {
     //TODO: Talk to ArenaManager and what values should i send?
     private void OnDisable()
     {
-        DeathParticles();
+		a_deathSound.Play();
+		DeathParticles();
 		ArenaManager.GetInstance.HandlePlayerDeath(this.gameObject);
     }
 

@@ -25,8 +25,15 @@ public class Shooting : MonoBehaviour {
         bulletSpawnPoint = transform.Find("Champion").GetChild(0).Find("WeaponHold").GetChild(0).Find("Muzzle");
     }
 
-    //Spawns the bullet
-    public void Shoot()
+	//TODO: Remove this when real Keyboard support is added.
+	private void Update() {
+		if (Input.GetKeyDown(KeyCode.P)) {
+			Shoot();
+		}
+	}
+
+	//Spawns the bullet
+	public void Shoot()
     {
         bulletspawned = Instantiate(proj.gameObject, bulletSpawnPoint.position, Quaternion.identity);
         bulletspawned.transform.rotation = bulletSpawnPoint.transform.rotation;
