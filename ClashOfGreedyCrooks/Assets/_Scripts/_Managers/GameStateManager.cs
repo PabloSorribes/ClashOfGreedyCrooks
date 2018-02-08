@@ -24,8 +24,8 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 
     private void Start()
     {
-        GameObject screenFadePrefad = Resources.Load("ScreenFade") as GameObject;
-        GameObject newScreenFade = Instantiate(screenFadePrefad);
+        GameObject screenFadePrefab = Resources.Load("ScreenFade") as GameObject;
+        GameObject newScreenFade = Instantiate(screenFadePrefab);
         screenFade = newScreenFade.GetComponent<ScreenFade>();
         screenFade.FadeOutComplete += ScreenFadeOutComplete;
         screenFade.FadeInComplete += ScreenFadeInComplete;
@@ -40,6 +40,12 @@ public class GameStateManager : GenericSingleton<GameStateManager>
     private void ScreenFadeInComplete()
     {
         //TODO: Add countdown when in arena.
+        if (gameState == GameState.Arena)
+        {
+            GameObject countdownPrefab = Resources.Load("Countdown") as GameObject;
+            Instantiate(countdownPrefab);
+            InputManager.GetInstance.freezeInput = true;
+        }
     }
 
     /// <summary>

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public enum Nerf { Health, Movement, Damage, AttackSpeed }
+public enum Nerf { Health, Damage, Movement, AttackSpeed }
 
 public class Penalty : MonoBehaviour
 {
@@ -12,8 +12,8 @@ public class Penalty : MonoBehaviour
     {
         champion = GetComponent<Champion>();
         stats[0] = transform.Find("StatsHolder/Health");
-        stats[1] = transform.Find("StatsHolder/Movement");
-        stats[2] = transform.Find("StatsHolder/Damage");
+        stats[1] = transform.Find("StatsHolder/Damage");
+        stats[2] = transform.Find("StatsHolder/Movement");
         stats[3] = transform.Find("StatsHolder/AttackSpeed");
         penaltyButtons = transform.Find("PenaltyButtons").gameObject;
         penaltyButtons.SetActive(false);

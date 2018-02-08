@@ -663,8 +663,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c886921e60085cb4bb240622fd5be19c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SetTrueForTesting: 0
-  gameStateOverride: 0
 --- !u!4 &1929088588
 Transform:
   m_ObjectHideFlags: 0
