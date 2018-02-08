@@ -140,7 +140,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1558984115267912}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -21.84, y: 0.5, z: -7}
+  m_LocalPosition: {x: 2.442141, y: 0.5, z: -10.629658}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4981205051568208}
@@ -225,10 +225,10 @@ BoxCollider:
   m_GameObject: {fileID: 1558984115267912}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &114220271642474150
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -285,6 +285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootS: {fileID: 0}
   speed: 5
+  attackSpeed: 0
 --- !u!114 &114437014695263552
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -296,6 +297,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c2efc56e89733459c9786a0d59076b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectileSpeed: 20
+  damage: 20
   proj: {fileID: 114584868023802948, guid: 07196885b986fed4e87e59e5405435f2, type: 2}
   bulletSpawnPoint: {fileID: 0}
 --- !u!114 &114537173352573980
@@ -347,6 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1add0875fa1a93d4ba0564ada973c10e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ps: {fileID: 0}
   currentHealth: 100
   hurtCooldown: 2
   insideDeathCircle: 0

@@ -12,7 +12,7 @@ public class Projectile : MonoBehaviour {
     public GameObject player;
 
     //Time until the bullet is destroyed
-    private float defaultTime = 5;
+    private float defaultTime = 1.2f;
 
 	private void Start()
 	{
