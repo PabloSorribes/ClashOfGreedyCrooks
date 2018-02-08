@@ -66,4 +66,26 @@ public static class PlayerManager
 
         InputManager.GetInstance.SetPlayerReferences(pcArray);
     }
+
+    public static void PreparePlayersForNewPickingPhase()
+    {
+        foreach (PlayerInfo item in players)
+        {
+            item.HasChampion = false;
+        }
+
+        foreach (GameObject item in spawnedPlayers)
+        {
+            item.GetComponent<Shooting>().enabled = false;
+            item.GetComponent<PlayerHealth>().enabled = false;
+            MonoBehaviour.Destroy(item.transform.Find("Champion").GetChild(0).gameObject);
+        }
+
+    }
+
+    public static void Reset()
+    {
+        FillPlayersArray();
+        SetSpawnedPlayersArrayLenght();
+    }
 }

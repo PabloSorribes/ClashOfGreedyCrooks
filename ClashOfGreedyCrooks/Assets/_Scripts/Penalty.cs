@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public enum Nerf { Health, Damage, Movement, AttackSpeed }
+public enum Nerf { Health, Movement, Damage, AttackSpeed }
 
 public class Penalty : MonoBehaviour
 {
@@ -31,16 +31,17 @@ public class Penalty : MonoBehaviour
 
     public void AddPenalty(Nerf newPenalty, int amount)
     {
+        amount = amount * -1;
         if (newPenalty == Nerf.Health)
-            champion.Health -= (float)amount;
+            champion.Health = (float)amount;
         else if (newPenalty == Nerf.Movement)
-            champion.Movement -= (float)amount;
+            champion.Movement = (float)amount;
         else if (newPenalty == Nerf.Damage)
-            champion.Damage -= (float)amount;
+            champion.Damage = (float)amount;
         else if (newPenalty == Nerf.AttackSpeed)
-            champion.AttackSpeed -= (float)amount;
+            champion.AttackSpeed = (float)amount;
 
-        ReduceStat(stats[newPenalty.GetHashCode()], amount);
+        ReduceStat(stats[newPenalty.GetHashCode()], Mathf.Abs(amount));
     }
 
     private void ReduceStat(Transform stat, int amount)
@@ -48,13 +49,13 @@ public class Penalty : MonoBehaviour
         int penalties = amount;
         for (int i = stat.childCount - 1; i >= 0; i--)
         {
+            if (penalties == 0)
+                return;
             if (stat.GetChild(i).gameObject.activeInHierarchy)
             {
                 stat.GetChild(i).gameObject.SetActive(false);
                 penalties--;
             }
-            if (penalties == 0)
-                return;
         }
     }
 }
