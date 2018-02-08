@@ -32,7 +32,6 @@ public class TimeManager : MonoBehaviour
 
 	public GameObject player;
 
-
     private void Start()
     {
         timeEnded = false;
@@ -72,6 +71,7 @@ public class TimeManager : MonoBehaviour
 			Time.timeScale = 0;
 
 			isPaused = true;
+            GameStateManager.GetInstance.SetPausedState(OurPauseState.Paused);
 
             //TODO: This should be set by the player, by getting an Event Delegate 
             //from the GameStateManager which says if the game is paused or not.
@@ -83,8 +83,9 @@ public class TimeManager : MonoBehaviour
 			Time.timeScale = 1;
 
 			isPaused = false;
+            GameStateManager.GetInstance.SetPausedState(OurPauseState.NotPaused);
 
-			player.GetComponent<Shooting>().enabled = true;
+            player.GetComponent<Shooting>().enabled = true;
 		}
 
 	}
