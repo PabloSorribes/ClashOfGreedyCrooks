@@ -14,7 +14,12 @@ public class Projectile : MonoBehaviour {
     //Time until the bullet is destroyed
     private float defaultTime = 5;
 
-    private void Update()
+	private void Start()
+	{
+			player.GetComponent<PlayerInfo>().CurrentRoundShotsFired++;
+	}
+
+	private void Update()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * projectileSpeed);
 
@@ -37,12 +42,13 @@ public class Projectile : MonoBehaviour {
         {
             collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
 
-            
-            Destroy(gameObject);
+			this.player.GetComponent<PlayerInfo>().CurrentRoundHits ++;
+			this.player.GetComponent<PlayerInfo>().CurrentRoundDamage += damage;
+
+			Destroy(gameObject);
         }
-
-     
-
-      
     }
+
+
+
 }
