@@ -438,7 +438,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press "X" to join
+  m_Text: Press "A" to join
 --- !u!114 &114178989014483710
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -471,7 +471,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press "X" to join
+  m_Text: Press "A" to join
 --- !u!114 &114302668657700386
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -504,7 +504,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press "X" to join
+  m_Text: Press "A" to join
 --- !u!114 &114303637080295032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -690,7 +690,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press "X" to join
+  m_Text: Press "A" to join
 --- !u!114 &114580798516399596
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -750,7 +750,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press "Start" to begin!
+  m_Text: Press "A" to begin!
 --- !u!114 &114638779964383284
 MonoBehaviour:
   m_ObjectHideFlags: 1
