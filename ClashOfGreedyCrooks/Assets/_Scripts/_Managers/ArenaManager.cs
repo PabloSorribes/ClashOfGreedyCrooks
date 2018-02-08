@@ -13,9 +13,10 @@ public class ArenaManager : MonoBehaviour
 		}
 	}
 
+	//private Camera cam;
+	private GameObject endOfRoundScreenCanvas;
 	private int playersAlive;
 	private PlayerInfo[] players;
-
 
 	private void Awake()
 	{
@@ -25,7 +26,7 @@ public class ArenaManager : MonoBehaviour
 	private void Start()
 	{
 		TimeManager.GetInstance.TimeIsUp += HandleEndTime;
-
+		//cam = Camera.main;
 		players = new PlayerInfo[PlayerManager.GetPlayersConnected()];
 		playersAlive = players.Length;
 	}
@@ -44,6 +45,7 @@ public class ArenaManager : MonoBehaviour
 	{
 		TimeManager.GetInstance.StartFreezeFrame(1f);
 		CameraShake.GetInstance.DoShake();
+		//cam.GetComponent<CameraShake>().DoShake();
 
 		playersAlive--;
 		players[playersAlive] = playerThatDied.GetComponent<PlayerInfo>();
@@ -65,22 +67,24 @@ public class ArenaManager : MonoBehaviour
 			}
 		}
 
-		GameManager.GetInstance.RoundsPlayed++;
+		if (GameManager.GetInstance != null)
+		{
+			GameManager.GetInstance.RoundsPlayed++;
+		}
 
 		for (int i = 0; i < players.Length; i++)
 		{
-			players[i].TotalDamage += players[i].CurrentRoundDamage;
-			players[i].TotalHits += players[i].CurrentRoundHits;
-			players[i].TotalShotsFired += players[i].CurrentRoundShotsFired;
+			//TODO: Can't access PlayerInfo?
+
+			//players[i].TotalDamage += players[i].CurrentRoundDamage;
+			//players[i].TotalHits += players[i].CurrentRoundHits;
+			//players[i].TotalShotsFired += players[i].CurrentRoundShotsFired;
 		}
 
-		//TODO: Instantiate EndOfGameScreen to display score etc.
-
-		Debug.Log("RETURNING TO PICKING PHASE IN 5 SECONDS");
-		Invoke("ReturnToPicking", 5f);
+		endOfRoundScreenCanvas = Instantiate(Resources.Load("UI/EndOfRoundScreenCanvas") as GameObject);
 	}
 
-	private void ReturnToPicking()
+	public void ReturnToPicking()
 	{
 		PlayerManager.PreparePlayersForNewPickingPhase();
 		GameStateManager.GetInstance.SetState(GameState.Picking);

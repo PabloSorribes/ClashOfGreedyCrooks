@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1add0875fa1a93d4ba0564ada973c10e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ps: {fileID: 0}
+  ps: {fileID: 198562067467949396, guid: 79a21f4b02500ed48abd110aacd4a720, type: 2}
   currentHealth: 100
   hurtCooldown: 2
   insideDeathCircle: 0

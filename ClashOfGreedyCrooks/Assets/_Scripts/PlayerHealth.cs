@@ -3,116 +3,121 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealth : MonoBehaviour {
+public class PlayerHealth : MonoBehaviour
+{
 
-    private TimeManager timeManager;
-    private Rigidbody rb;
+	private TimeManager timeManager;
+	private Rigidbody rb;
 
-    private Slider healthBar;
+	private Slider healthBar;
 
-    public ParticleSystem ps;
-    private bool emit;
+	public ParticleSystem ps;
+	private bool emit;
 
-    private float maxHealth = 100f;
-    public float currentHealth;
-    
-    [Header("DEATH CIRCLE VALUES")]
-    public float hurtCooldown = 2;
-    private float timer;
-    public bool insideDeathCircle;
+	private float maxHealth = 100f;
+	public float currentHealth;
+
+	[Header("DEATH CIRCLE VALUES")]
+	public float hurtCooldown = 2;
+	private float timer;
+	public bool insideDeathCircle;
 
 	FMODUnity.StudioEventEmitter a_deathSound;
 
-    // Use this for initialization
-    void Start ()
-    {
+	// Use this for initialization
+	void Start()
+	{
 		InitializeAudio();
 
-        rb = GetComponent<Rigidbody>();
-        
-        timeManager = TimeManager.GetInstance;
+		rb = GetComponent<Rigidbody>();
 
-        currentHealth = maxHealth;
+		timeManager = TimeManager.GetInstance;
 
-        healthBar = transform.Find("HealthBar").GetChild(0).GetComponent<Slider>();
+		currentHealth = maxHealth;
+
+		healthBar = transform.Find("HealthBar").GetChild(0).GetComponent<Slider>();
 
 	}
 
-	private void InitializeAudio() {
+	private void InitializeAudio()
+	{
 		a_deathSound = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
 		a_deathSound.Event = "event:/Arena/playerDeath";
 		a_deathSound.Preload = true;
 	}
 
 	public void SetStartHealth(float startHealth)
-    {
-        maxHealth = currentHealth = startHealth;
-        //CalculateHealthPrecentage();
-    }
-	
-	// Update is called once per frame
-	void Update ()
-    {
-        timer += Time.deltaTime;
-
-        if (timer > hurtCooldown && !insideDeathCircle)
-        {
-            TakeDamageOutside(DeathCircle.GetInstance.deathZoneDamage);
-            timer = 0;
-        }
-
-        if (rb.IsSleeping())
-        {
-            rb.WakeUp();
-        }
-
-        if (currentHealth <= 0)
-        {
-			gameObject.SetActive(false);
-        }
+	{
+		maxHealth = currentHealth = startHealth;
+		//CalculateHealthPrecentage();
 	}
 
-    /// <summary>
-    /// Should be called by bullets etc
-    /// </summary>
-    /// <param name="p_damage"></param>
-    public void TakeDamage (float p_damage)
-    {
-        currentHealth -= p_damage;
-        CalculateHealthPrecentage();
-      
-        if (currentHealth <= 0)
-        {
+	// Update is called once per frame
+	void Update()
+	{
+		timer += Time.deltaTime;
+
+		if (timer > hurtCooldown && !insideDeathCircle)
+		{
+			TakeDamageOutside(DeathCircle.GetInstance.deathZoneDamage);
+			timer = 0;
+		}
+
+		if (rb.IsSleeping())
+		{
+			rb.WakeUp();
+		}
+
+		if (currentHealth <= 0)
+		{
 			gameObject.SetActive(false);
 		}
 	}
 
-    /// <summary>
-    /// Should be called by DeathCircle
-    /// </summary>
-    /// <param name="deathZoneDamage"></param>
-    public void TakeDamageOutside(int deathZoneDamage)
-    {
-        currentHealth -= deathZoneDamage;
-        CalculateHealthPrecentage();
-    }
+	/// <summary>
+	/// Should be called by bullets etc
+	/// </summary>
+	/// <param name="p_damage"></param>
+	public void TakeDamage(float p_damage)
+	{
+		currentHealth -= p_damage;
+		CalculateHealthPrecentage();
 
-    private void CalculateHealthPrecentage()
-    {
-        float healthPrecentage = currentHealth / maxHealth;
-        Debug.Log(healthPrecentage);
-        healthBar.value = healthPrecentage;
-    }
-    //TODO: Talk to ArenaManager and what values should i send?
-    private void OnDisable()
-    {
+		if (currentHealth <= 0)
+		{
+			gameObject.SetActive(false);
+		}
+	}
+
+	/// <summary>
+	/// Should be called by DeathCircle
+	/// </summary>
+	/// <param name="deathZoneDamage"></param>
+	public void TakeDamageOutside(int deathZoneDamage)
+	{
+		currentHealth -= deathZoneDamage;
+		CalculateHealthPrecentage();
+	}
+
+	private void CalculateHealthPrecentage()
+	{
+		float healthPrecentage = currentHealth / maxHealth;
+		Debug.Log(healthPrecentage);
+		healthBar.value = healthPrecentage;
+	}
+	//TODO: Talk to ArenaManager and what values should i send?
+	private void OnDisable()
+	{
 		a_deathSound.Play();
 		DeathParticles();
-		ArenaManager.GetInstance.HandlePlayerDeath(this.gameObject);
-    }
+		if (ArenaManager.GetInstance != null)
+		{
+			ArenaManager.GetInstance.HandlePlayerDeath(gameObject);
+		}
+	}
 
-    private void DeathParticles ()
-    {
-        Destroy(Instantiate(ps.gameObject, this.transform.position, Quaternion.FromToRotation(Vector3.forward, Vector3.up)) as GameObject, 2f);
-    }
+	private void DeathParticles()
+	{
+		Destroy(Instantiate(ps.gameObject, this.transform.position, Quaternion.FromToRotation(Vector3.forward, Vector3.up)) as GameObject, 2f);
+	}
 }

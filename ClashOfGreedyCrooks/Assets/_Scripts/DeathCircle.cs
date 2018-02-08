@@ -7,7 +7,6 @@ using UnityEngine;
 /// </summary>
 public class DeathCircle : MonoBehaviour
 {
-	//CODECHANGE: Removed the singleton inheritance and replaced with a simple static since global access is all we need.
 	private static DeathCircle instance;
 	public static DeathCircle GetInstance
 	{
