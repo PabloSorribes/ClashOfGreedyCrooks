@@ -19,6 +19,9 @@ public class InputManager : GenericSingleton<InputManager>
 	//Input polling variables
 	private bool[] rightTriggerReleased = new bool[4];
 
+    //Freeze input
+    public bool freezeInput;
+
 	//Variables for testing, set from Manager Initialization
 	public static bool setTrueForTesting = false;
 	public static GameState manualGameStateOverride;
@@ -75,6 +78,9 @@ public class InputManager : GenericSingleton<InputManager>
 
 	void FixedUpdate()
 	{
+        if (freezeInput)
+            return;
+
 		for (int i = 0; i < gamepadIndex.Count; ++i)
 		{
 			//SetVibration should be sent in a slower rate.
@@ -85,6 +91,9 @@ public class InputManager : GenericSingleton<InputManager>
 
 	void Update()
 	{
+        if (freezeInput)
+            return;
+
 		//Loop through inputs for every connected gamepad
 		for (int i = 0; i < gamepadIndex.Count; ++i)
 		{

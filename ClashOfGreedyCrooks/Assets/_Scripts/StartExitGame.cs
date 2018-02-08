@@ -18,7 +18,7 @@ public class StartExitGame : MonoBehaviour {
 	// Update is called once per frame
 	void StartButtonClicked()
     {
-        SceneManager.LoadScene("PlayerConnect");
+        GameStateManager.GetInstance.SetState(GameState.PlayerConnect);
     }
 
     void ExitButtonClicked ()

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 //TODO: Move global enums to own script?
@@ -14,6 +12,8 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 
 	public System.Action<GameState> GameStateChanged;
 
+    private ScreenFade screenFade;
+    private string sceneToLoad;
 
 	private void Awake()
 	{
@@ -22,11 +22,31 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 		SceneManager.sceneLoaded += OnSceneChanged;
 	}
 
-	/// <summary>
-	/// Get the current State
-	/// </summary>
-	/// <returns></returns>
-	public GameState GetState()
+    private void Start()
+    {
+        GameObject screenFadePrefad = Resources.Load("ScreenFade") as GameObject;
+        GameObject newScreenFade = Instantiate(screenFadePrefad);
+        screenFade = newScreenFade.GetComponent<ScreenFade>();
+        screenFade.FadeOutComplete += ScreenFadeOutComplete;
+        screenFade.FadeInComplete += ScreenFadeInComplete;
+        screenFade.SetDir(BlackScreen.In);
+    }
+
+    private void ScreenFadeOutComplete()
+    {
+        SceneManager.LoadScene(sceneToLoad);
+    }
+
+    private void ScreenFadeInComplete()
+    {
+        //TODO: Add countdown when in arena.
+    }
+
+    /// <summary>
+    /// Get the current State
+    /// </summary>
+    /// <returns></returns>
+    public GameState GetState()
 	{
 		GameState tempState = gameState;
 		return tempState;
@@ -38,7 +58,9 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 	/// <param name="newState"></param>
 	public void SetState(GameState newState)
 	{
-		if (newState == GameState.MainMenu)
+        screenFade.SetDir(BlackScreen.Out);
+
+        if (newState == GameState.MainMenu)
 			OnMainMenuState();
 		else if (newState == GameState.PlayerConnect)
 			OnPlayerConnectState();
@@ -50,22 +72,22 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 
 	private void OnMainMenuState()
 	{
-		SceneManager.LoadScene("MainMenu");
+        sceneToLoad = "MainMenu";
 	}
 
 	private void OnPlayerConnectState()
-	{
-		SceneManager.LoadScene("PlayerConnect");
+	{        
+        sceneToLoad = "PlayerConnect";
 	}
 
 	private void OnPickingState()
 	{
-		SceneManager.LoadScene("Picking");
+        sceneToLoad = "Picking";
 	}
 
 	private void OnArenaState()
 	{
-		SceneManager.LoadScene("Arena01");
+        sceneToLoad = "Arena01";
 	}
 
 	/// <summary>
@@ -94,6 +116,7 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 		if (GameStateChanged != null)
 		{
 			GameStateChanged(gameState);
+            screenFade.SetDir(BlackScreen.In);
 		}
 		//Debug.Log("(GSM) State Changed: " + gameState);
 	}
