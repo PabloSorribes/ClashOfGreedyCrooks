@@ -10,6 +10,9 @@ public class PlayerHealth : MonoBehaviour {
 
     private Slider healthBar;
 
+    public ParticleSystem ps;
+    private bool emit;
+
     private float maxHealth = 100f;
     public float currentHealth;
     
@@ -28,6 +31,7 @@ public class PlayerHealth : MonoBehaviour {
         currentHealth = maxHealth;
 
         healthBar = transform.Find("HealthBar").GetChild(0).GetComponent<Slider>();
+
 	}
 
     public void SetStartHealth(float startHealth)
@@ -56,7 +60,6 @@ public class PlayerHealth : MonoBehaviour {
         {
             Destroy(gameObject);
         }
-        
 	}
 
     /// <summary>
@@ -93,6 +96,12 @@ public class PlayerHealth : MonoBehaviour {
     //TODO: Talk to ArenaManager and what values should i send?
     private void OnDestroy()
     {
+        DeathParticles();
         ArenaManager.GetInstance.HandlePlayerDeath(this.gameObject);
+    }
+
+    private void DeathParticles ()
+    {
+        Destroy(Instantiate(ps.gameObject, this.transform.position, Quaternion.FromToRotation(Vector3.forward, Vector3.up)) as GameObject, 2f);
     }
 }

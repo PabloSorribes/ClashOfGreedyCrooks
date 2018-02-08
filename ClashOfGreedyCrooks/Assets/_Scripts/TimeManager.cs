@@ -18,9 +18,9 @@ public class TimeManager : MonoBehaviour
 
 	private bool isPaused;
 
-    private float normalTimeScale = 1;
-    private float slowMoTimeScale = 0.2f;
-    private float lerpTime = 1f;
+    public float normalTimeScale = 1;
+    public float slowMoTimeScale = 0.2f;
+    public float lerpTime = 1f;
 
 	public GameObject player;
 

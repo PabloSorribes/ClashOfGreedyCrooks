@@ -22,6 +22,7 @@ public class DeathCircle : MonoBehaviour
     private float minSize = 0.3f;
 
     private float startColorAplha = 0.1f;
+    public float FadeInStrength;
 
     public int deathZoneDamage = 15;
     private float contractionSpeed = 2f;
@@ -53,9 +54,9 @@ public class DeathCircle : MonoBehaviour
 
         emission.enabled = emit;
 
-        if (particleFade)
+        if (particleFade && startColorAplha <= 1)
         {
-            StartCircleParticle();
+            StartCircleFadeIn();
             main.startColor = new Color(255, 255, 255, startColorAplha);
         }
         
@@ -84,11 +85,9 @@ public class DeathCircle : MonoBehaviour
         targetScale = baseScale * currScale;
     }
 
-    private void StartCircleParticle()
+    private void StartCircleFadeIn()
     {
-        startColorAplha += startColorAplha * 2 * Time.deltaTime;
-        
-        Debug.Log(startColorAplha);
+        startColorAplha += startColorAplha * FadeInStrength * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
