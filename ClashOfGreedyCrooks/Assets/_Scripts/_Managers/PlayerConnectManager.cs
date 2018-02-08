@@ -17,6 +17,8 @@ public class PlayerConnectManager : MonoBehaviour
     private GameObject startGameText;
     private bool allReady;
 
+    public bool SetTrueFor1PlayerTesting;
+
     private void Awake()
     {
         instance = this;
@@ -162,6 +164,11 @@ public class PlayerConnectManager : MonoBehaviour
             }
 
         if (connections == connectedAndReady && connections > 1)
+        {
+            allReady = true;
+            startGameText.SetActive(true);
+        }
+        else if (connections == connectedAndReady && SetTrueFor1PlayerTesting)
         {
             allReady = true;
             startGameText.SetActive(true);

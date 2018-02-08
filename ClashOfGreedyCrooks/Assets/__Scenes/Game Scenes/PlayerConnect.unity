@@ -140,6 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c886921e60085cb4bb240622fd5be19c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SetTrueForTesting: 0
+  gameStateOverride: 0
 --- !u!4 &853078430
 Transform:
   m_ObjectHideFlags: 0
@@ -180,6 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c35f2a968e08d439a543fe727936d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SetTrueFor1PlayerTesting: 1
 --- !u!4 &1278977600
 Transform:
   m_ObjectHideFlags: 0
