@@ -43,11 +43,11 @@ public class ArenaManager : MonoBehaviour
 	public void HandlePlayerDeath(GameObject playerThatDied)
 	{
 		TimeManager.GetInstance.StartFreezeFrame(1f);
+		CameraShake.GetInstance.DoShake();
 
 		playersAlive--;
 		players[playersAlive] = playerThatDied.GetComponent<PlayerInfo>();
 		players[playersAlive].IsAlive = false;
-
 		if (playersAlive <= 1)
 		{
 			TriggerEndOfRound();
