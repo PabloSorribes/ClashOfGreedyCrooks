@@ -21,6 +21,8 @@ public class DeathCircle : MonoBehaviour
     private float maxSize = 5;
     private float minSize = 0.3f;
 
+    private float startColorAplha = 0.1f;
+
     public int deathZoneDamage = 15;
     private float contractionSpeed = 2f;
 
@@ -28,9 +30,15 @@ public class DeathCircle : MonoBehaviour
     private Vector3 baseScale;
     private float currScale;
 
+    private ParticleSystem ps;
+    public bool emit;
+    private bool particleFade;
+
     // Use this for initialization
     void Start()
     {
+        ps = GetComponent<ParticleSystem>();
+
         baseScale = transform.localScale;
         transform.localScale = baseScale * startSize;
         currScale = startSize;
@@ -40,12 +48,27 @@ public class DeathCircle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var emission = ps.emission;
+        var main = ps.main;
+
+        emission.enabled = emit;
+
+        if (particleFade)
+        {
+            StartCircleParticle();
+            main.startColor = new Color(255, 255, 255, startColorAplha);
+        }
+        
+
         transform.localScale = Vector3.MoveTowards(transform.localScale, targetScale, contractionSpeed * Time.deltaTime);
 
         //DEBUG: To trigger the shrinking manualy
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             ChangeSize(true);
+            emit = true;
+            particleFade = true;
+
         }
     }
 
@@ -59,6 +82,13 @@ public class DeathCircle : MonoBehaviour
         currScale = Mathf.Clamp(currScale, minSize, maxSize + 1);
 
         targetScale = baseScale * currScale;
+    }
+
+    private void StartCircleParticle()
+    {
+        startColorAplha += startColorAplha * 2 * Time.deltaTime;
+        
+        Debug.Log(startColorAplha);
     }
 
     private void OnTriggerEnter(Collider other)
