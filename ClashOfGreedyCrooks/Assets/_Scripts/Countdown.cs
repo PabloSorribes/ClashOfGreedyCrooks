@@ -30,6 +30,8 @@ public class Countdown : MonoBehaviour {
 
     private void EndCountdown()
     {
-        Destroy(gameObject);
+		TimeManager.GetInstance.countdownFinished = true;
+
+		Destroy(gameObject);
     }
 }

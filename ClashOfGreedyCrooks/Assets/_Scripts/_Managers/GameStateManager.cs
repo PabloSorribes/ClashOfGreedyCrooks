@@ -74,6 +74,8 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 			OnPickingState();
 		else if (newState == GameState.Arena)
 			OnArenaState();
+
+		Time.timeScale = 1f;
 	}
 
 	private void OnMainMenuState()

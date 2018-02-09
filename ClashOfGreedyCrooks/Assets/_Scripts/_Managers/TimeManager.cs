@@ -19,6 +19,8 @@ public class TimeManager : MonoBehaviour
 		instance = this;
 	}
 
+	internal bool countdownFinished;
+
 	public float trackTime;
 	private bool timeEnded = false;
 	public Text timer;
@@ -36,13 +38,17 @@ public class TimeManager : MonoBehaviour
 	private void Start()
 	{
 		timeEnded = false;
+		timer.text = "Timer: " + Mathf.Floor(trackTime);
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		trackTime -= Time.deltaTime;
-		timer.text = "Timer: " + Mathf.Floor(trackTime);
+		if (!timeEnded && countdownFinished)
+		{
+			trackTime -= Time.deltaTime;
+			timer.text = "Timer: " + Mathf.Floor(trackTime);
+		}
 
 		//TODO: Add controller support
 		if (Input.GetKeyDown(KeyCode.Escape))
@@ -51,15 +57,18 @@ public class TimeManager : MonoBehaviour
 		}
 
 		//TODO: Remove this debug button
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			StartFreezeFrame(2f);
-		}
+		//if (Input.GetKeyDown(KeyCode.Space))
+		//{
+		//	StartFreezeFrame(2f);
+		//}
 
 		//Fire event of TimeIsUp on a single frame
 		if (trackTime <= 0 && !timeEnded)
 		{
 			timeEnded = true;
+			trackTime = 0;
+			timer.text = "Timer: " + Mathf.Floor(trackTime);
+
 			if (TimeIsUp != null)
 			{
 				TimeIsUp();

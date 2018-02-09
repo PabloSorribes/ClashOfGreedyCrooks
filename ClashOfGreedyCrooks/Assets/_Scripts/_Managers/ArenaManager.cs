@@ -13,7 +13,6 @@ public class ArenaManager : MonoBehaviour
 		}
 	}
 
-	//private Camera cam;
 	private GameObject endOfRoundScreenCanvas;
 	private int playersAlive;
 	private PlayerInfo[] players;
@@ -26,7 +25,6 @@ public class ArenaManager : MonoBehaviour
 	private void Start()
 	{
 		TimeManager.GetInstance.TimeIsUp += HandleEndTime;
-		//cam = Camera.main;
 		players = new PlayerInfo[PlayerManager.GetPlayersConnected()];
 		playersAlive = players.Length;
 	}
@@ -45,7 +43,6 @@ public class ArenaManager : MonoBehaviour
 	{
 		TimeManager.GetInstance.StartFreezeFrame(1f);
 		CameraShake.GetInstance.DoShake();
-		//cam.GetComponent<CameraShake>().DoShake();
 
 		playersAlive--;
 		players[playersAlive] = playerThatDied.GetComponent<PlayerInfo>();
@@ -58,14 +55,14 @@ public class ArenaManager : MonoBehaviour
 
 	private void TriggerEndOfRound()
 	{
-		foreach (var player in PlayerManager.spawnedPlayers)
-		{
-			if (player.GetComponent<PlayerInfo>().IsAlive)
-			{
-				players[0] = player.GetComponent<PlayerInfo>();
-				players[0].NumberOfWins++;
-			}
-		}
+		//foreach (var player in PlayerManager.spawnedPlayers)
+		//{
+		//	if (player.GetComponent<PlayerInfo>().IsAlive)
+		//	{
+		//		players[0] = player.GetComponent<PlayerInfo>();
+		//		players[0].NumberOfWins++;
+		//	}
+		//}
 
 		if (GameManager.GetInstance != null)
 		{
@@ -86,7 +83,6 @@ public class ArenaManager : MonoBehaviour
 
 	public void ReturnToPicking()
 	{
-		PlayerManager.PreparePlayersForNewPickingPhase();
 		GameStateManager.GetInstance.SetState(GameState.Picking);
 	}
 }

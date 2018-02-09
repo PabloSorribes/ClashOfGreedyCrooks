@@ -70,7 +70,15 @@ public class PlayerHealth : MonoBehaviour
 
 		if (currentHealth <= 0)
 		{
-			gameObject.SetActive(false);
+			Camera.main.GetComponent<NewCameraController>().RemoveTarget(gameObject.name);
+			a_deathSound.Play();
+			DeathParticles();
+			if (ArenaManager.GetInstance != null)
+			{
+				ArenaManager.GetInstance.HandlePlayerDeath(gameObject);
+			}
+
+			Destroy(gameObject);
 		}
 	}
 
@@ -85,7 +93,15 @@ public class PlayerHealth : MonoBehaviour
 
 		if (currentHealth <= 0)
 		{
-			gameObject.SetActive(false);
+			Camera.main.GetComponent<NewCameraController>().RemoveTarget(gameObject.name);
+			a_deathSound.Play();
+			DeathParticles();
+			if (ArenaManager.GetInstance != null)
+			{
+				ArenaManager.GetInstance.HandlePlayerDeath(gameObject);
+			}
+
+			Destroy(gameObject);
 		}
 	}
 
@@ -106,15 +122,15 @@ public class PlayerHealth : MonoBehaviour
 		healthBar.value = healthPrecentage;
 	}
 	//TODO: Talk to ArenaManager and what values should i send?
-	private void OnDisable()
-	{
-		a_deathSound.Play();
-		DeathParticles();
-		if (ArenaManager.GetInstance != null)
-		{
-			ArenaManager.GetInstance.HandlePlayerDeath(gameObject);
-		}
-	}
+	//private void OnDestroy()
+	//{
+	//	a_deathSound.Play();
+	//	DeathParticles();
+	//	if (ArenaManager.GetInstance != null)
+	//	{
+	//		ArenaManager.GetInstance.HandlePlayerDeath(gameObject);
+	//	}
+	//}
 
 	private void DeathParticles()
 	{

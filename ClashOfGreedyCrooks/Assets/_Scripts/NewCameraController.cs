@@ -5,88 +5,97 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class NewCameraController : MonoBehaviour
 {
-    public List<Transform> targets;
+	public List<Transform> targets;
 
-    public Vector3 offset;
-    public float smoothTime = .5f;
+	public Vector3 offset;
+	public float smoothTime = .5f;
 
-    public float minZoom = 40f;
-    public float maxZoom = 15f;
-    public float zoomLimiter = 50f;
+	public float minZoom = 40f;
+	public float maxZoom = 15f;
+	public float zoomLimiter = 50f;
 
-    private Vector3 velocity;
-    private Camera cam;
+	private Vector3 velocity;
+	private Camera cam;
 
-    void Start()
-    {
-        cam = GetComponent<Camera>();
-        foreach (GameObject player in PlayerManager.spawnedPlayers)
-        {
-            targets.Add(player.transform);
-        }
-    }
+	void Start()
+	{
+		cam = GetComponent<Camera>();
+		foreach (GameObject player in PlayerManager.spawnedPlayers)
+		{
+			targets.Add(player.transform);
+		}
 
-    private void LateUpdate()
-    {
-        if (targets.Count == 0)
-            return;
+	}
 
-        Move();
-        Zoom();
- 
-    }
+	private void LateUpdate()
+	{
+		if (targets.Count == 0)
+			return;
 
-    void Move()
-    {
-        Vector3 centerPoint = GetCenterPoint();
+		Move();
+		Zoom();
 
-        Vector3 newPosition = centerPoint + offset;
+	}
 
-        transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
-    }
+	void Move()
+	{
+		Vector3 centerPoint = GetCenterPoint();
 
-    Vector3 GetCenterPoint()
-    {
-        //Same position as the only player left.
-        if(targets.Count == 1)
-        {
-            return targets[0].position;
-        }
+		Vector3 newPosition = centerPoint + offset;
 
-        var bounds = new Bounds(targets[0].position, Vector3.zero);
-        for (int i = 0; i < targets.Count; i++)
-        {
-            bounds.Encapsulate(targets[i].position);
-        }
+		transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
+	}
 
-        return bounds.center;
-    }
+	Vector3 GetCenterPoint()
+	{
+		//Same position as the only player left.
+		if (targets.Count <= 1)
+		{
+			return targets[0].position;
+		}
 
-    void Zoom()
-    {
-        float newZoom = Mathf.Lerp(maxZoom, minZoom, GetGreatestDistance() / zoomLimiter);
-        
-        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, newZoom, Time.deltaTime);
-    }
+		var bounds = new Bounds(targets[0].position, Vector3.zero);
+		for (int i = 0; i < targets.Count; i++)
+		{
+			bounds.Encapsulate(targets[i].position);
+		}
 
-    float GetGreatestDistance()
-    {
-        var bounds = new Bounds(targets[0].position, Vector3.zero);
-        for (int i = 0; i < targets.Count; i++)
-        {
-            bounds.Encapsulate(targets[i].position);
-        }
+		return bounds.center;
+	}
 
-        if (bounds.size.x > bounds.size.z)
-        {
-            return bounds.size.x;
-        }
-        else
-            return bounds.size.z;
+	void Zoom()
+	{
+		float newZoom = Mathf.Lerp(maxZoom, minZoom, GetGreatestDistance() / zoomLimiter);
 
-        
+		cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, newZoom, Time.deltaTime);
+	}
 
-    }
+	float GetGreatestDistance()
+	{
+		var bounds = new Bounds(targets[0].position, Vector3.zero);
+		for (int i = 0; i < targets.Count; i++)
+		{
+			bounds.Encapsulate(targets[i].position);
+		}
 
+		if (bounds.size.x > bounds.size.z)
+		{
+			return bounds.size.x;
+		}
+		else
+			return bounds.size.z;
+	}
+
+	public void RemoveTarget(string target)
+	{
+		for (int i = 0; i < targets.Count; i++)
+		{
+			if (target == targets[i].name)
+			{
+				targets.RemoveAt(i);
+			}
+
+		}
+	}
 
 }
