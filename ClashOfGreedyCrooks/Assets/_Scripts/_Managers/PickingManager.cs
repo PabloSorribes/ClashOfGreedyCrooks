@@ -183,12 +183,12 @@ public class PickingManager : MonoBehaviour
         Debug.Log("Damage: " + championScript.Damage);
         Debug.Log("Movement: " + championScript.Movement);
         Debug.Log("AttackSpeed: " + championScript.AttackSpeed);
-        //Player stats
-        newPlayer.GetComponent<PlayerHealth>().SetStartHealth(championScript.Health * 10);
-        newPlayer.GetComponent<Shooting>().damage = championScript.Damage;
-        newPlayer.GetComponent<PlayerController>().speed = championScript.Movement;
-        newPlayer.GetComponent<PlayerController>().attackSpeed = championScript.AttackSpeed * .1f;
-        Debug.Log(" ");
+		//Player stats
+		newPlayer.GetComponent<PlayerHealth>().SetStartHealth(championScript.Health * 10);
+		newPlayer.GetComponent<Shooting>().damage = championScript.Damage + 5f;
+		newPlayer.GetComponent<PlayerController>().speed = championScript.Movement * 0.5f + 3f;
+		newPlayer.GetComponent<PlayerController>().attackSpeed = 1f / championScript.AttackSpeed;
+		Debug.Log(" ");
         Debug.Log("After");
         Debug.Log("Health: " + newPlayer.GetComponent<PlayerHealth>().currentHealth);
         Debug.Log("Damage: " + newPlayer.GetComponent<Shooting>().damage);
