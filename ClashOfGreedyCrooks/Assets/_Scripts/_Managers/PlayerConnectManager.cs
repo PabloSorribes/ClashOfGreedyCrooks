@@ -180,6 +180,7 @@ public class PlayerConnectManager : MonoBehaviour
 
     public void GoToPickingPhase()
     {
+        PlayerManager.SaveConnectedPlayers();
         GameStateManager.GetInstance.SetState(GameState.Picking);
     }
 }

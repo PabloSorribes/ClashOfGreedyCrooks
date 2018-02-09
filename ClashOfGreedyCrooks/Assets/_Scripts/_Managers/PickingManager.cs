@@ -21,6 +21,9 @@ public class PickingManager : MonoBehaviour
     private void Start()
     {
         pickingResources = GetComponent<PickingResources>();
+
+        if (GameManager.GetInstance.RoundsPlayed > 0)
+            PlayerManager.NextPickingPhase();
     }
 
     /// <summary>
@@ -30,15 +33,15 @@ public class PickingManager : MonoBehaviour
     /// <param name="button"></param>
 	public void PickChampion(int gamepadIndex, int button)
     {
-        for (int i = 0; i < PlayerManager.players.Length; i++)
-            if (PlayerManager.players[i].Gamepad == gamepadIndex)
-                if (PlayerManager.players[i].ChoosingPenalty)
+        for (int i = 0; i < PlayerManager.connectedPlayers.Length; i++)
+            if (PlayerManager.connectedPlayers[i].Gamepad == gamepadIndex)
+                if (PlayerManager.connectedPlayers[i].ChoosingPenalty)
                 {
                     ChoosePenalty(i, gamepadIndex, button);
-                    PlayerManager.players[i].ChoosingPenalty = false;
+                    PlayerManager.connectedPlayers[i].ChoosingPenalty = false;
                     return;
                 }
-                else if (PlayerManager.players[i].HasChampion)
+                else if (PlayerManager.connectedPlayers[i].HasChampion)
                     return;
                 else
                 {
@@ -55,15 +58,15 @@ public class PickingManager : MonoBehaviour
             targetChampion.transform.position = pickingResources.playerPositions[playerIndex].position;
             targetChampion.Picked = true;
             targetChampion.PlayerIndex = playerIndex;
-            PlayerManager.players[playerIndex].HasChampion = true;
+            PlayerManager.connectedPlayers[playerIndex].HasChampion = true;
         }
         else if (targetChampion.Picked && !targetChampion.Locked)
         {
             targetChampion.Locked = true;
             targetChampion.PlayerIndex = playerIndex;
             targetChampion.GetComponent<Penalty>().Buttons(true);
-            PlayerManager.players[playerIndex].ChoosingPenalty = true;
-            PlayerManager.players[playerIndex].HasChampion = true;
+            PlayerManager.connectedPlayers[playerIndex].ChoosingPenalty = true;
+            PlayerManager.connectedPlayers[playerIndex].HasChampion = true;
         }
 
         if (IsAllChampionsPicked())
@@ -81,7 +84,7 @@ public class PickingManager : MonoBehaviour
                 targetChampion.GetComponent<Penalty>().Buttons(false);
                 targetChampion.transform.position = pickingResources.playerPositions[playerIndex].position;
                 targetChampion.Locked = false;
-                PlayerManager.players[targetChampion.LastPlayerIndex].HasChampion = false;
+                PlayerManager.connectedPlayers[targetChampion.LastPlayerIndex].HasChampion = false;
                 return;
             }
         }
@@ -103,11 +106,15 @@ public class PickingManager : MonoBehaviour
     {
         if (PlayerManager.spawnedPlayers == null)
             PlayerManager.SetSpawnedPlayersArrayLenght();
-        
-        for (int i = 0; i < PlayerManager.players.Length; i++)
+
+        for (int i = 0; i < PlayerManager.connectedPlayers.Length; i++)
+        {
             for (int j = 0; j < pickingResources.spawnedChampions.Length; j++)
                 if (pickingResources.spawnedChampions[j].GetComponent<Champion>().PlayerIndex == i)
+                {
                     SpawnPlayer(i, j);
+                }
+        }
 
         PlayerManager.SendInfoToInputManager();
         GameStateManager.GetInstance.SetState(GameState.Arena);
@@ -120,15 +127,7 @@ public class PickingManager : MonoBehaviour
     /// <param name="championIndex"></param>
 	private void SpawnPlayer(int playerIndex, int championIndex)
     {
-        GameObject newPlayer = null;
-        if (PlayerManager.spawnedPlayers[playerIndex] != null)
-        {
-            for (int i = 0; i < PlayerManager.spawnedPlayers.Length; i++)
-                if (PlayerManager.spawnedPlayers[i].GetComponent<PlayerInfo>().Player == playerIndex)
-                    newPlayer = PlayerManager.spawnedPlayers[i];
-        }
-        else
-            newPlayer = Instantiate(pickingResources.playerPrefab);
+        GameObject newPlayer = Instantiate(pickingResources.playerPrefab);
 
         //References
         PlayerInfo playerInfo = newPlayer.GetComponent<PlayerInfo>();
@@ -136,8 +135,8 @@ public class PickingManager : MonoBehaviour
         Champion championScript = pickingResources.spawnedChampions[championIndex].GetComponent<Champion>();
 
         //Player
-        playerInfo.Player = PlayerManager.players[playerIndex].Player;
-        playerInfo.Gamepad = PlayerManager.players[playerIndex].Gamepad;
+        playerInfo.Player = PlayerManager.connectedPlayers[playerIndex].Player;
+        playerInfo.Gamepad = PlayerManager.connectedPlayers[playerIndex].Gamepad;
         playerInfo.SetDontDestroyOnLoad();
 
         //Champion
@@ -170,6 +169,6 @@ public class PickingManager : MonoBehaviour
         Debug.Log(" ");
 
         newPlayer.name = "Player " + playerIndex;
-        PlayerManager.AddSpawnedPlayer(newPlayer);
+        PlayerManager.spawnedPlayers[playerIndex] = newPlayer;
     }
 }

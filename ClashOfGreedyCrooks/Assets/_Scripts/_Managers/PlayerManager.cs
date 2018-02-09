@@ -4,6 +4,7 @@ public static class PlayerManager
 {
     public static PlayerInfo[] players;
     public static GameObject[] spawnedPlayers;
+    public static PlayerInfo[] connectedPlayers;
 
     public static void FillPlayersArray()
     {
@@ -31,14 +32,18 @@ public static class PlayerManager
         spawnedPlayers = new GameObject[GetPlayersConnected()];
     }
 
-    public static void AddSpawnedPlayer(GameObject player)
+    public static void SaveConnectedPlayers()
     {
-        for (int i = 0; i < spawnedPlayers.Length; i++)
-            if (spawnedPlayers[i] == null)
+        connectedPlayers = new PlayerInfo[GetPlayersConnected()];
+        int pos = 0;
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (players[i].Connected)
             {
-                spawnedPlayers[i] = player;
-                return;
+                connectedPlayers[pos] = players[i];
+                pos++;
             }
+        }
     }
 
     public static void SendInfoToInputManager()
@@ -67,25 +72,19 @@ public static class PlayerManager
         InputManager.GetInstance.SetPlayerReferences(pcArray);
     }
 
-    public static void PreparePlayersForNewPickingPhase()
+    public static void NextPickingPhase()
     {
-        foreach (PlayerInfo item in players)
+        for (int i = 0; i < connectedPlayers.Length; i++)
         {
-            item.HasChampion = false;
+            connectedPlayers[i].HasChampion = false;
+            connectedPlayers[i].ChoosingPenalty = false;
         }
-
-        foreach (GameObject item in spawnedPlayers)
-        {
-            item.GetComponent<Shooting>().enabled = false;
-            item.GetComponent<PlayerHealth>().enabled = false;
-            MonoBehaviour.Destroy(item.transform.Find("Champion").GetChild(0).gameObject);
-        }
-
     }
 
     public static void Reset()
     {
         FillPlayersArray();
         SetSpawnedPlayersArrayLenght();
+        SaveConnectedPlayers();
     }
 }
