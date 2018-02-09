@@ -79,6 +79,10 @@ public class ArenaManager : MonoBehaviour
 		}
 
 		endOfRoundScreenCanvas = Instantiate(Resources.Load("UI/EndOfRoundScreenCanvas") as GameObject);
+
+		//TODO: Rewrite to handle this better.
+		DeathCircle.GetInstance.roundIsOver = true;
+		DeathCircle.GetInstance.deathZoneDamage = 0;
 	}
 
 	public void ReturnToPicking()

@@ -16,101 +16,106 @@ public class DeathCircle : MonoBehaviour
 		}
 	}
 
-    private void Awake()
-    {
-        instance = this;
-    }
+	private void Awake()
+	{
+		instance = this;
+	}
 
-    private float startSize = 1;
-    private float maxSize = 5;
-    private float minSize = 0.3f;
+	private float startSize = 1;
+	private float maxSize = 5;
+	private float minSize = 0.3f;
 
-    private float startColorAplha = 0.1f;
-    public float FadeInStrength;
+	private float startColorAplha = 0.1f;
+	public float FadeInStrength;
 
-    public int deathZoneDamage = 15;
-    private float contractionSpeed = 2f;
+	public int deathZoneDamage = 15;
+	private float contractionSpeed = 2f;
 
-    private Vector3 targetScale;
-    private Vector3 baseScale;
-    private float currScale;
+	private Vector3 targetScale;
+	private Vector3 baseScale;
+	private float currScale;
 
-    private ParticleSystem ps;
-    public bool emit;
-    private bool particleFade;
+	private ParticleSystem ps;
+	public bool emit;
+	private bool particleFade;
 
-    // Use this for initialization
-    void Start()
-    {
-        ps = GetComponent<ParticleSystem>();
+	[HideInInspector]
+	public bool roundIsOver = false;
 
-        baseScale = transform.localScale;
-        transform.localScale = baseScale * startSize;
-        currScale = startSize;
-        targetScale = baseScale * startSize;
-    }
+	// Use this for initialization
+	void Start()
+	{
+		ps = GetComponent<ParticleSystem>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        var emission = ps.emission;
-        var main = ps.main;
+		baseScale = transform.localScale;
+		transform.localScale = baseScale * startSize;
+		currScale = startSize;
+		targetScale = baseScale * startSize;
+	}
 
-        emission.enabled = emit;
+	// Update is called once per frame
+	void Update()
+	{
+		var emission = ps.emission;
+		var main = ps.main;
 
-        if (particleFade && startColorAplha <= 1)
-        {
-            StartCircleFadeIn();
-            main.startColor = new Color(255, 255, 255, startColorAplha);
-        }
-        
+		emission.enabled = emit;
 
-        transform.localScale = Vector3.MoveTowards(transform.localScale, targetScale, contractionSpeed * Time.deltaTime);
+		if (particleFade && startColorAplha <= 1)
+		{
+			StartCircleFadeIn();
+			main.startColor = new Color(255, 255, 255, startColorAplha);
+		}
 
-        //DEBUG: To trigger the shrinking manualy
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            ChangeSize(true);
-            
+		if (!roundIsOver)
+		{
+			transform.localScale = Vector3.MoveTowards(transform.localScale, targetScale, contractionSpeed * Time.deltaTime);
+		}
 
-        }
-    }
+		//DEBUG: To trigger the shrinking manualy
+		if (Input.GetKeyDown(KeyCode.DownArrow))
+		{
+			ChangeSize(true);
 
 
-    public void ChangeSize(bool shrink)
-    {
-        if (shrink)
-        {
-            currScale--;
-        }
-        currScale = Mathf.Clamp(currScale, minSize, maxSize + 1);
+		}
+	}
 
-        targetScale = baseScale * currScale;
 
-        emit = true;
-        particleFade = true;
-    }
+	public void ChangeSize(bool shrink)
+	{
+		if (shrink)
+		{
+			currScale--;
+		}
+		currScale = Mathf.Clamp(currScale, minSize, maxSize + 1);
 
-    private void StartCircleFadeIn()
-    {
-        startColorAplha += startColorAplha * FadeInStrength * Time.deltaTime;
-    }
+		targetScale = baseScale * currScale;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            other.GetComponent<PlayerHealth>().insideDeathCircle = true;
-        }
-    }
+		emit = true;
+		particleFade = true;
+	}
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            Debug.Log("Take DAMAGE!");
-            other.GetComponent<PlayerHealth>().insideDeathCircle = false;
-        }
-    }
+	private void StartCircleFadeIn()
+	{
+		startColorAplha += startColorAplha * FadeInStrength * Time.deltaTime;
+	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.gameObject.tag == "Player")
+		{
+			other.GetComponent<PlayerHealth>().insideDeathCircle = true;
+		}
+	}
+
+	private void OnTriggerExit(Collider other)
+	{
+		if (other.gameObject.tag == "Player")
+		{
+			Debug.Log("Take DAMAGE!");
+			other.GetComponent<PlayerHealth>().insideDeathCircle = false;
+		}
+	}
 }
 
