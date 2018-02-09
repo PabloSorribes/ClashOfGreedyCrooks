@@ -23,6 +23,10 @@ public class ManagerInitialization : MonoBehaviour
 			//InputManager.manualGameStateOverride = this.gameStateOverride;
 		}
 
+		if (AudioManager.GetInstance) 
+		{
+		}
+
 		Destroy(this.gameObject);
 	}
 }
