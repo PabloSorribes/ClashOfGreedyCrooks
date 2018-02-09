@@ -42,7 +42,8 @@ public class PlayerConnectManager : MonoBehaviour
         PlayerManager.FillPlayersArray();
     }
 
-	private void InitializeAudio() {
+	private void InitializeAudio() 
+	{
 		a_connectController = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
 		a_connectController.Event = "event:/PlayerConnect/connectController";
 

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using FMODUnity;
+using UnityEngine;
 
 public class PickingManager : MonoBehaviour
 {
@@ -13,31 +14,48 @@ public class PickingManager : MonoBehaviour
 
     private PickingResources pickingResources;
 
-    private void Awake()
+	StudioEventEmitter a_pickChamp;
+	StudioEventEmitter a_pickPenalty;
+	StudioEventEmitter a_pickingToArena;
+
+	private void Awake()
     {
         instance = this;
     }
 
     private void Start()
     {
+		InitializeAudio();
         pickingResources = GetComponent<PickingResources>();
 
         if (GameManager.GetInstance.RoundsPlayed > 0)
             PlayerManager.NextPickingPhase();
     }
 
-    /// <summary>
-    /// Called from InputManager.
-    /// </summary>
-    /// <param name="gamepadIndex"></param>
-    /// <param name="button"></param>
+	private void InitializeAudio() 
+	{
+		a_pickChamp = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
+		a_pickChamp.Event = "event:/Picking/pickChamp";
+
+		a_pickPenalty = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
+		a_pickPenalty.Event = "event:/Picking/pickPenalty";
+
+		a_pickingToArena = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
+		a_pickingToArena.Event = "event:/Picking/pickingToArena";
+	}
+
+	/// <summary>
+	/// Called from InputManager.
+	/// </summary>
+	/// <param name="gamepadIndex"></param>
+	/// <param name="button"></param>
 	public void PickChampion(int gamepadIndex, int button)
     {
         for (int i = 0; i < PlayerManager.connectedPlayers.Length; i++)
             if (PlayerManager.connectedPlayers[i].Gamepad == gamepadIndex)
                 if (PlayerManager.connectedPlayers[i].ChoosingPenalty)
                 {
-                    ChoosePenalty(i, gamepadIndex, button);
+                    ApplyPenalty(i, gamepadIndex, button);
                     PlayerManager.connectedPlayers[i].ChoosingPenalty = false;
                     return;
                 }
@@ -53,13 +71,19 @@ public class PickingManager : MonoBehaviour
     private void OnPickChampion(int playerIndex, int button)
     {
         Champion targetChampion = pickingResources.spawnedChampions[button].GetComponent<Champion>();
+
+		//Pick from pool
         if (!targetChampion.Picked)
         {
             targetChampion.transform.position = pickingResources.playerPositions[playerIndex].position;
             targetChampion.Picked = true;
             targetChampion.PlayerIndex = playerIndex;
             PlayerManager.connectedPlayers[playerIndex].HasChampion = true;
-        }
+
+			a_pickChamp.Play();
+		}
+
+		//Menu for penalties
         else if (targetChampion.Picked && !targetChampion.Locked)
         {
             targetChampion.Locked = true;
@@ -73,7 +97,7 @@ public class PickingManager : MonoBehaviour
             OnAllChampionsPicked();
     }
 
-    private void ChoosePenalty(int playerIndex, int gamepadIndex, int button)
+    private void ApplyPenalty(int playerIndex, int gamepadIndex, int button)
     {
         for (int i = 0; i < pickingResources.spawnedChampions.Length; i++)
         {
@@ -85,6 +109,9 @@ public class PickingManager : MonoBehaviour
                 targetChampion.transform.position = pickingResources.playerPositions[playerIndex].position;
                 targetChampion.Locked = false;
                 PlayerManager.connectedPlayers[targetChampion.LastPlayerIndex].HasChampion = false;
+
+				a_pickPenalty.Play();
+				a_pickChamp.Play();
                 return;
             }
         }
@@ -116,6 +143,7 @@ public class PickingManager : MonoBehaviour
                 }
         }
 
+		a_pickingToArena.Play();
         PlayerManager.SendInfoToInputManager();
         GameStateManager.GetInstance.SetState(GameState.Arena);
     }
