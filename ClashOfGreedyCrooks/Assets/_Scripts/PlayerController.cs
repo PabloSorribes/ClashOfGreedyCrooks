@@ -69,4 +69,5 @@ public class PlayerController : MonoBehaviour
 			directionalInputRightStick = rightStick;
 		}
 	}
+
 }
