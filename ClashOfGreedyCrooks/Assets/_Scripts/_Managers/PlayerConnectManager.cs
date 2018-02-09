@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using FMODUnity;
 
 public class PlayerConnectManager : MonoBehaviour
 {
@@ -19,13 +20,21 @@ public class PlayerConnectManager : MonoBehaviour
 
     public bool SetTrueFor1PlayerTesting;
 
-    private void Awake()
+	StudioEventEmitter a_connectController;
+	StudioEventEmitter a_disconnectController;
+	StudioEventEmitter a_ready;
+	StudioEventEmitter a_unReady;
+	StudioEventEmitter a_playerConnectToPicking;
+
+
+	private void Awake()
     {
         instance = this;
     }
 
     private void Start()
     {
+		InitializeAudio();
         InstantiateCanvas();
         startGameText = canvas.transform.Find("StartText").gameObject;
         startGameText.SetActive(false);
@@ -33,7 +42,24 @@ public class PlayerConnectManager : MonoBehaviour
         PlayerManager.FillPlayersArray();
     }
 
-    private void InstantiateCanvas()
+	private void InitializeAudio() {
+		a_connectController = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
+		a_connectController.Event = "event:/PlayerConnect/connectController";
+
+		a_disconnectController = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
+		a_disconnectController.Event = "event:/PlayerConnect/disconnectController";
+
+		a_ready = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
+		a_ready.Event = "event:/PlayerConnect/ready";
+
+		a_unReady = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
+		a_unReady.Event = "event:/PlayerConnect/unready";
+
+		a_playerConnectToPicking = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
+		a_playerConnectToPicking.Event = "event:/PlayerConnect/playerConnectToPicking";
+	}
+
+	private void InstantiateCanvas()
     {
         canvas = Instantiate(Resources.Load("PlayerConnect/PlayerConnectCanvas") as GameObject);
     }
@@ -100,10 +126,12 @@ public class PlayerConnectManager : MonoBehaviour
 
         if (startGameText.activeInHierarchy)
             startGameText.SetActive(false);
+
+		a_connectController.Play();
     }
 
     /// <summary>
-    /// Called from InputManager.
+    /// Called from InputManager. UnReadies / Disconnects player, depending on its state.
     /// </summary>
     /// <param name="gamepadIndex"></param>
     public void RemovePlayer(int gamepadIndex)
@@ -135,12 +163,16 @@ public class PlayerConnectManager : MonoBehaviour
                 PlayerManager.players[i].Gamepad = 99;
             }
         ReadyCheck();
+
+		a_disconnectController.Play();
     }
 
     private void Ready(int pos)
     {
         PlayerManager.players[pos].Ready = true;
         playerSlots[pos].GetChild(2).gameObject.SetActive(true);
+
+		a_ready.Play();
     }
 
     private void UnReady(int pos)
@@ -150,6 +182,8 @@ public class PlayerConnectManager : MonoBehaviour
         allReady = false;
         if (startGameText.activeInHierarchy)
             startGameText.SetActive(false);
+
+		a_unReady.Play();
     }
 
     private void ReadyCheck()
@@ -180,6 +214,7 @@ public class PlayerConnectManager : MonoBehaviour
 
     public void GoToPickingPhase()
     {
+		a_playerConnectToPicking.Play();
         PlayerManager.SaveConnectedPlayers();
         GameStateManager.GetInstance.SetState(GameState.Picking);
     }

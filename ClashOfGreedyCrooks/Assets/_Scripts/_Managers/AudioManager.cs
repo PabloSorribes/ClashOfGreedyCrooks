@@ -40,8 +40,20 @@ public class AudioManager : GenericSingleton<AudioManager> {
 		p_fmodEvent.Preload = true;
 	}
 
-	// Update is called once per frame
-	void Update () {
-		
+	/// <summary>
+	/// Either play or stop the inserted StudioEventEmitter-component.
+	/// <para></para>
+	/// TRUE = Play sound.
+	/// <para></para> FALSE = Stop the sound.
+	/// </summary>
+	/// <param name="p_fmodComponent"></param>
+	public void PlayStopSound(FMODUnity.StudioEventEmitter p_fmodComponent, bool p_playStop) {
+
+		if (p_playStop) {
+			p_fmodComponent.Play();
+		}
+		else {
+			p_fmodComponent.Stop();
+		}
 	}
 }
