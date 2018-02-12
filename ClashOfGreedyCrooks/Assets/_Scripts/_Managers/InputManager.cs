@@ -31,11 +31,12 @@ public class InputManager : GenericSingleton<InputManager>
 		OnGameStateChanged(GameStateManager.GetInstance.GetState());
 		GameStateManager.GetInstance.GameStateChanged += OnGameStateChanged;
 
+		AddConnectedGamepads();
+
 		for (int i = 0; i < 4; i++)
 		{
 			rightTriggerReleased[i] = true;
 		}
-		AddConnectedGamepads();
 
 
 		//For testing: Set references to players in scene with PlayerController scripts
@@ -67,7 +68,7 @@ public class InputManager : GenericSingleton<InputManager>
 			//Note: "PlayerIndex" enum type corresponds to "gamepadIndex" variable in project since it can't be renamed (XInput).
 			//Only applicable in this context
 			PlayerIndex testGamepadIndex = (PlayerIndex)i;
-			GamePadState testState = GamePad.GetState(testGamepadIndex, GamePadDeadZone.Circular);
+			GamePadState testState = GamePad.GetState(testGamepadIndex);
 			if (testState.IsConnected)
 			{
 				Debug.Log(string.Format("GamePad found {0}", testGamepadIndex));
@@ -98,7 +99,7 @@ public class InputManager : GenericSingleton<InputManager>
 		for (int i = 0; i < gamepadIndex.Count; ++i)
 		{
 			prevState[i] = state[i];
-			state[i] = GamePad.GetState((PlayerIndex)i, GamePadDeadZone.Circular);
+			state[i] = GamePad.GetState((PlayerIndex)i, GamePadDeadZone.None);
 
 			//TODO: Modify to handle inputs with events instead.
 			switch (gameState)
@@ -166,10 +167,24 @@ public class InputManager : GenericSingleton<InputManager>
 
 				case GameState.Arena:
 
+					float deadzone = 0.4f;
 					Vector3 leftStick = new Vector3(state[i].ThumbSticks.Left.X, 0f, state[i].ThumbSticks.Left.Y);
 					Vector3 rightStick = new Vector3(state[i].ThumbSticks.Right.X, 0f, state[i].ThumbSticks.Right.Y);
+
+					if (rightStick.magnitude < deadzone)
+					{
+						rightStick = Vector3.zero;
+					}
+
+					if (leftStick.magnitude < deadzone)
+					{
+						leftStick = Vector3.zero;
+					}
+					
 					//Send directional input data to each player
 					players[i].SetDirectionalInput(leftStick, rightStick);
+
+
 
 
 					if (state[i].Triggers.Left > 0)

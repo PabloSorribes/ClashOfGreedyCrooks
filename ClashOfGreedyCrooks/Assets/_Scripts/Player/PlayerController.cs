@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [HideInInspector]public Shooting shootS;
+	[HideInInspector] public Shooting shootS;
 
+	private float deadzone;
 	public float speed = 5f;
-	private float aimAngle = 0f;
+	private float aimSensitivity = 0.1f;
+	private float inputAngle = 0f;
+	private float viewAngle = 0f;
 	private float dt = 0f;
 
-    public float attackSpeed;
-    private bool cooldown;
+	public float attackSpeed;
+	private bool cooldown;
 
 	private Vector3 movement;
 	private Vector3 directionalInputLeftStick;
@@ -24,7 +27,7 @@ public class PlayerController : MonoBehaviour
 		directionalInputRightStick = Vector3.zero;
 		movement = Vector3.zero;
 
-        shootS = GetComponent<Shooting>();
+		shootS = GetComponent<Shooting>();
 	}
 
 	private void Update()
@@ -36,38 +39,39 @@ public class PlayerController : MonoBehaviour
 
 	private void MovePlayer()
 	{
-		movement = new Vector3(directionalInputLeftStick.x, 0f, directionalInputLeftStick.z);
-		movement = movement.normalized * speed * dt;
+		movement = directionalInputLeftStick.normalized * speed * dt;
 		transform.position += movement;
+		print(directionalInputLeftStick.normalized);
 
-		aimAngle = Mathf.Atan2(directionalInputRightStick.x, directionalInputRightStick.z) * Mathf.Rad2Deg;
-		transform.rotation = Quaternion.AngleAxis(aimAngle, Vector3.up);
+		inputAngle = Mathf.Atan2(directionalInputRightStick.x, directionalInputRightStick.z) * Mathf.Rad2Deg;
+		viewAngle = Mathf.LerpAngle(viewAngle, inputAngle, 0.1f);
+
+		transform.rotation = Quaternion.AngleAxis(viewAngle, Vector3.up);
 	}
 
 	public void Shoot()
 	{
-        if (!cooldown)
-        {
-            shootS.Shoot();
-            cooldown = true;
-            Invoke("CooldownTimer", attackSpeed);
+		if (!cooldown)
+		{
+			shootS.Shoot();
+			cooldown = true;
+			Invoke("CooldownTimer", attackSpeed);
 
-        }
+		}
 	}
 
-    private void CooldownTimer()
-    {
-        cooldown = false;
-    } 
+	private void CooldownTimer()
+	{
+		cooldown = false;
+	}
 
 	public void SetDirectionalInput(Vector3 leftStick, Vector3 rightStick)
 	{
 		directionalInputLeftStick = leftStick;
 
-		if (Mathf.Abs(rightStick.x) > 0.19f || Mathf.Abs(rightStick.z) > 0.19f)
+		if (rightStick.magnitude > 0)
 		{
 			directionalInputRightStick = rightStick;
 		}
 	}
-
 }
