@@ -205,24 +205,7 @@ public class InputManager : GenericSingleton<InputManager>
 			}
 		}
 
-        //For debuging reasons
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SceneManager.LoadScene("MainMenu");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SceneManager.LoadScene("PlayerConnect");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            SceneManager.LoadScene("Picking");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            SceneManager.LoadScene("Arena01");
-        }
-
+		DebugKeys();
     }
 
 	public void SetPlayerReferences(PlayerController[] players)
@@ -230,4 +213,26 @@ public class InputManager : GenericSingleton<InputManager>
 		players.CopyTo(this.players, 0);
 	}
 
+	/// <summary>
+	/// Keys to load scenes and other debug stuff.
+	/// </summary>
+	private void DebugKeys()
+	{
+		if (Input.GetKeyDown(KeyCode.Alpha1))
+		{
+			SceneManager.LoadScene("MainMenu");
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha2))
+		{
+			SceneManager.LoadScene("PlayerConnect");
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha3))
+		{
+			SceneManager.LoadScene("Picking");
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha4))
+		{
+			SceneManager.LoadScene("Arena01");
+		}
+	}
 }
