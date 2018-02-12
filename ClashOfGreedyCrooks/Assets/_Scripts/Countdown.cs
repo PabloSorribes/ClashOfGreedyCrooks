@@ -7,6 +7,7 @@ public class Countdown : MonoBehaviour {
 
     public int time;
 
+	FMODUnity.StudioEventEmitter studioEventEmitter;
 	FMOD.Studio.EventInstance a_countDownInstance;
 
 	private void Start()

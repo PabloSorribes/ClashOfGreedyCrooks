@@ -5,6 +5,9 @@ using UnityEngine;
 public class AudioManager : GenericSingleton<AudioManager> {
 
 	private FMODUnity.StudioEventEmitter musicMainMenu;
+	public FMODUnity.StudioEventEmitter MusicMainMenu { get; set; }
+
+
 	private FMODUnity.StudioEventEmitter musicPicking;
 	private FMODUnity.StudioEventEmitter musicArena;
 
@@ -46,7 +49,9 @@ public class AudioManager : GenericSingleton<AudioManager> {
 	private void InitializeAudio() {
 		musicMainMenu = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
 		musicMainMenu.Event = "event:/Music/musicMainMenu";
-		musicMainMenu.Preload = true;
+
+		//TODO: look this post up http://www.fmod.org/questions/question/get-parameter-value/ on how to get current value of a parameter from a StudioEventEmitter-object.
+		//musicMainMenu.EventInstance.getParameter()
 
 		musicPicking = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
 		musicPicking.Event = "event:/Music/musicPicking";
@@ -106,5 +111,18 @@ public class AudioManager : GenericSingleton<AudioManager> {
 		else {
 			p_fmodComponent.Stop();
 		}
+	}
+
+	/// <summary>
+	/// Changes parameter values for the FMODUnity.StudioEventEmitter-object that is passed into the function.
+	/// <para></para>
+	/// This will only work for events that are currently playing, ie. you cannot set this before playing a OneShot. Use FMOD.Studio.CreateInstance for that instead.
+	/// </summary>
+	/// <param name="eventEmitter"></param>
+	/// <param name="parameterName"></param>
+	/// <param name="parameterValue"></param>
+	public void ChangeParameter(FMODUnity.StudioEventEmitter eventEmitter, string parameterName, float parameterValue)
+	{
+		eventEmitter.SetParameter(parameterName, parameterValue);
 	}
 }
