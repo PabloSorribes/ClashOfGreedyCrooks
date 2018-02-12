@@ -44,13 +44,22 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 
     private void ScreenFadeInComplete()
     {
-        //TODO: Add countdown when in arena.
+        if (gameState == GameState.Picking)
+        {
+            StartCountdown(3, "Start picking!");
+        }
         if (gameState == GameState.Arena)
         {
-            GameObject countdownPrefab = Resources.Load("Countdown") as GameObject;
-            Instantiate(countdownPrefab);
-            InputManager.GetInstance.freezeInput = true;
+            StartCountdown(3, "Fight!");
         }
+    }
+
+    private void StartCountdown(int time, string endText)
+    {
+        GameObject countdownPrefab = Resources.Load("Countdown") as GameObject;
+        GameObject newCountdown = Instantiate(countdownPrefab);
+        newCountdown.GetComponent<Countdown>().InitializeCountdown(time, endText);
+        InputManager.GetInstance.freezeInput = true;
     }
 
     /// <summary>

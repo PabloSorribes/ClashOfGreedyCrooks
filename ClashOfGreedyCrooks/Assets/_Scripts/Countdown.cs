@@ -5,7 +5,8 @@ public class Countdown : MonoBehaviour {
 
     private Text countdownText;
 
-    public int time;
+    private int time;
+    private string endText;
 
 	FMOD.Studio.EventInstance a_countDownInstance;
 
@@ -14,6 +15,12 @@ public class Countdown : MonoBehaviour {
 		InitializeAudio();
         countdownText = GetComponentInChildren<Text>();
         InvokeRepeating("CountdownTimer", 0f, 1f);
+    }
+
+    public void InitializeCountdown(int time, string endText)
+    {
+        this.time = time;
+        this.endText = endText;
     }
 
 	private void InitializeAudio() 
@@ -31,22 +38,24 @@ public class Countdown : MonoBehaviour {
 			a_countDownInstance.setParameterValue("end", 1f);
 			a_countDownInstance.start();
 
-			CancelInvoke();
-            countdownText.text = "Fight!";
+            CancelInvoke();
+            countdownText.text = endText;
             Invoke("EndCountdown", 2f);
             InputManager.GetInstance.freezeInput = false;
             return;
         }
 		print(time);
-		a_countDownInstance.start();
-		countdownText.text = "" + time;
+		a_countDown.Play();
+        countdownText.text = time.ToString();
         time--;
     }
 
     private void EndCountdown()
     {
-		TimeManager.GetInstance.countdownFinished = true;
+        if(GameStateManager.GetInstance.GetState() == GameState.Arena)
+		    TimeManager.GetInstance.countdownFinished = true;
 
 		Destroy(gameObject);
     }
+
 }
