@@ -54,12 +54,12 @@ public class PlayerController : MonoBehaviour
 	}
 	public void Shoot()
 	{
-		//if (!cooldown)
-		//{
+		if (!cooldown)
+		{
 			shooting.Shoot();
 			cooldown = true;
 			Invoke("CooldownTimer", attackSpeed);
-		//}
+		}
 	}
 
 	private void CooldownTimer()
