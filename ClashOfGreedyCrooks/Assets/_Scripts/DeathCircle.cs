@@ -16,11 +16,6 @@ public class DeathCircle : MonoBehaviour
 		}
 	}
 
-	private void Awake()
-	{
-		instance = this;
-	}
-
 	private float startSize = 1;
 	private float maxSize = 5;
 	private float minSize = 0.3f;
@@ -41,6 +36,11 @@ public class DeathCircle : MonoBehaviour
 
 	[HideInInspector]
 	public bool roundIsOver = false;
+
+	private void Awake()
+	{
+		instance = this;
+	}
 
 	// Use this for initialization
 	void Start()
