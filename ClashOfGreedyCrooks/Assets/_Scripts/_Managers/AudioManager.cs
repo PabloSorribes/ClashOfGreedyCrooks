@@ -7,9 +7,10 @@ public class AudioManager : GenericSingleton<AudioManager> {
 	private FMODUnity.StudioEventEmitter musicMainMenu;
 	public FMODUnity.StudioEventEmitter MusicMainMenu { get; set; }
 
-
 	private FMODUnity.StudioEventEmitter musicPicking;
 	private FMODUnity.StudioEventEmitter musicArena;
+
+	FMOD.Studio.EventInstance a_buttonSound;
 
 	private void Awake() {
 		InitializeAudio();
@@ -36,13 +37,6 @@ public class AudioManager : GenericSingleton<AudioManager> {
 				break;
 			default:
 				break;
-		}
-	}
-
-	private void Update() {
-		if (Input.GetKeyDown(KeyCode.O)) {
-			PlayMusicMainMenu();
-			//musicMainMenu.Play();
 		}
 	}
 
@@ -87,6 +81,17 @@ public class AudioManager : GenericSingleton<AudioManager> {
 		if (!musicArena.IsPlaying()) {
 			musicArena.Play();
 		}
+	}
+
+
+	/// <summary>
+	/// <paramref name="eventName"/> is a string to the fmod event, eg. "event:/Arena/countDown".
+	/// </summary>
+	/// <param name="eventName"></param>
+	public void PlayOneShot(string eventName)
+	{
+		FMOD.Studio.EventInstance eventInstance = FMODUnity.RuntimeManager.CreateInstance(eventName);
+		eventInstance.start();
 	}
 
 	public void InitializeAudio(FMODUnity.StudioEventEmitter p_fmodEvent, string p_eventPath) {
