@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Keeps stats for every champion.
+/// </summary>
 public class Champion : MonoBehaviour {
 
     private Penalty penalty;
