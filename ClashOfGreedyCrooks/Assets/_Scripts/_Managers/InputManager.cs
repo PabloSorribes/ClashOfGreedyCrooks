@@ -101,7 +101,8 @@ public class InputManager : GenericSingleton<InputManager>
 			prevState[i] = state[i];
 			state[i] = GamePad.GetState((PlayerIndex)i, GamePadDeadZone.None);
 
-			//TODO: Modify to handle inputs with events instead.
+			//TODO: Modify to handle inputs with events instead of calling specific functions in other scripts.
+			//TODO: Make button statements (if (prevState && state){}) into Bool-functions which return true. Makes code cleaner.
 			switch (gameState)
 			{
 				case GameState.MainMenu:
