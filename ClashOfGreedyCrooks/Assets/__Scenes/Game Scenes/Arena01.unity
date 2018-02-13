@@ -9563,7 +9563,6 @@ GameObject:
   - component: {fileID: 1177879543}
   - component: {fileID: 1177879542}
   - component: {fileID: 1177879541}
-  - component: {fileID: 1177879545}
   - component: {fileID: 1177879544}
   m_Layer: 0
   m_Name: Wall
@@ -9647,23 +9646,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1177879539}
   m_Mesh: {fileID: 4300000, guid: 6531ca03c5e0c1240b0fc74798579d51, type: 3}
---- !u!54 &1177879544
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1177879539}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!64 &1177879545
-MeshCollider:
+--- !u!65 &1177879544
+BoxCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -9671,11 +9655,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 6531ca03c5e0c1240b0fc74798579d51, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 3.1026382, y: 28.01391, z: 2.9649026}
+  m_Center: {x: -26.356037, y: -2.7551603, z: 0.000000834465}
 --- !u!1 &1181141806
 GameObject:
   m_ObjectHideFlags: 0
