@@ -14,10 +14,6 @@ public class TimeManager : MonoBehaviour
 		}
 	}
 
-	private void Awake()
-	{
-		instance = this;
-	}
 
 	internal bool countdownFinished;
 
@@ -34,6 +30,11 @@ public class TimeManager : MonoBehaviour
 
 	//TODO: PauseState-actions should be done through InputManager
 	//public GameObject player;
+
+	private void Awake()
+	{
+		instance = this;
+	}
 
 	private void Start()
 	{
