@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-
-	private TimeManager timeManager;
 	private Rigidbody rb;
 
 	private Slider healthBar;
@@ -31,12 +29,9 @@ public class PlayerHealth : MonoBehaviour
 
 		rb = GetComponent<Rigidbody>();
 
-		timeManager = TimeManager.GetInstance;
-
 		currentHealth = maxHealth;
 
 		healthBar = transform.Find("HealthBar").GetChild(0).GetComponent<Slider>();
-
 	}
 
 	private void InitializeAudio()

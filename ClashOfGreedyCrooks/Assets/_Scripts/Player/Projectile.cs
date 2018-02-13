@@ -12,6 +12,7 @@ public class Projectile : MonoBehaviour {
 
     private float deathTimer;
 
+	//TODO: Fix reference to player through code
     public GameObject player;
 
     //Time until the bullet is destroyed
@@ -19,7 +20,8 @@ public class Projectile : MonoBehaviour {
 
 	private void Start()
 	{
-			player.GetComponent<PlayerInfo>().CurrentRoundShotsFired++;
+		//TODO: Remove this @fippan
+		player.GetComponent<PlayerInfo>().CurrentRoundShotsFired++;
 	}
 
 	private void Update()
