@@ -20,11 +20,11 @@ public class MainMenuManager : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// Load the Player Connect-scene.
+	/// Load the Player Connect-scene. Should be called by the menu buttons.
 	/// </summary>
 	public void NewGame()
 	{
-
+		AudioManager.GetInstance.PlayOneShot("event:/MainMenu/menuAccept");
 		GameStateManager.GetInstance.SetState(GameState.PlayerConnect);
 	}
 
