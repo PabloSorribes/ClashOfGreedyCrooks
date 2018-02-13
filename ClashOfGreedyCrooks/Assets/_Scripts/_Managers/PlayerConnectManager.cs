@@ -126,7 +126,10 @@ public class PlayerConnectManager : MonoBehaviour
         PlayerManager.players[playerIndex].Avatar = playerSlots[playerIndex].GetChild(1).GetComponent<Image>().color;
 
         if (startGameText.activeInHierarchy)
+		{
             startGameText.SetActive(false);
+			allReady = false;
+		}
 
 		a_connectController.Play();
     }
