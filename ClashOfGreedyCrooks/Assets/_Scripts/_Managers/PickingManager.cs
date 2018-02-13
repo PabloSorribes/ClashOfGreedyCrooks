@@ -70,12 +70,13 @@ public class PickingManager : MonoBehaviour
 
     private void OnPickChampion(int playerIndex, int button)
     {
-        Champion targetChampion = pickingResources.spawnedChampions[button].GetComponent<Champion>();
+        Transform card = pickingResources.cards[button].transform;
+        Champion targetChampion = card.GetComponent<CardComponent>().champion;
 
 		//Pick from pool
         if (!targetChampion.Picked)
         {
-            targetChampion.transform.position = pickingResources.playerPositions[playerIndex].position;
+            card.position = pickingResources.pickingPositions.Find("Picked").GetChild(playerIndex).position;
             targetChampion.Picked = true;
             targetChampion.PlayerIndex = playerIndex;
             PlayerManager.connectedPlayers[playerIndex].HasChampion = true;
@@ -101,12 +102,13 @@ public class PickingManager : MonoBehaviour
     {
         for (int i = 0; i < pickingResources.spawnedChampions.Length; i++)
         {
-            Champion targetChampion = pickingResources.spawnedChampions[i].GetComponent<Champion>();
+            Transform card = pickingResources.cards[button].transform;
+            Champion targetChampion = card.GetComponent<CardComponent>().champion;
             if (targetChampion.PlayerIndex == playerIndex)
             {
                 targetChampion.GetComponent<Penalty>().AddPenalty((Nerf)button, 2);
                 targetChampion.GetComponent<Penalty>().Buttons(false);
-                targetChampion.transform.position = pickingResources.playerPositions[playerIndex].position;
+                card.position = pickingResources.pickingPositions.Find("Picked").GetChild(playerIndex).position;
                 targetChampion.Locked = false;
                 PlayerManager.connectedPlayers[targetChampion.LastPlayerIndex].HasChampion = false;
 

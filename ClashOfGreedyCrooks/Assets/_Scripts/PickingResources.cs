@@ -8,7 +8,7 @@ public class PickingResources : MonoBehaviour {
     //private GameObject arena, spawnedArena;
     private GameObject pickingPositionsPrefab;
     private GameObject cardPrefab, portraitSetupPrefab;
-    private CardComponent[] cards;
+    public CardComponent[] cards;
     private GameObject[] championPrefabs;
     private GameObject[] weaponPrefabs;
     private Sprite[] buttons;
@@ -19,7 +19,7 @@ public class PickingResources : MonoBehaviour {
     //private Transform[] spawnPositions = new Transform[4];
     [HideInInspector] public Transform[] playerPositions = new Transform[4];
     [HideInInspector] public Transform pickingPositions;
-    private Transform portraitSetup;
+    private Transform[] portraitSetup;
     [HideInInspector] public GameObject[] spawnedChampions;
 
     private void Start()
@@ -56,8 +56,14 @@ public class PickingResources : MonoBehaviour {
 
     private void PortraitSetup()
     {
-        GameObject newPortraitSetup = Instantiate(portraitSetupPrefab);
-        portraitSetup = newPortraitSetup.transform;
+        portraitSetup = new Transform[PlayerManager.GetPlayersConnected()];
+        for (int i = 0; i < PlayerManager.GetPlayersConnected(); i++)
+        {
+            GameObject newPortraitSetup = Instantiate(portraitSetupPrefab);
+            newPortraitSetup.transform.position = pickingPositions.Find("Portrait").position;
+            portraitSetup[i] = newPortraitSetup.transform;
+        }
+        
     }
 
     private void InstantiateCards()
@@ -73,10 +79,10 @@ public class PickingResources : MonoBehaviour {
             newCard.transform.position = pos;
             cards[i] = newCard.GetComponent<CardComponent>();
             cards[i].portraitRawImage.material = mat;
-            portraitSetup.GetChild(i).Find("Camera").GetComponent<Camera>().targetTexture = rt;
+            portraitSetup[i].Find("Camera").GetComponent<Camera>().targetTexture = rt;
+            portraitSetup[i].Find("Camera").GetComponent<Camera>().depth = i;
         }
-    }
-    
+    }    
 
     //private void GetChilds(Transform[] array, string path)
     //{
@@ -120,11 +126,12 @@ public class PickingResources : MonoBehaviour {
         for (int i = 0; i < PlayerManager.GetPlayersConnected(); i++)
             if (PlayerManager.players[i].Connected)
             {
-                Vector3 pos = portraitSetup.GetChild(i).Find("Champion").position;
-                Quaternion rot = portraitSetup.GetChild(i).Find("Champion").rotation;
+                Vector3 pos = portraitSetup[i].Find("Champion").position;
+                Quaternion rot = portraitSetup[i].Find("Champion").rotation;
                 GameObject newChampion = Instantiate(championPrefabs[i].gameObject, pos, rot);
                 spawnedChampions[i] = newChampion;
                 spawnedChampions[i].GetComponent<Champion>().PlayerIndex = 99;
+                cards[i].champion = newChampion.GetComponent<Champion>();
             }
     }
 

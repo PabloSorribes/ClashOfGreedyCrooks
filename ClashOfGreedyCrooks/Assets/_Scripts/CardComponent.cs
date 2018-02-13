@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class CardComponent : MonoBehaviour {
 
-    [HideInInspector] public Character character;
+    [HideInInspector] public Champion champion;
     [HideInInspector] public Weapon weapon;
 
     [HideInInspector] public Image avatarImage;
@@ -15,7 +15,7 @@ public class CardComponent : MonoBehaviour {
     [HideInInspector] public Text damageText;
     [HideInInspector] public Text attackSpeedText;
 
-    private void Start()
+    private void Awake()
     {
         avatarImage = transform.Find("Canvas/Avatar/Image").GetComponent<Image>();
         portraitRawImage = transform.Find("Canvas/Portrait/RawImage").GetComponent<RawImage>();

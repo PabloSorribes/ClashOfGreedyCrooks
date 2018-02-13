@@ -34,9 +34,6 @@ public class Countdown : MonoBehaviour {
 		a_countDown = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
 		a_countDown.Event = "event:/Arena/countDown";
 		a_countDown.SetParameter("end", 1f);
-
-		//Debug.Log(a_countDown.Params[0]);
-
 	}
 
 	private void CountdownTimer()

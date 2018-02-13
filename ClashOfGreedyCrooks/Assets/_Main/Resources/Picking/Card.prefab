@@ -156,7 +156,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224626309159485704}
   - component: {fileID: 222209358812302796}
-  - component: {fileID: 114620964862169888}
+  - component: {fileID: 114579473630977508}
   m_Layer: 5
   m_Name: RawImage
   m_TagString: Untagged
@@ -784,7 +784,7 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
---- !u!114 &114620964862169888
+--- !u!114 &114579473630977508
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -795,7 +795,7 @@ MonoBehaviour:
   m_Script: {fileID: -98529514, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: fc6abffae9f9319419595e9dfb772253, type: 2}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
