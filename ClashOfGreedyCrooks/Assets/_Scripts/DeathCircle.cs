@@ -115,6 +115,10 @@ public class DeathCircle : MonoBehaviour
 		{
 			Debug.Log("Take DAMAGE!");
 			other.GetComponent<PlayerHealth>().insideDeathCircle = false;
+
+			//TODO: Make death circle activate an Invoke or a CoRoutine in PlayerHealth. 
+			//Test if it still works when two players are outside, and one of them re-enters inside death circle.
+			//other.GetComponent<PlayerHealth>().InvokeRepeating("TakeDamage")
 		}
 	}
 }
