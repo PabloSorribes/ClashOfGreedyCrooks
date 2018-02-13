@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The base script for moving the projectiles forward on instantiation by Shooting.cs.
+/// </summary>
 public class Projectile : MonoBehaviour {
 
     public float projectileSpeed = 20;
