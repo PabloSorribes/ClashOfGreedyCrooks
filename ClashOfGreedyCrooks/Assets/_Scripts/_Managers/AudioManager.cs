@@ -84,13 +84,38 @@ public class AudioManager : GenericSingleton<AudioManager> {
 	}
 
 
+
+
+	/// <summary>
+	/// Return an instance to use in OneShot-functions.
+	/// </summary>
+	/// <param name="eventName"></param>
+	/// <returns></returns>
+	private FMOD.Studio.EventInstance GimmeEvent(string eventName)
+	{
+		return FMODUnity.RuntimeManager.CreateInstance(eventName);
+	}
+
 	/// <summary>
 	/// <paramref name="eventName"/> is a string to the fmod event, eg. "event:/Arena/countDown".
 	/// </summary>
 	/// <param name="eventName"></param>
 	public void PlayOneShot(string eventName)
 	{
-		FMOD.Studio.EventInstance eventInstance = FMODUnity.RuntimeManager.CreateInstance(eventName);
+		GimmeEvent(eventName).start();
+	}
+
+	/// <summary>
+	/// For setting a parameter before playing.
+	/// </summary>
+	/// <param name="eventName"></param>
+	/// <param name="parameterName"></param>
+	/// <param name="parameter"></param>
+	public void PlayOneShot(string eventName, string parameterName, float parameter)
+	{
+		var eventInstance = GimmeEvent(eventName);
+
+		eventInstance.setParameterValue(parameterName, parameter);
 		eventInstance.start();
 	}
 
