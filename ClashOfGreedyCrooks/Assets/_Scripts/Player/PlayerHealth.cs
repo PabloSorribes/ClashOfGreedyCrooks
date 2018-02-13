@@ -70,16 +70,21 @@ public class PlayerHealth : MonoBehaviour
 
 		if (currentHealth <= 0)
 		{
-			Camera.main.GetComponent<NewCameraController>().RemoveTarget(gameObject.name);
-			a_deathSound.Play();
-			DeathParticles();
-			if (ArenaManager.GetInstance != null)
-			{
-				ArenaManager.GetInstance.HandlePlayerDeath(gameObject);
-			}
-
-			Destroy(gameObject);
+			KillPlayer();
 		}
+	}
+
+	private void KillPlayer()
+	{
+		Camera.main.GetComponent<NewCameraController>().RemoveTarget(gameObject.name);
+		a_deathSound.Play();
+		DeathParticles();
+		if (ArenaManager.GetInstance != null)
+		{
+			ArenaManager.GetInstance.HandlePlayerDeath(gameObject);
+		}
+
+		Destroy(gameObject);
 	}
 
 	/// <summary>
@@ -93,15 +98,7 @@ public class PlayerHealth : MonoBehaviour
 
 		if (currentHealth <= 0)
 		{
-			Camera.main.GetComponent<NewCameraController>().RemoveTarget(gameObject.name);
-			a_deathSound.Play();
-			DeathParticles();
-			if (ArenaManager.GetInstance != null)
-			{
-				ArenaManager.GetInstance.HandlePlayerDeath(gameObject);
-			}
-
-			Destroy(gameObject);
+			KillPlayer();
 		}
 	}
 
