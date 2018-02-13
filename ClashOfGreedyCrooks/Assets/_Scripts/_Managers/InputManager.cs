@@ -19,8 +19,8 @@ public class InputManager : GenericSingleton<InputManager>
 	//Input polling variables
 	private bool[] rightTriggerReleased = new bool[4];
 
-    //Freeze input
-    public bool freezeInput;
+	//Freeze input
+	public bool freezeInput;
 
 	//Variables for testing, set from Manager Initialization
 	public static bool setTrueForTesting = false;
@@ -79,8 +79,8 @@ public class InputManager : GenericSingleton<InputManager>
 
 	void FixedUpdate()
 	{
-        if (freezeInput)
-            return;
+		if (freezeInput)
+			return;
 
 		for (int i = 0; i < gamepadIndex.Count; ++i)
 		{
@@ -92,8 +92,8 @@ public class InputManager : GenericSingleton<InputManager>
 
 	void Update()
 	{
-        if (freezeInput)
-            return;
+		if (freezeInput)
+			return;
 
 		//Loop through inputs for every connected gamepad
 		for (int i = 0; i < gamepadIndex.Count; ++i)
@@ -172,16 +172,20 @@ public class InputManager : GenericSingleton<InputManager>
 					Vector3 leftStick = new Vector3(state[i].ThumbSticks.Left.X, 0f, state[i].ThumbSticks.Left.Y);
 					Vector3 rightStick = new Vector3(state[i].ThumbSticks.Right.X, 0f, state[i].ThumbSticks.Right.Y);
 
+					if (leftStick.magnitude < deadzone)
+					{
+						leftStick = Vector3.zero;
+					}
+					else
+					{
+						leftStick = leftStick.normalized * ((leftStick.magnitude - deadzone) / (1 - deadzone));
+					}
+
 					if (rightStick.magnitude < deadzone)
 					{
 						rightStick = Vector3.zero;
 					}
 
-					if (leftStick.magnitude < deadzone)
-					{
-						leftStick = Vector3.zero;
-					}
-					
 					//Send directional input data to each player
 					players[i].SetDirectionalInput(leftStick, rightStick);
 
@@ -193,16 +197,21 @@ public class InputManager : GenericSingleton<InputManager>
 						//TODO: Alt. Fire or Skill
 					}
 
-					if (state[i].Triggers.Right >= 0.05f && rightTriggerReleased[i])
+					if (state[i].Triggers.Right >= 0.1f)
 					{
 						players[i].Shoot();
+					}
 
-						rightTriggerReleased[i] = false;
-					}
-					else if(state[i].Triggers.Right < 0.05f)
-					{
-						rightTriggerReleased[i] = true;
-					}
+					//if (state[i].Triggers.Right >= 0.05f && rightTriggerReleased[i])
+					//{
+					//	players[i].Shoot();
+
+					//	rightTriggerReleased[i] = false;
+					//}
+					//else if (state[i].Triggers.Right < 0.05f)
+					//{
+					//	rightTriggerReleased[i] = true;
+					//}
 
 
 					if (prevState[i].Buttons.LeftShoulder == ButtonState.Released &&
@@ -222,7 +231,7 @@ public class InputManager : GenericSingleton<InputManager>
 		}
 
 		DebugKeys();
-    }
+	}
 
 	public void SetPlayerReferences(PlayerController[] players)
 	{

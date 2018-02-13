@@ -152,6 +152,41 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 54106180864647138, guid: dfec7f82b56c04e4ab545856b60fba44,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 116
+      objectReference: {fileID: 0}
+    - target: {fileID: 54106180864647138, guid: dfec7f82b56c04e4ab545856b60fba44,
+        type: 2}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 54106180864647138, guid: dfec7f82b56c04e4ab545856b60fba44,
+        type: 2}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 54106180864647138, guid: dfec7f82b56c04e4ab545856b60fba44,
+        type: 2}
+      propertyPath: m_Drag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 54106180864647138, guid: dfec7f82b56c04e4ab545856b60fba44,
+        type: 2}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54106180864647138, guid: dfec7f82b56c04e4ab545856b60fba44,
+        type: 2}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54106180864647138, guid: dfec7f82b56c04e4ab545856b60fba44,
+        type: 2}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dfec7f82b56c04e4ab545856b60fba44, type: 2}
   m_IsPrefabParent: 0

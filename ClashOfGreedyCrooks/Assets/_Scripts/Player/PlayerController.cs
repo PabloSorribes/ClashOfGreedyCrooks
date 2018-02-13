@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-	[HideInInspector] public Shooting shootS;
 
 	private float deadzone;
 	public float speed = 5f;
-	private float aimSensitivity = 0.1f;
+	private float aimSensitivity = 0.2f;
 	private float inputAngle = 0f;
 	private float viewAngle = 0f;
 	private float dt = 0f;
@@ -20,6 +19,8 @@ public class PlayerController : MonoBehaviour
 	private Vector3 directionalInputLeftStick;
 	private Vector3 directionalInputRightStick;
 
+	private Shooting shooting;
+	private Rigidbody rb;
 
 	private void Start()
 	{
@@ -27,37 +28,38 @@ public class PlayerController : MonoBehaviour
 		directionalInputRightStick = Vector3.zero;
 		movement = Vector3.zero;
 
-		shootS = GetComponent<Shooting>();
+		rb = GetComponent<Rigidbody>();
+		shooting = GetComponent<Shooting>();
 	}
 
-	private void Update()
+	private void FixedUpdate()
 	{
-		dt = Time.deltaTime;
-
 		MovePlayer();
+		AimPlayer();
 	}
 
 	private void MovePlayer()
 	{
-		movement = directionalInputLeftStick.normalized * speed * dt;
-		transform.position += movement;
-		print(directionalInputLeftStick.normalized);
+		movement = directionalInputLeftStick * speed;
+		rb.velocity = movement;
+		//transform.position += movement;
+	}
 
+	private void AimPlayer()
+	{
 		inputAngle = Mathf.Atan2(directionalInputRightStick.x, directionalInputRightStick.z) * Mathf.Rad2Deg;
-		viewAngle = Mathf.LerpAngle(viewAngle, inputAngle, 0.1f);
+		viewAngle = Mathf.LerpAngle(viewAngle, inputAngle, aimSensitivity);
 
 		transform.rotation = Quaternion.AngleAxis(viewAngle, Vector3.up);
 	}
-
 	public void Shoot()
 	{
-		if (!cooldown)
-		{
-			shootS.Shoot();
+		//if (!cooldown)
+		//{
+			shooting.Shoot();
 			cooldown = true;
 			Invoke("CooldownTimer", attackSpeed);
-
-		}
+		//}
 	}
 
 	private void CooldownTimer()
