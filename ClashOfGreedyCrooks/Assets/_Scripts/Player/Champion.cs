@@ -3,7 +3,9 @@
 public class Champion : MonoBehaviour {
 
     private Penalty penalty;
-    
+
+    public new string name;
+
     //Variables
     private float health;
     private float movement;

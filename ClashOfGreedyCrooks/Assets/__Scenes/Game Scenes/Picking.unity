@@ -392,6 +392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26e283c1d818b2846a0efb86fe489c3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cards: []
   playerPrefab: {fileID: 0}
   playerPositions:
   - {fileID: 0}

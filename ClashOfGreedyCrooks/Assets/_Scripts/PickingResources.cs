@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class PickingResources : MonoBehaviour {
 
     #region LoadsFromResources
-    //private GameObject arena, spawnedArena;
     private GameObject pickingPositionsPrefab;
     private GameObject cardPrefab, portraitSetupPrefab;
     public CardComponent[] cards;
@@ -14,9 +13,7 @@ public class PickingResources : MonoBehaviour {
     private Sprite[] buttons;
     [HideInInspector] public GameObject playerPrefab;
     #endregion
-
-    //private Transform[] avatars = new Transform[4];
-    //private Transform[] spawnPositions = new Transform[4];
+    
     [HideInInspector] public Transform[] playerPositions = new Transform[4];
     [HideInInspector] public Transform pickingPositions;
     private Transform[] portraitSetup;
@@ -29,12 +26,6 @@ public class PickingResources : MonoBehaviour {
         pickingPositions = newPickingPositions.transform;
         PortraitSetup();
         InstantiateCards();
-        //GameObject newArena = Instantiate(arena);
-        //spawnedArena = newArena;
-        //GetChilds(spawnPositions, "Waypoints/Pool");
-        //GetChilds(playerPositions, "Waypoints/Picked");
-        //GetChilds(avatars, "Avatars");
-        //SetAvatarsPlayers();
         Shuffle(championPrefabs);
         Shuffle(weaponPrefabs);
         SpawnChampions();
@@ -44,7 +35,6 @@ public class PickingResources : MonoBehaviour {
 
     private void LoadResources()
     {
-        //arena = Resources.Load("Arenas/PickingTestArena") as GameObject;
         pickingPositionsPrefab = Resources.Load("Picking/PickingPositions") as GameObject;
         portraitSetupPrefab = Resources.Load("Picking/PortraitSetup") as GameObject;
         cardPrefab = Resources.Load("Picking/Card") as GameObject;
@@ -84,24 +74,6 @@ public class PickingResources : MonoBehaviour {
         }
     }    
 
-    //private void GetChilds(Transform[] array, string path)
-    //{
-    //    Transform waypointsParent;
-    //    waypointsParent = spawnedArena.transform.Find(path);
-
-    //    for (int i = 0; i < waypointsParent.childCount; i++)
-    //        array[i] = waypointsParent.GetChild(i);
-    //}
-
-    //private void SetAvatarsPlayers()
-    //{
-    //    for (int i = 0; i < PlayerManager.players.Length; i++)
-    //        if (PlayerManager.players[i].Connected)
-    //            avatars[i].GetComponent<SpriteRenderer>().color = PlayerManager.players[i].Avatar;
-    //        else
-    //            avatars[i].gameObject.SetActive(false);
-    //}
-
     /// <summary>
     /// Switching place of items in an array.
     /// </summary>
@@ -132,6 +104,8 @@ public class PickingResources : MonoBehaviour {
                 spawnedChampions[i] = newChampion;
                 spawnedChampions[i].GetComponent<Champion>().PlayerIndex = 99;
                 cards[i].champion = newChampion.GetComponent<Champion>();
+                Sprite cardBack = Resources.Load<Sprite>("UI/Cardbacks/" + spawnedChampions[i].GetComponent<Champion>().name);
+                cards[i].GetComponent<SpriteRenderer>().sprite = cardBack;                    
             }
     }
 
@@ -143,7 +117,6 @@ public class PickingResources : MonoBehaviour {
             newWeapon.name = weaponPrefabs[i].name;
         }
     }
-
 
     /// <summary>
     /// Instantiates a button sprite above champion head.

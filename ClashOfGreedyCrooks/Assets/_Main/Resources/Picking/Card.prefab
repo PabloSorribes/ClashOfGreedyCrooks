@@ -881,7 +881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 744f512e94265254285b27f5c63edfaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 0}
+  champion: {fileID: 0}
   weapon: {fileID: 0}
   avatarImage: {fileID: 0}
   portraitRawImage: {fileID: 0}
@@ -1144,8 +1144,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: dc4b610cc90378c4192ed57a19292414, type: 3}
-  m_Color: {r: 0.25, g: 0.25, b: 0.25, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 03519d163437ba442ac587832dc8d6ea, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
