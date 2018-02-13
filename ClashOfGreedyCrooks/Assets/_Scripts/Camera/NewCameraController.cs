@@ -67,7 +67,8 @@ public class NewCameraController : MonoBehaviour
 	{
 		float newZoom = Mathf.Lerp(maxZoom, minZoom, GetGreatestDistance() / zoomLimiter);
 
-		cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, newZoom, Time.deltaTime);
+		cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, newZoom +10, Time.deltaTime);
+        
 	}
 
 	float GetGreatestDistance()
