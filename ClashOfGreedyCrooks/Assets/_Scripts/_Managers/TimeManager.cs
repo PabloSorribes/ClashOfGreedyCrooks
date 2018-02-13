@@ -14,7 +14,6 @@ public class TimeManager : MonoBehaviour
 		}
 	}
 
-
 	internal bool countdownFinished;
 
 	public float trackTime;
@@ -24,6 +23,7 @@ public class TimeManager : MonoBehaviour
 
 	private bool isPaused;
 
+	//Freeze frame variables
 	private float normalTimeScale = 1;
 	private float slowMoTimeScale = 0.2f;
 	private float lerpTime = 1f;
@@ -103,7 +103,7 @@ public class TimeManager : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Slows down the game. <paramref name="timeToFreeze"/> is amount of seconds that the slowMo should be.
+	/// Slows down the game. <paramref name="timeToFreeze"/> is the amount of seconds that the slowMo should be.
 	/// </summary>
 	/// <param name="timeToFreeze"></param>
 	public void StartFreezeFrame(float timeToFreeze)
