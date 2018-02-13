@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Keeps track of all the spawned players. Saves information between Picking and Arena.
+/// </summary>
 public static class PlayerManager
 {
     public static PlayerInfo[] players;
