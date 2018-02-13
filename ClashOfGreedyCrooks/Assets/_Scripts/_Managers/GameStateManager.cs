@@ -53,7 +53,7 @@ public class GameStateManager : GenericSingleton<GameStateManager>
     {
         GameObject countdownPrefab = Resources.Load("Countdown") as GameObject;
         GameObject newCountdown = Instantiate(countdownPrefab);
-        newCountdown.GetComponent<Countdown>().InitializeCountdown(time, endText);
+        newCountdown.GetComponent<Countdown>().InitializeCountdown(time);
         InputManager.GetInstance.freezeInput = true;
     }
 

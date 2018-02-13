@@ -101,11 +101,6 @@ public class Champion : MonoBehaviour {
         AttackSpeed = (int)Random.Range(attackSpeedMin, attackSpeedMax + 1);
 
         UpdateStartingStatsUI();
-
-        //Debug.Log("Health: " + Health);
-        //Debug.Log("Damage: " + Damage);
-        //Debug.Log("Movement: " + Movement);
-        //Debug.Log("AttackSpeed: " + AttackSpeed);
     }
 
     private void UpdateStartingStatsUI()

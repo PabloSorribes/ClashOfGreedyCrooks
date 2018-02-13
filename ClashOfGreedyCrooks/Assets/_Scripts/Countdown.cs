@@ -1,26 +1,32 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Countdown : MonoBehaviour {
 
-    private Text countdownText;
+    private Sprite[] images;
+    private Image countdownImageHolder;
 
     private int time;
-    private string endText;
 
 	private FMODUnity.StudioEventEmitter a_countDown;
 
 	private void Start()
     {
+        LoadImages();
 		InitializeAudio();
-        countdownText = GetComponentInChildren<Text>();
+        countdownImageHolder = GetComponentInChildren<Image>();
         InvokeRepeating("CountdownTimer", 0f, 1f);
     }
 
-    public void InitializeCountdown(int time, string endText)
+    private void LoadImages()
+    {
+        images = Resources.LoadAll("UI/Countdown", typeof(Sprite)).Cast<Sprite>().ToArray();
+    }
+
+    public void InitializeCountdown(int time)
     {
         this.time = time;
-        this.endText = endText;
     }
 
 	private void InitializeAudio() 
@@ -35,22 +41,24 @@ public class Countdown : MonoBehaviour {
 
 	private void CountdownTimer()
     {
-
         if (time == 0)
         {
 			a_countDown.SetParameter("end", 1f);
-			//Debug.Log(a_countDown.Params[0]);
 			a_countDown.Play();
 
             CancelInvoke();
-            countdownText.text = endText;
+            if (GameStateManager.GetInstance.GetState() == GameState.Picking)
+                countdownImageHolder.sprite = images[4];
+            else if (GameStateManager.GetInstance.GetState() == GameState.Arena)
+                countdownImageHolder.sprite = images[3];
+            countdownImageHolder.SetNativeSize();
             Invoke("EndCountdown", 2f);
             InputManager.GetInstance.freezeInput = false;
             return;
         }
-		print(time);
 		a_countDown.Play();
-        countdownText.text = time.ToString();
+        countdownImageHolder.sprite = images[time - 1];
+        countdownImageHolder.SetNativeSize();
         time--;
     }
 

@@ -1348,7 +1348,7 @@ GameObject:
   - component: {fileID: 114813917005631380}
   - component: {fileID: 114265782080026548}
   m_Layer: 0
-  m_Name: The_Bride_2
+  m_Name: HarryPotter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 65346367311045640}
   - component: {fileID: 23171043847634460}
   m_Layer: 0
-  m_Name: Weapon2
+  m_Name: CorgiLauncher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -26,7 +26,6 @@ public class PlayerConnectManager : MonoBehaviour
 	StudioEventEmitter a_unReady;
 	StudioEventEmitter a_playerConnectToPicking;
 
-
 	private void Awake()
     {
         instance = this;

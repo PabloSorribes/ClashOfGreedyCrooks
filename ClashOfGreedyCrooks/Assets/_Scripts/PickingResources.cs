@@ -1,30 +1,40 @@
 ﻿using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PickingResources : MonoBehaviour {
 
     #region LoadsFromResources
-    private GameObject arena, spawnedArena;
+    //private GameObject arena, spawnedArena;
+    private GameObject pickingPositionsPrefab;
+    private GameObject cardPrefab, portraitSetupPrefab;
+    private CardComponent[] cards;
     private GameObject[] championPrefabs;
     private GameObject[] weaponPrefabs;
     private Sprite[] buttons;
     [HideInInspector] public GameObject playerPrefab;
     #endregion
 
-    private Transform[] avatars = new Transform[4];
-    private Transform[] spawnPositions = new Transform[4];
+    //private Transform[] avatars = new Transform[4];
+    //private Transform[] spawnPositions = new Transform[4];
     [HideInInspector] public Transform[] playerPositions = new Transform[4];
+    [HideInInspector] public Transform pickingPositions;
+    private Transform portraitSetup;
     [HideInInspector] public GameObject[] spawnedChampions;
 
     private void Start()
     {
         LoadResources();
-        GameObject newArena = Instantiate(arena);
-        spawnedArena = newArena;
-        GetChilds(spawnPositions, "Waypoints/Pool");
-        GetChilds(playerPositions, "Waypoints/Picked");
-        GetChilds(avatars, "Avatars");
-        SetAvatarsPlayers();
+        GameObject newPickingPositions = Instantiate(pickingPositionsPrefab);
+        pickingPositions = newPickingPositions.transform;
+        PortraitSetup();
+        InstantiateCards();
+        //GameObject newArena = Instantiate(arena);
+        //spawnedArena = newArena;
+        //GetChilds(spawnPositions, "Waypoints/Pool");
+        //GetChilds(playerPositions, "Waypoints/Picked");
+        //GetChilds(avatars, "Avatars");
+        //SetAvatarsPlayers();
         Shuffle(championPrefabs);
         Shuffle(weaponPrefabs);
         SpawnChampions();
@@ -34,30 +44,57 @@ public class PickingResources : MonoBehaviour {
 
     private void LoadResources()
     {
-        arena = Resources.Load("Arenas/PickingTestArena") as GameObject;
+        //arena = Resources.Load("Arenas/PickingTestArena") as GameObject;
+        pickingPositionsPrefab = Resources.Load("Picking/PickingPositions") as GameObject;
+        portraitSetupPrefab = Resources.Load("Picking/PortraitSetup") as GameObject;
+        cardPrefab = Resources.Load("Picking/Card") as GameObject;
         championPrefabs = Resources.LoadAll("Champions", typeof(Object)).Cast<GameObject>().ToArray();
         weaponPrefabs = Resources.LoadAll("Weapons", typeof(Object)).Cast<GameObject>().ToArray();
         buttons = Resources.LoadAll("Picking/Sprites/Buttons", typeof(Sprite)).Cast<Sprite>().ToArray();
         playerPrefab = Resources.Load("PlayerPrefab") as GameObject;
     }
 
-    private void GetChilds(Transform[] array, string path)
+    private void PortraitSetup()
     {
-        Transform waypointsParent;
-        waypointsParent = spawnedArena.transform.Find(path);
-
-        for (int i = 0; i < waypointsParent.childCount; i++)
-            array[i] = waypointsParent.GetChild(i);
+        GameObject newPortraitSetup = Instantiate(portraitSetupPrefab);
+        portraitSetup = newPortraitSetup.transform;
     }
 
-    private void SetAvatarsPlayers()
+    private void InstantiateCards()
     {
-        for (int i = 0; i < PlayerManager.players.Length; i++)
-            if (PlayerManager.players[i].Connected)
-                avatars[i].GetComponent<SpriteRenderer>().color = PlayerManager.players[i].Avatar;
-            else
-                avatars[i].gameObject.SetActive(false);
+        cards = new CardComponent[PlayerManager.GetPlayersConnected()];
+        for (int i = 0; i < PlayerManager.GetPlayersConnected(); i++)
+        {
+            Material mat = new Material(Shader.Find("Standard"));
+            RenderTexture rt = new RenderTexture(512, 512, 16);
+            mat.mainTexture = rt;
+            Vector3 pos = pickingPositions.Find("Pool").GetChild(i).position;
+            GameObject newCard = Instantiate(cardPrefab);
+            newCard.transform.position = pos;
+            cards[i] = newCard.GetComponent<CardComponent>();
+            cards[i].portraitRawImage.material = mat;
+            portraitSetup.GetChild(i).Find("Camera").GetComponent<Camera>().targetTexture = rt;
+        }
     }
+    
+
+    //private void GetChilds(Transform[] array, string path)
+    //{
+    //    Transform waypointsParent;
+    //    waypointsParent = spawnedArena.transform.Find(path);
+
+    //    for (int i = 0; i < waypointsParent.childCount; i++)
+    //        array[i] = waypointsParent.GetChild(i);
+    //}
+
+    //private void SetAvatarsPlayers()
+    //{
+    //    for (int i = 0; i < PlayerManager.players.Length; i++)
+    //        if (PlayerManager.players[i].Connected)
+    //            avatars[i].GetComponent<SpriteRenderer>().color = PlayerManager.players[i].Avatar;
+    //        else
+    //            avatars[i].gameObject.SetActive(false);
+    //}
 
     /// <summary>
     /// Switching place of items in an array.
@@ -83,7 +120,9 @@ public class PickingResources : MonoBehaviour {
         for (int i = 0; i < PlayerManager.GetPlayersConnected(); i++)
             if (PlayerManager.players[i].Connected)
             {
-                GameObject newChampion = Instantiate(championPrefabs[i].gameObject, spawnPositions[i].position, spawnPositions[i].rotation);
+                Vector3 pos = portraitSetup.GetChild(i).Find("Champion").position;
+                Quaternion rot = portraitSetup.GetChild(i).Find("Champion").rotation;
+                GameObject newChampion = Instantiate(championPrefabs[i].gameObject, pos, rot);
                 spawnedChampions[i] = newChampion;
                 spawnedChampions[i].GetComponent<Champion>().PlayerIndex = 99;
             }
@@ -97,6 +136,7 @@ public class PickingResources : MonoBehaviour {
             newWeapon.name = weaponPrefabs[i].name;
         }
     }
+
 
     /// <summary>
     /// Instantiates a button sprite above champion head.
