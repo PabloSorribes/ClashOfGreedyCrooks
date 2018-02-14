@@ -12,7 +12,7 @@ public class Shooting : MonoBehaviour {
 
     public Projectile proj;
     
-    public Transform bulletSpawnPoint;
+    private Transform bulletSpawnPoint;
 
     private float timer;
     private float shootDisable = 0.5f;

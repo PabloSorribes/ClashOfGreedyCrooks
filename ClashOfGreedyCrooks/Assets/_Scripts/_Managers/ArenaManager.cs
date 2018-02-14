@@ -88,7 +88,10 @@ public class ArenaManager : MonoBehaviour
 	public void ReturnToPicking()
 	{
 		GameObject lastPlayerAlive = GameObject.FindGameObjectWithTag("Player");
-		Camera.main.GetComponent<NewCameraController>().RemoveTarget(lastPlayerAlive.name);
+		if (lastPlayerAlive != null)
+		{
+			Camera.main.GetComponent<NewCameraController>().RemoveTarget(lastPlayerAlive.name);
+		}
 		Destroy(lastPlayerAlive);
 
 		GameStateManager.GetInstance.SetState(GameState.Picking);

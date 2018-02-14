@@ -22,7 +22,7 @@ public class Projectile : MonoBehaviour
 	private void Start()
 	{
 		//TODO: Remove this @fippan
-		player.GetComponent<PlayerInfo>().CurrentRoundShotsFired++;
+		//player.GetComponent<PlayerInfo>().CurrentRoundShotsFired++;
 	}
 
 	private void Update()

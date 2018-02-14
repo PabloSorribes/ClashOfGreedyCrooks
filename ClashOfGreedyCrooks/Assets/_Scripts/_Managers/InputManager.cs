@@ -8,7 +8,6 @@ public class InputManager : GenericSingleton<InputManager>
 {
 	private GameState gameState;
 
-	//Player references variables
 	private PlayerController[] players = new PlayerController[4];
 
 	//Gamepad variables
@@ -16,11 +15,9 @@ public class InputManager : GenericSingleton<InputManager>
 	private GamePadState[] state = new GamePadState[4];
 	private GamePadState[] prevState = new GamePadState[4];
 
-	//Input polling variables
 	private bool[] rightTriggerReleased = new bool[4];
-
-	//Freeze input
 	public bool freezeInput;
+
 
 	//Variables for testing, set from Manager Initialization
 	public static bool setTrueForTesting = false;
@@ -65,7 +62,7 @@ public class InputManager : GenericSingleton<InputManager>
 	{
 		for (int i = 0; i < 3; ++i)
 		{
-			//Note: "PlayerIndex" enum type corresponds to "gamepadIndex" variable in project since it can't be renamed (XInput).
+			//Note: "PlayerIndex" enum type corresponds to "gamepadIndex" variable in this project since it can't be renamed (XInput).
 			//Only applicable in this context
 			PlayerIndex testGamepadIndex = (PlayerIndex)i;
 			GamePadState testState = GamePad.GetState(testGamepadIndex);
@@ -168,23 +165,21 @@ public class InputManager : GenericSingleton<InputManager>
 
 				case GameState.Arena:
 
-					float deadzone = 0.4f;
+					float deadzoneRightStick = 0.4f;
+					float deadzoneLeftStick = 0.2f;
+
 					Vector3 leftStick = new Vector3(state[i].ThumbSticks.Left.X, 0f, state[i].ThumbSticks.Left.Y);
 					Vector3 rightStick = new Vector3(state[i].ThumbSticks.Right.X, 0f, state[i].ThumbSticks.Right.Y);
 
-					if (leftStick.magnitude < deadzone)
-					{
+					if (leftStick.magnitude < deadzoneLeftStick)
 						leftStick = Vector3.zero;
-					}
 					else
-					{
-						leftStick = leftStick.normalized * ((leftStick.magnitude - deadzone) / (1 - deadzone));
-					}
+						leftStick = leftStick.normalized * ((leftStick.magnitude - deadzoneLeftStick) / (1 - deadzoneLeftStick));
 
-					if (rightStick.magnitude < deadzone)
-					{
+					if (rightStick.magnitude < deadzoneRightStick)
 						rightStick = Vector3.zero;
-					}
+					else
+						rightStick = rightStick.normalized * ((rightStick.magnitude - deadzoneRightStick) / (1 - deadzoneRightStick));
 
 					//Send directional input data to each player
 					players[i].SetDirectionalInput(leftStick, rightStick);

@@ -5,12 +5,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-	private float deadzone;
 	public float speed = 5f;
-	private float aimSensitivity = 0.2f;
+	public float aimSensitivity = 0.2f;
 	private float inputAngle = 0f;
 	private float viewAngle = 0f;
-	private float dt = 0f;
 
 	public float attackSpeed;
 	private bool cooldown;
@@ -42,15 +40,14 @@ public class PlayerController : MonoBehaviour
 	{
 		movement = directionalInputLeftStick * speed;
 		rb.velocity = movement;
-		//transform.position += movement;
 	}
 
 	private void AimPlayer()
 	{
 		inputAngle = Mathf.Atan2(directionalInputRightStick.x, directionalInputRightStick.z) * Mathf.Rad2Deg;
 		viewAngle = Mathf.LerpAngle(viewAngle, inputAngle, aimSensitivity);
-
-		transform.rotation = Quaternion.AngleAxis(viewAngle, Vector3.up);
+		
+		rb.rotation = Quaternion.AngleAxis(viewAngle, Vector3.up);
 	}
 	public void Shoot()
 	{
