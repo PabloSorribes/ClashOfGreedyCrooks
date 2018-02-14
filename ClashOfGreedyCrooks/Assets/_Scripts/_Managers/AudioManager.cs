@@ -97,7 +97,8 @@ public class AudioManager : GenericSingleton<AudioManager> {
 		eventInstance.setParameterValue(parameterName, parameterValue);
 		eventInstance.start();
 
-		eventInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+		//For 3D-sound
+		//eventInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
 	}
 
 	/// <summary>

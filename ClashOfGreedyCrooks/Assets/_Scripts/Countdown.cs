@@ -9,12 +9,9 @@ public class Countdown : MonoBehaviour {
 
     private int time;
 
-	private FMODUnity.StudioEventEmitter a_countDown;
-
 	private void Start()
     {
         LoadImages();
-		InitializeAudio();
         countdownImageHolder = GetComponentInChildren<Image>();
         InvokeRepeating("CountdownTimer", 0f, 1f);
     }
@@ -29,31 +26,26 @@ public class Countdown : MonoBehaviour {
         this.time = time;
     }
 
-	private void InitializeAudio() 
-	{
-		a_countDown = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
-		a_countDown.Event = "event:/Arena/countDown";
-		a_countDown.SetParameter("end", 1f);
-	}
-
 	private void CountdownTimer()
     {
         if (time == 0)
         {
-			a_countDown.SetParameter("end", 1f);
-			a_countDown.Play();
+			AudioManager.GetInstance.PlayOneShot("event:/Arena/countDown", "end", 1f);
+			CancelInvoke();
 
-            CancelInvoke();
             if (GameStateManager.GetInstance.GetState() == GameState.Picking)
                 countdownImageHolder.sprite = images[4];
             else if (GameStateManager.GetInstance.GetState() == GameState.Arena)
                 countdownImageHolder.sprite = images[3];
-            countdownImageHolder.SetNativeSize();
+
+			countdownImageHolder.SetNativeSize();
             Invoke("EndCountdown", 2f);
             InputManager.GetInstance.freezeInput = false;
             return;
         }
-		a_countDown.Play();
+
+		AudioManager.GetInstance.PlayOneShot("event:/Arena/countDown");
+
         countdownImageHolder.sprite = images[time - 1];
         countdownImageHolder.SetNativeSize();
         time--;
