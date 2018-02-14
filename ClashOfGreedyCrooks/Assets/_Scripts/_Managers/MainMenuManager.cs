@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MainMenuManager : MonoBehaviour {
-
+public class MainMenuManager : MonoBehaviour
+{
 	private List<GameObject> uiPanels = new List<GameObject>();
 	private Transform activePanel;
 
@@ -15,14 +15,15 @@ public class MainMenuManager : MonoBehaviour {
 	/// <summary>
 	/// Get the UiPanels for the menu and activate the MainMenu-panel.
 	/// </summary>
-	private void Awake() {
-
+	private void Awake()
+	{
 		for (int i = 0; i < transform.childCount; i++) {
 			uiPanels.Add(transform.GetChild(i).gameObject);
 		}
 
 		MainMenu();
 	}
+
 
 	/// <summary>
 	/// Load the Player Connect-scene. Should be called by the menu buttons.
@@ -33,20 +34,25 @@ public class MainMenuManager : MonoBehaviour {
 		GameStateManager.GetInstance.SetState(GameState.PlayerConnect);
 	}
 
-
+	//Forward
 	public void Settings() {
 		ActivatePanel("Settings");
         GameObject.Find("EventSystem").GetComponent<EventSystem>().SetSelectedGameObject(settingsCanvas, null);
-    }
+		AudioManager.GetInstance.PlayOneShot("event:/MainMenu/menuAccept");
+	}
 
+	//Forward
 	public void Credits() {
 		ActivatePanel("Credits");
         GameObject.Find("EventSystem").GetComponent<EventSystem>().SetSelectedGameObject(creditsCanvas, null);
-    }
+		AudioManager.GetInstance.PlayOneShot("event:/MainMenu/menuAccept");
+	}
 
+	//Go back
 	public void MainMenu() {
 		ActivatePanel("MainMenu");
         GameObject.Find("EventSystem").GetComponent<EventSystem>().SetSelectedGameObject(mainCanvas, null);
+		AudioManager.GetInstance.PlayOneShot("event:/MainMenu/menuDecline");
     }
 
 
@@ -82,4 +88,6 @@ public class MainMenuManager : MonoBehaviour {
 	Application.Quit();
 #endif
 	}
+
+
 }

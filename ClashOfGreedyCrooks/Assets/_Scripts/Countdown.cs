@@ -23,9 +23,10 @@ public class Countdown : MonoBehaviour {
 
 	private void CountdownTimer()
     {
-		//AudioManager.GetInstance.
+		//AudioManager.GetInstance.PlayOneShot3D()
 
-        if (time == 0)
+
+		if (time == 0)
         {
 			a_countDownInstance.setParameterValue("end", 1f);
 			a_countDownInstance.start();
