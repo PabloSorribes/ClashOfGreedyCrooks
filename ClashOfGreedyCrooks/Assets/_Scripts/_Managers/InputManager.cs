@@ -191,8 +191,6 @@ public class InputManager : GenericSingleton<InputManager>
 					players[i].SetDirectionalInput(leftStick, rightStick);
 
 
-
-
 					if (state[i].Triggers.Left > 0)
 					{
 						//TODO: Alt. Fire or Skill

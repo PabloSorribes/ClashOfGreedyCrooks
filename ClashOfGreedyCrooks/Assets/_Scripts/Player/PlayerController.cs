@@ -44,18 +44,17 @@ public class PlayerController : MonoBehaviour
 
 	private void AimPlayer()
 	{
-
+		//Calculate directional input to rotation in degrees
 		inputAngle = Mathf.Atan2(directionalInputRightStick.x, directionalInputRightStick.z) * Mathf.Rad2Deg;
 
 		//Make the aiming more accurate(slower) on smaller inputs
 		float aimSpeedMod = 1f;
-
 		if (Mathf.Abs(Mathf.DeltaAngle(viewAngle, inputAngle)) < 10f)
 			aimSpeedMod = 0.6f;
 		else if (Mathf.Abs(Mathf.DeltaAngle(viewAngle, inputAngle)) < 25f)
 			aimSpeedMod = 0.8f;
-
-
+		
+		//Smoothly apply the input rotation to the view rotation and rotate the player
 		viewAngle = Mathf.LerpAngle(viewAngle, inputAngle, aimSpeed * aimSpeedMod);
 		rb.rotation = Quaternion.AngleAxis(viewAngle, Vector3.up);
 	}
