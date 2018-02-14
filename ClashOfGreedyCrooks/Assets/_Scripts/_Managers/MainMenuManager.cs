@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MainMenuManager : MonoBehaviour {
 
 	private List<GameObject> uiPanels = new List<GameObject>();
 	private Transform activePanel;
+
+    public GameObject mainCanvas;
+    public GameObject settingsCanvas;
+    public GameObject creditsCanvas;
 
 	/// <summary>
 	/// Get the UiPanels for the menu and activate the MainMenu-panel.
@@ -31,15 +36,18 @@ public class MainMenuManager : MonoBehaviour {
 
 	public void Settings() {
 		ActivatePanel("Settings");
-	}
+        GameObject.Find("EventSystem").GetComponent<EventSystem>().SetSelectedGameObject(settingsCanvas, null);
+    }
 
 	public void Credits() {
 		ActivatePanel("Credits");
-	}
+        GameObject.Find("EventSystem").GetComponent<EventSystem>().SetSelectedGameObject(creditsCanvas, null);
+    }
 
 	public void MainMenu() {
 		ActivatePanel("MainMenu");
-	}
+        GameObject.Find("EventSystem").GetComponent<EventSystem>().SetSelectedGameObject(mainCanvas, null);
+    }
 
 
 	/// <summary>
@@ -57,10 +65,15 @@ public class MainMenuManager : MonoBehaviour {
 		}
 	}
 
-	/// <summary>
-	/// Quit the game regardless if playing in Editor, WebPlayer or in .exe-file.
-	/// </summary>
-	public void ExitGame() {
+    //private void SwitchCanvas ()
+    //{
+        //GameObject.Find("EventSystem").GetComponent<EventSystem>().SetSelectedGameObject(settingsCanvas, null);
+    //}
+
+    /// <summary>
+    /// Quit the game regardless if playing in Editor, WebPlayer or in .exe-file.
+    /// </summary>
+    public void ExitGame() {
 #if UNITY_EDITOR
 		UnityEditor.EditorApplication.isPlaying = false;
 #elif UNITY_WEBPLAYER
