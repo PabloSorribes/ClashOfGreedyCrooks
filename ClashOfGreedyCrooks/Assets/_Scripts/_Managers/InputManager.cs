@@ -86,6 +86,8 @@ public class InputManager : GenericSingleton<InputManager>
 
 	void Update()
 	{
+		DebugKeys();
+
 		if (freezeInput)
 			return;
 
@@ -225,8 +227,6 @@ public class InputManager : GenericSingleton<InputManager>
 					break;
 			}
 		}
-
-		DebugKeys();
 	}
 
 	public void SetPlayerReferences(PlayerController[] players)
@@ -240,20 +240,15 @@ public class InputManager : GenericSingleton<InputManager>
 	private void DebugKeys()
 	{
 		if (Input.GetKeyDown(KeyCode.Alpha1))
-		{
-			SceneManager.LoadScene("MainMenu");
-		}
+			GameStateManager.GetInstance.SetState(GameState.MainMenu);
+
 		if (Input.GetKeyDown(KeyCode.Alpha2))
-		{
-			SceneManager.LoadScene("PlayerConnect");
-		}
+			GameStateManager.GetInstance.SetState(GameState.PlayerConnect);
+
 		if (Input.GetKeyDown(KeyCode.Alpha3))
-		{
-			SceneManager.LoadScene("Picking");
-		}
+			GameStateManager.GetInstance.SetState(GameState.Picking);
+
 		if (Input.GetKeyDown(KeyCode.Alpha4))
-		{
-			SceneManager.LoadScene("Arena01");
-		}
+			GameStateManager.GetInstance.SetState(GameState.Arena);
 	}
 }
