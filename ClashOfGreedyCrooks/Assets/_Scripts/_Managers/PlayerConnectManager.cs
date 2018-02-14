@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using FMODUnity;
+using System.Linq;
 
 public class PlayerConnectManager : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class PlayerConnectManager : MonoBehaviour
         }
     }
 
+    private Sprite[] avatarColors;
+    private Sprite[] avatarSymbols;
     private GameObject canvas;
     private Transform[] playerSlots;
     private GameObject startGameText;
@@ -26,7 +29,6 @@ public class PlayerConnectManager : MonoBehaviour
 	StudioEventEmitter a_unReady;
 	StudioEventEmitter a_playerConnectToPicking;
 
-
 	private void Awake()
     {
         instance = this;
@@ -34,12 +36,19 @@ public class PlayerConnectManager : MonoBehaviour
 
     private void Start()
     {
+        LoadResources();
 		InitializeAudio();
         InstantiateCanvas();
-        startGameText = canvas.transform.Find("StartText").gameObject;
+        startGameText = canvas.transform.Find("StartGame").gameObject;
         startGameText.SetActive(false);
         FillPlayerSlotsArray();
         PlayerManager.FillPlayersArray();
+    }
+
+    private void LoadResources()
+    {
+        avatarColors = Resources.LoadAll("UI/Avatars", typeof(Sprite)).Cast<Sprite>().ToArray();
+        avatarSymbols = Resources.LoadAll("UI/PlayerColors", typeof(Sprite)).Cast<Sprite>().ToArray();
     }
 
 	private void InitializeAudio() 
@@ -117,13 +126,13 @@ public class PlayerConnectManager : MonoBehaviour
 
     public void OnAddPlayer(int playerIndex, int gamepadIndex)
     {
-        playerSlots[playerIndex].GetChild(0).gameObject.SetActive(false);
-        playerSlots[playerIndex].GetChild(1).gameObject.SetActive(true);
+        playerSlots[playerIndex].Find("Connected").gameObject.SetActive(true);
+        playerSlots[playerIndex].Find("Symbol").gameObject.SetActive(true);
 
         PlayerManager.players[playerIndex].Connected = true;
         PlayerManager.players[playerIndex].Player = playerIndex;
         PlayerManager.players[playerIndex].Gamepad = gamepadIndex;
-        PlayerManager.players[playerIndex].Avatar = playerSlots[playerIndex].GetChild(1).GetComponent<Image>().color;
+        PlayerManager.players[playerIndex].AvatarSymbol = playerSlots[playerIndex].Find("Symbol").GetComponent<Image>().sprite.name;
 
         if (startGameText.activeInHierarchy)
 		{
@@ -159,8 +168,8 @@ public class PlayerConnectManager : MonoBehaviour
         for (int i = 0; i < PlayerManager.players.Length; i++)
             if (PlayerManager.players[i].Gamepad == gamepadIndex)
             {
-                playerSlots[i].GetChild(0).gameObject.SetActive(true);
-                playerSlots[i].GetChild(1).gameObject.SetActive(false);
+                playerSlots[i].Find("Connected").gameObject.SetActive(false);
+                playerSlots[i].Find("Symbol").gameObject.SetActive(false);
 
                 PlayerManager.players[i].Connected = false;
                 PlayerManager.players[i].Player = 99;
@@ -174,7 +183,7 @@ public class PlayerConnectManager : MonoBehaviour
     private void Ready(int pos)
     {
         PlayerManager.players[pos].Ready = true;
-        playerSlots[pos].GetChild(2).gameObject.SetActive(true);
+        //playerSlots[pos].GetChild(2).gameObject.SetActive(true);
 
 		a_ready.Play();
     }
@@ -187,7 +196,7 @@ public class PlayerConnectManager : MonoBehaviour
         if (startGameText.activeInHierarchy)
             startGameText.SetActive(false);
 
-		a_unReady.Play();
+        a_unReady.Play();
     }
 
     private void ReadyCheck()
