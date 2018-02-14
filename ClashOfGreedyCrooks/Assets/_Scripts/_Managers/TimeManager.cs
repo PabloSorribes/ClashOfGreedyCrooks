@@ -57,12 +57,6 @@ public class TimeManager : MonoBehaviour
 			PauseGame();
 		}
 
-		//TODO: Remove this debug button
-		//if (Input.GetKeyDown(KeyCode.Space))
-		//{
-		//	StartFreezeFrame(2f);
-		//}
-
 		//Fire event of TimeIsUp on a single frame
 		if (trackTime <= 0 && !timeEnded)
 		{
@@ -81,8 +75,6 @@ public class TimeManager : MonoBehaviour
 	{
 		if (!isPaused)
 		{
-			Time.timeScale = 0;
-
 			isPaused = true;
 			GameStateManager.GetInstance.SetPausedState(OurPauseState.Paused);
 
@@ -93,8 +85,6 @@ public class TimeManager : MonoBehaviour
 
 		else
 		{
-			Time.timeScale = 1;
-
 			isPaused = false;
 			GameStateManager.GetInstance.SetPausedState(OurPauseState.NotPaused);
 
