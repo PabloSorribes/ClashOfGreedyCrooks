@@ -119,9 +119,10 @@ public class AudioManager : GenericSingleton<AudioManager> {
 		eventInstance.start();
 	}
 
-	public void InitializeAudio(FMODUnity.StudioEventEmitter p_fmodEvent, string p_eventPath) {
-		p_fmodEvent = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
-		p_fmodEvent.Event = p_eventPath;
+	public void InitializeAudioOnObject(GameObject gameObject, string p_eventPath) {
+
+		var fmodEventEmitter = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
+		fmodEventEmitter.Event = p_eventPath;
 
 		//TODO: Add the created event to an array or something.
 	}
