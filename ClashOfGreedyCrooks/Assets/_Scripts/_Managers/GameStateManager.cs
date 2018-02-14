@@ -32,8 +32,6 @@ public class GameStateManager : GenericSingleton<GameStateManager>
         screenFade.FadeOutComplete += ScreenFadeOutComplete;
         screenFade.FadeInComplete += ScreenFadeInComplete;
         screenFade.SetDir(BlackScreen.In);
-
-        temp_DeathCircleDamage = DeathCircle.GetInstance.deathZoneDamage;
     }
 
     private void ScreenFadeOutComplete()
@@ -140,7 +138,8 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 
         //TODO: Fix this later
         DeathCircle.GetInstance.roundIsOver = true;
-        DeathCircle.GetInstance.deathZoneDamage = 0;
+		temp_DeathCircleDamage = DeathCircle.GetInstance.deathZoneDamage;
+		DeathCircle.GetInstance.deathZoneDamage = 0;
     }
 
 	private void OnNotPausedState()

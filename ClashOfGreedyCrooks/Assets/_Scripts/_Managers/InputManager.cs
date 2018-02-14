@@ -171,11 +171,17 @@ public class InputManager : GenericSingleton<InputManager>
 					Vector3 leftStick = new Vector3(state[i].ThumbSticks.Left.X, 0f, state[i].ThumbSticks.Left.Y);
 					Vector3 rightStick = new Vector3(state[i].ThumbSticks.Right.X, 0f, state[i].ThumbSticks.Right.Y);
 
+					//Make sure leftstick diagonal input is never more than 1
+					if (leftStick.magnitude > 1f)
+						leftStick /= leftStick.magnitude;
+					
+					//Leftstick scaled radial deadzone implementation
 					if (leftStick.magnitude < deadzoneLeftStick)
 						leftStick = Vector3.zero;
 					else
 						leftStick = leftStick.normalized * ((leftStick.magnitude - deadzoneLeftStick) / (1 - deadzoneLeftStick));
 
+					//Rightstick scaled radial deadzone implementation
 					if (rightStick.magnitude < deadzoneRightStick)
 						rightStick = Vector3.zero;
 					else

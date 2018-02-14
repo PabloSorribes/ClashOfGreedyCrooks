@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
 
 	public float speed = 5f;
-	public float aimSensitivity = 0.2f;
+	private float aimSpeed = 0.3f;
 	private float inputAngle = 0f;
 	private float viewAngle = 0f;
 
@@ -39,16 +39,27 @@ public class PlayerController : MonoBehaviour
 	private void MovePlayer()
 	{
 		movement = directionalInputLeftStick * speed;
-		rb.velocity = movement;
+		rb.velocity = Vector3.Lerp(rb.velocity, movement, 0.7f);
 	}
 
 	private void AimPlayer()
 	{
+
 		inputAngle = Mathf.Atan2(directionalInputRightStick.x, directionalInputRightStick.z) * Mathf.Rad2Deg;
-		viewAngle = Mathf.LerpAngle(viewAngle, inputAngle, aimSensitivity);
-		
+
+		//Make the aiming more accurate(slower) on smaller inputs
+		float aimSpeedMod = 1f;
+
+		if (Mathf.Abs(Mathf.DeltaAngle(viewAngle, inputAngle)) < 10f)
+			aimSpeedMod = 0.6f;
+		else if (Mathf.Abs(Mathf.DeltaAngle(viewAngle, inputAngle)) < 25f)
+			aimSpeedMod = 0.8f;
+
+
+		viewAngle = Mathf.LerpAngle(viewAngle, inputAngle, aimSpeed * aimSpeedMod);
 		rb.rotation = Quaternion.AngleAxis(viewAngle, Vector3.up);
 	}
+
 	public void Shoot()
 	{
 		if (!cooldown)
