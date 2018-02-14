@@ -16,9 +16,6 @@ public class EndOfRoundScreen : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.Space) && !hasTriggered)
 		{
-			transform.Find("NextRoundTriggerText").gameObject.SetActive(false);
-			//transform.Find("NextRoundRestartText").gameObject.SetActive(true);
-
 			ArenaManager.GetInstance.ReturnToPicking();
 			hasTriggered = true;
 		}

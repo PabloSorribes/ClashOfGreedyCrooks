@@ -30,22 +30,22 @@ public class InputManager : GenericSingleton<InputManager>
 
 		AddConnectedGamepads();
 
-		for (int i = 0; i < 4; i++)
-		{
-			rightTriggerReleased[i] = true;
-		}
+		//for (int i = 0; i < 4; i++)
+		//{
+		//	rightTriggerReleased[i] = true;
+		//}
 
 
-		//For testing: Set references to players in scene with PlayerController scripts
-		if (setTrueForTesting)
-		{
-			for (int i = 0; i < gamepadIndex.Count; i++)
-			{
-				players[i] = FindObjectOfType<PlayerController>();
-			}
-			//For testing: Set GameState to be able to change what part of inputs to use regardless of current scene
-			gameState = manualGameStateOverride;
-		}
+		////For testing: Set references to players in scene with PlayerController scripts
+		//if (setTrueForTesting)
+		//{
+		//	for (int i = 0; i < gamepadIndex.Count; i++)
+		//	{
+		//		players[i] = FindObjectOfType<PlayerController>();
+		//	}
+		//	//For testing: Set GameState to be able to change what part of inputs to use regardless of current scene
+		//	gameState = manualGameStateOverride;
+		//}
 	}
 
 	private void OnGameStateChanged(GameState newGameState)
@@ -60,7 +60,7 @@ public class InputManager : GenericSingleton<InputManager>
 	//TODO: Expand to detect disconnected/newly connected gamepads and adapt array accordingly.
 	private void AddConnectedGamepads()
 	{
-		for (int i = 0; i < 3; ++i)
+		for (int i = 0; i <= 3; ++i)
 		{
 			//Note: "PlayerIndex" enum type corresponds to "gamepadIndex" variable in this project since it can't be renamed (XInput).
 			//Only applicable in this context
@@ -76,9 +76,6 @@ public class InputManager : GenericSingleton<InputManager>
 
 	void FixedUpdate()
 	{
-		if (freezeInput)
-			return;
-
 		for (int i = 0; i < gamepadIndex.Count; ++i)
 		{
 			//SetVibration should be sent in a slower rate.
