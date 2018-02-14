@@ -18,7 +18,6 @@ public class PickingResources : MonoBehaviour {
     [HideInInspector] public GameObject playerPrefab;
     #endregion
     
-    [HideInInspector] public Transform[] playerPositions = new Transform[4];
     [HideInInspector] public Transform pickingPositions;
     private Transform[] portraitSetup;
     [HideInInspector] public GameObject[] spawnedChampions;
@@ -65,10 +64,9 @@ public class PickingResources : MonoBehaviour {
         for (int i = 0; i < PlayerManager.GetPlayersConnected(); i++)
         {
             GameObject newPortraitSetup = Instantiate(portraitSetupPrefab);
-            newPortraitSetup.transform.position = pickingPositions.Find("Portrait").position;
+            newPortraitSetup.transform.position = pickingPositions.Find("Portrait").GetChild(i).position;
             portraitSetup[i] = newPortraitSetup.transform;
-        }
-        
+        }        
     }
 
     private void BackgroundCardFrames()
@@ -117,14 +115,12 @@ public class PickingResources : MonoBehaviour {
         cards = new CardComponent[PlayerManager.GetPlayersConnected()];
         for (int i = 0; i < PlayerManager.GetPlayersConnected(); i++)
         {
-            Material mat = new Material(Shader.Find("Standard"));
-            RenderTexture rt = new RenderTexture(512, 512, 16);
-            mat.mainTexture = rt;
+            RenderTexture rt = new RenderTexture(512, 512, 24);
             Vector3 pos = pickingPositions.Find("Pool").GetChild(i).position;
             GameObject newCard = Instantiate(cardPrefab);
             newCard.transform.position = pos;
             cards[i] = newCard.GetComponent<CardComponent>();
-            cards[i].portraitRawImage.material = mat;
+            cards[i].portraitRawImage.texture = rt;
             portraitSetup[i].Find("Camera").GetComponent<Camera>().targetTexture = rt;
             portraitSetup[i].Find("Camera").GetComponent<Camera>().depth = i;
         }
