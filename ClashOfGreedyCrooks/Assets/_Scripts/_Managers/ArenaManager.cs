@@ -45,7 +45,8 @@ public class ArenaManager : MonoBehaviour
 
 		playersAlive--;
 		players[playersAlive] = playerThatDied.GetComponent<PlayerInfo>();
-		players[playersAlive].IsAlive = false;
+		//players[playersAlive].IsAlive = false;
+
 		if (playersAlive <= 1)
 		{
 			TriggerEndOfRound();

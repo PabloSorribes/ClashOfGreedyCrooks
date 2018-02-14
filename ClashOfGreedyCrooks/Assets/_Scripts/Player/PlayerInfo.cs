@@ -3,25 +3,26 @@
 public class PlayerInfo : MonoBehaviour
 {
 
-    private bool connected;
-    private bool ready;
-    private bool choosingPenalty;
-    private int player;
-    private int gamepad;
-    private Color32 avatar;
-    private bool hasChampion;
-	private bool isAlive = true;
+	private bool connected;
+	private bool ready;
+	private bool choosingPenalty;
+	private int player;
+	private int gamepad;
+	private Color32 avatar;
+	private bool hasChampion;
 
 	public bool Connected { get; set; }
-    public bool Ready { get; set; }
-    public bool ChoosingPenalty { get; set; }
-    public int Player { get; set; }
-    public int Gamepad { get; set; }
-    public Color32 Avatar { get; set; }
-    public bool HasChampion { get; set; }
-    public bool IsAlive { get; set; }
+	public bool Ready { get; set; }
+	public bool ChoosingPenalty { get; set; }
+	public int Player { get; set; }
+	public int Gamepad { get; set; }
+	public Color32 Avatar { get; set; }
+	public bool HasChampion { get; set; }
 
 	//Score data
+	//private bool isAlive = true;
+	//public bool IsAlive { get; set; }
+
 	//private int numberOfWins = 0;
 	//private int currentRoundHits = 0;
 	//private int totalHits = 0;
@@ -40,7 +41,7 @@ public class PlayerInfo : MonoBehaviour
 
 
 	public void SetDontDestroyOnLoad()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
+	{
+		DontDestroyOnLoad(gameObject);
+	}
 }
