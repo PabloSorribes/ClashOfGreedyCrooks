@@ -117,7 +117,7 @@ public class AudioManager : GenericSingleton<AudioManager> {
 	}
 
 	/// <summary>
-	/// For setting a parameter before playing a 3D-event.
+	/// For playing 3D-events at a set position and setting a parameter before playing a 3D-event.
 	/// </summary>
 	/// <param name="eventPath"></param>
 	/// <param name="parameterName"></param>
@@ -133,11 +133,11 @@ public class AudioManager : GenericSingleton<AudioManager> {
 		FMODUnity.RuntimeManager.PlayOneShot("hej", transform.position);
 	}
 
-	public void InitializeAudioOnObject(GameObject gameObject, string eventPath) {
+	public FMODUnity.StudioEventEmitter InitializeAudioOnObject(GameObject gameObject, string eventPath) {
 
 		var fmodEventEmitter = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
 		fmodEventEmitter.Event = eventPath;
-
+		return fmodEventEmitter;
 		//TODO: Add the created event to an array or something.
 	}
 

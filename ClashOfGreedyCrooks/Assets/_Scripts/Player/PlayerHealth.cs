@@ -37,13 +37,14 @@ public class PlayerHealth : MonoBehaviour
 
         PlayerTokens.GetInstance.WellFed += WellFedToken;
         playerSizeToken = PlayerTokens.GetInstance.playerSize;
-
     }
 
 	private void InitializeAudio()
 	{
-		a_deathSound = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
-		a_deathSound.Event = "event:/Arena/playerDeath";
+		a_deathSound = AudioManager.GetInstance.InitializeAudioOnObject(this.gameObject, "event:/Arena/playerDeath");
+
+		//a_deathSound = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
+		//a_deathSound.Event = "event:/Arena/playerDeath";
 		a_deathSound.Preload = true;
 	}
 
@@ -64,14 +65,22 @@ public class PlayerHealth : MonoBehaviour
 			timer = 0;
 		}
 
-		if (rb.IsSleeping())
-		{
-			rb.WakeUp();
-		}
+		KeepRigidBodyAwake();
 
 		if (currentHealth <= 0)
 		{
 			KillPlayer();
+		}
+	}
+
+	/// <summary>
+	/// Should be run in Update()
+	/// </summary>
+	private void KeepRigidBodyAwake()
+	{
+		if (rb.IsSleeping())
+		{
+			rb.WakeUp();
 		}
 	}
 
@@ -101,11 +110,18 @@ public class PlayerHealth : MonoBehaviour
 	{
 		currentHealth -= p_damage;
 		CalculateHealthPrecentage();
+		HurtSound();
 
 		if (currentHealth <= 0)
 		{
 			KillPlayer();
 		}
+	}
+
+	private void HurtSound()
+	{
+		//TODO: Get the name-variable of the Champion-script and switch the parameter depending on the name of the Champ.
+		AudioManager.GetInstance.PlayOneShot3D("event:/Arena/playerHurt", transform.position, "champ", 0);
 	}
 
 	/// <summary>
