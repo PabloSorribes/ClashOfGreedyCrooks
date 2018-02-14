@@ -53,13 +53,13 @@ public class PickingManager : MonoBehaviour
     {
         for (int i = 0; i < PlayerManager.connectedPlayers.Length; i++)
             if (PlayerManager.connectedPlayers[i].Gamepad == gamepadIndex)
-                if (PlayerManager.connectedPlayers[i].ChoosingPenalty)
+                /*if (PlayerManager.connectedPlayers[i].ChoosingPenalty)
                 {
                     ApplyPenalty(i, gamepadIndex, button);
                     PlayerManager.connectedPlayers[i].ChoosingPenalty = false;
                     return;
                 }
-                else if (PlayerManager.connectedPlayers[i].HasChampion)
+                else */if (PlayerManager.connectedPlayers[i].HasChampion)
                     return;
                 else
                 {
@@ -80,44 +80,66 @@ public class PickingManager : MonoBehaviour
             targetChampion.Picked = true;
             targetChampion.PlayerIndex = playerIndex;
             PlayerManager.connectedPlayers[playerIndex].HasChampion = true;
+            for (int i = 0; i < pickingResources.avatarSymbols.Length; i++)
+            {
+                if (pickingResources.avatarSymbols[i].name == PlayerManager.connectedPlayers[playerIndex].AvatarSymbol)
+                    card.GetComponent<CardComponent>().avatarSymbol.sprite = pickingResources.avatarSymbols[i];
+            }
 
 			a_pickChamp.Play();
 		}
 
 		//Menu for penalties
-        else if (targetChampion.Picked && !targetChampion.Locked)
+        else if (targetChampion.Picked /*&& !targetChampion.Locked*/)
         {
-            targetChampion.Locked = true;
+            if (targetChampion.GetComponent<Penalty>().CanAddPenalty)
+                targetChampion.GetComponent<Penalty>().AddPenalty(card.GetComponent<CardComponent>(), pickingResources);
+            else
+                return;
+            //targetChampion.Locked = true;
             targetChampion.PlayerIndex = playerIndex;
-            targetChampion.GetComponent<Penalty>().Buttons(true);
-            PlayerManager.connectedPlayers[playerIndex].ChoosingPenalty = true;
+            //PlayerManager.connectedPlayers[playerIndex].ChoosingPenalty = true;
+            card.position = pickingResources.pickingPositions.Find("Picked").GetChild(playerIndex).position;
             PlayerManager.connectedPlayers[playerIndex].HasChampion = true;
+            PlayerManager.connectedPlayers[targetChampion.LastPlayerIndex].HasChampion = false;
+            for (int j = 0; j < pickingResources.avatarSymbols.Length; j++)
+            {
+                if (pickingResources.avatarSymbols[j].name == PlayerManager.connectedPlayers[playerIndex].AvatarSymbol)
+                    card.GetComponent<CardComponent>().avatarSymbol.sprite = pickingResources.avatarSymbols[j];
+            }
+
+            a_pickPenalty.Play();
+            a_pickChamp.Play();
         }
 
         if (IsAllChampionsPicked())
             OnAllChampionsPicked();
     }
 
-    private void ApplyPenalty(int playerIndex, int gamepadIndex, int button)
-    {
-        for (int i = 0; i < pickingResources.spawnedChampions.Length; i++)
-        {
-            Transform card = pickingResources.cards[button].transform;
-            Champion targetChampion = card.GetComponent<CardComponent>().champion;
-            if (targetChampion.PlayerIndex == playerIndex)
-            {
-                targetChampion.GetComponent<Penalty>().AddPenalty((Nerf)button, 2);
-                targetChampion.GetComponent<Penalty>().Buttons(false);
-                card.position = pickingResources.pickingPositions.Find("Picked").GetChild(playerIndex).position;
-                targetChampion.Locked = false;
-                PlayerManager.connectedPlayers[targetChampion.LastPlayerIndex].HasChampion = false;
+    //private void ApplyPenalty(int playerIndex, int gamepadIndex, int button)
+    //{
+    //    for (int i = 0; i < pickingResources.spawnedChampions.Length; i++)
+    //    {
+    //        Transform card = pickingResources.cards[button].transform;
+    //        Champion targetChampion = card.GetComponent<CardComponent>().champion;
+    //        if (targetChampion.PlayerIndex == playerIndex)
+    //        {
+    //            targetChampion.GetComponent<Penalty>().AddPenalty((Nerf)button, 2);
+    //            card.position = pickingResources.pickingPositions.Find("Picked").GetChild(playerIndex).position;
+    //            targetChampion.Locked = false;
+    //            PlayerManager.connectedPlayers[targetChampion.LastPlayerIndex].HasChampion = false;
+    //            for (int j = 0; j < pickingResources.avatarSymbols.Length; j++)
+    //            {
+    //                if (pickingResources.avatarSymbols[j].name == PlayerManager.connectedPlayers[playerIndex].AvatarSymbol)
+    //                    card.GetComponent<CardComponent>().avatarSymbol.sprite = pickingResources.avatarSymbols[j];
+    //            }
 
-				a_pickPenalty.Play();
-				a_pickChamp.Play();
-                return;
-            }
-        }
-    }
+    //            a_pickPenalty.Play();
+				//a_pickChamp.Play();
+    //            return;
+    //        }
+    //    }
+    //}
 
     private bool IsAllChampionsPicked()
     {
@@ -180,23 +202,11 @@ public class PickingManager : MonoBehaviour
         newPlayer.GetComponent<Shooting>().enabled = true;
         newPlayer.GetComponent<PlayerHealth>().enabled = true;
 
-        Debug.Log("Before");
-        Debug.Log("Health: " + championScript.Health);
-        Debug.Log("Damage: " + championScript.Damage);
-        Debug.Log("Movement: " + championScript.Movement);
-        Debug.Log("AttackSpeed: " + championScript.AttackSpeed);
 		//Player stats
 		newPlayer.GetComponent<PlayerHealth>().SetStartHealth(championScript.Health * 10);
 		newPlayer.GetComponent<Shooting>().damage = championScript.Damage + 5f;
 		newPlayer.GetComponent<PlayerController>().speed = championScript.Movement * 0.5f + 3f;
 		newPlayer.GetComponent<PlayerController>().attackSpeed = 1f / championScript.AttackSpeed;
-		Debug.Log(" ");
-        Debug.Log("After");
-        Debug.Log("Health: " + newPlayer.GetComponent<PlayerHealth>().currentHealth);
-        Debug.Log("Damage: " + newPlayer.GetComponent<Shooting>().damage);
-        Debug.Log("Movement: " + newPlayer.GetComponent<PlayerController>().speed);
-        Debug.Log("AttackSpeed: " + newPlayer.GetComponent<PlayerController>().attackSpeed);
-        Debug.Log(" ");
 
         newPlayer.name = "Player " + playerIndex;
         PlayerManager.spawnedPlayers[playerIndex] = newPlayer;

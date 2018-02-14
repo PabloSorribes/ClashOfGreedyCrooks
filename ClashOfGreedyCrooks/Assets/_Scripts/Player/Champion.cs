@@ -18,54 +18,59 @@ public class Champion : MonoBehaviour {
     private bool locked;
 
     //Properties
-    public float Health
-    {
-        get
-        {
-            return health;
-        }
+    public float Health { get; set; }
+    public float Movement { get; set; }
+    public float Damage { get; set; }
+    public float AttackSpeed { get; set; }
 
-        set
-        {
-            health += value;
-        }
-    }
-    public float Movement
-    {
-        get
-        {
-            return movement;
-        }
+    //public float Health
+    //{
+    //    get
+    //    {
+    //        return health;
+    //    }
 
-        set
-        {
-            movement += value;
-        }
-    }
-    public float Damage
-    {
-        get
-        {
-            return damage;
-        }
+    //    set
+    //    {
+    //        health += value;
+    //    }
+    //}
+    //public float Movement
+    //{
+    //    get
+    //    {
+    //        return movement;
+    //    }
 
-        set
-        {
-            damage += value;
-        }
-    }
-    public float AttackSpeed
-    {
-        get
-        {
-            return attackSpeed;
-        }
+    //    set
+    //    {
+    //        movement += value;
+    //    }
+    //}
+    //public float Damage
+    //{
+    //    get
+    //    {
+    //        return damage;
+    //    }
 
-        set
-        {
-            attackSpeed += value;
-        }
-    }
+    //    set
+    //    {
+    //        damage += value;
+    //    }
+    //}
+    //public float AttackSpeed
+    //{
+    //    get
+    //    {
+    //        return attackSpeed;
+    //    }
+
+    //    set
+    //    {
+    //        attackSpeed += value;
+    //    }
+    //}
 
     public int PlayerIndex
     {
@@ -92,24 +97,12 @@ public class Champion : MonoBehaviour {
     [SerializeField] private float damageMax;
     [SerializeField] private float attackSpeedMin;
     [SerializeField] private float attackSpeedMax;
-    
-    private void Start()
-    {
-        penalty = GetComponent<Penalty>();
 
+    public void SetStatingStats()
+    {
         Health = (int)Random.Range(healthMin, healthMax + 1);
         Movement = (int)Random.Range(movementMin, movementMax + 1);
         Damage = (int)Random.Range(damageMin, damageMax + 1);
         AttackSpeed = (int)Random.Range(attackSpeedMin, attackSpeedMax + 1);
-
-        UpdateStartingStatsUI();
-    }
-
-    private void UpdateStartingStatsUI()
-    {
-        penalty.SetStartingStats(Nerf.Health, 10 - (int)Health);
-        penalty.SetStartingStats(Nerf.Movement, 10 - (int)Movement);
-        penalty.SetStartingStats(Nerf.Damage, 10 - (int)Damage);
-        penalty.SetStartingStats(Nerf.AttackSpeed, 10 - (int)AttackSpeed);
     }
 }

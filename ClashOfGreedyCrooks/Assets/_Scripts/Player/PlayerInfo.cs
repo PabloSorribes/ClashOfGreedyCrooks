@@ -2,27 +2,28 @@
 
 public class PlayerInfo : MonoBehaviour
 {
-
     private bool connected;
     private bool ready;
     private bool choosingPenalty;
     private int player;
     private int gamepad;
-    private Color32 avatar;
     private bool hasChampion;
 	private bool isAlive = true;
+    private string avatarColor;
+    private string avatarSymbol;
 
 	public bool Connected { get; set; }
     public bool Ready { get; set; }
     public bool ChoosingPenalty { get; set; }
     public int Player { get; set; }
     public int Gamepad { get; set; }
-    public Color32 Avatar { get; set; }
     public bool HasChampion { get; set; }
     public bool IsAlive { get; set; }
+    public string AvatarColor { get; set; }
+    public string AvatarSymbol { get; set; }
 
-	//Score data
-	private int numberOfWins;
+    //Score data
+    private int numberOfWins;
 	private int currentRoundHits;
 	private int totalHits;
 	private float currentRoundDamage;
