@@ -5,8 +5,6 @@ using UnityEngine;
 public class AudioManager : GenericSingleton<AudioManager> {
 
 	private FMODUnity.StudioEventEmitter musicMainMenu;
-	public FMODUnity.StudioEventEmitter MusicMainMenu { get; set; }
-
 	private FMODUnity.StudioEventEmitter musicPicking;
 	private FMODUnity.StudioEventEmitter musicArena;
 
@@ -24,16 +22,16 @@ public class AudioManager : GenericSingleton<AudioManager> {
 	private void OnGameStateChanged(GameState newGameState) {
 		switch (newGameState) {
 			case GameState.MainMenu:
-				PlayMusicMainMenu();
+				PlayMusic(musicMainMenu, musicPicking, musicArena);
 				break;
 			case GameState.PlayerConnect:
-				PlayMusicMainMenu();
+				PlayMusic(musicMainMenu, musicPicking, musicArena);
 				break;
 			case GameState.Picking:
-				PlayMusicPicking();
+				PlayMusic(musicPicking, musicMainMenu, musicArena);
 				break;
 			case GameState.Arena:
-				PlayMusicArena();
+				PlayMusic(musicArena, musicMainMenu, musicPicking);
 				break;
 			default:
 				break;
@@ -44,9 +42,6 @@ public class AudioManager : GenericSingleton<AudioManager> {
 		musicMainMenu = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
 		musicMainMenu.Event = "event:/Music/musicMainMenu";
 
-		//TODO: look this post up http://www.fmod.org/questions/question/get-parameter-value/ on how to get current value of a parameter from a StudioEventEmitter-object.
-		//musicMainMenu.EventInstance.getParameter()
-
 		musicPicking = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
 		musicPicking.Event = "event:/Music/musicPicking";
 
@@ -54,12 +49,15 @@ public class AudioManager : GenericSingleton<AudioManager> {
 		musicArena.Event = "event:/Music/musicArena";
 	}
 
-	public void PlayMusic(FMODUnity.StudioEventEmitter musicToPlay, FMODUnity.StudioEventEmitter[] musicToStop)
+	public void PlayMusic(FMODUnity.StudioEventEmitter musicToPlay, FMODUnity.StudioEventEmitter musicToStop1, FMODUnity.StudioEventEmitter musicToStop2)
 	{
-		for (int i = 0; i < musicToStop.Length; i++)
-		{
-			musicToStop[i].Stop();
-		}
+		musicToStop1.Stop();
+		musicToStop2.Stop();
+
+		//for (int i = 0; i < musicToStop.Length; i++)
+		//{
+		//	musicToStop[i].Stop();
+		//}
 
 		if (!musicToPlay.IsPlaying())
 		{
@@ -67,44 +65,12 @@ public class AudioManager : GenericSingleton<AudioManager> {
 		}
 	}
 
-	public void PlayMusicMainMenu() {
-		musicArena.Stop();
-		musicPicking.Stop();
-
-		if (!musicMainMenu.IsPlaying()) {
-			musicMainMenu.Play();
-		}
-	}
-
-	public void PlayMusicPicking() {
-
-		musicArena.Stop();
-		musicMainMenu.Stop();
-
-		if (!musicPicking.IsPlaying()) {
-			musicPicking.Play();
-		}
-	}
-
-	public void PlayMusicArena() {
-
-		musicPicking.Stop();
-		musicMainMenu.Stop();
-
-		if (!musicArena.IsPlaying()) {
-			musicArena.Play();
-		}
-	}
-
-
-
-
 	/// <summary>
 	/// Return an instance to use in OneShot-functions.
 	/// </summary>
 	/// <param name="eventName"></param>
 	/// <returns></returns>
-	private FMOD.Studio.EventInstance CreateFmodEventInstance(string eventName)
+	public FMOD.Studio.EventInstance CreateFmodEventInstance(string eventName)
 	{
 		return FMODUnity.RuntimeManager.CreateInstance(eventName);
 	}
