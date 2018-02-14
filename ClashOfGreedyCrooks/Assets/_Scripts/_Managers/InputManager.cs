@@ -15,7 +15,7 @@ public class InputManager : GenericSingleton<InputManager>
 	private GamePadState[] state = new GamePadState[4];
 	private GamePadState[] prevState = new GamePadState[4];
 
-	private bool[] rightTriggerReleased = new bool[4];
+	//private bool[] rightTriggerReleased = new bool[4];
 	public bool freezeInput;
 
 

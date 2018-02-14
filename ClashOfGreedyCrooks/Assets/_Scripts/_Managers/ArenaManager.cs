@@ -13,7 +13,6 @@ public class ArenaManager : MonoBehaviour
 		}
 	}
 
-	private GameObject endOfRoundScreenCanvas;
 	private int playersAlive;
 	private PlayerInfo[] players;
 
@@ -64,10 +63,7 @@ public class ArenaManager : MonoBehaviour
 		//	}
 		//}
 
-		if (GameManager.GetInstance != null)
-		{
-			GameManager.GetInstance.RoundsPlayed++;
-		}
+		GameStateManager.GetInstance.RoundsPlayed++;
 
 		for (int i = 0; i < players.Length; i++)
 		{
@@ -78,9 +74,9 @@ public class ArenaManager : MonoBehaviour
 			//players[i].TotalShotsFired += players[i].CurrentRoundShotsFired;
 		}
 
-		endOfRoundScreenCanvas = Instantiate(Resources.Load("UI/EndOfRoundScreenCanvas") as GameObject);
+		Instantiate(Resources.Load("UI/EndOfRoundScreenCanvas") as GameObject);
 
-		//TODO: Rewrite to handle this better.
+		//TODO: Rewrite to handle this better @fippan
 		DeathCircle.GetInstance.roundIsOver = true;
 		DeathCircle.GetInstance.deathZoneDamage = 0;
 	}

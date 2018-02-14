@@ -28,7 +28,7 @@ public class PickingManager : MonoBehaviour
 		InitializeAudio();
         pickingResources = GetComponent<PickingResources>();
 
-        if (GameManager.GetInstance.RoundsPlayed > 0)
+        if (GameStateManager.GetInstance.RoundsPlayed > 0)
             PlayerManager.NextPickingPhase();
     }
 

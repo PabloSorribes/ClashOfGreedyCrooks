@@ -51,8 +51,8 @@ public class Projectile : MonoBehaviour
 		{
 			other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
 
-			this.player.GetComponent<PlayerInfo>().CurrentRoundHits++;
-			this.player.GetComponent<PlayerInfo>().CurrentRoundDamage += damage;
+			//this.player.GetComponent<PlayerInfo>().CurrentRoundHits++;
+			//this.player.GetComponent<PlayerInfo>().CurrentRoundDamage += damage;
 
 			Destroy(gameObject);
 		}

@@ -11,9 +11,6 @@ public class ManagerInitialization : MonoBehaviour
 
 	private void Awake()
 	{
-		if (GameManager.GetInstance)
-		{
-		}
 
 		if (GameStateManager.GetInstance)
 		{

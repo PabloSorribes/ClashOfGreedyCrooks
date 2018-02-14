@@ -15,7 +15,6 @@ public class Shooting : MonoBehaviour {
     private Transform bulletSpawnPoint;
 
     private float timer;
-    private float shootDisable = 0.5f;
 
     private GameObject bulletspawned;
 

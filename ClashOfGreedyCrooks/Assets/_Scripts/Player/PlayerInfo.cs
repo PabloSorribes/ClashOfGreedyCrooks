@@ -22,21 +22,21 @@ public class PlayerInfo : MonoBehaviour
     public bool IsAlive { get; set; }
 
 	//Score data
-	private int numberOfWins = 0;
-	private int currentRoundHits = 0;
-	private int totalHits = 0;
-	private float currentRoundDamage = 0;
-	private float totalDamage = 0;
-	private int currentRoundShotsFired = 0;
-	private int totalShotsFired = 0;
+	//private int numberOfWins = 0;
+	//private int currentRoundHits = 0;
+	//private int totalHits = 0;
+	//private float currentRoundDamage = 0;
+	//private float totalDamage = 0;
+	//private int currentRoundShotsFired = 0;
+	//private int totalShotsFired = 0;
 
-	public int NumberOfWins { get; set; }
-	public int CurrentRoundHits { get; set; }
-	public int TotalHits { get; set; }
-	public float CurrentRoundDamage { get; set; }
-	public float TotalDamage { get; set; }
-	public int CurrentRoundShotsFired { get; set; }
-	public int TotalShotsFired { get; set; }
+	//public int NumberOfWins { get; set; }
+	//public int CurrentRoundHits { get; set; }
+	//public int TotalHits { get; set; }
+	//public float CurrentRoundDamage { get; set; }
+	//public float TotalDamage { get; set; }
+	//public int CurrentRoundShotsFired { get; set; }
+	//public int TotalShotsFired { get; set; }
 
 
 	public void SetDontDestroyOnLoad()

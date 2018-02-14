@@ -7,6 +7,9 @@ public enum OurPauseState { Paused, NotPaused };
 
 public class GameStateManager : GenericSingleton<GameStateManager>
 {
+	//Temporarily storing this variable here. Should be together with other round stats later.
+	public int RoundsPlayed = 0;
+
 	private GameState gameState;
 	private OurPauseState pauseState;
 
@@ -136,8 +139,8 @@ public class GameStateManager : GenericSingleton<GameStateManager>
         Time.timeScale = 0;
         InputManager.GetInstance.freezeInput = true;
 
-        //TODO: Fix this later
-        DeathCircle.GetInstance.roundIsOver = true;
+		//TODO: Rewrite to handle this better
+		DeathCircle.GetInstance.roundIsOver = true;
 		temp_DeathCircleDamage = DeathCircle.GetInstance.deathZoneDamage;
 		DeathCircle.GetInstance.deathZoneDamage = 0;
     }
@@ -147,8 +150,8 @@ public class GameStateManager : GenericSingleton<GameStateManager>
         Time.timeScale = 1;
         InputManager.GetInstance.freezeInput = false;
 
-        //TODO: Also need to be fixed
-        DeathCircle.GetInstance.roundIsOver = false;
+		//TODO: Rewrite to handle this better
+		DeathCircle.GetInstance.roundIsOver = false;
         DeathCircle.GetInstance.deathZoneDamage = temp_DeathCircleDamage;
     }
 }
