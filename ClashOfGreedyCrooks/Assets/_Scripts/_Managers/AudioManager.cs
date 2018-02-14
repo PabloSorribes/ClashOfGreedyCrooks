@@ -8,10 +8,20 @@ public class AudioManager : GenericSingleton<AudioManager> {
 	private FMODUnity.StudioEventEmitter musicPicking;
 	private FMODUnity.StudioEventEmitter musicArena;
 
-	FMOD.Studio.EventInstance a_buttonSound;
-
 	private void Awake() {
 		InitializeAudio();
+	}
+
+	private void InitializeAudio()
+	{
+		musicMainMenu = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
+		musicMainMenu.Event = "event:/Music/musicMainMenu";
+
+		musicPicking = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
+		musicPicking.Event = "event:/Music/musicPicking";
+
+		musicArena = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
+		musicArena.Event = "event:/Music/musicArena";
 	}
 
 	private void Start() {
@@ -38,17 +48,6 @@ public class AudioManager : GenericSingleton<AudioManager> {
 		}
 	}
 
-	private void InitializeAudio() {
-		musicMainMenu = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
-		musicMainMenu.Event = "event:/Music/musicMainMenu";
-
-		musicPicking = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
-		musicPicking.Event = "event:/Music/musicPicking";
-
-		musicArena = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
-		musicArena.Event = "event:/Music/musicArena";
-	}
-
 	public void PlayMusic(FMODUnity.StudioEventEmitter musicToPlay, FMODUnity.StudioEventEmitter musicToStop1, FMODUnity.StudioEventEmitter musicToStop2)
 	{
 		musicToStop1.Stop();
@@ -66,7 +65,7 @@ public class AudioManager : GenericSingleton<AudioManager> {
 	}
 
 	/// <summary>
-	/// Return an instance to use in OneShot-functions.
+	/// Returns an instance to use in OneShot-functions.
 	/// </summary>
 	/// <param name="eventName"></param>
 	/// <returns></returns>
