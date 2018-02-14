@@ -25,6 +25,8 @@ public class Shooting : MonoBehaviour {
     {
 		InitializeAudio();
         bulletSpawnPoint = transform.Find("Champion").GetChild(0).Find("WeaponHold").GetChild(0).Find("Muzzle");
+
+        PlayerTokens.GetInstance.Drunk += BlindfoldedShot;
     }
 
 	private void InitializeAudio() {
@@ -45,6 +47,17 @@ public class Shooting : MonoBehaviour {
     {
 		a_shoot.Play();
 
+        bulletspawned = Instantiate(proj.gameObject, bulletSpawnPoint.position, Quaternion.identity);
+        bulletspawned.transform.rotation = bulletSpawnPoint.transform.rotation;
+        bulletspawned.GetComponent<Projectile>().damage = damage;
+        bulletspawned.GetComponent<Projectile>().projectileSpeed = projectileSpeed;
+        bulletspawned.GetComponent<Projectile>().player = gameObject;
+    }
+
+    //A player token nerf
+    //TODO: Maked the shot shoot random inside of an angle
+    public void BlindfoldedShot()
+    {
         bulletspawned = Instantiate(proj.gameObject, bulletSpawnPoint.position, Quaternion.identity);
         bulletspawned.transform.rotation = bulletSpawnPoint.transform.rotation;
         bulletspawned.GetComponent<Projectile>().damage = damage;

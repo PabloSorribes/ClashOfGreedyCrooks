@@ -22,8 +22,12 @@ public class PlayerTokens : MonoBehaviour {
     public float playerSize = 2f;
 
     public bool wellFed = false;
+    public bool drunk = false;
+    public bool blindFolded = false;
 
     public System.Action WellFed;
+    public System.Action Drunk;
+    public System.Action BlindFolded;
 
 
     private void Update()
@@ -32,19 +36,13 @@ public class PlayerTokens : MonoBehaviour {
         {
             WellFed();
         }
+        if (drunk && Drunk != null)
+        {
+            Drunk();
+        }
+        if (blindFolded && BlindFolded != null)
+        {
+            BlindFolded();
+        }
     }
-
-    //Inverted controllers
-    public void Drunk()
-    {
-
-    }
-
-    //Reduce accuracy
-    public void Blindfolded()
-    {
-
-    }
-
-
 }
