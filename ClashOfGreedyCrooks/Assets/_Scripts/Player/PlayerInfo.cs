@@ -8,7 +8,6 @@ public class PlayerInfo : MonoBehaviour
     private int player;
     private int gamepad;
     private bool hasChampion;
-	private bool isAlive = true;
     private string avatarColor;
     private string avatarSymbol;
 
@@ -18,26 +17,27 @@ public class PlayerInfo : MonoBehaviour
     public int Player { get; set; }
     public int Gamepad { get; set; }
     public bool HasChampion { get; set; }
-    public bool IsAlive { get; set; }
     public string AvatarColor { get; set; }
     public string AvatarSymbol { get; set; }
 
     //Score data
-    private int numberOfWins;
-	private int currentRoundHits;
-	private int totalHits;
-	private float currentRoundDamage;
-	private float totalDamage;
-	private int currentRoundShotsFired;
-	private int totalShotsFired;
+	//private bool isAlive = true;
+ //   private int numberOfWins;
+	//private int currentRoundHits;
+	//private int totalHits;
+	//private float currentRoundDamage;
+	//private float totalDamage;
+	//private int currentRoundShotsFired;
+	//private int totalShotsFired;
 
-	public int NumberOfWins { get; set; }
-	public int CurrentRoundHits { get; set; }
-	public int TotalHits { get; set; }
-	public float CurrentRoundDamage { get; set; }
-	public float TotalDamage { get; set; }
-	public int CurrentRoundShotsFired { get; set; }
-	public int TotalShotsFired { get; set; }
+    //public bool IsAlive { get; set; }
+	//public int NumberOfWins { get; set; }
+	//public int CurrentRoundHits { get; set; }
+	//public int TotalHits { get; set; }
+	//public float CurrentRoundDamage { get; set; }
+	//public float TotalDamage { get; set; }
+	//public int CurrentRoundShotsFired { get; set; }
+	//public int TotalShotsFired { get; set; }
 
 
 	public void SetDontDestroyOnLoad()
