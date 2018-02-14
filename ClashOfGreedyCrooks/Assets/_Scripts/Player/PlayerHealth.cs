@@ -20,6 +20,8 @@ public class PlayerHealth : MonoBehaviour
 	private float timer;
 	public bool insideDeathCircle;
 
+    private float playerSizeToken;
+
 	FMODUnity.StudioEventEmitter a_deathSound;
 
 	// Use this for initialization
@@ -32,7 +34,11 @@ public class PlayerHealth : MonoBehaviour
 		currentHealth = maxHealth;
 
 		healthBar = transform.Find("HealthBar").GetChild(0).GetComponent<Slider>();
-	}
+
+        PlayerTokens.GetInstance.WellFed += WellFedToken;
+        playerSizeToken = PlayerTokens.GetInstance.playerSize;
+
+    }
 
 	private void InitializeAudio()
 	{
@@ -81,6 +87,11 @@ public class PlayerHealth : MonoBehaviour
 
 		Destroy(gameObject);
 	}
+
+    private void WellFedToken()
+    {
+        transform.localScale *= playerSizeToken;
+    }
 
 	/// <summary>
 	/// Should be called by bullets etc
