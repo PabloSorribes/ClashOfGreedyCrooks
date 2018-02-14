@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
 
 		rb = GetComponent<Rigidbody>();
 		shooting = GetComponent<Shooting>();
+
+		DontDestroyOnLoad(gameObject);
 	}
 
 	private void FixedUpdate()

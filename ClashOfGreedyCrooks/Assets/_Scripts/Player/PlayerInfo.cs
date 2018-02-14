@@ -39,9 +39,4 @@ public class PlayerInfo : MonoBehaviour
 	//public int CurrentRoundShotsFired { get; set; }
 	//public int TotalShotsFired { get; set; }
 
-
-	public void SetDontDestroyOnLoad()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
 }

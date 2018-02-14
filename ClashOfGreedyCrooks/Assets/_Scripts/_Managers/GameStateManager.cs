@@ -22,8 +22,6 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 
 	private void Awake()
 	{
-        //base.Awake();
-        pauseState = OurPauseState.NotPaused;
 		gameState = (GameState)SceneManager.GetActiveScene().buildIndex;
 		SceneManager.sceneLoaded += OnSceneChanged;
 	}
