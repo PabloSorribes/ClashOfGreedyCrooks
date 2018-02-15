@@ -1,5 +1,6 @@
 ﻿using FMODUnity;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PickingManager : MonoBehaviour
 {
@@ -53,13 +54,6 @@ public class PickingManager : MonoBehaviour
 	{
 		for (int i = 0; i < PlayerManager.connectedPlayers.Length; i++)
 			if (PlayerManager.connectedPlayers[i].Gamepad == gamepadIndex)
-				/*if (PlayerManager.connectedPlayers[i].ChoosingPenalty)
-                {
-                    ApplyPenalty(i, gamepadIndex, button);
-                    PlayerManager.connectedPlayers[i].ChoosingPenalty = false;
-                    return;
-                }
-                else */
 				if (PlayerManager.connectedPlayers[i].HasChampion)
 					return;
 				else
@@ -77,11 +71,14 @@ public class PickingManager : MonoBehaviour
 		//Pick from pool
 		if (!targetChampion.Picked)
 		{
-			card.position = pickingResources.pickingPositions.Find("Picked").GetChild(playerIndex).position;
+            card.GetComponent<MoveCard>().target = pickingResources.pickingPositions.Find("Picked").GetChild(playerIndex).position;
 			targetChampion.Picked = true;
 			targetChampion.PlayerIndex = playerIndex;
 			PlayerManager.connectedPlayers[playerIndex].HasChampion = true;
-			for (int i = 0; i < pickingResources.avatarSymbols.Length; i++)
+            CardComponent cc = card.GetComponent<CardComponent>();
+            cc.avatarColor.sprite = pickingResources.avatarColors[playerIndex];
+            //cc.avatarColor.sprite.rect = cc.avatarColor.sprite.rect.size * 2f;
+            for (int i = 0; i < pickingResources.avatarSymbols.Length; i++)
 			{
 				if (pickingResources.avatarSymbols[i].name == PlayerManager.connectedPlayers[playerIndex].AvatarSymbol)
 					card.GetComponent<CardComponent>().avatarSymbol.sprite = pickingResources.avatarSymbols[i];
@@ -97,11 +94,9 @@ public class PickingManager : MonoBehaviour
 				targetChampion.GetComponent<Penalty>().AddPenalty(card.GetComponent<CardComponent>(), pickingResources);
 			else
 				return;
-			//targetChampion.Locked = true;
 			targetChampion.PlayerIndex = playerIndex;
-			//PlayerManager.connectedPlayers[playerIndex].ChoosingPenalty = true;
-			card.position = pickingResources.pickingPositions.Find("Picked").GetChild(playerIndex).position;
-			PlayerManager.connectedPlayers[playerIndex].HasChampion = true;
+            card.GetComponent<MoveCard>().target = pickingResources.pickingPositions.Find("Picked").GetChild(playerIndex).position;
+            PlayerManager.connectedPlayers[playerIndex].HasChampion = true;
 			PlayerManager.connectedPlayers[targetChampion.LastPlayerIndex].HasChampion = false;
 			for (int j = 0; j < pickingResources.avatarSymbols.Length; j++)
 			{
@@ -117,31 +112,6 @@ public class PickingManager : MonoBehaviour
 			OnAllChampionsPicked();
 	}
 
-	//private void ApplyPenalty(int playerIndex, int gamepadIndex, int button)
-	//{
-	//    for (int i = 0; i < pickingResources.spawnedChampions.Length; i++)
-	//    {
-	//        Transform card = pickingResources.cards[button].transform;
-	//        Champion targetChampion = card.GetComponent<CardComponent>().champion;
-	//        if (targetChampion.PlayerIndex == playerIndex)
-	//        {
-	//            targetChampion.GetComponent<Penalty>().AddPenalty((Nerf)button, 2);
-	//            card.position = pickingResources.pickingPositions.Find("Picked").GetChild(playerIndex).position;
-	//            targetChampion.Locked = false;
-	//            PlayerManager.connectedPlayers[targetChampion.LastPlayerIndex].HasChampion = false;
-	//            for (int j = 0; j < pickingResources.avatarSymbols.Length; j++)
-	//            {
-	//                if (pickingResources.avatarSymbols[j].name == PlayerManager.connectedPlayers[playerIndex].AvatarSymbol)
-	//                    card.GetComponent<CardComponent>().avatarSymbol.sprite = pickingResources.avatarSymbols[j];
-	//            }
-
-	//            a_pickPenalty.Play();
-	//a_pickChamp.Play();
-	//            return;
-	//        }
-	//    }
-	//}
-
 	private bool IsAllChampionsPicked()
 	{
 		int picked = 0;
@@ -156,6 +126,18 @@ public class PickingManager : MonoBehaviour
 
 	private void OnAllChampionsPicked()
 	{
+        GameObject readyObj = new GameObject();
+        readyObj.AddComponent<SpriteRenderer>();
+        readyObj.GetComponent<SpriteRenderer>().sortingOrder = 10;
+        readyObj.GetComponent<SpriteRenderer>().sprite = pickingResources.readySprite;
+        Vector3 pos = new Vector3(0f, 12f, 0f);
+        readyObj.transform.position = pos;
+        readyObj.transform.localScale = readyObj.transform.localScale * .6f;
+        Invoke("EndOfPhase", 5f);
+	}
+
+    private void EndOfPhase()
+    {
 		if (PlayerManager.spawnedPlayers == null)
 			PlayerManager.SetSpawnedPlayersArrayLenght();
 
@@ -171,7 +153,7 @@ public class PickingManager : MonoBehaviour
 		a_pickingToArena.Play();
 		PlayerManager.SendInfoToInputManager();
 		GameStateManager.GetInstance.SetState(GameState.Arena);
-	}
+    }
 
 	/// <summary>
 	/// Instantiates a player prefab and attach a champion to it.
@@ -202,8 +184,15 @@ public class PickingManager : MonoBehaviour
 		newPlayer.GetComponent<Shooting>().enabled = true;
 		newPlayer.GetComponent<PlayerHealth>().enabled = true;
 
-		//Player stats
-		newPlayer.GetComponent<PlayerHealth>().SetStartHealth(championScript.Health * 10);
+        //Player stats
+        Transform healthBarAvatar = newPlayer.transform.Find("HealthBar/Slider/ColorHolder");
+        healthBarAvatar.Find("PlayerColor").GetComponent<Image>().sprite = pickingResources.avatarColors[playerIndex];
+        for (int j = 0; j < pickingResources.avatarSymbols.Length; j++)
+        {
+            if (pickingResources.avatarSymbols[j].name == PlayerManager.connectedPlayers[playerIndex].AvatarSymbol)
+                healthBarAvatar.Find("PlayerIcon").GetComponent<Image>().sprite = pickingResources.avatarSymbols[playerIndex];
+        }       
+        newPlayer.GetComponent<PlayerHealth>().SetStartHealth(championScript.Health * 10);
 		newPlayer.GetComponent<Shooting>().damage = championScript.Damage + 5f;
 		newPlayer.GetComponent<PlayerController>().speed = championScript.Movement * 0.5f + 3f;
 		newPlayer.GetComponent<PlayerController>().attackSpeed = 1f / championScript.AttackSpeed;

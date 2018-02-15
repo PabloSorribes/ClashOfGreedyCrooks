@@ -155,6 +155,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4335546697121562}
   - component: {fileID: 114647489172899976}
+  - component: {fileID: 114897306605811066}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -467,7 +468,7 @@ Transform:
   m_GameObject: {fileID: 1752962951985804}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.84000003, y: 0.8400001, z: 0.8400001}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4067820230199622}
   m_RootOrder: 0
@@ -742,6 +743,7 @@ MonoBehaviour:
   movementText: {fileID: 0}
   damageText: {fileID: 0}
   attackSpeedText: {fileID: 0}
+  locked: {fileID: 0}
 --- !u!114 &114724185956359262
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -814,6 +816,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114897306605811066
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1322670660121418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0c764d1bc0781b40a1c765979f5aa9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {x: 0, y: 0, z: 0}
 --- !u!114 &114956569554454746
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1209,7 +1223,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

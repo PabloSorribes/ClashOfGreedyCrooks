@@ -13,8 +13,9 @@ public class PickingResources : MonoBehaviour {
     private Sprite backgroundFrame;
     private Sprite[] buttons;
     public Sprite[] avatarSymbols;
-    private Sprite[] avatarColors;
+    public Sprite[] avatarColors;
     public Sprite[] penaltySprites;
+    public Sprite readySprite;
     [HideInInspector] public GameObject playerPrefab;
     #endregion
     
@@ -50,6 +51,8 @@ public class PickingResources : MonoBehaviour {
         avatarSymbols = Resources.LoadAll("UI/Avatars", typeof(Sprite)).Cast<Sprite>().ToArray();
         avatarColors = Resources.LoadAll("UI/PlayerColors", typeof(Sprite)).Cast<Sprite>().ToArray();
         penaltySprites = Resources.LoadAll("UI/Penalties", typeof(Sprite)).Cast<Sprite>().ToArray();
+        readySprite = Resources.Load<Sprite>("UI/Picking/countdown_allready");
+        Debug.Log(readySprite);
     }
 
     private void PickingPositions()
@@ -119,6 +122,7 @@ public class PickingResources : MonoBehaviour {
             Vector3 pos = pickingPositions.Find("Pool").GetChild(i).position;
             GameObject newCard = Instantiate(cardPrefab);
             newCard.transform.position = pos;
+            newCard.GetComponent<MoveCard>().target = pos;
             cards[i] = newCard.GetComponent<CardComponent>();
             cards[i].portraitRawImage.texture = rt;
             portraitSetup[i].Find("Camera").GetComponent<Camera>().targetTexture = rt;

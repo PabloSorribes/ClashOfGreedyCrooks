@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
-public enum Nerf { Blind, Drunk, Fat, Stat }
+﻿using UnityEngine;
 
 public class Penalty : MonoBehaviour
 {

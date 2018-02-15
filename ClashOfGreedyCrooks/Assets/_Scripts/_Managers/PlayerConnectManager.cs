@@ -18,7 +18,7 @@ public class PlayerConnectManager : MonoBehaviour
     private Sprite[] avatarSymbols;
     private GameObject canvas;
     private Transform[] playerSlots;
-    private GameObject startGameText;
+    private GameObject startGameText, backText;
     private bool allReady;
 
     public bool SetTrueFor1PlayerTesting;
@@ -40,6 +40,7 @@ public class PlayerConnectManager : MonoBehaviour
 		InitializeAudio();
         InstantiateCanvas();
         startGameText = canvas.transform.Find("StartGame").gameObject;
+        backText = canvas.transform.Find("Back").gameObject;
         startGameText.SetActive(false);
         FillPlayerSlotsArray();
         PlayerManager.FillPlayersArray();
@@ -183,16 +184,17 @@ public class PlayerConnectManager : MonoBehaviour
     private void Ready(int pos)
     {
         PlayerManager.players[pos].Ready = true;
-        //playerSlots[pos].GetChild(2).gameObject.SetActive(true);
+        playerSlots[pos].Find("Ready").gameObject.SetActive(true);
 
-		a_ready.Play();
+        a_ready.Play();
     }
 
     private void UnReady(int pos)
     {
         PlayerManager.players[pos].Ready = false;
-        playerSlots[pos].GetChild(2).gameObject.SetActive(false);
+        playerSlots[pos].Find("Ready").gameObject.SetActive(false);
         allReady = false;
+        backText.SetActive(true);
         if (startGameText.activeInHierarchy)
             startGameText.SetActive(false);
 
@@ -217,10 +219,12 @@ public class PlayerConnectManager : MonoBehaviour
         {
             allReady = true;
             startGameText.SetActive(true);
+            backText.SetActive(false);
         }
         else if (connections == connectedAndReady && SetTrueFor1PlayerTesting)
         {
             allReady = true;
+            backText.SetActive(false);
             startGameText.SetActive(true);
         }
     }
