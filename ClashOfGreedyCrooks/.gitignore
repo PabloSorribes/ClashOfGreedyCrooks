@@ -56,5 +56,7 @@ Assets/FMODStudioCache.asset.meta
 Assets/FMODStudioCache.meta
 fmod_editor.log
 fmod.log
-Assets/FmodIntegration_1.10.03/Resources/FMODStudioSettings.asset 
-Assets/FmodIntegration_1.10.03/Resources/FMODStudioSettings.asset.meta
+Assets/Resources/*
+
+# Assets/FmodIntegration_1.10.03/Resources/FMODStudioSettings.asset 
+# Assets/FmodIntegration_1.10.03/Resources/FMODStudioSettings.asset.meta
