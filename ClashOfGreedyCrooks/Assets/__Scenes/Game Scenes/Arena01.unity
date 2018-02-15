@@ -14968,10 +14968,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targets: []
-  offset: {x: 0, y: 28, z: -20}
+  offset: {x: 0, y: 28, z: -18}
   smoothTime: 0.1
   minZoom: 55
-  maxZoom: 25
+  maxZoom: 15
   zoomLimiter: 50
 --- !u!114 &1792359541
 MonoBehaviour:
