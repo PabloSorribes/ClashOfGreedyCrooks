@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 89277ebca1a198d409ad52220be103f2
-timeCreated: 1518617818
+guid: b5b240d1f1ec4884394edd51bc5e59c4
+timeCreated: 1518699246
 licenseType: Pro
 ModelImporter:
   serializedVersion: 22
@@ -82,8 +82,8 @@ ModelImporter:
     100148: mixamorig:Spine
     100150: mixamorig:Spine1
     100152: mixamorig:Spine2
-    100154: skinCluster1Set
-    100156: //RootNode
+    100154: //RootNode
+    100156: skinCluster1Set
     100158: The_Queen_Rig
     400000: Corgi_Launcher1
     400002: Corgi_Launcher:Box003
@@ -162,10 +162,11 @@ ModelImporter:
     400148: mixamorig:Spine
     400150: mixamorig:Spine1
     400152: mixamorig:Spine2
-    400154: skinCluster1Set
-    400156: //RootNode
+    400154: //RootNode
+    400156: skinCluster1Set
     400158: The_Queen_Rig
     2100000: lambert1
+    2100002: lambert2
     2300000: Corgi_Launcher1
     2300002: skinCluster1Set
     3300000: Corgi_Launcher1
@@ -173,7 +174,7 @@ ModelImporter:
     4300000: skinCluster1Set
     4300002: The_Queen_Rig
     4300004: Corgi_Launcher1
-    7400000: TheQueen_Attack
+    7400000: Take 001
     9500000: //RootNode
     13700000: The_Queen_Rig
   externalObjects: {}
@@ -202,35 +203,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: TheQueen_Attack
-      takeName: Take 001
-      firstFrame: 1
-      lastFrame: 24
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []

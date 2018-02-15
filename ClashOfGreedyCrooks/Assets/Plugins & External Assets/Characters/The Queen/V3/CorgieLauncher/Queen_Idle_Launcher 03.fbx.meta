@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: e20c766bbf2650a4c9c6da6fbfac2744
-timeCreated: 1518693925
+guid: 4f496f6402752114a8b2d2650a1592c2
+timeCreated: 1518696553
 licenseType: Pro
 ModelImporter:
   serializedVersion: 22
@@ -152,7 +152,7 @@ ModelImporter:
     4300000: skinCluster1Set
     4300002: The_Queen_Rig
     4300004: Corgi_Launcher1
-    7400000: idle2
+    7400000: Queen Idle Launcher
     9500000: //RootNode
     13700000: The_Queen_Rig
   externalObjects: {}
@@ -183,10 +183,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: idle2
+      name: Queen Idle Launcher
       takeName: Take 001
-      firstFrame: 1
-      lastFrame: 120
+      firstFrame: 11
+      lastFrame: 107
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
