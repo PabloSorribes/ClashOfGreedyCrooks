@@ -9,76 +9,104 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1875638673258120}
+  m_RootGameObject: {fileID: 1352580041244330}
   m_IsPrefabParent: 1
---- !u!1 &1048194171780482
+--- !u!1 &1104260474487746
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4031024100804872}
+  - component: {fileID: 4800636593824104}
   m_Layer: 0
-  m_Name: WeaponHold
+  m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1875638673258120
+--- !u!1 &1352580041244330
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4585483731728072}
-  - component: {fileID: 33071846658745832}
-  - component: {fileID: 23042852027025126}
-  - component: {fileID: 95842341368351596}
-  - component: {fileID: 114813917005631380}
-  - component: {fileID: 114265782080026548}
+  - component: {fileID: 4401168123947444}
+  - component: {fileID: 114931465484165570}
   m_Layer: 0
-  m_Name: HarryPotter
+  m_Name: Katana
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4031024100804872
+--- !u!1 &1601019957010822
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4288900689774426}
+  - component: {fileID: 33536681508426848}
+  - component: {fileID: 23610797273043760}
+  - component: {fileID: 95091404362530268}
+  m_Layer: 0
+  m_Name: Katana
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4288900689774426
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1048194171780482}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.421, y: 0.05, z: -0.147}
+  m_GameObject: {fileID: 1601019957010822}
+  m_LocalRotation: {x: -0.65328157, y: -0.27059805, z: -0.27059788, w: 0.6532815}
+  m_LocalPosition: {x: 0, y: 0, z: 0.451}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4585483731728072}
+  m_Father: {fileID: 4401168123947444}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4585483731728072
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: -45.000004}
+--- !u!4 &4401168123947444
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1875638673258120}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8, z: 0}
+  m_GameObject: {fileID: 1352580041244330}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4031024100804872}
+  - {fileID: 4288900689774426}
+  - {fileID: 4800636593824104}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23042852027025126
+--- !u!4 &4800636593824104
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1104260474487746}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.8369426}
+  m_LocalScale: {x: 0.32847756, y: 0.3284775, z: 1.0926145}
+  m_Children: []
+  m_Father: {fileID: 4401168123947444}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23610797273043760
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1875638673258120}
+  m_GameObject: {fileID: 1601019957010822}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -87,7 +115,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 9d5d1d4bea655834b8c13bde4473e3a5, type: 2}
+  - {fileID: 2100000, guid: 5b03650634982c44886277fa2ff2b89c, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -107,22 +135,22 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33071846658745832
+--- !u!33 &33536681508426848
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1875638673258120}
-  m_Mesh: {fileID: 4300000, guid: f933269209eea5e4886ccc97b9cdc664, type: 3}
---- !u!95 &95842341368351596
+  m_GameObject: {fileID: 1601019957010822}
+  m_Mesh: {fileID: 4300000, guid: 5b03650634982c44886277fa2ff2b89c, type: 3}
+--- !u!95 &95091404362530268
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1875638673258120}
+  m_GameObject: {fileID: 1601019957010822}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: f933269209eea5e4886ccc97b9cdc664, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 5b03650634982c44886277fa2ff2b89c, type: 3}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -131,34 +159,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114265782080026548
+--- !u!114 &114931465484165570
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1875638673258120}
+  m_GameObject: {fileID: 1352580041244330}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 435fee23d0f44be4a8fc381cc8532fba, type: 3}
+  m_Script: {fileID: 11500000, guid: 350d7f4a95420d648a736234cf91406b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114813917005631380
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1875638673258120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64a92ad232037d04e8f743caaf264867, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: TheWizard
-  healthMin: 8
-  healthMax: 10
-  movementMin: 2
-  movementMax: 10
-  damageMin: 1
-  damageMax: 7
-  attackSpeedMin: 8
-  attackSpeedMax: 10
+  name: 
+  damage: 20
+  projectileSpeed: 0
+  proj: {fileID: 114584868023802948, guid: 07196885b986fed4e87e59e5405435f2, type: 2}

@@ -5,64 +5,61 @@ using UnityEngine;
 /// <summary>
 /// Instantiates a bullet in the direction that the player is facing.
 /// </summary>
-public class Shooting : MonoBehaviour {
+public class Shooting : MonoBehaviour
+{
 
-    public float projectileSpeed = 20;
-    public float damage = 20;
+	//public float projectileSpeed = 20;
+	//public float damage = 20;
 
-    public Projectile proj;
-    
-    private Transform bulletSpawnPoint;
+	private Weapon weapon;
+	//public Projectile proj;
 
-    private float timer;
+	//private Transform bulletSpawnPoint;
 
-    private GameObject bulletspawned;
+	//private float timer;
+
+	//private GameObject bulletspawned;
 
 	FMODUnity.StudioEventEmitter a_shoot;
 
-    //TODO: Input should come through the PlayerController / which button activates it should be derived from the PlayerController.
-    private void Start()
-    {
+	//TODO: Input should come through the PlayerController / which button activates it should be derived from the PlayerController.
+	private void Start()
+	{
 		InitializeAudio();
-        bulletSpawnPoint = transform.Find("Champion").GetChild(0).Find("WeaponHold").GetChild(0).Find("Muzzle");
+		weapon = GetComponentInChildren<Weapon>();
 
-		//TODO: Uncomment after this has been implemented fully
-        //PlayerTokens.GetInstance.Drunk += BlindfoldedShot;
-    }
+		//bulletSpawnPoint = transform.Find("Champion").GetChild(0).Find("WeaponHold").GetChild(0).Find("Muzzle");
+	}
 
-	private void InitializeAudio() {
+	private void InitializeAudio()
+	{
 		a_shoot = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
 		a_shoot.Event = "event:/Arena/playerShoot";
 		a_shoot.Preload = true;
 	}
 
 	//TODO: Remove this when real Keyboard support is added.
-	private void Update() {
-		if (Input.GetKeyDown(KeyCode.P)) {
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.P))
+		{
 			Shoot();
 		}
 	}
 
 	//Spawns the bullet
 	public void Shoot()
-    {
+	{
 		a_shoot.Play();
 
-        bulletspawned = Instantiate(proj.gameObject, bulletSpawnPoint.position, Quaternion.identity);
-        bulletspawned.transform.rotation = bulletSpawnPoint.transform.rotation;
-        bulletspawned.GetComponent<Projectile>().damage = damage;
-        bulletspawned.GetComponent<Projectile>().projectileSpeed = projectileSpeed;
-        bulletspawned.GetComponent<Projectile>().player = gameObject;
-    }
+		weapon.InstantiateBullet(gameObject);
 
-    //A player token nerf
-    //TODO: Maked the shot shoot random inside of an angle
-    public void BlindfoldedShot()
-    {
-        bulletspawned = Instantiate(proj.gameObject, bulletSpawnPoint.position, Quaternion.identity);
-        bulletspawned.transform.rotation = bulletSpawnPoint.transform.rotation;
-        bulletspawned.GetComponent<Projectile>().damage = damage;
-        bulletspawned.GetComponent<Projectile>().projectileSpeed = projectileSpeed;
-        bulletspawned.GetComponent<Projectile>().player = gameObject;
-    }
+		//bulletspawned = Instantiate(proj.gameObject, bulletSpawnPoint.position, Quaternion.identity);
+		//bulletspawned.transform.rotation = bulletSpawnPoint.transform.rotation;
+		//bulletspawned.GetComponent<Projectile>().damage = damage;
+		//bulletspawned.GetComponent<Projectile>().projectileSpeed = projectileSpeed;
+		//bulletspawned.GetComponent<Projectile>().player = gameObject;
+	}
+
+	
 }

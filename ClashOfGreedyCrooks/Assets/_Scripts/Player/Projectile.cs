@@ -8,12 +8,15 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
 
+	[HideInInspector]
 	public float projectileSpeed = 20;
+	[HideInInspector]
 	public float damage = 20;
 
 	private float deathTimer;
 
 	//TODO: Fix reference to player through code
+	[HideInInspector]
 	public GameObject player;
 
 	//Time until the bullet is destroyed
