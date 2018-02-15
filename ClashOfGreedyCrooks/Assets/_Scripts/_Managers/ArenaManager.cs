@@ -27,7 +27,7 @@ public class ArenaManager : MonoBehaviour
 		TimeManager.GetInstance.TimeIsUp += HandleEndTime;
 		spawnPositionParent = GameObject.Find("SpawnPoints");
 		players = PlayerManager.spawnedPlayers;
-		
+
 		for (int i = 0; i < players.Length; i++)
 			players[i].transform.position = spawnPositionParent.transform.GetChild(i).transform.position;
 
@@ -86,6 +86,14 @@ public class ArenaManager : MonoBehaviour
 		//TODO: Rewrite to handle this better @fippan
 		DeathCircle.GetInstance.roundIsOver = true;
 		DeathCircle.GetInstance.deathZoneDamage = 0;
+	}
+
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.I))
+		{
+			ReturnToPicking();
+		}
 	}
 
 	public void ReturnToPicking()
