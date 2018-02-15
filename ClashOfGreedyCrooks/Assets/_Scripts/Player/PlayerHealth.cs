@@ -148,7 +148,7 @@ public class PlayerHealth : MonoBehaviour
 	private void CalculateHealthPrecentage()
 	{
 		float healthPrecentage = currentHealth / maxHealth;
-		Debug.Log(healthPrecentage);
+		//Debug.Log(healthPrecentage);
 		healthBar.value = healthPrecentage;
 	}
 	//TODO: Talk to ArenaManager and what values should i send?
