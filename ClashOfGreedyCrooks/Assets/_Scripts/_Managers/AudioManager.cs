@@ -2,17 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioManager : GenericSingleton<AudioManager> {
+public class AudioManager : GenericSingleton<AudioManager>
+{
 
 	private FMODUnity.StudioEventEmitter musicMainMenu;
 	private FMODUnity.StudioEventEmitter musicPicking;
 	private FMODUnity.StudioEventEmitter musicArena;
 
-	private void Awake() {
-		InitializeAudio();
+	#region BUSSES
+	public enum AudioBusses { mainBus, musicBus, sfxBus }
+
+	private FMOD.Studio.Bus masterBus;
+	private FMOD.Studio.Bus musicBus;
+	private FMOD.Studio.Bus sfxBus;
+	bool helloMute;
+
+	float busVolumeToSet = 1;
+
+	#endregion BUSSES
+
+	private void Awake()
+	{
+		InitializeBuses();
+		InitializeMusic();
 	}
 
-	private void InitializeAudio()
+	private void InitializeMusic()
 	{
 		musicMainMenu = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
 		musicMainMenu.Event = "event:/Music/musicMainMenu";
@@ -24,13 +39,29 @@ public class AudioManager : GenericSingleton<AudioManager> {
 		musicArena.Event = "event:/Music/musicArena";
 	}
 
-	private void Start() {
+	private void InitializeBuses()
+	{
+		masterBus = FMODUnity.RuntimeManager.GetBus("bus:/MAIN");
+		musicBus = FMODUnity.RuntimeManager.GetBus("bus:/MAIN/MU");
+		sfxBus = FMODUnity.RuntimeManager.GetBus("bus:/MAIN/SFX");
+	}
+
+	private void Start()
+	{
 		OnGameStateChanged(GameStateManager.GetInstance.GetState());
 		GameStateManager.GetInstance.GameStateChanged += OnGameStateChanged;
 	}
 
-	private void OnGameStateChanged(GameState newGameState) {
-		switch (newGameState) {
+	//private void Update()
+	//{
+	//	print("Music: " + musicMainMenu.IsPlaying());
+	//	print("Mute: " + masterBus.getMute(out helloMute));
+	//}
+
+	private void OnGameStateChanged(GameState newGameState)
+	{
+		switch (newGameState)
+		{
 			case GameState.MainMenu:
 				PlayMusic(musicMainMenu, musicPicking, musicArena);
 				break;
@@ -62,6 +93,61 @@ public class AudioManager : GenericSingleton<AudioManager> {
 		{
 			musicToPlay.Play();
 		}
+	}
+
+	/// <summary>
+	/// <paramref name="mute"/> → TRUE for turning off audio. FALSE for turning it back on.
+	/// </summary>
+	/// <param name="mute"></param>
+	public void MuteAudio(AudioBusses busToMute, bool mute)
+	{
+		switch (busToMute)
+		{
+			case AudioBusses.mainBus:
+				masterBus.setMute(mute);
+				break;
+			case AudioBusses.musicBus:
+				musicBus.setMute(mute);
+				break;
+			case AudioBusses.sfxBus:
+				sfxBus.setMute(mute);
+				break;
+			default:
+				break;
+		}
+	}
+
+	/// <summary>
+	/// "<paramref name="volumeToChangeWith"/>" should preferably be something small, such as 0.15f (volume increase) or -0.15f (volume decrease)
+	/// <para></para> 0 == No volume, -80 dB. 
+	/// <para></para> 1 == Max volume, 0 dB (or the level set in the Fmod-project?) 
+	/// </summary>
+	/// <param name="volumeToChangeWith"></param>
+	public void SetAudioVolume(AudioBusses busToChangeVolumeOn, float volumeToChangeWith)
+	{
+		busVolumeToSet += volumeToChangeWith;
+
+		if (busVolumeToSet > 1)
+			busVolumeToSet = 1;
+
+		if (busVolumeToSet < 0)
+			busVolumeToSet = 0;
+
+		switch (busToChangeVolumeOn)
+		{
+			case AudioBusses.mainBus:
+				masterBus.setVolume(busVolumeToSet);
+				break;
+			case AudioBusses.musicBus:
+				musicBus.setVolume(busVolumeToSet);
+				break;
+			case AudioBusses.sfxBus:
+				sfxBus.setVolume(busVolumeToSet);
+				break;
+			default:
+				break;
+		}
+		//print(busVolumeToSet);
 	}
 
 	/// <summary>
@@ -133,7 +219,8 @@ public class AudioManager : GenericSingleton<AudioManager> {
 		FMODUnity.RuntimeManager.PlayOneShot("hej", transform.position);
 	}
 
-	public FMODUnity.StudioEventEmitter InitializeAudioOnObject(GameObject gameObject, string eventPath) {
+	public FMODUnity.StudioEventEmitter InitializeAudioOnObject(GameObject gameObject, string eventPath)
+	{
 
 		var fmodEventEmitter = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
 		fmodEventEmitter.Event = eventPath;
@@ -148,12 +235,15 @@ public class AudioManager : GenericSingleton<AudioManager> {
 	/// <para></para> FALSE = Stop the sound.
 	/// </summary>
 	/// <param name="p_fmodComponent"></param>
-	public void PlayStopSound(FMODUnity.StudioEventEmitter p_fmodComponent, bool p_playStop) {
+	public void PlayStopSound(FMODUnity.StudioEventEmitter p_fmodComponent, bool p_playStop)
+	{
 
-		if (p_playStop) {
+		if (p_playStop)
+		{
 			p_fmodComponent.Play();
 		}
-		else {
+		else
+		{
 			p_fmodComponent.Stop();
 		}
 	}

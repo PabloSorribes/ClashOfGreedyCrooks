@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class FmodTestScript : MonoBehaviour
 {
-
 	// Use this for initialization
 	void Start()
 	{
-		//TODO: Play with get/set-variables in audio manager
-		//AudioManager.GetInstance.MusicMainMenu.
+		//AudioManager.GetInstance.MuteAudio(AudioManager.AudioBusses.mainBus, true);
+		//AudioManager.GetInstance.SetAudioVolume(AudioManager.AudioBusses.mainBus, -0.15f);
 	}
 
 	// Update is called once per frame
@@ -17,12 +16,12 @@ public class FmodTestScript : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.Alpha8))
 		{
-			//AudioManager.GetInstance.ChangeParameter();
+			//AudioManager.GetInstance.SetAudioVolume(AudioManager.AudioBusses.musicBus, -0.15f);
 		}
 
 		if (Input.GetKeyDown(KeyCode.Alpha9))
 		{
-			//AudioManager.GetInstance.ChangeParameter(0);
+			//AudioManager.GetInstance.SetAudioVolume(AudioManager.AudioBusses.musicBus, 0.15f);
 		}
 	}
 }

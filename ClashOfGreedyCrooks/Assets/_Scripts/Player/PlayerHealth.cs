@@ -22,6 +22,7 @@ public class PlayerHealth : MonoBehaviour
 
     private float playerSizeToken;
 
+	private string champName;
 	FMODUnity.StudioEventEmitter a_deathSound;
 
 	// Use this for initialization
@@ -37,14 +38,13 @@ public class PlayerHealth : MonoBehaviour
 
         PlayerTokens.GetInstance.WellFed += WellFedToken;
         playerSizeToken = PlayerTokens.GetInstance.playerSize;
+
+		champName = GetComponentInChildren<Champion>().name;
     }
 
 	private void InitializeAudio()
 	{
 		a_deathSound = AudioManager.GetInstance.InitializeAudioOnObject(this.gameObject, "event:/Arena/playerDeath");
-
-		//a_deathSound = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
-		//a_deathSound.Event = "event:/Arena/playerDeath";
 		a_deathSound.Preload = true;
 	}
 
@@ -120,8 +120,18 @@ public class PlayerHealth : MonoBehaviour
 
 	private void HurtSound()
 	{
+		float parameter = 0;
 		//TODO: Get the name-variable of the Champion-script and switch the parameter depending on the name of the Champ.
-		AudioManager.GetInstance.PlayOneShot3D("event:/Arena/playerHurt", transform.position, "champ", 0);
+		if (name == "The Bride")
+			parameter = 0;
+		if (name == "The Queen")
+			parameter = 1;
+		if (name == "The Hoff")
+			parameter = 2;
+		if (name == "The Wizard")
+			parameter = 3;
+
+		AudioManager.GetInstance.PlayOneShot3D("event:/Arena/playerHurt", transform.position, "champ", parameter);
 	}
 
 	/// <summary>
