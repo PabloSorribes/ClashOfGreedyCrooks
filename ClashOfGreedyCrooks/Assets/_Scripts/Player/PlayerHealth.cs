@@ -122,13 +122,13 @@ public class PlayerHealth : MonoBehaviour
 	{
 		float parameter = 0;
 		//TODO: Get the name-variable of the Champion-script and switch the parameter depending on the name of the Champ.
-		if (name == "The Bride")
+		if (name == "TheBride")
 			parameter = 0;
-		if (name == "The Queen")
+		if (name == "TheQueen")
 			parameter = 1;
-		if (name == "The Hoff")
+		if (name == "TheHoff")
 			parameter = 2;
-		if (name == "The Wizard")
+		if (name == "TheWizard")
 			parameter = 3;
 
 		AudioManager.GetInstance.PlayOneShot3D("event:/Arena/playerHurt", transform.position, "champ", parameter);
