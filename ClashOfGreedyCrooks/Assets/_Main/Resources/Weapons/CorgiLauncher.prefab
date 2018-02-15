@@ -83,4 +83,4 @@ MonoBehaviour:
   name: CorgiLauncher
   damage: 20
   projectileSpeed: 20
-  proj: {fileID: 114673987580317712, guid: fc52b8203664a4d4ca3c3a64cc7e1ae8, type: 2}
+  proj: {fileID: 114097318725600186, guid: fa3f814ae0275ec4496cc525d51424bb, type: 2}
