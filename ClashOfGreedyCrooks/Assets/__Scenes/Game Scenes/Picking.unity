@@ -393,12 +393,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cards: []
+  avatarSymbols: []
+  avatarColors: []
+  penaltySprites: []
+  readySprite: {fileID: 0}
   playerPrefab: {fileID: 0}
-  playerPositions:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   pickingPositions: {fileID: 0}
   spawnedChampions: []
 --- !u!1 &1924727970
