@@ -1,0 +1,259 @@
+fileFormatVersion: 2
+guid: 689eb06282a558740b815683295c5667
+timeCreated: 1518725903
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: The_Bride1:Head
+    100004: The_Bride1:HeadTop_End
+    100006: The_Bride1:Hips
+    100008: The_Bride1:LeftArm
+    100010: The_Bride1:LeftFoot
+    100012: The_Bride1:LeftForeArm
+    100014: The_Bride1:LeftHand
+    100016: The_Bride1:LeftHandIndex1
+    100018: The_Bride1:LeftHandIndex2
+    100020: The_Bride1:LeftHandIndex3
+    100022: The_Bride1:LeftHandIndex4
+    100024: The_Bride1:LeftHandMiddle1
+    100026: The_Bride1:LeftHandMiddle2
+    100028: The_Bride1:LeftHandMiddle3
+    100030: The_Bride1:LeftHandMiddle4
+    100032: The_Bride1:LeftHandPinky1
+    100034: The_Bride1:LeftHandPinky2
+    100036: The_Bride1:LeftHandPinky3
+    100038: The_Bride1:LeftHandPinky4
+    100040: The_Bride1:LeftHandRing1
+    100042: The_Bride1:LeftHandRing2
+    100044: The_Bride1:LeftHandRing3
+    100046: The_Bride1:LeftHandRing4
+    100048: The_Bride1:LeftHandThumb1
+    100050: The_Bride1:LeftHandThumb2
+    100052: The_Bride1:LeftHandThumb3
+    100054: The_Bride1:LeftHandThumb4
+    100056: The_Bride1:LeftLeg
+    100058: The_Bride1:LeftShoulder
+    100060: The_Bride1:LeftToe_End
+    100062: The_Bride1:LeftToeBase
+    100064: The_Bride1:LeftUpLeg
+    100066: The_Bride1:Neck
+    100068: The_Bride1:RightArm
+    100070: The_Bride1:RightFoot
+    100072: The_Bride1:RightForeArm
+    100074: The_Bride1:RightHand
+    100076: The_Bride1:RightHandIndex1
+    100078: The_Bride1:RightHandIndex2
+    100080: The_Bride1:RightHandIndex3
+    100082: The_Bride1:RightHandIndex4
+    100084: The_Bride1:RightHandMiddle1
+    100086: The_Bride1:RightHandMiddle2
+    100088: The_Bride1:RightHandMiddle3
+    100090: The_Bride1:RightHandMiddle4
+    100092: The_Bride1:RightHandPinky1
+    100094: The_Bride1:RightHandPinky2
+    100096: The_Bride1:RightHandPinky3
+    100098: The_Bride1:RightHandPinky4
+    100100: The_Bride1:RightHandRing1
+    100102: The_Bride1:RightHandRing2
+    100104: The_Bride1:RightHandRing3
+    100106: The_Bride1:RightHandRing4
+    100108: The_Bride1:RightHandThumb1
+    100110: The_Bride1:RightHandThumb2
+    100112: The_Bride1:RightHandThumb3
+    100114: The_Bride1:RightHandThumb4
+    100116: The_Bride1:RightLeg
+    100118: The_Bride1:RightShoulder
+    100120: The_Bride1:RightToe_End
+    100122: The_Bride1:RightToeBase
+    100124: The_Bride1:RightUpLeg
+    100126: The_Bride1:Spine
+    100128: The_Bride1:Spine1
+    100130: The_Bride1:Spine2
+    100132: The_Bride1:The_bride_polySurface1
+    100134: The_Bride1:The_bride_polySurface2
+    400000: //RootNode
+    400002: The_Bride1:Head
+    400004: The_Bride1:HeadTop_End
+    400006: The_Bride1:Hips
+    400008: The_Bride1:LeftArm
+    400010: The_Bride1:LeftFoot
+    400012: The_Bride1:LeftForeArm
+    400014: The_Bride1:LeftHand
+    400016: The_Bride1:LeftHandIndex1
+    400018: The_Bride1:LeftHandIndex2
+    400020: The_Bride1:LeftHandIndex3
+    400022: The_Bride1:LeftHandIndex4
+    400024: The_Bride1:LeftHandMiddle1
+    400026: The_Bride1:LeftHandMiddle2
+    400028: The_Bride1:LeftHandMiddle3
+    400030: The_Bride1:LeftHandMiddle4
+    400032: The_Bride1:LeftHandPinky1
+    400034: The_Bride1:LeftHandPinky2
+    400036: The_Bride1:LeftHandPinky3
+    400038: The_Bride1:LeftHandPinky4
+    400040: The_Bride1:LeftHandRing1
+    400042: The_Bride1:LeftHandRing2
+    400044: The_Bride1:LeftHandRing3
+    400046: The_Bride1:LeftHandRing4
+    400048: The_Bride1:LeftHandThumb1
+    400050: The_Bride1:LeftHandThumb2
+    400052: The_Bride1:LeftHandThumb3
+    400054: The_Bride1:LeftHandThumb4
+    400056: The_Bride1:LeftLeg
+    400058: The_Bride1:LeftShoulder
+    400060: The_Bride1:LeftToe_End
+    400062: The_Bride1:LeftToeBase
+    400064: The_Bride1:LeftUpLeg
+    400066: The_Bride1:Neck
+    400068: The_Bride1:RightArm
+    400070: The_Bride1:RightFoot
+    400072: The_Bride1:RightForeArm
+    400074: The_Bride1:RightHand
+    400076: The_Bride1:RightHandIndex1
+    400078: The_Bride1:RightHandIndex2
+    400080: The_Bride1:RightHandIndex3
+    400082: The_Bride1:RightHandIndex4
+    400084: The_Bride1:RightHandMiddle1
+    400086: The_Bride1:RightHandMiddle2
+    400088: The_Bride1:RightHandMiddle3
+    400090: The_Bride1:RightHandMiddle4
+    400092: The_Bride1:RightHandPinky1
+    400094: The_Bride1:RightHandPinky2
+    400096: The_Bride1:RightHandPinky3
+    400098: The_Bride1:RightHandPinky4
+    400100: The_Bride1:RightHandRing1
+    400102: The_Bride1:RightHandRing2
+    400104: The_Bride1:RightHandRing3
+    400106: The_Bride1:RightHandRing4
+    400108: The_Bride1:RightHandThumb1
+    400110: The_Bride1:RightHandThumb2
+    400112: The_Bride1:RightHandThumb3
+    400114: The_Bride1:RightHandThumb4
+    400116: The_Bride1:RightLeg
+    400118: The_Bride1:RightShoulder
+    400120: The_Bride1:RightToe_End
+    400122: The_Bride1:RightToeBase
+    400124: The_Bride1:RightUpLeg
+    400126: The_Bride1:Spine
+    400128: The_Bride1:Spine1
+    400130: The_Bride1:Spine2
+    400132: The_Bride1:The_bride_polySurface1
+    400134: The_Bride1:The_bride_polySurface2
+    2100000: lambert3
+    2100002: lambert2
+    4300000: The_Bride1:The_bride_polySurface1
+    4300002: The_Bride1:The_bride_polySurface2
+    7400000: Bride Picking Taunt
+    9500000: //RootNode
+    13700000: The_Bride1:The_bride_polySurface1
+    13700002: The_Bride1:The_bride_polySurface2
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Bride Picking Taunt
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 47
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

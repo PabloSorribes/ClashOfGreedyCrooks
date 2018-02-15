@@ -1,0 +1,12 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Bride_AnimOverride_Corgie
+  m_Controller: {fileID: 9100000, guid: 4ad0965bbaefe554d8e8e9b625ad102d, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: b5b240d1f1ec4884394edd51bc5e59c4, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 6dd2e071d7a0f1e488b7d61e34b75e77, type: 3}
