@@ -20,8 +20,17 @@ public class PlayerController : MonoBehaviour
 	private Shooting shooting;
 	private Rigidbody rb;
 
+	private Animator animator;
+	private AnimatorOverrideController animatorOverride;
+	
+
 	private void Start()
 	{
+		animator = GetComponent<Animator>();
+
+		//animator.runtimeAnimatorController = Resources.Load<AnimatorOverrideController>(
+		//	GetComponentInChildren<Champion>().name + GetComponentInChildren<Weapon>().name) as AnimatorOverrideController;
+
 		directionalInputLeftStick = Vector3.zero;
 		directionalInputRightStick = Vector3.zero;
 		movement = Vector3.zero;
@@ -42,6 +51,16 @@ public class PlayerController : MonoBehaviour
 	{
 		movement = directionalInputLeftStick * speed;
 		rb.velocity = Vector3.Lerp(rb.velocity, movement, 0.7f);
+
+		if (directionalInputLeftStick != Vector3.zero)
+		{
+			animator.SetBool("isRunning", true);
+		}
+		else
+		{
+			animator.SetBool("isRunning", false);
+		}
+
 	}
 
 	private void AimPlayer()
@@ -65,9 +84,21 @@ public class PlayerController : MonoBehaviour
 	{
 		if (!cooldown)
 		{
+			animator.speed = 1f;
+			if (directionalInputLeftStick != Vector3.zero)
+			{
+				animator.SetTrigger("toShooting");
+			}
+			else
+			{
+				animator.SetTrigger("toShooting");
+			}
+
 			shooting.Shoot();
 			cooldown = true;
 			Invoke("CooldownTimer", attackSpeed);
+
+			animator.speed = 1f;
 		}
 	}
 
