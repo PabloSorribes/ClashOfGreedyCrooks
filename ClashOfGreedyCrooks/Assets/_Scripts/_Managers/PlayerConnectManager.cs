@@ -19,6 +19,7 @@ public class PlayerConnectManager : MonoBehaviour
     private GameObject canvas;
     private Transform[] playerSlots;
     private GameObject startGameText, backText;
+    private bool noConnections;
     private bool allReady;
 
     public bool SetTrueFor1PlayerTesting;
@@ -44,6 +45,7 @@ public class PlayerConnectManager : MonoBehaviour
         startGameText.SetActive(false);
         FillPlayerSlotsArray();
         PlayerManager.FillPlayersArray();
+        noConnections = true;
     }
 
     private void LoadResources()
@@ -120,6 +122,7 @@ public class PlayerConnectManager : MonoBehaviour
             if (!PlayerManager.players[i].Connected)
             {
                 OnAddPlayer(i, gamepadIndex);
+                ReadyCheck();
                 return;
             }
         }
@@ -135,12 +138,6 @@ public class PlayerConnectManager : MonoBehaviour
         PlayerManager.players[playerIndex].Gamepad = gamepadIndex;
         PlayerManager.players[playerIndex].AvatarSymbol = playerSlots[playerIndex].Find("Symbol").GetComponent<Image>().sprite.name;
 
-        if (startGameText.activeInHierarchy)
-		{
-            startGameText.SetActive(false);
-			allReady = false;
-		}
-
 		a_connectController.Play();
     }
 
@@ -150,16 +147,21 @@ public class PlayerConnectManager : MonoBehaviour
     /// <param name="gamepadIndex"></param>
     public void RemovePlayer(int gamepadIndex)
     {
+        if (noConnections)
+            GameStateManager.GetInstance.SetState(GameState.MainMenu);
+
         for (int i = 0; i < PlayerManager.players.Length; i++)
             if (PlayerManager.players[i].Gamepad == gamepadIndex)
                 if (PlayerManager.players[i].Ready)
                 {
                     UnReady(i);
+                    ReadyCheck();
                     return;
                 }
-                else if (!PlayerManager.players[i].Ready)
+                else if (!PlayerManager.players[i].Ready && !noConnections)
                 {
                     OnRemovePlayer(gamepadIndex);
+                    ReadyCheck();
                     return;
                 }
     }
@@ -176,7 +178,6 @@ public class PlayerConnectManager : MonoBehaviour
                 PlayerManager.players[i].Player = 99;
                 PlayerManager.players[i].Gamepad = 99;
             }
-        ReadyCheck();
 
 		a_disconnectController.Play();
     }
@@ -193,10 +194,6 @@ public class PlayerConnectManager : MonoBehaviour
     {
         PlayerManager.players[pos].Ready = false;
         playerSlots[pos].Find("Ready").gameObject.SetActive(false);
-        allReady = false;
-        backText.SetActive(true);
-        if (startGameText.activeInHierarchy)
-            startGameText.SetActive(false);
 
         a_unReady.Play();
     }
@@ -217,15 +214,31 @@ public class PlayerConnectManager : MonoBehaviour
 
         if (connections == connectedAndReady && connections > 1)
         {
+            noConnections = false;
             allReady = true;
             startGameText.SetActive(true);
             backText.SetActive(false);
         }
-        else if (connections == connectedAndReady && SetTrueFor1PlayerTesting)
+        else if (connections == connectedAndReady && SetTrueFor1PlayerTesting && connections > 0)
         {
+            noConnections = false;
             allReady = true;
             backText.SetActive(false);
             startGameText.SetActive(true);
+        }
+        else if (connections == 0 && connectedAndReady == 0)
+        {
+            noConnections = true;
+            allReady = false;
+            backText.SetActive(true);
+            startGameText.SetActive(false);
+        }
+        else if (connections != connectedAndReady)
+        {
+            noConnections = false;
+            allReady = false;
+            backText.SetActive(false);
+            startGameText.SetActive(false);
         }
     }
 

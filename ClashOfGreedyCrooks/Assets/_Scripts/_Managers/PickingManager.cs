@@ -177,8 +177,6 @@ public class PickingManager : MonoBehaviour
 		champion.SetParent(newPlayer.transform.Find("Champion"));
 		champion.localPosition = Vector3.zero;
 		champion.rotation = newPlayer.transform.rotation;
-		champion.Find("StatsHolder").gameObject.SetActive(false);
-		champion.Find("ChampionButton").gameObject.SetActive(false);
 
 		//Enable scripts
 		newPlayer.GetComponent<Shooting>().enabled = true;
