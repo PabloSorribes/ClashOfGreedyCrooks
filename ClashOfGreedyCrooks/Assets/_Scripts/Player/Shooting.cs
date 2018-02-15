@@ -26,7 +26,8 @@ public class Shooting : MonoBehaviour {
 		InitializeAudio();
         bulletSpawnPoint = transform.Find("Champion").GetChild(0).Find("WeaponHold").GetChild(0).Find("Muzzle");
 
-        PlayerTokens.GetInstance.Drunk += BlindfoldedShot;
+		//TODO: Uncomment after this has been implemented fully
+        //PlayerTokens.GetInstance.Drunk += BlindfoldedShot;
     }
 
 	private void InitializeAudio() {

@@ -53,8 +53,8 @@ public class Countdown : MonoBehaviour {
 
     private void EndCountdown()
     {
-        if(GameStateManager.GetInstance.GetState() == GameState.Arena)
-		    TimeManager.GetInstance.countdownFinished = true;
+		if (GameStateManager.GetInstance.GetState() == GameState.Arena)
+			TimeManager.GetInstance.EnableTimer();
 
 		Destroy(gameObject);
     }

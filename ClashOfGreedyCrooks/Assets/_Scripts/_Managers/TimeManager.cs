@@ -14,7 +14,7 @@ public class TimeManager : MonoBehaviour
 		}
 	}
 
-	internal bool countdownFinished;
+	private bool countdownFinished;
 
 	public float trackTime;
 	private bool timeEnded = false;
@@ -39,7 +39,7 @@ public class TimeManager : MonoBehaviour
 	private void Start()
 	{
 		timeEnded = false;
-		timer.text = "Timer: " + Mathf.Floor(trackTime);
+		timer.text = "" + Mathf.Floor(trackTime);
 	}
 
 	// Update is called once per frame
@@ -48,7 +48,7 @@ public class TimeManager : MonoBehaviour
 		if (!timeEnded && countdownFinished)
 		{
 			trackTime -= Time.deltaTime;
-			timer.text = "Timer: " + Mathf.Floor(trackTime);
+			timer.text = "" + Mathf.Floor(trackTime);
 		}
 
 		//TODO: Add controller support
@@ -62,13 +62,19 @@ public class TimeManager : MonoBehaviour
 		{
 			timeEnded = true;
 			trackTime = 0;
-			timer.text = "Timer: " + Mathf.Floor(trackTime);
+			timer.text = "" + Mathf.Floor(trackTime);
 
 			if (TimeIsUp != null)
 			{
 				TimeIsUp();
 			}
 		}
+	}
+
+	public void EnableTimer()
+	{
+		timer.gameObject.SetActive(true);
+		countdownFinished = true;
 	}
 
 	private void PauseGame()

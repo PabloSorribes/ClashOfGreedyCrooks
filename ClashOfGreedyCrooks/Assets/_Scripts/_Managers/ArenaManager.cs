@@ -14,7 +14,8 @@ public class ArenaManager : MonoBehaviour
 	}
 
 	private int playersAlive;
-	private PlayerInfo[] players;
+	private GameObject spawnPositionParent;
+	private GameObject[] players;
 
 	private void Awake()
 	{
@@ -24,7 +25,12 @@ public class ArenaManager : MonoBehaviour
 	private void Start()
 	{
 		TimeManager.GetInstance.TimeIsUp += HandleEndTime;
-		players = new PlayerInfo[PlayerManager.GetPlayersConnected()];
+		spawnPositionParent = GameObject.Find("SpawnPoints");
+		players = PlayerManager.spawnedPlayers;
+		
+		for (int i = 0; i < players.Length; i++)
+			players[i].transform.position = spawnPositionParent.transform.GetChild(i).transform.position;
+
 		playersAlive = players.Length;
 	}
 
@@ -44,7 +50,7 @@ public class ArenaManager : MonoBehaviour
 		CameraShake.GetInstance.DoShake();
 
 		playersAlive--;
-		players[playersAlive] = playerThatDied.GetComponent<PlayerInfo>();
+		//players[playersAlive] = playerThatDied.GetComponent<PlayerInfo>();
 		//players[playersAlive].IsAlive = false;
 
 		if (playersAlive <= 1)
@@ -66,14 +72,14 @@ public class ArenaManager : MonoBehaviour
 
 		GameStateManager.GetInstance.RoundsPlayed++;
 
-		for (int i = 0; i < players.Length; i++)
-		{
-			//TODO: Can't access PlayerInfo?
+		//for (int i = 0; i < players.Length; i++)
+		//{
+		//	//TODO: Can't access PlayerInfo?
 
-			//players[i].TotalDamage += players[i].CurrentRoundDamage;
-			//players[i].TotalHits += players[i].CurrentRoundHits;
-			//players[i].TotalShotsFired += players[i].CurrentRoundShotsFired;
-		}
+		//	players[i].TotalDamage += players[i].CurrentRoundDamage;
+		//	players[i].TotalHits += players[i].CurrentRoundHits;
+		//	players[i].TotalShotsFired += players[i].CurrentRoundShotsFired;
+		//}
 
 		Instantiate(Resources.Load("UI/EndOfRoundScreenCanvas") as GameObject);
 
