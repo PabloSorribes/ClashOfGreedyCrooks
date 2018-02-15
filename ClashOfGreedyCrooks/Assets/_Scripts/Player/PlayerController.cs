@@ -29,6 +29,12 @@ public class PlayerController : MonoBehaviour
 	{
 		animator = GetComponentInChildren<Animator>();
 
+		//TODO: Rewrite this ugly quickfix
+		animator.SetBool("isRunning", false);
+		GameObject.Find("Corgi_Launcher1").GetComponent<Renderer>().enabled = true;
+
+	
+
 		//animator.runtimeAnimatorController = Resources.Load<AnimatorOverrideController>(
 		//	GetComponentInChildren<Champion>().name + GetComponentInChildren<Weapon>().name) as AnimatorOverrideController;
 
