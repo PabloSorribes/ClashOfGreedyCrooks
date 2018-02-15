@@ -58,5 +58,5 @@ fmod_editor.log
 fmod.log
 Assets/Resources/*
 
-# Assets/FmodIntegration_1.10.03/Resources/FMODStudioSettings.asset 
-# Assets/FmodIntegration_1.10.03/Resources/FMODStudioSettings.asset.meta
+Assets/FmodIntegration_1.10.03/Resources/FMODStudioSettings.asset 
+Assets/FmodIntegration_1.10.03/Resources/FMODStudioSettings.asset.meta
