@@ -81,7 +81,7 @@ public class ArenaManager : MonoBehaviour
 		//	players[i].TotalShotsFired += players[i].CurrentRoundShotsFired;
 		//}
 
-		Instantiate(Resources.Load("UI/EndOfRoundScreenCanvas") as GameObject);
+		//Instantiate(Resources.Load("UI/EndOfRoundScreenCanvas") as GameObject);
 
 		//TODO: Rewrite to handle this better @fippan
 		DeathCircle.GetInstance.roundIsOver = true;

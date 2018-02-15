@@ -83,4 +83,4 @@ MonoBehaviour:
   name: Wand
   damage: 20
   projectileSpeed: 20
-  proj: {fileID: 114584868023802948, guid: 07196885b986fed4e87e59e5405435f2, type: 2}
+  proj: {fileID: 114599780837969056, guid: d1481c10b76fac141a9316f83e71a34e, type: 2}

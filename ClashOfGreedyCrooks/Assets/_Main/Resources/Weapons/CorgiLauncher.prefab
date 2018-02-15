@@ -82,5 +82,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: CorgiLauncher
   damage: 20
-  projectileSpeed: 20
+  projectileSpeed: 12
   proj: {fileID: 114097318725600186, guid: fa3f814ae0275ec4496cc525d51424bb, type: 2}

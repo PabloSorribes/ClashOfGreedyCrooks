@@ -31,8 +31,9 @@ public class PickingResources : MonoBehaviour {
         BackgroundCardFrames();
         PlayerAvatars();
         InstantiateCards();
-        Shuffle(championPrefabs);
-        Shuffle(weaponPrefabs);
+		//TODO: Uncommented for trailer!
+        //Shuffle(championPrefabs);
+        //Shuffle(weaponPrefabs);
         SpawnChampions();
         SpawnWeapons();
         SetCardGrapthics();
@@ -168,8 +169,8 @@ public class PickingResources : MonoBehaviour {
     {
         for (int i = 0; i < spawnedChampions.Length; i++)
         {
-            GameObject newWeapon = Instantiate(weaponPrefabs[i], spawnedChampions[i].gameObject.transform.Find("WeaponHold"));
-            newWeapon.name = weaponPrefabs[i].name;
+			GameObject newWeapon = Instantiate(weaponPrefabs[i], spawnedChampions[i].gameObject.transform.Find("WeaponHold"));
+			newWeapon.name = weaponPrefabs[i].name;
         }
     }
 
