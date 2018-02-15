@@ -213,6 +213,52 @@ MonoBehaviour:
   deathZoneDamage: 15
   emit: 0
   roundIsOver: 0
+--- !u!1001 &134749800
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: 2ee36ac39e028cb448513e80d8adbd8d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.042641994
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 2ee36ac39e028cb448513e80d8adbd8d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.1006702e-17
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 2ee36ac39e028cb448513e80d8adbd8d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.9827911
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 2ee36ac39e028cb448513e80d8adbd8d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 2ee36ac39e028cb448513e80d8adbd8d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 2ee36ac39e028cb448513e80d8adbd8d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 2ee36ac39e028cb448513e80d8adbd8d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 2ee36ac39e028cb448513e80d8adbd8d, type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 2ee36ac39e028cb448513e80d8adbd8d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 2ee36ac39e028cb448513e80d8adbd8d, type: 3}
+  m_IsPrefabParent: 0
 --- !u!1 &211906629
 GameObject:
   m_ObjectHideFlags: 0
@@ -930,7 +976,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400136, guid: 352182eccc2f4234ca2bbeaa6ab44d68, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: 352182eccc2f4234ca2bbeaa6ab44d68, type: 3}
       propertyPath: m_Controller

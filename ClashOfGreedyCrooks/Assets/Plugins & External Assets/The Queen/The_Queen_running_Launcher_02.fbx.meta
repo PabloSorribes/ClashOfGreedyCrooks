@@ -152,7 +152,7 @@ ModelImporter:
     4300000: skinCluster1Set
     4300002: The_Queen_Rig
     4300004: Corgi_Launcher1
-    7400000: Take 001
+    7400000: TheQueen_Running
     9500000: //RootNode
     13700000: The_Queen_Rig
   externalObjects: {}
@@ -183,10 +183,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take 001
+      name: TheQueen_Running
       takeName: Take 001
       firstFrame: 1
-      lastFrame: 120
+      lastFrame: 12
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
