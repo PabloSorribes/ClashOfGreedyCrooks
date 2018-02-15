@@ -7,4 +7,12 @@ AnimatorOverrideController:
   m_PrefabInternal: {fileID: 0}
   m_Name: Queen_AnimOverride_Corgie
   m_Controller: {fileID: 9100000, guid: 4ad0965bbaefe554d8e8e9b625ad102d, type: 2}
-  m_Clips: []
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: b5b240d1f1ec4884394edd51bc5e59c4, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: b5b240d1f1ec4884394edd51bc5e59c4, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 4f496f6402752114a8b2d2650a1592c2, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 4f496f6402752114a8b2d2650a1592c2, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: a416ac150b926574580ac5c6624a5bf9, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: a416ac150b926574580ac5c6624a5bf9, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: b81e517ac61aafd429de985f625ef65c, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: b81e517ac61aafd429de985f625ef65c, type: 3}
