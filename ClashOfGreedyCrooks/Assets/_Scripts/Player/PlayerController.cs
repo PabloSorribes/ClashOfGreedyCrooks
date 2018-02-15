@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
 	private void Start()
 	{
-		animator = GetComponent<Animator>();
+		animator = GetComponentInChildren<Animator>();
 
 		//animator.runtimeAnimatorController = Resources.Load<AnimatorOverrideController>(
 		//	GetComponentInChildren<Champion>().name + GetComponentInChildren<Weapon>().name) as AnimatorOverrideController;
