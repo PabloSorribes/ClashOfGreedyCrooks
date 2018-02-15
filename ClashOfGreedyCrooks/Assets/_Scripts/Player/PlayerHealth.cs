@@ -36,8 +36,9 @@ public class PlayerHealth : MonoBehaviour
 
 		healthBar = transform.Find("HealthBar").GetChild(0).GetComponent<Slider>();
 
-        PlayerTokens.GetInstance.WellFed += WellFedToken;
-        playerSizeToken = PlayerTokens.GetInstance.playerSize;
+		//TODO: Uncomment after this has been implemented fully
+		//PlayerTokens.GetInstance.WellFed += WellFedToken;
+		//playerSizeToken = PlayerTokens.GetInstance.playerSize;
 
 		champName = GetComponentInChildren<Champion>().name;
     }
