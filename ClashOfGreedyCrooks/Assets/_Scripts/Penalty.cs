@@ -5,7 +5,7 @@ public class Penalty : MonoBehaviour
     private Champion champion;
     private bool canAddPenalty;
     private bool statPenalty;
-    private bool[] specialPenalties;
+    public bool[] specialPenalties;
     private int specialPenaltiesAdded;
 
     private void Awake()

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4401168123947444}
   - component: {fileID: 114245613581093546}
   m_Layer: 0
-  m_Name: CorgiLauncher
+  m_Name: 0_CorgiLauncher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
