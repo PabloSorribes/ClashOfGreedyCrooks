@@ -74,6 +74,7 @@ ModelImporter:
     100132: The_Bride1:Spine2
     100134: The_Bride1:The_bride_polySurface1
     100136: The_Bride1:The_bride_polySurface2
+    100138: Corgi_Launcher_New_Obj:Launcher
     400000: //RootNode
     400002: Corgi_Launcher1
     400004: The_Bride1:Head
@@ -143,15 +144,20 @@ ModelImporter:
     400132: The_Bride1:Spine2
     400134: The_Bride1:The_bride_polySurface1
     400136: The_Bride1:The_bride_polySurface2
+    400138: Corgi_Launcher_New_Obj:Launcher
     2100000: lambert4
     2100002: lambert2
     2100004: lambert3
+    2100006: lambert5
     2300000: Corgi_Launcher1
+    2300002: Corgi_Launcher_New_Obj:Launcher
     3300000: Corgi_Launcher1
+    3300002: Corgi_Launcher_New_Obj:Launcher
     4300000: The_Bride1:The_bride_polySurface1
     4300002: The_Bride1:The_bride_polySurface2
     4300004: Corgi_Launcher1
-    7400000: Bride_launcher_Attack
+    4300006: Corgi_Launcher_New_Obj:Launcher
+    7400000: Bride_Launcher_Attack
     9500000: //RootNode
     13700000: The_Bride1:The_bride_polySurface1
     13700002: The_Bride1:The_bride_polySurface2
@@ -183,7 +189,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Bride_launcher_Attack
+      name: Bride_Launcher_Attack
       takeName: Take 001
       firstFrame: 37
       lastFrame: 62
