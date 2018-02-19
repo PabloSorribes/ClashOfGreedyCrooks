@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: f9035e25c633bb7439c2ee7df98c6ccf
 timeCreated: 1519028335
+=======
+guid: 76c5fdefb7703d7428e92a317d1b5095
+timeCreated: 1519029216
+>>>>>>> renamed a shitton of animations
 licenseType: Pro
 TextScriptImporter:
   externalObjects: {}
