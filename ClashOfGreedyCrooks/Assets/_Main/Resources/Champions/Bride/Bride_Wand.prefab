@@ -172,6 +172,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4674751879571140}
   - component: {fileID: 95800720396153324}
+  - component: {fileID: 114546127802961392}
+  - component: {fileID: 114981493587012624}
   m_Layer: 0
   m_Name: Bride_Wand
   m_TagString: Untagged
@@ -2133,6 +2135,26 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114546127802961392
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1164522987200094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a92ad232037d04e8f743caaf264867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: TheBride
+  healthMin: 9
+  healthMax: 10
+  movementMin: 5
+  movementMax: 8
+  damageMin: 5
+  damageMax: 10
+  attackSpeedMin: 5
+  attackSpeedMax: 8
 --- !u!114 &114776963133994590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2151,6 +2173,18 @@ MonoBehaviour:
   spreadMax: 0
   blindFolded: 0
   proj: {fileID: 114599780837969056, guid: d1481c10b76fac141a9316f83e71a34e, type: 2}
+--- !u!114 &114981493587012624
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1164522987200094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 435fee23d0f44be4a8fc381cc8532fba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  specialPenalties: 
 --- !u!137 &137890224893031660
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

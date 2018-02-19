@@ -113,6 +113,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4491447533901044}
   - component: {fileID: 95944962397638344}
+  - component: {fileID: 114621985796458630}
+  - component: {fileID: 114549594721437188}
   m_Layer: 0
   m_Name: Bride_Buoy
   m_TagString: Untagged
@@ -2151,6 +2153,38 @@ MonoBehaviour:
   spreadMax: 0
   blindFolded: 0
   proj: {fileID: 114516239739587234, guid: 86250b48a164e5145895993e04389c18, type: 2}
+--- !u!114 &114549594721437188
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1139069026026010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 435fee23d0f44be4a8fc381cc8532fba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  specialPenalties: 
+--- !u!114 &114621985796458630
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1139069026026010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a92ad232037d04e8f743caaf264867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: TheBride
+  healthMin: 9
+  healthMax: 10
+  movementMin: 5
+  movementMax: 8
+  damageMin: 5
+  damageMax: 10
+  attackSpeedMin: 5
+  attackSpeedMax: 8
 --- !u!137 &137241976806181618
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

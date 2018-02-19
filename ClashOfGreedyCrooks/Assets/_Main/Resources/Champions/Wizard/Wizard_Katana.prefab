@@ -369,6 +369,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4493521159009446}
   - component: {fileID: 95468156346099058}
+  - component: {fileID: 114974616238725168}
+  - component: {fileID: 114048447712865060}
   m_Layer: 0
   m_Name: Wizard_Katana
   m_TagString: Untagged
@@ -2163,6 +2165,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114048447712865060
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1254346336762862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 435fee23d0f44be4a8fc381cc8532fba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  specialPenalties: 
 --- !u!114 &114631122527389998
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2181,6 +2195,26 @@ MonoBehaviour:
   spreadMax: 0
   blindFolded: 0
   proj: {fileID: 114584868023802948, guid: 07196885b986fed4e87e59e5405435f2, type: 2}
+--- !u!114 &114974616238725168
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1254346336762862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a92ad232037d04e8f743caaf264867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: TheWizard
+  healthMin: 8
+  healthMax: 10
+  movementMin: 2
+  movementMax: 10
+  damageMin: 1
+  damageMax: 7
+  attackSpeedMin: 8
+  attackSpeedMax: 10
 --- !u!137 &137272314332087230
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

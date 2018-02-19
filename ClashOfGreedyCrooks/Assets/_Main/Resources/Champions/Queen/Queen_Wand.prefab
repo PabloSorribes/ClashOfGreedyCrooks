@@ -159,6 +159,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4896977690640772}
   - component: {fileID: 95951651339565906}
+  - component: {fileID: 114140415583199774}
+  - component: {fileID: 114338259770166084}
   m_Layer: 0
   m_Name: Queen_Wand
   m_TagString: Untagged
@@ -2193,6 +2195,38 @@ MonoBehaviour:
   spreadMax: 0
   blindFolded: 0
   proj: {fileID: 114599780837969056, guid: d1481c10b76fac141a9316f83e71a34e, type: 2}
+--- !u!114 &114140415583199774
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1154552211934530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a92ad232037d04e8f743caaf264867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: TheQueen
+  healthMin: 6
+  healthMax: 8
+  movementMin: 3
+  movementMax: 5
+  damageMin: 5
+  damageMax: 10
+  attackSpeedMin: 5
+  attackSpeedMax: 10
+--- !u!114 &114338259770166084
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1154552211934530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 435fee23d0f44be4a8fc381cc8532fba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  specialPenalties: 
 --- !u!137 &137742237610946472
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

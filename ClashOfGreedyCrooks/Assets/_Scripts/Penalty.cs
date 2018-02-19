@@ -58,6 +58,7 @@ public class Penalty : MonoBehaviour
         }
         specialPenalties[specialNerf] = true;
         card.penalties[specialNerf].sprite = resources.penaltySprites[specialNerf];
+        card.penalties[specialNerf].sortingOrder = 4 + specialPenaltiesAdded;
         card.penalties[specialNerf].GetComponent<Animator>().SetTrigger("AddPenalty");
         specialPenaltiesAdded++;
     }

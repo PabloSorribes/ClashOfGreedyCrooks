@@ -893,6 +893,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4088301160039942}
   - component: {fileID: 95877093350481962}
+  - component: {fileID: 114900130273111524}
+  - component: {fileID: 114381207629997648}
   m_Layer: 0
   m_Name: Hoff_Katana
   m_TagString: Untagged
@@ -2151,6 +2153,38 @@ MonoBehaviour:
   spreadMax: 0
   blindFolded: 0
   proj: {fileID: 114584868023802948, guid: 07196885b986fed4e87e59e5405435f2, type: 2}
+--- !u!114 &114381207629997648
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1831426976461868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 435fee23d0f44be4a8fc381cc8532fba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  specialPenalties: 
+--- !u!114 &114900130273111524
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1831426976461868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a92ad232037d04e8f743caaf264867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: TheHoff
+  healthMin: 5
+  healthMax: 8
+  movementMin: 5
+  movementMax: 9
+  damageMin: 4
+  damageMax: 7
+  attackSpeedMin: 5
+  attackSpeedMax: 10
 --- !u!137 &137232039766014850
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
