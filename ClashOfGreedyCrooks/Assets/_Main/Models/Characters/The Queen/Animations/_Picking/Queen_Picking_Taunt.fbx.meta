@@ -146,7 +146,7 @@ ModelImporter:
     3300000: skinCluster1Set
     4300000: skinCluster1Set
     4300002: The_Queen_Rig
-    7400000: Queen Picking
+    7400000: Queen_Picking_Taunt
     9500000: //RootNode
     13700000: The_Queen_Rig
   externalObjects: {}
@@ -177,7 +177,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Queen Picking
+      name: Queen_Picking_Taunt
       takeName: Take 001
       firstFrame: 1
       lastFrame: 87

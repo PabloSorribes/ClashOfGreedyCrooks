@@ -174,7 +174,7 @@ ModelImporter:
     4300000: skinCluster1Set
     4300002: The_Queen_Rig
     4300004: Corgi_Launcher1
-    7400000: Queen Attack Launcher 02
+    7400000: Queen_Launcher_Attack 02
     9500000: //RootNode
     13700000: The_Queen_Rig
   externalObjects: {}
@@ -205,7 +205,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Queen Attack Launcher 02
+      name: Queen_Launcher_Attack 02
       takeName: Take 001
       firstFrame: 1
       lastFrame: 47

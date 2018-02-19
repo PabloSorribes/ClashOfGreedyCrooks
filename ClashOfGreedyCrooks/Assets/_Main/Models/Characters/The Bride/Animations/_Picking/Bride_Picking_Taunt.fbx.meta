@@ -145,7 +145,7 @@ ModelImporter:
     2100002: lambert2
     4300000: The_Bride1:The_bride_polySurface1
     4300002: The_Bride1:The_bride_polySurface2
-    7400000: Bride Picking Taunt
+    7400000: Bride_Picking_Taunt
     9500000: //RootNode
     13700000: The_Bride1:The_bride_polySurface1
     13700002: The_Bride1:The_bride_polySurface2
@@ -177,7 +177,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Bride Picking Taunt
+      name: Bride_Picking_Taunt
       takeName: Take 001
       firstFrame: 1
       lastFrame: 47

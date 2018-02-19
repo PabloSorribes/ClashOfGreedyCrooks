@@ -151,7 +151,7 @@ ModelImporter:
     4300000: The_Bride1:The_bride_polySurface1
     4300002: The_Bride1:The_bride_polySurface2
     4300004: Sword001
-    7400000: Bride Run Katana
+    7400000: Bride_Katana_Run
     9500000: //RootNode
     13700000: The_Bride1:The_bride_polySurface1
     13700002: The_Bride1:The_bride_polySurface2
@@ -183,7 +183,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Bride Run Katana
+      name: Bride_Katana_Run
       takeName: Take 001
       firstFrame: 0
       lastFrame: 19.5
