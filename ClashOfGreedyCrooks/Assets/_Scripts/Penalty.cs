@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Penalty : MonoBehaviour
 {
@@ -68,35 +69,55 @@ public class Penalty : MonoBehaviour
         switch (number)
         {
             case 0:
+                card.healthText.GetComponent<Animator>().SetTrigger("AddPenalty");
+                card.healthText.color = Color.red;
+                break;
+            case 1:
+                card.movementText.GetComponent<Animator>().SetTrigger("AddPenalty");
+                card.movementText.color = Color.red;
+                break;
+            case 2:
+                card.damageText.GetComponent<Animator>().SetTrigger("AddPenalty");
+                card.damageText.color = Color.red;
+                break;
+            case 3:
+                card.attackSpeedText.GetComponent<Animator>().SetTrigger("AddPenalty");
+                card.attackSpeedText.color = Color.red;
+                break;
+        }
+        StartCoroutine(ReduceStats(number, amount));
+    }
+
+    private IEnumerator ReduceStats(int number, float amount)
+    {
+        yield return new WaitForSeconds(.75f);
+        switch (number)
+        {
+            case 0:
                 champion.Health -= amount;
                 if (champion.Health <= 0)
                     champion.Health = 1;
                 card.healthText.text = champion.Health.ToString();
-                card.healthText.color = Color.red;
                 break;
             case 1:
                 champion.Movement -= amount;
                 if (champion.Movement <= 0)
                     champion.Movement = 1;
                 card.movementText.text = champion.Movement.ToString();
-                card.movementText.color = Color.red;
                 break;
             case 2:
                 champion.Damage -= amount;
                 if (champion.Damage <= 0)
                     champion.Damage = 1;
                 card.damageText.text = champion.Damage.ToString();
-                card.damageText.color = Color.red;
                 break;
             case 3:
                 champion.AttackSpeed -= amount;
                 if (champion.AttackSpeed <= 0)
                     champion.AttackSpeed = 1;
                 card.attackSpeedText.text = champion.AttackSpeed.ToString();
-                card.attackSpeedText.color = Color.red;
                 break;
         }
-        
     }
 
     public void Lock()

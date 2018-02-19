@@ -26,55 +26,6 @@ public class Champion : MonoBehaviour {
     public float Damage { get; set; }
     public float AttackSpeed { get; set; }
 
-    //public float Health
-    //{
-    //    get
-    //    {
-    //        return health;
-    //    }
-
-    //    set
-    //    {
-    //        health += value;
-    //    }
-    //}
-    //public float Movement
-    //{
-    //    get
-    //    {
-    //        return movement;
-    //    }
-
-    //    set
-    //    {
-    //        movement += value;
-    //    }
-    //}
-    //public float Damage
-    //{
-    //    get
-    //    {
-    //        return damage;
-    //    }
-
-    //    set
-    //    {
-    //        damage += value;
-    //    }
-    //}
-    //public float AttackSpeed
-    //{
-    //    get
-    //    {
-    //        return attackSpeed;
-    //    }
-
-    //    set
-    //    {
-    //        attackSpeed += value;
-    //    }
-    //}
-
     public int PlayerIndex
     {
         get
