@@ -7,20 +7,12 @@ using UnityEngine;
 /// </summary>
 public class Projectile : MonoBehaviour
 {
+	private float projectileSpeed = 20;
+	private float damage = 20;
 
-	[HideInInspector]
-	public float projectileSpeed = 20;
-	[HideInInspector]
-	public float damage = 20;
+	private GameObject player;
 
-	private float deathTimer;
-
-	//TODO: Fix reference to player through code
-	[HideInInspector]
-	public GameObject player;
-
-	//Time until the bullet is destroyed
-	private float defaultTime = 1.2f;
+	private float bulletLifeTime = 1.2f;
 
 	private void Start()
 	{
@@ -32,16 +24,15 @@ public class Projectile : MonoBehaviour
 	{
 		transform.Translate(Vector3.forward * Time.deltaTime * projectileSpeed);
 
-		deathTimer += Time.deltaTime;
-
-		if (deathTimer > defaultTime)
-		{
-			Destroy(gameObject);
-
-			deathTimer = 0;
-		}
+		Destroy(gameObject, bulletLifeTime);
 	}
 
+	public void SetReferences(float damage, float projectileSpeed, GameObject player)
+	{
+		this.damage = damage;
+		this.projectileSpeed = projectileSpeed;
+		this.player = player;
+	}
 
 	public void OnTriggerEnter(Collider other)
 	{
@@ -50,7 +41,7 @@ public class Projectile : MonoBehaviour
 			Destroy(this.gameObject);
 		}
 
-		if (other.gameObject.tag == "Player" && other.gameObject != this.player)
+		if (other.gameObject.tag == "Player" && other.gameObject != player)
 		{
 			other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
 

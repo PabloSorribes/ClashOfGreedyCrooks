@@ -200,7 +200,6 @@ public class PickingManager : MonoBehaviour
 		champion.rotation = newPlayer.transform.rotation;
 
 		//Enable scripts
-		newPlayer.GetComponent<Shooting>().enabled = true;
 		newPlayer.GetComponent<PlayerHealth>().enabled = true;
 
         //Player stats
