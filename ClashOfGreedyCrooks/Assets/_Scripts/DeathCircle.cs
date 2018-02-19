@@ -30,14 +30,24 @@ public class DeathCircle : MonoBehaviour
 	private Vector3 baseScale;
 	private float currScale;
 
-	private ParticleSystem ps;
-	public bool emit;
+    [Header("The radius of the DeathCircle")]
+    public float radiusPsc = 30;
+    private float radiusPs;
+
+    public float minRadius;
+
+    public ParticleSystem ps;
+    public ParticleSystem psc;
+	private bool emitPs;
 	private bool particleFade;
+
+    private bool startAfter;
 
 	[HideInInspector]
 	public bool roundIsOver = false;
+    private bool emitPsc;
 
-	private void Awake()
+    private void Awake()
 	{
 		instance = this;
 	}
@@ -45,21 +55,32 @@ public class DeathCircle : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		ps = GetComponent<ParticleSystem>();
+		//ps = GetComponent<ParticleSystem>();
+        //psc = GetComponentInChildren<ParticleSystem>();
 
 		baseScale = transform.localScale;
 		transform.localScale = baseScale * startSize;
 		currScale = startSize;
 		targetScale = baseScale * startSize;
+
+        radiusPs = radiusPsc;
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
 		var emission = ps.emission;
+        var emissionPsc = psc.emission;
 		var main = ps.main;
 
-		emission.enabled = emit;
+        var sizePsc = psc.shape;
+        var sizePs = ps.shape;
+
+        sizePsc.radius = radiusPsc;
+        sizePs.radius = radiusPs;
+
+		emission.enabled = emitPs;
+        emissionPsc.enabled = emitPsc;
 
 		if (particleFade && startColorAplha <= 1)
 		{
@@ -71,6 +92,16 @@ public class DeathCircle : MonoBehaviour
 		{
 			transform.localScale = Vector3.MoveTowards(transform.localScale, targetScale, contractionSpeed * Time.deltaTime);
 		}
+
+        if (startAfter)
+        {
+            AfterTrails();
+
+            if (radiusPsc <= minRadius)
+            {
+                startAfter = false;
+            }
+        }
 
 		//DEBUG: To trigger the shrinking manualy
 		if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -87,14 +118,23 @@ public class DeathCircle : MonoBehaviour
 		if (shrink)
 		{
 			currScale--;
+            startAfter = true;
 		}
 		currScale = Mathf.Clamp(currScale, minSize, maxSize + 1);
 
 		targetScale = baseScale * currScale;
 
-		emit = true;
+
+		emitPs = true;
+        emitPsc = true;
 		particleFade = true;
 	}
+
+    private void AfterTrails()
+    {
+        radiusPsc -= 0.7f * Time.deltaTime;
+        radiusPs -= 0.7f * Time.deltaTime;
+    }
 
 	private void StartCircleFadeIn()
 	{
