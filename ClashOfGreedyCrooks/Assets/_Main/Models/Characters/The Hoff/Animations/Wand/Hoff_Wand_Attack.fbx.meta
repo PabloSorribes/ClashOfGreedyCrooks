@@ -1,0 +1,265 @@
+fileFormatVersion: 2
+guid: d2d646c38c1bf224fa5df7eea8135c64
+timeCreated: 1519049708
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Hoff:Head
+    100002: Hoff:HeadTop_End
+    100004: Hoff:Hips
+    100006: Hoff:LeftArm
+    100008: Hoff:LeftFoot
+    100010: Hoff:LeftForeArm
+    100012: Hoff:LeftHand
+    100014: Hoff:LeftHandIndex1
+    100016: Hoff:LeftHandIndex2
+    100018: Hoff:LeftHandIndex3
+    100020: Hoff:LeftHandIndex4
+    100022: Hoff:LeftHandMiddle1
+    100024: Hoff:LeftHandMiddle2
+    100026: Hoff:LeftHandMiddle3
+    100028: Hoff:LeftHandMiddle4
+    100030: Hoff:LeftHandPinky1
+    100032: Hoff:LeftHandPinky2
+    100034: Hoff:LeftHandPinky3
+    100036: Hoff:LeftHandPinky4
+    100038: Hoff:LeftHandRing1
+    100040: Hoff:LeftHandRing2
+    100042: Hoff:LeftHandRing3
+    100044: Hoff:LeftHandRing4
+    100046: Hoff:LeftHandThumb1
+    100048: Hoff:LeftHandThumb2
+    100050: Hoff:LeftHandThumb3
+    100052: Hoff:LeftHandThumb4
+    100054: Hoff:LeftLeg
+    100056: Hoff:LeftShoulder
+    100058: Hoff:LeftToe_End
+    100060: Hoff:LeftToeBase
+    100062: Hoff:LeftUpLeg
+    100064: Hoff:Neck
+    100066: Hoff:RightArm
+    100068: Hoff:RightFoot
+    100070: Hoff:RightForeArm
+    100072: Hoff:RightHand
+    100074: Hoff:RightHandIndex1
+    100076: Hoff:RightHandIndex2
+    100078: Hoff:RightHandIndex3
+    100080: Hoff:RightHandIndex4
+    100082: Hoff:RightHandMiddle1
+    100084: Hoff:RightHandMiddle2
+    100086: Hoff:RightHandMiddle3
+    100088: Hoff:RightHandMiddle4
+    100090: Hoff:RightHandPinky1
+    100092: Hoff:RightHandPinky2
+    100094: Hoff:RightHandPinky3
+    100096: Hoff:RightHandPinky4
+    100098: Hoff:RightHandRing1
+    100100: Hoff:RightHandRing2
+    100102: Hoff:RightHandRing3
+    100104: Hoff:RightHandRing4
+    100106: Hoff:RightHandThumb1
+    100108: Hoff:RightHandThumb2
+    100110: Hoff:RightHandThumb3
+    100112: Hoff:RightHandThumb4
+    100114: Hoff:RightLeg
+    100116: Hoff:RightShoulder
+    100118: Hoff:RightToe_End
+    100120: Hoff:RightToeBase
+    100122: Hoff:RightUpLeg
+    100124: Hoff:Spine
+    100126: Hoff:Spine1
+    100128: Hoff:Spine2
+    100130: Hoff_Retopo:polySurface1
+    100132: //RootNode
+    100134: HoffRetopo:The_Hoff_Hair
+    100136: Low_Wand
+    400000: Hoff:Head
+    400002: Hoff:HeadTop_End
+    400004: Hoff:Hips
+    400006: Hoff:LeftArm
+    400008: Hoff:LeftFoot
+    400010: Hoff:LeftForeArm
+    400012: Hoff:LeftHand
+    400014: Hoff:LeftHandIndex1
+    400016: Hoff:LeftHandIndex2
+    400018: Hoff:LeftHandIndex3
+    400020: Hoff:LeftHandIndex4
+    400022: Hoff:LeftHandMiddle1
+    400024: Hoff:LeftHandMiddle2
+    400026: Hoff:LeftHandMiddle3
+    400028: Hoff:LeftHandMiddle4
+    400030: Hoff:LeftHandPinky1
+    400032: Hoff:LeftHandPinky2
+    400034: Hoff:LeftHandPinky3
+    400036: Hoff:LeftHandPinky4
+    400038: Hoff:LeftHandRing1
+    400040: Hoff:LeftHandRing2
+    400042: Hoff:LeftHandRing3
+    400044: Hoff:LeftHandRing4
+    400046: Hoff:LeftHandThumb1
+    400048: Hoff:LeftHandThumb2
+    400050: Hoff:LeftHandThumb3
+    400052: Hoff:LeftHandThumb4
+    400054: Hoff:LeftLeg
+    400056: Hoff:LeftShoulder
+    400058: Hoff:LeftToe_End
+    400060: Hoff:LeftToeBase
+    400062: Hoff:LeftUpLeg
+    400064: Hoff:Neck
+    400066: Hoff:RightArm
+    400068: Hoff:RightFoot
+    400070: Hoff:RightForeArm
+    400072: Hoff:RightHand
+    400074: Hoff:RightHandIndex1
+    400076: Hoff:RightHandIndex2
+    400078: Hoff:RightHandIndex3
+    400080: Hoff:RightHandIndex4
+    400082: Hoff:RightHandMiddle1
+    400084: Hoff:RightHandMiddle2
+    400086: Hoff:RightHandMiddle3
+    400088: Hoff:RightHandMiddle4
+    400090: Hoff:RightHandPinky1
+    400092: Hoff:RightHandPinky2
+    400094: Hoff:RightHandPinky3
+    400096: Hoff:RightHandPinky4
+    400098: Hoff:RightHandRing1
+    400100: Hoff:RightHandRing2
+    400102: Hoff:RightHandRing3
+    400104: Hoff:RightHandRing4
+    400106: Hoff:RightHandThumb1
+    400108: Hoff:RightHandThumb2
+    400110: Hoff:RightHandThumb3
+    400112: Hoff:RightHandThumb4
+    400114: Hoff:RightLeg
+    400116: Hoff:RightShoulder
+    400118: Hoff:RightToe_End
+    400120: Hoff:RightToeBase
+    400122: Hoff:RightUpLeg
+    400124: Hoff:Spine
+    400126: Hoff:Spine1
+    400128: Hoff:Spine2
+    400130: Hoff_Retopo:polySurface1
+    400132: //RootNode
+    400134: HoffRetopo:The_Hoff_Hair
+    400136: Low_Wand
+    2100000: Hoff_Retopo_initialShadingGroup3
+    2100002: lambert4
+    2100004: lambert2
+    2300000: Low_Wand
+    3300000: Low_Wand
+    4300000: Hoff_Retopo:polySurface1
+    4300002: HoffRetopo:The_Hoff_Hair
+    4300004: Low_Wand
+    7400000: Hoff_Wand_Attack
+    9500000: //RootNode
+    13700000: Hoff_Retopo:polySurface1
+    13700002: HoffRetopo:The_Hoff_Hair
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Hoff_Wand_Attack
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 39
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
