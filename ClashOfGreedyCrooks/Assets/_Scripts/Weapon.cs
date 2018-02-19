@@ -16,15 +16,6 @@ public class Weapon : MonoBehaviour
 
 	public bool blindFolded;
 
-	//public string pathToModel = "Weapons/";
-	//public int damageMin;
-	//public int damageMax;
-	//public int attackSpeedMin;
-	//public int attackSpeedMax;
-	//public int range;
-	//public int projectileSpeed;
-	//public int projectileSpread;
-
 	public Projectile proj;
 	private Transform bulletSpawnPoint;
 	private GameObject bulletspawned;

@@ -15,7 +15,7 @@ public class ArenaManager : MonoBehaviour
 
 	private int playersAlive;
 	private GameObject spawnPositionParent;
-	private GameObject[] players;
+	private GameObject[] spawnedPlayers;
 
 	private void Awake()
 	{
@@ -26,12 +26,13 @@ public class ArenaManager : MonoBehaviour
 	{
 		TimeManager.GetInstance.TimeIsUp += HandleEndTime;
 		spawnPositionParent = GameObject.Find("SpawnPoints");
-		players = PlayerManager.spawnedPlayers;
+		spawnedPlayers = PlayerManager.spawnedPlayers;
 
-		for (int i = 0; i < players.Length; i++)
-			players[i].transform.position = spawnPositionParent.transform.GetChild(i).transform.position;
+		//Set spawnpoints for each player
+		for (int i = 0; i < spawnedPlayers.Length; i++)
+			spawnedPlayers[i].transform.position = spawnPositionParent.transform.GetChild(i).transform.position;
 
-		playersAlive = players.Length;
+		playersAlive = spawnedPlayers.Length;
 	}
 
 	public void HandleEndTime()
@@ -81,7 +82,7 @@ public class ArenaManager : MonoBehaviour
 		//	players[i].TotalShotsFired += players[i].CurrentRoundShotsFired;
 		//}
 
-		//Instantiate(Resources.Load("UI/EndOfRoundScreenCanvas") as GameObject);
+		Instantiate(Resources.Load("UI/EndOfRoundScreenCanvas") as GameObject);
 
 		//TODO: Rewrite to handle this better @fippan
 		DeathCircle.GetInstance.roundIsOver = true;
@@ -103,6 +104,7 @@ public class ArenaManager : MonoBehaviour
 		{
 			Camera.main.GetComponent<NewCameraController>().RemoveTarget(lastPlayerAlive.name);
 		}
+
 		Destroy(lastPlayerAlive);
 
 		GameStateManager.GetInstance.SetState(GameState.Picking);

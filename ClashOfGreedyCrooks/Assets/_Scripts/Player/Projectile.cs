@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// The base script for moving the projectiles forward on instantiation by Shooting.cs.
+/// The base script for moving the projectiles forward on instantiation.
 /// </summary>
 public class Projectile : MonoBehaviour
 {
 	private float projectileSpeed = 20;
 	private float damage = 20;
+	private float bulletLifeTime = 1.2f;
 
 	private GameObject player;
 
-	private float bulletLifeTime = 1.2f;
 
 	private void Start()
 	{

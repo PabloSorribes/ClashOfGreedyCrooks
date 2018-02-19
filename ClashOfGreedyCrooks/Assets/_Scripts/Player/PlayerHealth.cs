@@ -20,12 +20,12 @@ public class PlayerHealth : MonoBehaviour
 	private float timer;
 	public bool insideDeathCircle;
 
-    private float playerSizeToken;
+	private float playerSizeToken;
 
 	private string champName;
+
 	FMODUnity.StudioEventEmitter a_deathSound;
 
-	// Use this for initialization
 	void Start()
 	{
 		InitializeAudio();
@@ -36,12 +36,8 @@ public class PlayerHealth : MonoBehaviour
 
 		healthBar = transform.Find("HealthBar").GetChild(0).GetComponent<Slider>();
 
-		//TODO: Uncomment after this has been implemented fully
-		//PlayerTokens.GetInstance.WellFed += WellFedToken;
-		//playerSizeToken = PlayerTokens.GetInstance.playerSize;
-
 		champName = GetComponentInChildren<Champion>().name;
-    }
+	}
 
 	private void InitializeAudio()
 	{
@@ -87,29 +83,27 @@ public class PlayerHealth : MonoBehaviour
 
 	private void KillPlayer()
 	{
-		Camera.main.GetComponent<NewCameraController>().RemoveTarget(gameObject.name);
 		a_deathSound.Play();
 		DeathParticles();
-		if (ArenaManager.GetInstance != null)
-		{
-			ArenaManager.GetInstance.HandlePlayerDeath(gameObject);
-		}
+		Camera.main.GetComponent<NewCameraController>().RemoveTarget(gameObject.name);
+
+		ArenaManager.GetInstance.HandlePlayerDeath(gameObject);
 
 		Destroy(gameObject);
 	}
 
-    private void WellFedToken()
-    {
-        transform.localScale *= playerSizeToken;
-    }
+	private void WellFedToken()
+	{
+		transform.localScale *= playerSizeToken;
+	}
 
 	/// <summary>
 	/// Should be called by bullets etc
 	/// </summary>
-	/// <param name="p_damage"></param>
-	public void TakeDamage(float p_damage)
+	/// <param name="damage"></param>
+	public void TakeDamage(float damage)
 	{
-		currentHealth -= p_damage;
+		currentHealth -= damage;
 		CalculateHealthPrecentage();
 		HurtSound();
 
