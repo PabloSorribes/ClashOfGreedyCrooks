@@ -8,8 +8,12 @@ public class PickingResources : MonoBehaviour {
     private GameObject pickingPositionsPrefab;
     private GameObject cardPrefab, portraitSetupPrefab;
     public CardComponent[] cards;
+    private GameObject[] queen;
+    private GameObject[] wizard;
+    private GameObject[] bride;
+    private GameObject[] hoff;
     private GameObject[] championPrefabs;
-    private GameObject[] weaponPrefabs;
+    //private GameObject[] weaponPrefabs;
     private Sprite backgroundFrame;
     private Sprite[] buttons;
     public Sprite[] avatarSymbols;
@@ -22,6 +26,7 @@ public class PickingResources : MonoBehaviour {
     [HideInInspector] public Transform pickingPositions;
     private Transform[] portraitSetup;
     [HideInInspector] public GameObject[] spawnedChampions;
+    int[] arrayPos = new int[4];
 
     private void Start()
     {
@@ -31,10 +36,8 @@ public class PickingResources : MonoBehaviour {
         BackgroundCardFrames();
         PlayerAvatars();
         InstantiateCards();
-        Shuffle(championPrefabs);
-        Shuffle(weaponPrefabs);
         SpawnChampions();
-        SpawnWeapons();
+        //SpawnWeapons();
         SetCardGrapthics();
     }
 
@@ -43,8 +46,11 @@ public class PickingResources : MonoBehaviour {
         pickingPositionsPrefab = Resources.Load("Picking/PickingPositions") as GameObject;
         portraitSetupPrefab = Resources.Load("Picking/PortraitSetup") as GameObject;
         cardPrefab = Resources.Load("Picking/Card") as GameObject;
-        championPrefabs = Resources.LoadAll("Champions", typeof(Object)).Cast<GameObject>().ToArray();
-        weaponPrefabs = Resources.LoadAll("Weapons", typeof(Object)).Cast<GameObject>().ToArray();
+        //weaponPrefabs = Resources.LoadAll("Weapons", typeof(Object)).Cast<GameObject>().ToArray();
+        queen = Resources.LoadAll("Champions/Queen", typeof(Object)).Cast<GameObject>().ToArray();
+        wizard = Resources.LoadAll("Champions/Wizard", typeof(Object)).Cast<GameObject>().ToArray();
+        bride = Resources.LoadAll("Champions/Bride", typeof(Object)).Cast<GameObject>().ToArray();
+        hoff = Resources.LoadAll("Champions/Hoff", typeof(Object)).Cast<GameObject>().ToArray();
         buttons = Resources.LoadAll("UI/XboxButtons", typeof(Sprite)).Cast<Sprite>().ToArray();
         backgroundFrame = Resources.Load<Sprite>("UI/Frames/Cardslot_frame");
         playerPrefab = Resources.Load("PlayerPrefab") as GameObject;
@@ -52,6 +58,52 @@ public class PickingResources : MonoBehaviour {
         avatarColors = Resources.LoadAll("UI/PlayerColors", typeof(Sprite)).Cast<Sprite>().ToArray();
         penaltySprites = Resources.LoadAll("UI/Penalties", typeof(Sprite)).Cast<Sprite>().ToArray();
         readySprite = Resources.Load<Sprite>("UI/Picking/countdown_allready");
+        LoadChampions();
+    }
+
+    private void LoadChampions()
+    {
+        championPrefabs = new GameObject[4];
+        for (int i = 0; i < arrayPos.Length; i++)
+        {
+            arrayPos[i] = i;
+        }
+        Shuffle(arrayPos);
+        championPrefabs[0] = queen[arrayPos[0]];
+        championPrefabs[1] = wizard[arrayPos[1]];
+        championPrefabs[2] = bride[arrayPos[2]];
+        championPrefabs[3] = hoff[arrayPos[3]];
+        Shuffle(championPrefabs);
+    }
+
+    /// <summary>
+    /// Switching place of items in an array.
+    /// </summary>
+    /// <param name="array"></param>
+    private void Shuffle(int[] array)
+    {
+        int number;
+        int target;
+        for (int i = 0; i < array.Length; i++)
+        {
+            number = Random.Range(0, array.Length);
+            target = array[number];
+            array[number] = array[i];
+            array[i] = target;
+        }
+    }
+
+    private void Shuffle(GameObject[] array)
+    {
+        int number;
+        GameObject target;
+        for (int i = 0; i < array.Length; i++)
+        {
+            number = Random.Range(0, array.Length);
+            target = array[number];
+            array[number] = array[i];
+            array[i] = target;
+        }
     }
 
     private void PickingPositions()
@@ -128,24 +180,7 @@ public class PickingResources : MonoBehaviour {
             portraitSetup[i].Find("Camera").GetComponent<Camera>().depth = i;
         }
     }    
-
-    /// <summary>
-    /// Switching place of items in an array.
-    /// </summary>
-    /// <param name="array"></param>
-    private void Shuffle(GameObject[] array)
-    {
-        int number;
-        GameObject target;
-        for (int i = 0; i < array.Length; i++)
-        {
-            number = Random.Range(0, array.Length);
-            target = array[number];
-            array[number] = array[i];
-            array[i] = target;
-        }
-    }
-
+    
     private void SpawnChampions()
     {
         spawnedChampions = new GameObject[PlayerManager.GetPlayersConnected()];
@@ -163,14 +198,14 @@ public class PickingResources : MonoBehaviour {
             }
     }
 
-    private void SpawnWeapons()
-    {
-        for (int i = 0; i < spawnedChampions.Length; i++)
-        {
-			GameObject newWeapon = Instantiate(weaponPrefabs[i], spawnedChampions[i].gameObject.transform.Find("WeaponHold"));
-			newWeapon.name = weaponPrefabs[i].name;
-        }
-    }
+   // private void SpawnWeapons()
+   // {
+   //     for (int i = 0; i < spawnedChampions.Length; i++)
+   //     {
+			//GameObject newWeapon = Instantiate(weaponPrefabs[i], spawnedChampions[i].gameObject.transform.Find("WeaponHold"));
+			//newWeapon.name = weaponPrefabs[i].name;
+   //     }
+   // }
 
     private void SetCardGrapthics()
     {

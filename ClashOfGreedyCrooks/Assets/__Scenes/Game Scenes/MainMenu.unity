@@ -113,7 +113,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &57985183
+--- !u!1001 &248021692
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -297,7 +297,7 @@ Prefab:
 GameObject:
   m_PrefabParentObject: {fileID: 1406792398574564, guid: 7ab1a1bb8cce64c42a80408d2310dff1,
     type: 2}
-  m_PrefabInternal: {fileID: 57985183}
+  m_PrefabInternal: {fileID: 248021692}
 --- !u!1 &1417082988
 GameObject:
   m_ObjectHideFlags: 0

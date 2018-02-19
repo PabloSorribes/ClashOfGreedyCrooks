@@ -6,16 +6,19 @@ public class Penalty : MonoBehaviour
     private Champion champion;
     private bool canAddPenalty;
     public bool[] specialPenalties;
-    private int specialPenaltiesAdded;
-    private int totalPenaltiesAdded;
     private CardComponent card;
     private PickingResources resources;
+    private int specialPenaltiesAdded;
+    private int totalPenaltiesAdded;
+    private int picksWithNoSpecialPenalty;
+    private int randomSpecial;
 
     private void Awake()
     {
         specialPenalties = new bool[3];
         champion = GetComponent<Champion>();
         CanAddPenalty = true;
+        randomSpecial = 3;
     }
 
     public bool CanAddPenalty { get; set; }
@@ -25,12 +28,19 @@ public class Penalty : MonoBehaviour
         this.card = card;
         this.resources = resources;
 
-        int random = Random.Range(0, 3);
+        int random = Random.Range(0, randomSpecial - picksWithNoSpecialPenalty);
 
         if (random == 0 && specialPenaltiesAdded < 2)
+        {
             Special();
+            picksWithNoSpecialPenalty = 0;
+            randomSpecial = 3 + specialPenaltiesAdded;
+        }
         else
+        {
             Stats();
+            picksWithNoSpecialPenalty++;
+        }
 
         totalPenaltiesAdded++;
         if (totalPenaltiesAdded == 5)
