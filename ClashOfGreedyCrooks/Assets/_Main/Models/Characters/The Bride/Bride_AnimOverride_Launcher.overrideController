@@ -5,14 +5,12 @@ AnimatorOverrideController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Bride_AnimOverride_Wand
+  m_Name: Bride_AnimOverride_Launcher
   m_Controller: {fileID: 9100000, guid: 4ad0965bbaefe554d8e8e9b625ad102d, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: b5b240d1f1ec4884394edd51bc5e59c4, type: 3}
-    m_OverrideClip: {fileID: 7400000, guid: 95e7d9066c6e8de49bcc8f491ae48d6a, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: fbabd8f4dcb618a4eb83a1dd667bbe1f, type: 3}
   - m_OriginalClip: {fileID: 7400000, guid: 4f496f6402752114a8b2d2650a1592c2, type: 3}
-    m_OverrideClip: {fileID: 7400000, guid: 0a51613a03bc7a842b4200f1b212b647, type: 3}
-  - m_OriginalClip: {fileID: 7400000, guid: a416ac150b926574580ac5c6624a5bf9, type: 3}
-    m_OverrideClip: {fileID: 7400000, guid: ca40be2f37f81854782b7900b8bcde2c, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 6a3f9754192a7824cb7ee440e4c96b6f, type: 3}
   - m_OriginalClip: {fileID: 7400000, guid: b81e517ac61aafd429de985f625ef65c, type: 3}
-    m_OverrideClip: {fileID: 7400000, guid: a009ba5cad7d63d4d9d056d1a2e79b81, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 6084be0adfc773e40bb8712db9530917, type: 3}

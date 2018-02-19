@@ -1,0 +1,14 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Bride_AnimOverride_Buoy
+  m_Controller: {fileID: 9100000, guid: 4ad0965bbaefe554d8e8e9b625ad102d, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 4f496f6402752114a8b2d2650a1592c2, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 72b9a068366e6d54b8df38d8e1ac9d51, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: b81e517ac61aafd429de985f625ef65c, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: adc2e6e2ac52bc442b016b0a2be9d808, type: 3}
