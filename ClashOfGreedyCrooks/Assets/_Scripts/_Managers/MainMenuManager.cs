@@ -21,7 +21,7 @@ public class MainMenuManager : MonoBehaviour
 			uiPanels.Add(transform.GetChild(i).gameObject);
 		}
 
-		MainMenu();
+		ActivatePanel("MainMenu");
 	}
 
 
