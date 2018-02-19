@@ -5,12 +5,10 @@ AnimatorOverrideController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Queen_AnimOverride_Wand
+  m_Name: Wizard_AnimOverride_Buoy
   m_Controller: {fileID: 9100000, guid: 4ad0965bbaefe554d8e8e9b625ad102d, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: b5b240d1f1ec4884394edd51bc5e59c4, type: 3}
-    m_OverrideClip: {fileID: 7400000, guid: 16dda3f46ff4b364da61bdbcceab3764, type: 3}
   - m_OriginalClip: {fileID: 7400000, guid: 4f496f6402752114a8b2d2650a1592c2, type: 3}
-    m_OverrideClip: {fileID: 7400000, guid: a37ba4fc0a378c44dbdef7b9ba9fbd7b, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: d605215ccc29c904baa3f153cfc27767, type: 3}
   - m_OriginalClip: {fileID: 7400000, guid: b81e517ac61aafd429de985f625ef65c, type: 3}
-    m_OverrideClip: {fileID: 7400000, guid: d4bf91d38c5a9904ca2b14a4d039047b, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 0cf96a16741f4684a8f5ab9dbca7266c, type: 3}

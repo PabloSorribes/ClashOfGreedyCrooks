@@ -36,7 +36,7 @@ GameObject:
   - component: {fileID: 4401168123947444}
   - component: {fileID: 114279106284294588}
   m_Layer: 0
-  m_Name: 1_Wand
+  m_Name: Wand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,7 +62,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1352580041244330}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.635, y: 1.446, z: 0.069}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4351531112258646}
@@ -83,4 +83,7 @@ MonoBehaviour:
   name: Wand
   damage: 20
   projectileSpeed: 20
+  spreadMin: 0
+  spreadMax: 0
+  blindFolded: 0
   proj: {fileID: 114599780837969056, guid: d1481c10b76fac141a9316f83e71a34e, type: 2}

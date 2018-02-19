@@ -5,7 +5,7 @@ AnimatorOverrideController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Queen_AnimOverride_Corgie
+  m_Name: Queen_AnimOverride_Launcher
   m_Controller: {fileID: 9100000, guid: 4ad0965bbaefe554d8e8e9b625ad102d, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: b5b240d1f1ec4884394edd51bc5e59c4, type: 3}
