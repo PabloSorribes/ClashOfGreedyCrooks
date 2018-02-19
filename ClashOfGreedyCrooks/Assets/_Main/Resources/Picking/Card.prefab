@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 224366303591707350}
   - component: {fileID: 222092966863372812}
   - component: {fileID: 114333878306249058}
+  - component: {fileID: 95893839234447654}
   m_Layer: 5
   m_Name: Locked
   m_TagString: Untagged
@@ -219,6 +220,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4178329192997738}
   - component: {fileID: 212314665683005446}
+  - component: {fileID: 95442020995973876}
   m_Layer: 0
   m_Name: 2
   m_TagString: Untagged
@@ -235,6 +237,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4890723010820344}
   - component: {fileID: 212004636245812436}
+  - component: {fileID: 95422350392352800}
   m_Layer: 0
   m_Name: 1
   m_TagString: Untagged
@@ -300,6 +303,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4441450429160514}
   - component: {fileID: 212671356512433884}
+  - component: {fileID: 95618585610210012}
   m_Layer: 0
   m_Name: 0
   m_TagString: Untagged
@@ -416,7 +420,7 @@ Transform:
   m_GameObject: {fileID: 1911092828755718}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.053, z: 0}
-  m_LocalScale: {x: 0.96455884, y: 0.96455914, z: 0.96455914}
+  m_LocalScale: {x: 0.96455884, y: 0.9645591, z: 0.9645591}
   m_Children: []
   m_Father: {fileID: 4878902465702942}
   m_RootOrder: 0
@@ -515,6 +519,74 @@ Transform:
   m_Father: {fileID: 4878902465702942}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &95422350392352800
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1592183844491908}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2bf87a8a0abcdce4d80f9948a6657952, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95442020995973876
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1508706447470902}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2bf87a8a0abcdce4d80f9948a6657952, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95618585610210012
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1911092828755718}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2bf87a8a0abcdce4d80f9948a6657952, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95893839234447654
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1226093011461562}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: adb51e1f4bf285044beec5fda9d572af, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114079949526735998
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -915,7 +987,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1003,7 +1075,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1135,7 +1207,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

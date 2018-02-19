@@ -39,7 +39,7 @@ public class Countdown : MonoBehaviour {
                 countdownImageHolder.sprite = images[3];
 
 			countdownImageHolder.SetNativeSize();
-            Invoke("EndCountdown", 2f);
+            Invoke("EndCountdown", 1f);
             InputManager.GetInstance.freezeInput = false;
             return;
         }

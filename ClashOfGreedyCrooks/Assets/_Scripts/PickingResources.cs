@@ -31,9 +31,8 @@ public class PickingResources : MonoBehaviour {
         BackgroundCardFrames();
         PlayerAvatars();
         InstantiateCards();
-		//TODO: Uncommented for trailer!
-        //Shuffle(championPrefabs);
-        //Shuffle(weaponPrefabs);
+        Shuffle(championPrefabs);
+        Shuffle(weaponPrefabs);
         SpawnChampions();
         SpawnWeapons();
         SetCardGrapthics();
@@ -53,7 +52,6 @@ public class PickingResources : MonoBehaviour {
         avatarColors = Resources.LoadAll("UI/PlayerColors", typeof(Sprite)).Cast<Sprite>().ToArray();
         penaltySprites = Resources.LoadAll("UI/Penalties", typeof(Sprite)).Cast<Sprite>().ToArray();
         readySprite = Resources.Load<Sprite>("UI/Picking/countdown_allready");
-        //Debug.Log(readySprite);
     }
 
     private void PickingPositions()

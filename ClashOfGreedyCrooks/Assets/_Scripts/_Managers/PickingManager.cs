@@ -126,6 +126,27 @@ public class PickingManager : MonoBehaviour
 
 	private void OnAllChampionsPicked()
 	{
+        InvokeRepeating("LockCard", .2f, .5f);        
+	}
+
+    int totalCards;
+    int nextCard;
+    private void LockCard()
+    {
+        if (totalCards == 0)
+            totalCards = pickingResources.cards.Length;
+
+        pickingResources.cards[nextCard].GetComponent<CardComponent>().locked.SetActive(true);
+        nextCard++;
+        if (nextCard == totalCards)
+        {
+            CancelInvoke();
+            Invoke("EndText", 1f);
+        }
+    }
+
+    private void EndText()
+    {
         GameObject readyObj = new GameObject();
         readyObj.AddComponent<SpriteRenderer>();
         readyObj.GetComponent<SpriteRenderer>().sortingOrder = 10;
@@ -134,7 +155,7 @@ public class PickingManager : MonoBehaviour
         readyObj.transform.position = pos;
         readyObj.transform.localScale = readyObj.transform.localScale * .6f;
         Invoke("EndOfPhase", 5f);
-	}
+    }
 
     private void EndOfPhase()
     {
