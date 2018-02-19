@@ -32,13 +32,13 @@ public class Countdown : MonoBehaviour {
         {
 			AudioManager.GetInstance.PlayOneShot("event:/Arena/countDown", "end", 1f);
 			CancelInvoke();
-
             if (GameStateManager.GetInstance.GetState() == GameState.Picking)
                 countdownImageHolder.sprite = images[4];
             else if (GameStateManager.GetInstance.GetState() == GameState.Arena)
                 countdownImageHolder.sprite = images[3];
 
 			countdownImageHolder.SetNativeSize();
+            countdownImageHolder.GetComponent<Animator>().SetTrigger("End");
             Invoke("EndCountdown", 1f);
             InputManager.GetInstance.freezeInput = false;
             return;
@@ -48,6 +48,7 @@ public class Countdown : MonoBehaviour {
 
         countdownImageHolder.sprite = images[time - 1];
         countdownImageHolder.SetNativeSize();
+        countdownImageHolder.GetComponent<Animator>().SetTrigger("Show");
         time--;
     }
 
