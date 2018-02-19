@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 222704205443056984}
   - component: {fileID: 114081498017960532}
   - component: {fileID: 114529857131044984}
+  - component: {fileID: 95092949076054480}
   m_Layer: 5
   m_Name: Logo
   m_TagString: Untagged
@@ -211,6 +212,7 @@ GameObject:
   - component: {fileID: 114455240743670012}
   - component: {fileID: 114296294474624344}
   - component: {fileID: 114515938366393546}
+  - component: {fileID: 95658307834633790}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -379,6 +381,7 @@ GameObject:
   - component: {fileID: 114240797332766556}
   - component: {fileID: 114892216433120574}
   - component: {fileID: 114441717441958484}
+  - component: {fileID: 95846051055092722}
   m_Layer: 5
   m_Name: CreditsButton
   m_TagString: Untagged
@@ -415,6 +418,7 @@ GameObject:
   - component: {fileID: 114137193959036754}
   - component: {fileID: 114048085359830470}
   - component: {fileID: 114452605250836578}
+  - component: {fileID: 95116988347237312}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -434,6 +438,7 @@ GameObject:
   - component: {fileID: 114067039866135614}
   - component: {fileID: 114215372772775818}
   - component: {fileID: 114677215886494284}
+  - component: {fileID: 95307617499060322}
   m_Layer: 5
   m_Name: ToSettings
   m_TagString: Untagged
@@ -481,6 +486,91 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &95092949076054480
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1043717590182350}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 240989d114a2b4d4c8e6fed0b974302b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95116988347237312
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1731670027865176}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 240989d114a2b4d4c8e6fed0b974302b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95307617499060322
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1774439538786684}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 240989d114a2b4d4c8e6fed0b974302b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95658307834633790
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1406792398574564}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 240989d114a2b4d4c8e6fed0b974302b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95846051055092722
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1697887493149658}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 240989d114a2b4d4c8e6fed0b974302b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114011207745958220
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2031,7 +2121,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 444.54547}
+  m_AnchoredPosition: {x: 0, y: 463}
   m_SizeDelta: {x: 600, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224356861013361040
