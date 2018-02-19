@@ -26,7 +26,7 @@ public class Weapon : MonoBehaviour {
 	{
         bulletSpawnPoint = transform.Find("Muzzle");
 
-		//TODO: Uncomment after this has been implemented fully
+		//TODO: Uncomment after nerf has been implemented fully
 		//PlayerTokens.GetInstance.Drunk += BlindfoldedShot;
 	}
 

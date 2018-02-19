@@ -165,7 +165,7 @@ public class InputManager : GenericSingleton<InputManager>
 				case GameState.Arena:
 
 					float deadzoneRightStick = 0.4f;
-					float deadzoneLeftStick = 0.2f;
+					float deadzoneLeftStick = 0.3f;
 
 					Vector3 leftStick = new Vector3(state[i].ThumbSticks.Left.X, 0f, state[i].ThumbSticks.Left.Y);
 					Vector3 rightStick = new Vector3(state[i].ThumbSticks.Right.X, 0f, state[i].ThumbSticks.Right.Y);

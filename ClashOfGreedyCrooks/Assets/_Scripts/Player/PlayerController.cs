@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
 		animator.SetBool("isRunning", false);
 		GameObject.Find("Corgi_Launcher1").GetComponent<Renderer>().enabled = true;
 
-	
+
 
 		//animator.runtimeAnimatorController = Resources.Load<AnimatorOverrideController>(
 		//	GetComponentInChildren<Champion>().name + GetComponentInChildren<Weapon>().name) as AnimatorOverrideController;
@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
 		if (directionalInputLeftStick.magnitude > 0)
 		{
 
-			//Calculate directional input to rotation in degrees
+			//Convert directional input to rotation in degrees
 			inputAngle = Mathf.Atan2(directionalInputLeftStick.x, directionalInputLeftStick.z) * Mathf.Rad2Deg;
 
 			//Make the aiming more accurate(slower) on smaller inputs
@@ -97,21 +97,16 @@ public class PlayerController : MonoBehaviour
 	{
 		if (!cooldown)
 		{
+			//Make player really slow when shooting
 			moveSpeed = 0.25f;
+			//change shoot animation speed depending on attackspeed
 			animator.speed = 1 / attackSpeed;
-			if (directionalInputLeftStick != Vector3.zero)
-			{
-				animator.SetTrigger("toShooting");
-			}
-			else
-			{
-				animator.SetTrigger("toShooting");
-			}
+
+			animator.SetTrigger("toShooting");
 
 			shooting.Shoot();
 			cooldown = true;
 			Invoke("CooldownTimer", attackSpeed);
-
 		}
 	}
 

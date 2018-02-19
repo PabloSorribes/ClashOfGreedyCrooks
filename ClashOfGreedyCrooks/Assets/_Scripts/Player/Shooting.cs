@@ -7,18 +7,7 @@ using UnityEngine;
 /// </summary>
 public class Shooting : MonoBehaviour
 {
-
-	//public float projectileSpeed = 20;
-	//public float damage = 20;
-
 	private Weapon weapon;
-	//public Projectile proj;
-
-	//private Transform bulletSpawnPoint;
-
-	//private float timer;
-
-	//private GameObject bulletspawned;
 
 	FMODUnity.StudioEventEmitter a_shoot;
 
@@ -27,8 +16,6 @@ public class Shooting : MonoBehaviour
 	{
 		InitializeAudio();
 		weapon = GetComponentInChildren<Weapon>();
-
-		//bulletSpawnPoint = transform.Find("Champion").GetChild(0).Find("WeaponHold").GetChild(0).Find("Muzzle");
 	}
 
 	private void InitializeAudio()
@@ -38,27 +25,11 @@ public class Shooting : MonoBehaviour
 		a_shoot.Preload = true;
 	}
 
-	//TODO: Remove this when real Keyboard support is added.
-	private void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.P))
-		{
-			Shoot();
-		}
-	}
-
-	//Spawns the bullet
 	public void Shoot()
 	{
 		a_shoot.Play();
 
 		weapon.InstantiateBullet(gameObject);
-
-		//bulletspawned = Instantiate(proj.gameObject, bulletSpawnPoint.position, Quaternion.identity);
-		//bulletspawned.transform.rotation = bulletSpawnPoint.transform.rotation;
-		//bulletspawned.GetComponent<Projectile>().damage = damage;
-		//bulletspawned.GetComponent<Projectile>().projectileSpeed = projectileSpeed;
-		//bulletspawned.GetComponent<Projectile>().player = gameObject;
 	}
 
 	
