@@ -812,9 +812,10 @@ GameObject:
   - component: {fileID: 97358640}
   - component: {fileID: 97358639}
   - component: {fileID: 97358638}
+  - component: {fileID: 97358641}
   m_Layer: 0
   m_Name: rock1
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
@@ -891,6 +892,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 97358636}
   m_Mesh: {fileID: 4300002, guid: db13b1e4a9649154096ad3b787901644, type: 3}
+--- !u!54 &97358641
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 97358636}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &97691145
 GameObject:
   m_ObjectHideFlags: 0
@@ -2410,9 +2426,10 @@ GameObject:
   - component: {fileID: 356490608}
   - component: {fileID: 356490607}
   - component: {fileID: 356490606}
+  - component: {fileID: 356490609}
   m_Layer: 0
   m_Name: rock2
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
@@ -2489,6 +2506,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 356490604}
   m_Mesh: {fileID: 4300002, guid: a62c031c12c6bc34aa9f316b493a1673, type: 3}
+--- !u!54 &356490609
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 356490604}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &370532346
 GameObject:
   m_ObjectHideFlags: 0
@@ -4195,9 +4227,10 @@ GameObject:
   - component: {fileID: 495635883}
   - component: {fileID: 495635882}
   - component: {fileID: 495635881}
+  - component: {fileID: 495635884}
   m_Layer: 0
   m_Name: rock1 (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
@@ -4274,6 +4307,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 495635879}
   m_Mesh: {fileID: 4300002, guid: db13b1e4a9649154096ad3b787901644, type: 3}
+--- !u!54 &495635884
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 495635879}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &512588215
 GameObject:
   m_ObjectHideFlags: 0
@@ -5945,9 +5993,10 @@ GameObject:
   - component: {fileID: 716627163}
   - component: {fileID: 716627162}
   - component: {fileID: 716627161}
+  - component: {fileID: 716627164}
   m_Layer: 0
   m_Name: rock3
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
@@ -6024,6 +6073,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 716627159}
   m_Mesh: {fileID: 4300002, guid: ea417b989733e914f9edf0879b7a21e1, type: 3}
+--- !u!54 &716627164
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 716627159}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &725815985
 GameObject:
   m_ObjectHideFlags: 0
