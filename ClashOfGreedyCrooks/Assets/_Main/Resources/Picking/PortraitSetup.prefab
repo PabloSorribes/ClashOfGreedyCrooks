@@ -185,7 +185,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 257
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 3abf97b59a0cbba4ebc26f8cfbb3631d, type: 2}
+  m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -272,7 +272,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ee92bc25f4a0c0c4f91af033d174a5b0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6d0a245c0b8398f4d849fb57f41ba909, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

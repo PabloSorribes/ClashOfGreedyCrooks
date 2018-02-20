@@ -13,7 +13,6 @@ public class PickingResources : MonoBehaviour {
     private GameObject[] bride;
     private GameObject[] hoff;
     private GameObject[] championPrefabs;
-    //private GameObject[] weaponPrefabs;
     private Sprite backgroundFrame;
     private Sprite[] buttons;
     public Sprite[] avatarSymbols;
@@ -26,7 +25,7 @@ public class PickingResources : MonoBehaviour {
     [HideInInspector] public Transform pickingPositions;
     private Transform[] portraitSetup;
     [HideInInspector] public GameObject[] spawnedChampions;
-    int[] arrayPos = new int[4];
+    private int[] arrayPos = new int[4];
 
     private void Start()
     {
@@ -37,7 +36,6 @@ public class PickingResources : MonoBehaviour {
         PlayerAvatars();
         InstantiateCards();
         SpawnChampions();
-        //SpawnWeapons();
         SetCardGrapthics();
     }
 
@@ -46,7 +44,6 @@ public class PickingResources : MonoBehaviour {
         pickingPositionsPrefab = Resources.Load("Picking/PickingPositions") as GameObject;
         portraitSetupPrefab = Resources.Load("Picking/PortraitSetup") as GameObject;
         cardPrefab = Resources.Load("Picking/Card") as GameObject;
-        //weaponPrefabs = Resources.LoadAll("Weapons", typeof(Object)).Cast<GameObject>().ToArray();
         queen = Resources.LoadAll("Champions/Queen", typeof(Object)).Cast<GameObject>().ToArray();
         wizard = Resources.LoadAll("Champions/Wizard", typeof(Object)).Cast<GameObject>().ToArray();
         bride = Resources.LoadAll("Champions/Bride", typeof(Object)).Cast<GameObject>().ToArray();
@@ -130,12 +127,14 @@ public class PickingResources : MonoBehaviour {
             Vector3 poolPos = pickingPositions.Find("Pool").GetChild(i).position;
             GameObject poolFrame = new GameObject();
             poolFrame.AddComponent<SpriteRenderer>();
+            poolFrame.GetComponent<SpriteRenderer>().sortingOrder = -5;
             poolFrame.transform.position = poolPos;
             poolFrame.GetComponent<SpriteRenderer>().sprite = backgroundFrame;
 
             Vector3 pickedPos = pickingPositions.Find("Picked").GetChild(i).position;
             GameObject pickedFrame = new GameObject();
             pickedFrame.AddComponent<SpriteRenderer>();
+            pickedFrame.GetComponent<SpriteRenderer>().sortingOrder = -5;
             pickedFrame.transform.position = pickedPos;
             pickedFrame.GetComponent<SpriteRenderer>().sprite = backgroundFrame;
         }
@@ -150,6 +149,7 @@ public class PickingResources : MonoBehaviour {
             avatarColor.AddComponent<SpriteRenderer>();
             avatarColor.GetComponent<SpriteRenderer>().sortingOrder = -2;
             avatarColor.transform.position = pos;
+            avatarColor.transform.localScale = avatarColor.transform.localScale * 2.2f;
             avatarColor.GetComponent<SpriteRenderer>().sprite = avatarColors[i];
 
             GameObject avatarSymbol = new GameObject();
@@ -197,15 +197,6 @@ public class PickingResources : MonoBehaviour {
                 cards[i].champion.SetStatingStats();
             }
     }
-
-   // private void SpawnWeapons()
-   // {
-   //     for (int i = 0; i < spawnedChampions.Length; i++)
-   //     {
-			//GameObject newWeapon = Instantiate(weaponPrefabs[i], spawnedChampions[i].gameObject.transform.Find("WeaponHold"));
-			//newWeapon.name = weaponPrefabs[i].name;
-   //     }
-   // }
 
     private void SetCardGrapthics()
     {

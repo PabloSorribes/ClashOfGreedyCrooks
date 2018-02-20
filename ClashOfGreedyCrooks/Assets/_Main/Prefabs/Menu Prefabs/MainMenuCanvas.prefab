@@ -212,7 +212,6 @@ GameObject:
   - component: {fileID: 114455240743670012}
   - component: {fileID: 114296294474624344}
   - component: {fileID: 114515938366393546}
-  - component: {fileID: 95658307834633790}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -398,7 +397,6 @@ GameObject:
   - component: {fileID: 114240797332766556}
   - component: {fileID: 114892216433120574}
   - component: {fileID: 114441717441958484}
-  - component: {fileID: 95846051055092722}
   m_Layer: 5
   m_Name: CreditsButton
   m_TagString: Untagged
@@ -435,7 +433,6 @@ GameObject:
   - component: {fileID: 114137193959036754}
   - component: {fileID: 114048085359830470}
   - component: {fileID: 114452605250836578}
-  - component: {fileID: 95116988347237312}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -455,7 +452,6 @@ GameObject:
   - component: {fileID: 114067039866135614}
   - component: {fileID: 114215372772775818}
   - component: {fileID: 114677215886494284}
-  - component: {fileID: 95307617499060322}
   m_Layer: 5
   m_Name: ToSettings
   m_TagString: Untagged
@@ -510,74 +506,6 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1043717590182350}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 240989d114a2b4d4c8e6fed0b974302b, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95116988347237312
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1731670027865176}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 240989d114a2b4d4c8e6fed0b974302b, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95307617499060322
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1774439538786684}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 240989d114a2b4d4c8e6fed0b974302b, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95658307834633790
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1406792398574564}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 240989d114a2b4d4c8e6fed0b974302b, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95846051055092722
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1697887493149658}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 240989d114a2b4d4c8e6fed0b974302b, type: 2}
@@ -647,9 +575,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 29e8e56e8fd1a9a48b98a80c37fdbcf0,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 29e8e56e8fd1a9a48b98a80c37fdbcf0, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 29e8e56e8fd1a9a48b98a80c37fdbcf0, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -951,9 +880,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 4e276194910e68941aedbac6b6ae4363,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 77f625d887189054c89acd9d7f65facf, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 77f625d887189054c89acd9d7f65facf, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -1082,9 +1012,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: f2a4debea7f1bae48b3fa15cade522c1,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: f2a4debea7f1bae48b3fa15cade522c1, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: f2a4debea7f1bae48b3fa15cade522c1, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -1239,7 +1170,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 299ee95e821faa248ab8a42934aacc0a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3137c0446f595574897262e976a22e4b, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1270,14 +1201,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0.8688524, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.87058824, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: c38dcaec803ebab45abda8a1f8fe5498, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 33e333a4282db3c4c9318f391e514d02, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1329,9 +1260,9 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: -555.77
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_Spacing: -284.79
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
 --- !u!114 &114467536085348304
@@ -1711,9 +1642,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: bdbb28bb99ae20545a6b8d833f5608a4,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: bdbb28bb99ae20545a6b8d833f5608a4, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: bdbb28bb99ae20545a6b8d833f5608a4, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -2016,7 +1948,7 @@ RectTransform:
   m_Children:
   - {fileID: 224088569823326020}
   m_Father: {fileID: 224863976163233572}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2053,7 +1985,7 @@ RectTransform:
   m_Children:
   - {fileID: 224242272861236466}
   m_Father: {fileID: 224863976163233572}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2126,7 +2058,7 @@ RectTransform:
   m_Children:
   - {fileID: 224425945008561348}
   m_Father: {fileID: 224863976163233572}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2337,7 +2269,7 @@ RectTransform:
   m_Children:
   - {fileID: 224767260550895840}
   m_Father: {fileID: 224863976163233572}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2415,7 +2347,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 791, y: 533}
+  m_SizeDelta: {x: 1050, y: 582}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224863976163233572
 RectTransform:
@@ -2428,10 +2360,10 @@ RectTransform:
   m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
   m_Children:
   - {fileID: 224255652059668634}
-  - {fileID: 224097480086741228}
-  - {fileID: 224211582884737370}
-  - {fileID: 224495616732154282}
   - {fileID: 224129872855068368}
+  - {fileID: 224495616732154282}
+  - {fileID: 224211582884737370}
+  - {fileID: 224097480086741228}
   m_Father: {fileID: 224356861013361040}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

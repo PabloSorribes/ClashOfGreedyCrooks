@@ -212,18 +212,21 @@ public class PickingManager : MonoBehaviour
         }       
         newPlayer.GetComponent<PlayerHealth>().SetStartHealth(championScript.Health * 10);
 		newPlayer.GetComponentInChildren<Weapon>().damage = championScript.Damage + 5f;
-
-        //Movement
-        if (champion.GetComponent<Penalty>().specialPenalties[1])
-            newPlayer.GetComponent<PlayerController>().speed = championScript.Movement * 0.5f + 3f * -1f;
-        else
-            newPlayer.GetComponent<PlayerController>().speed = championScript.Movement * 0.5f + 3f;
 		newPlayer.GetComponent<PlayerController>().attackSpeed = (1f / championScript.AttackSpeed) * 2f;
+        newPlayer.GetComponent<PlayerController>().speed = championScript.Movement * 0.5f + 3f;
+
+        //Bildfold
+        if (champion.GetComponent<Penalty>().specialPenalties[0])
+            newPlayer.GetComponentInChildren<Weapon>().blindFolded = true;
+
+        //Drunk
+        if (champion.GetComponent<Penalty>().specialPenalties[1])
+            newPlayer.GetComponent<PlayerController>().speed = championScript.Movement * -1f;
 
         //Fat
         if (champion.GetComponent<Penalty>().specialPenalties[2])
             newPlayer.transform.localScale = newPlayer.transform.localScale * 1.5f;
-
+        
         newPlayer.name = "Player " + playerIndex;
 		PlayerManager.spawnedPlayers[playerIndex] = newPlayer;
 	}
