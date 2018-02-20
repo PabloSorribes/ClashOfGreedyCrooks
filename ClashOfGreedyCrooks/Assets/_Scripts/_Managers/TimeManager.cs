@@ -16,10 +16,12 @@ public class TimeManager : MonoBehaviour
 
 	private bool countdownFinished;
 
+    private float startTime;
 	public float trackTime;
 	private bool timeEnded = false;
 	public Text timer;
 	public System.Action TimeIsUp;
+    private Image circleTimer;
 
     public GameObject pauseMenu;
 	private bool isPaused;
@@ -39,6 +41,8 @@ public class TimeManager : MonoBehaviour
 
 	private void Start()
 	{
+        circleTimer = GameObject.Find("CircleTimerCanvas").GetComponentInChildren<Image>();
+        startTime = trackTime;
 		timeEnded = false;
 		timer.text = "" + Mathf.Floor(trackTime);
 	}
@@ -50,6 +54,7 @@ public class TimeManager : MonoBehaviour
 		{
 			trackTime -= Time.deltaTime;
 			timer.text = "" + Mathf.Floor(trackTime);
+            circleTimer.fillAmount = Mathf.Abs((trackTime / startTime) - 1f);
 		}
 
 		//TODO: Add controller support
