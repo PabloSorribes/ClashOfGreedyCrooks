@@ -19,6 +19,7 @@ public class ArenaManager : MonoBehaviour
 	private GameObject[] spawnedPlayers;
 	private PlayerInfo[] connectedPlayers;
 
+	private GameObject EndOfRoundScreenCanvas;
 
 	private void Awake()
 	{
@@ -65,13 +66,25 @@ public class ArenaManager : MonoBehaviour
 
 	public void UpdatePlayerScoreStats(PlayerInfo player)
 	{
-		player.TotalDamage += player.CurrentRoundDamage;
-		player.TotalHits += player.CurrentRoundHits;
-		player.TotalShotsFired += player.CurrentRoundShotsFired;
+		for (int i = 0; i < connectedPlayers.Length; i++)
+		{
+			if (connectedPlayers[i].Player == player.Player)
+			{
+				connectedPlayers[i].TotalDamage = player.TotalDamage;
+				connectedPlayers[i].TotalHits = player.TotalHits;
+				connectedPlayers[i].TotalKills = player.TotalKills;
+				connectedPlayers[i].TotalShotsFired = player.TotalShotsFired;
+				connectedPlayers[i].NumberOfWins = player.NumberOfWins;
 
-		//Modify to fit with jims handling of PlayerInfo
-		//Copy PlayerInfo from player to connectedPlayers Array in PlayerManager
-		connectedPlayers[playersAlive] = player;
+				//Debug.Log(player.Player + " hits: " + connectedPlayers[i].TotalHits);
+				//Debug.Log(i + "shots" + connectedPlayers[i].TotalShotsFired);
+				//Debug.Log(i + "kills" + connectedPlayers[i].TotalKills);
+				//Debug.Log(i + "dmg" + connectedPlayers[i].TotalDamage);
+				//Debug.Log(i + "wins" + connectedPlayers[i].NumberOfWins);
+
+			}
+		}
+
 	}
 
 	private void TriggerEndOfRound()
@@ -85,11 +98,14 @@ public class ArenaManager : MonoBehaviour
 		{
 			if (connectedPlayers[i].NumberOfWins >= 3)
 			{
+
 				//TODO: Someone has Won
 			}
 		}
 
-		Instantiate(Resources.Load("UI/EndOfRoundScreenCanvas") as GameObject);
+		EndOfRoundScreenCanvas = Instantiate(Resources.Load("UI/EndOfRoundScreenCanvas") as GameObject);
+
+		EndOfRoundScreenCanvas.GetComponent<EndOfRoundScreen>().playerThatWon = lastPlayerAlive;
 
 		//TODO: Rewrite to handle this better @fippan
 		DeathCircle.GetInstance.roundIsOver = true;
@@ -106,6 +122,7 @@ public class ArenaManager : MonoBehaviour
 
 	public void ReturnToPicking()
 	{
+
 		GameObject lastPlayerAlive = GameObject.FindGameObjectWithTag("Player");
 		if (lastPlayerAlive != null)
 		{
@@ -121,6 +138,8 @@ public class ArenaManager : MonoBehaviour
 
 	public void ReturnToMainMenu()
 	{
+		//Resets playerinfo etc.
+		PlayerManager.Reset();
 		//TODO: Code to reset arrays and go back to main menu after a game is finished with one player having 3 wins.
 	}
 }

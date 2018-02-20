@@ -15,13 +15,7 @@ public class InputManager : GenericSingleton<InputManager>
 	private GamePadState[] state = new GamePadState[4];
 	private GamePadState[] prevState = new GamePadState[4];
 
-	//private bool[] rightTriggerReleased = new bool[4];
 	public bool freezeInput;
-
-
-	//Variables for testing, set from Manager Initialization
-	public static bool setTrueForTesting = false;
-	public static GameState manualGameStateOverride;
 
 	private void Start()
 	{
@@ -29,29 +23,11 @@ public class InputManager : GenericSingleton<InputManager>
 		GameStateManager.GetInstance.GameStateChanged += OnGameStateChanged;
 
 		AddConnectedGamepads();
-
-		//for (int i = 0; i < 4; i++)
-		//{
-		//	rightTriggerReleased[i] = true;
-		//}
-
-
-		////For testing: Set references to players in scene with PlayerController scripts
-		//if (setTrueForTesting)
-		//{
-		//	for (int i = 0; i < gamepadIndex.Count; i++)
-		//	{
-		//		players[i] = FindObjectOfType<PlayerController>();
-		//	}
-		//	//For testing: Set GameState to be able to change what part of inputs to use regardless of current scene
-		//	gameState = manualGameStateOverride;
-		//}
 	}
 
 	private void OnGameStateChanged(GameState newGameState)
 	{
 		gameState = newGameState;
-		//Debug.Log("(IM) State Changed: " + gameState);
 	}
 
 	/// <summary>
@@ -76,6 +52,7 @@ public class InputManager : GenericSingleton<InputManager>
 
 	void FixedUpdate()
 	{
+		//TODO: Make into own function to be able to trigger Vibration on demand.
 		for (int i = 0; i < gamepadIndex.Count; ++i)
 		{
 			//SetVibration should be sent in a slower rate.
@@ -98,66 +75,41 @@ public class InputManager : GenericSingleton<InputManager>
 			state[i] = GamePad.GetState((PlayerIndex)i, GamePadDeadZone.None);
 
 			//TODO: Modify to handle inputs with events instead of calling specific functions in other scripts.
-			//TODO: Make button statements (if (prevState && state){}) into Bool-functions which return true. Makes code cleaner.
 			switch (gameState)
 			{
 				case GameState.MainMenu:
-
-					//TODO: Poll through relevant inputs on all controllers and call relevant methods
-
 					break;
 
 				case GameState.PlayerConnect:
 
-					if (prevState[i].Buttons.A == ButtonState.Released &&
-							state[i].Buttons.A == ButtonState.Pressed)
-					{
+					if (prevState[i].Buttons.A == ButtonState.Released && state[i].Buttons.A == ButtonState.Pressed)
 						PlayerConnectManager.GetInstance.AddPlayer((int)gamepadIndex[i]);
-						//Debug.Log("Player " + i + " pressed button A on Gamepad " + i);
-					}
 
-					if (prevState[i].Buttons.B == ButtonState.Released &&
-							state[i].Buttons.B == ButtonState.Pressed)
-					{
+					if (prevState[i].Buttons.B == ButtonState.Released && state[i].Buttons.B == ButtonState.Pressed)
 						PlayerConnectManager.GetInstance.RemovePlayer((int)gamepadIndex[i]);
-						//Debug.Log("Player " + i + " pressed button B on Gamepad " + i);
-					}
-					if (prevState[i].Buttons.Start == ButtonState.Released &&
-							state[i].Buttons.Start == ButtonState.Pressed)
-					{
-						//TODO: Call function to start game when all players are ready
-					}
+
+					if (prevState[i].Buttons.Start == ButtonState.Released && state[i].Buttons.Start == ButtonState.Pressed)
+						PlayerConnectManager.GetInstance.AddPlayer((int)gamepadIndex[i]);
 
 					break;
 
 				case GameState.Picking:
 
-					if (prevState[i].Buttons.A == ButtonState.Released &&
-							state[i].Buttons.A == ButtonState.Pressed)
-					{
+					if (prevState[i].Buttons.A == ButtonState.Released && state[i].Buttons.A == ButtonState.Pressed)
 						PickingManager.GetInstance.PickChampion(i, 0);
-						//Debug.Log("Player " + i + " pressed button A on Gamepad " + i);
-					}
 
-					if (prevState[i].Buttons.B == ButtonState.Released &&
-							state[i].Buttons.B == ButtonState.Pressed)
-					{
+					if (prevState[i].Buttons.B == ButtonState.Released && state[i].Buttons.B == ButtonState.Pressed)
 						PickingManager.GetInstance.PickChampion(i, 1);
-						//Debug.Log("Player " + i + " pressed button B on Gamepad " + i);
-					}
 
-					if (prevState[i].Buttons.X == ButtonState.Released &&
-							state[i].Buttons.X == ButtonState.Pressed)
-					{
+					if (prevState[i].Buttons.X == ButtonState.Released && state[i].Buttons.X == ButtonState.Pressed)
 						PickingManager.GetInstance.PickChampion(i, 2);
-						//Debug.Log("Player " + i + " pressed button X on Gamepad " + i);
-					}
 
-					if (prevState[i].Buttons.Y == ButtonState.Released &&
-							state[i].Buttons.Y == ButtonState.Pressed)
-					{
+					if (prevState[i].Buttons.Y == ButtonState.Released && state[i].Buttons.Y == ButtonState.Pressed)
 						PickingManager.GetInstance.PickChampion(i, 3);
-						//Debug.Log("Player " + i + " pressed button Y on Gamepad " + i);
+
+					if (prevState[i].Buttons.Start == ButtonState.Released && state[i].Buttons.Start == ButtonState.Pressed)
+					{
+						//TODO: Trigger PauseMenu in Picking
 					}
 
 					break;
@@ -173,7 +125,7 @@ public class InputManager : GenericSingleton<InputManager>
 					//Make sure leftstick diagonal input is never more than 1
 					if (leftStick.magnitude > 1f)
 						leftStick /= leftStick.magnitude;
-					
+
 					//Leftstick scaled radial deadzone implementation
 					if (leftStick.magnitude < deadzoneLeftStick)
 						leftStick = Vector3.zero;
@@ -190,38 +142,21 @@ public class InputManager : GenericSingleton<InputManager>
 					players[i].SetDirectionalInput(leftStick, rightStick);
 
 
-					if (state[i].Triggers.Left > 0)
-					{
-						//TODO: Alt. Fire or Skill
-					}
+					if (prevState[i].Buttons.A == ButtonState.Released && state[i].Buttons.A == ButtonState.Pressed)
+						players[i].Shoot();
 
 					if (state[i].Triggers.Right >= 0.1f)
-					{
 						players[i].Shoot();
-					}
 
-					//if (state[i].Triggers.Right >= 0.05f && rightTriggerReleased[i])
-					//{
-					//	players[i].Shoot();
-
-					//	rightTriggerReleased[i] = false;
-					//}
-					//else if (state[i].Triggers.Right < 0.05f)
-					//{
-					//	rightTriggerReleased[i] = true;
-					//}
-
-
-					if (prevState[i].Buttons.LeftShoulder == ButtonState.Released &&
-							state[i].Buttons.LeftShoulder == ButtonState.Pressed)
-					{
-						//TODO: Alt. Fire or Skill
-					}
-
-					if (prevState[i].Buttons.RightShoulder == ButtonState.Released &&
-							state[i].Buttons.RightShoulder == ButtonState.Pressed)
-					{
+					if (prevState[i].Buttons.RightShoulder == ButtonState.Released && state[i].Buttons.RightShoulder == ButtonState.Pressed)
 						players[i].Shoot();
+
+
+					if (prevState[i].Buttons.Start == ButtonState.Released && state[i].Buttons.Start == ButtonState.Pressed)
+					{
+						//TODO: Trigger PauseMenu in Arena (Not be able to trigger in score screen)
+
+						//ArenaManager.GetInstance.ReturnToPicking();
 					}
 
 					break;

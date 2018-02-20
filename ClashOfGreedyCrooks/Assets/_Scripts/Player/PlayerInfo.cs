@@ -22,19 +22,26 @@ public class PlayerInfo : MonoBehaviour
 
 	//Score data
 	private int numberOfWins;
-	private int currentRoundHits;
+	private int totalKills;
 	private int totalHits;
-	private float currentRoundDamage;
 	private float totalDamage;
-	private int currentRoundShotsFired;
 	private int totalShotsFired;
+	private float accuracy;
 
 	public int NumberOfWins { get; set; }
-	public int CurrentRoundHits { get; set; }
+	public int TotalKills { get; set; }
 	public int TotalHits { get; set; }
-	public float CurrentRoundDamage { get; set; }
 	public float TotalDamage { get; set; }
-	public int CurrentRoundShotsFired { get; set; }
 	public int TotalShotsFired { get; set; }
+	public float Accuracy
+	{
+		get
+		{
+			if (totalShotsFired == 0f || totalHits == 0f)
+				return 0f;
+			else
+				return accuracy = totalShotsFired / totalHits;
+		}
+	}
 
 }

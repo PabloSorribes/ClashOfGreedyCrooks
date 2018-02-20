@@ -13,13 +13,6 @@ public class Projectile : MonoBehaviour
 
 	private GameObject player;
 
-
-	private void Start()
-	{
-		//TODO: Remove this @fippan
-		//player.GetComponent<PlayerInfo>().CurrentRoundShotsFired++;
-	}
-
 	private void Update()
 	{
 		transform.Translate(Vector3.forward * Time.deltaTime * projectileSpeed);
@@ -27,11 +20,13 @@ public class Projectile : MonoBehaviour
 		Destroy(gameObject, bulletLifeTime);
 	}
 
-	public void SetReferences(float damage, float projectileSpeed, GameObject player)
+	public void ProjectileSetup(float damage, float projectileSpeed, GameObject player)
 	{
 		this.damage = damage;
 		this.projectileSpeed = projectileSpeed;
 		this.player = player;
+
+		player.GetComponent<PlayerInfo>().TotalShotsFired++;
 	}
 
 	public void OnTriggerEnter(Collider other)
@@ -43,10 +38,10 @@ public class Projectile : MonoBehaviour
 
 		if (other.gameObject.tag == "Player" && other.gameObject != player)
 		{
-			other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+			player.GetComponent<PlayerInfo>().TotalHits++;
+			player.GetComponent<PlayerInfo>().TotalDamage += damage;
 
-			//this.player.GetComponent<PlayerInfo>().CurrentRoundHits++;
-			//this.player.GetComponent<PlayerInfo>().CurrentRoundDamage += damage;
+			other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage, player.GetComponent<PlayerInfo>());
 
 			Destroy(gameObject);
 		}

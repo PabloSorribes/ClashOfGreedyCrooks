@@ -43,7 +43,7 @@ public class Weapon : MonoBehaviour
 			bulletspawned.transform.Rotate(new Vector3(0.0f, Random.Range(spreadMin, spreadMax), 0.0f));
 		}
 
-		bulletspawned.GetComponent<Projectile>().SetReferences(damage, projectileSpeed, player);
+		bulletspawned.GetComponent<Projectile>().ProjectileSetup(damage, projectileSpeed, player);
 	}
 
 	private void InitializeAudio()

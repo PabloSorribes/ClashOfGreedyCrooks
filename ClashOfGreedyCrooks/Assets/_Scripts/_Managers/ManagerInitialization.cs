@@ -5,10 +5,6 @@
 /// </summary>
 public class ManagerInitialization : MonoBehaviour
 {
-	//[Header("For use in testscenes only! Should be false elsewhere.")]
-	//public bool SetTrueForTesting = false;
-	//public GameState gameStateOverride;
-
 	private void Awake()
 	{
 
@@ -18,14 +14,12 @@ public class ManagerInitialization : MonoBehaviour
 
 		if (InputManager.GetInstance)
 		{
-			//InputManager.setTrueForTesting = this.SetTrueForTesting;
-			//InputManager.manualGameStateOverride = this.gameStateOverride;
 		}
 
-		if (AudioManager.GetInstance) 
+		if (AudioManager.GetInstance)
 		{
 		}
 
-		Destroy(this.gameObject);
+		Destroy(gameObject);
 	}
 }
