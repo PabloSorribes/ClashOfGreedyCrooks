@@ -19,6 +19,8 @@ public class PickingManager : MonoBehaviour
 	StudioEventEmitter a_pickPenalty;
 	StudioEventEmitter a_pickingToArena;
 
+	private float timeToEnterArena = 1.5f;
+
 	private void Awake()
 	{
 		instance = this;
@@ -145,7 +147,10 @@ public class PickingManager : MonoBehaviour
         }
     }
 
-    private void EndText()
+	/// <summary>
+	/// Uses the "countdown_allready"-file. Show before entering Arena.
+	/// </summary>
+	private void EndText()
     {
         GameObject readyObj = new GameObject();
         readyObj.AddComponent<SpriteRenderer>();
@@ -154,7 +159,7 @@ public class PickingManager : MonoBehaviour
         Vector3 pos = new Vector3(0f, 10f, 0f);
         readyObj.transform.position = pos;
         readyObj.transform.localScale = readyObj.transform.localScale * .6f;
-        Invoke("EndOfPhase", 3f);
+        Invoke("EndOfPhase", timeToEnterArena);
     }
 
     private void EndOfPhase()

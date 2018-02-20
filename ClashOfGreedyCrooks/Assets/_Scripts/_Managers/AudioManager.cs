@@ -73,10 +73,14 @@ public class AudioManager : GenericSingleton<AudioManager>
 		{
 			case GameState.MainMenu:
 				PlayMusic(mu_MainMenu, mu_Picking, mu_Arena);
+
+				PlayStopSound(a_ambience, false);
 				break;
 
 			case GameState.PlayerConnect:
 				PlayMusic(mu_MainMenu, mu_Picking, mu_Arena);
+
+				PlayStopSound(a_ambience, false);
 				break;
 
 			case GameState.Picking:
