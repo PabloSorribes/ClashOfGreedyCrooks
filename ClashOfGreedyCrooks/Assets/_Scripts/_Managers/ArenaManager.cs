@@ -13,9 +13,12 @@ public class ArenaManager : MonoBehaviour
 		}
 	}
 
-	private int playersAlive;
 	private GameObject spawnPositionParent;
+
+	private int playersAlive;
 	private GameObject[] spawnedPlayers;
+	private PlayerInfo[] connectedPlayers;
+
 
 	private void Awake()
 	{
@@ -25,8 +28,10 @@ public class ArenaManager : MonoBehaviour
 	private void Start()
 	{
 		TimeManager.GetInstance.TimeIsUp += HandleEndTime;
+
 		spawnPositionParent = GameObject.Find("SpawnPoints");
 		spawnedPlayers = PlayerManager.spawnedPlayers;
+		connectedPlayers = PlayerManager.connectedPlayers;
 
 		//Set spawnpoints for each player
 		for (int i = 0; i < spawnedPlayers.Length; i++)
@@ -45,45 +50,44 @@ public class ArenaManager : MonoBehaviour
 		DeathCircle.GetInstance.ChangeSize(true);
 	}
 
-	public void HandlePlayerDeath(GameObject playerThatDied)
+	public void HandlePlayerDeath(PlayerInfo playerThatDied)
 	{
 		TimeManager.GetInstance.StartFreezeFrame(1f);
 		CameraShake.GetInstance.DoShake();
-		AudioManager.GetInstance.HandlePlayerDeath();
+
+		UpdatePlayerScoreStats(playerThatDied);
 
 		playersAlive--;
-		//players[playersAlive] = playerThatDied.GetComponent<PlayerInfo>();
-		//players[playersAlive].IsAlive = false;
 
 		if (playersAlive <= 1)
-		{
 			TriggerEndOfRound();
-		}
+	}
+
+	public void UpdatePlayerScoreStats(PlayerInfo player)
+	{
+		player.TotalDamage += player.CurrentRoundDamage;
+		player.TotalHits += player.CurrentRoundHits;
+		player.TotalShotsFired += player.CurrentRoundShotsFired;
+
+		//Modify to fit with jims handling of PlayerInfo
+		//Copy PlayerInfo from player to connectedPlayers Array in PlayerManager
+		connectedPlayers[playersAlive] = player;
 	}
 
 	private void TriggerEndOfRound()
 	{
-		AudioManager.GetInstance.HandleWin();
+		PlayerInfo lastPlayerAlive = FindObjectOfType<PlayerInfo>();
+		lastPlayerAlive.NumberOfWins++;
 
-		//foreach (var player in PlayerManager.spawnedPlayers)
-		//{
-		//	if (player.GetComponent<PlayerInfo>().IsAlive)
-		//	{
-		//		players[0] = player.GetComponent<PlayerInfo>();
-		//		players[0].NumberOfWins++;
-		//	}
-		//}
+		UpdatePlayerScoreStats(lastPlayerAlive);
 
-		GameStateManager.GetInstance.RoundsPlayed++;
-
-		//for (int i = 0; i < players.Length; i++)
-		//{
-		//	//TODO: Can't access PlayerInfo?
-
-		//	players[i].TotalDamage += players[i].CurrentRoundDamage;
-		//	players[i].TotalHits += players[i].CurrentRoundHits;
-		//	players[i].TotalShotsFired += players[i].CurrentRoundShotsFired;
-		//}
+		for (int i = 0; i < connectedPlayers.Length; i++)
+		{
+			if (connectedPlayers[i].NumberOfWins >= 3)
+			{
+				//TODO: Someone has Won
+			}
+		}
 
 		Instantiate(Resources.Load("UI/EndOfRoundScreenCanvas") as GameObject);
 
@@ -106,10 +110,17 @@ public class ArenaManager : MonoBehaviour
 		if (lastPlayerAlive != null)
 		{
 			Camera.main.GetComponent<NewCameraController>().RemoveTarget(lastPlayerAlive.name);
+
+			Destroy(lastPlayerAlive);
 		}
 
-		Destroy(lastPlayerAlive);
+		PlayerManager.NextPickingPhase();
 
 		GameStateManager.GetInstance.SetState(GameState.Picking);
+	}
+
+	public void ReturnToMainMenu()
+	{
+		//TODO: Code to reset arrays and go back to main menu after a game is finished with one player having 3 wins.
 	}
 }

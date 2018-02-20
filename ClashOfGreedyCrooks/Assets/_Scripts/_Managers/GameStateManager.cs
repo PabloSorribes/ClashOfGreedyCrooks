@@ -7,8 +7,6 @@ public enum OurPauseState { Paused, NotPaused };
 
 public class GameStateManager : GenericSingleton<GameStateManager>
 {
-	//Temporarily storing this variable here. Should be together with other round stats later.
-	public int RoundsPlayed = 0;
 
 	private GameState gameState;
 	private OurPauseState pauseState;
