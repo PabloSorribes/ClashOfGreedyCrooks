@@ -44,7 +44,7 @@ public class TimeManager : MonoBehaviour
         circleTimer = GameObject.Find("CircleTimerCanvas").GetComponentInChildren<Image>();
         startTime = trackTime;
 		timeEnded = false;
-		timer.text = "" + Mathf.Floor(trackTime);
+		timer.text = "" /*+ Mathf.Floor(trackTime)*/;
 	}
 
 	// Update is called once per frame
