@@ -9,6 +9,7 @@ public class PauseController : MonoBehaviour {
 
     public void BackToMainMenu()
     {
+        PlayerManager.Reset();
         GameStateManager.GetInstance.SetState(GameState.MainMenu);
     }
 

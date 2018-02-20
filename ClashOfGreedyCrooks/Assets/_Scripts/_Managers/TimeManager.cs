@@ -21,6 +21,7 @@ public class TimeManager : MonoBehaviour
 	public Text timer;
 	public System.Action TimeIsUp;
 
+    public GameObject pauseMenu;
 	private bool isPaused;
 
 	//Freeze frame variables
@@ -55,6 +56,7 @@ public class TimeManager : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
 			PauseGame();
+            print("Dis does work!");
 		}
 
 		//Fire event of TimeIsUp on a single frame
@@ -82,8 +84,9 @@ public class TimeManager : MonoBehaviour
 		if (!isPaused)
 		{
 			isPaused = true;
-			GameStateManager.GetInstance.SetPausedState(OurPauseState.Paused);
 
+            pauseMenu.SetActive(true);
+            print("Nope");
 			//TODO: This should be set by the player, by getting an Event Delegate 
 			//from the GameStateManager which says if the game is paused or not.
 			//player.GetComponent<Shooting>().enabled = false;
@@ -92,11 +95,12 @@ public class TimeManager : MonoBehaviour
 		else
 		{
 			isPaused = false;
-			GameStateManager.GetInstance.SetPausedState(OurPauseState.NotPaused);
 
-			//player.GetComponent<Shooting>().enabled = true;
-		}
-	}
+            pauseMenu.SetActive(true);
+
+            //player.GetComponent<Shooting>().enabled = true;
+        }
+    }
 
 	/// <summary>
 	/// Slows down the game. <paramref name="timeToFreeze"/> is the amount of seconds that the slowMo should be.
