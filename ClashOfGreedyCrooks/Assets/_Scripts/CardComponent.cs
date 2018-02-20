@@ -58,11 +58,11 @@ public class CardComponent : MonoBehaviour {
         pickingCooldown = false;
     }
 
-    public void SetTextColor(Text text, int value)
+    public void SetTextColor(Text text, float value)
     {
         if (value > 7)
             text.color = Color.green;
-        else if (value > 4 && value < 8)
+        else if (value > 3 && value < 8)
             text.color = Color.yellow;
         else if (value < 4)
             text.color = Color.red;

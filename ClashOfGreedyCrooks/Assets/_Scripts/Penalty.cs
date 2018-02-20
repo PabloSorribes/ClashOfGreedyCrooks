@@ -81,19 +81,15 @@ public class Penalty : MonoBehaviour
         {
             case 0:
                 card.healthText.GetComponent<Animator>().SetTrigger("AddPenalty");
-                card.healthText.color = Color.red;
                 break;
             case 1:
                 card.movementText.GetComponent<Animator>().SetTrigger("AddPenalty");
-                card.movementText.color = Color.red;
                 break;
             case 2:
                 card.damageText.GetComponent<Animator>().SetTrigger("AddPenalty");
-                card.damageText.color = Color.red;
                 break;
             case 3:
                 card.attackSpeedText.GetComponent<Animator>().SetTrigger("AddPenalty");
-                card.attackSpeedText.color = Color.red;
                 break;
         }
         StartCoroutine(ReduceStats(number, amount));
@@ -109,24 +105,28 @@ public class Penalty : MonoBehaviour
                 if (champion.Health <= 0)
                     champion.Health = 1;
                 card.healthText.text = champion.Health.ToString();
+                card.SetTextColor(card.healthText, champion.Health);
                 break;
             case 1:
                 champion.Movement -= amount;
                 if (champion.Movement <= 0)
                     champion.Movement = 1;
                 card.movementText.text = champion.Movement.ToString();
+                card.SetTextColor(card.movementText, champion.Movement);
                 break;
             case 2:
                 champion.Damage -= amount;
                 if (champion.Damage <= 0)
                     champion.Damage = 1;
                 card.damageText.text = champion.Damage.ToString();
+                card.SetTextColor(card.damageText, champion.Damage);
                 break;
             case 3:
                 champion.AttackSpeed -= amount;
                 if (champion.AttackSpeed <= 0)
                     champion.AttackSpeed = 1;
                 card.attackSpeedText.text = champion.AttackSpeed.ToString();
+                card.SetTextColor(card.attackSpeedText, champion.AttackSpeed);
                 break;
         }
     }

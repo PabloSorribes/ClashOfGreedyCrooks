@@ -208,6 +208,10 @@ public class PickingResources : MonoBehaviour {
             cards[i].damageText.text = cards[i].champion.Damage.ToString();
             cards[i].attackSpeedText.text = cards[i].champion.AttackSpeed.ToString();
             cards[i].xboxButton.sprite = buttons[i];
+            cards[i].SetTextColor(cards[i].healthText, cards[i].champion.Health);
+            cards[i].SetTextColor(cards[i].movementText, cards[i].champion.Movement);
+            cards[i].SetTextColor(cards[i].damageText, cards[i].champion.Damage);
+            cards[i].SetTextColor(cards[i].attackSpeedText, cards[i].champion.AttackSpeed);
         }
     }
 

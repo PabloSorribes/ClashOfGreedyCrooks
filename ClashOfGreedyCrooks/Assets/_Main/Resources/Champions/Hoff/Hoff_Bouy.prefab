@@ -350,6 +350,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4767954352606118}
   - component: {fileID: 95573409882821032}
+  - component: {fileID: 114894473517591230}
+  - component: {fileID: 114028148707510242}
   m_Layer: 0
   m_Name: Hoff_Bouy
   m_TagString: Untagged
@@ -2133,6 +2135,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114028148707510242
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1376682249427620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 435fee23d0f44be4a8fc381cc8532fba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  specialPenalties: 
 --- !u!114 &114615864294111950
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2152,6 +2166,26 @@ MonoBehaviour:
   blindFolded: 0
   proj: {fileID: 114516239739587234, guid: 86250b48a164e5145895993e04389c18, type: 2}
   particle: {fileID: 198186542613970122, guid: e10829b57aa20ad45a681542886b89dc, type: 2}
+--- !u!114 &114894473517591230
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1376682249427620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a92ad232037d04e8f743caaf264867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: TheHoff
+  healthMin: 5
+  healthMax: 8
+  movementMin: 5
+  movementMax: 9
+  damageMin: 4
+  damageMax: 7
+  attackSpeedMin: 5
+  attackSpeedMax: 10
 --- !u!137 &137250791591162870
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
