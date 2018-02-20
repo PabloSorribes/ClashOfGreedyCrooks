@@ -1,0 +1,12 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: ProjectileAnimator_Corgie
+  m_Controller: {fileID: 9100000, guid: 5e1c9250fa264ce4aa3d5e00810d4624, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 05ea8afcd66b86b4fa4f556cc8dfbf1a, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 05ea8afcd66b86b4fa4f556cc8dfbf1a, type: 3}
