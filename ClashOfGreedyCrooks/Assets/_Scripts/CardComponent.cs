@@ -19,6 +19,8 @@ public class CardComponent : MonoBehaviour {
     [HideInInspector] public Text attackSpeedText;
     [HideInInspector] public GameObject locked;
 
+    private bool pickingCooldown;
+
     private void Awake()
     {
         background = transform.Find("Background").GetComponent<SpriteRenderer>();
@@ -37,5 +39,22 @@ public class CardComponent : MonoBehaviour {
         attackSpeedText = transform.Find("StatsCanvas/AttackSpeed").GetComponent<Text>();
         locked = transform.Find("LockedCanvas").gameObject;
         locked.SetActive(false);
+    }
+
+    public bool CanPick()
+    {
+        if (pickingCooldown)
+            return false;
+        else
+        {
+            pickingCooldown = true;
+            Invoke("ResetPickingCooldown", 1f);
+            return true;
+        }
+    }
+
+    private void ResetPickingCooldown()
+    {
+        pickingCooldown = false;
     }
 }

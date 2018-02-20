@@ -68,6 +68,8 @@ public class PickingManager : MonoBehaviour
 		Transform card = pickingResources.cards[button].transform;
 		Champion targetChampion = card.GetComponent<CardComponent>().champion;
 
+        if (!card.GetComponent<CardComponent>().CanPick())
+            return;
 		//Pick from pool
 		if (!targetChampion.Picked)
 		{
@@ -77,7 +79,6 @@ public class PickingManager : MonoBehaviour
 			PlayerManager.connectedPlayers[playerIndex].HasChampion = true;
             CardComponent cc = card.GetComponent<CardComponent>();
             cc.avatarColor.sprite = pickingResources.avatarColors[playerIndex];
-            //cc.avatarColor.sprite.rect = cc.avatarColor.sprite.rect.size * 2f;
             for (int i = 0; i < pickingResources.avatarSymbols.Length; i++)
 			{
 				if (pickingResources.avatarSymbols[i].name == PlayerManager.connectedPlayers[playerIndex].AvatarSymbol)
@@ -88,7 +89,7 @@ public class PickingManager : MonoBehaviour
 		}
 
 		//Menu for penalties
-		else if (targetChampion.Picked /*&& !targetChampion.Locked*/)
+		else if (targetChampion.Picked)
 		{
 			if (targetChampion.GetComponent<Penalty>().CanAddPenalty)
 				targetChampion.GetComponent<Penalty>().AddPenalty(card.GetComponent<CardComponent>(), pickingResources);
@@ -151,10 +152,10 @@ public class PickingManager : MonoBehaviour
         readyObj.AddComponent<SpriteRenderer>();
         readyObj.GetComponent<SpriteRenderer>().sortingOrder = 10;
         readyObj.GetComponent<SpriteRenderer>().sprite = pickingResources.readySprite;
-        Vector3 pos = new Vector3(0f, 12f, 0f);
+        Vector3 pos = new Vector3(0f, 10f, 0f);
         readyObj.transform.position = pos;
         readyObj.transform.localScale = readyObj.transform.localScale * .6f;
-        Invoke("EndOfPhase", 5f);
+        Invoke("EndOfPhase", 3f);
     }
 
     private void EndOfPhase()
