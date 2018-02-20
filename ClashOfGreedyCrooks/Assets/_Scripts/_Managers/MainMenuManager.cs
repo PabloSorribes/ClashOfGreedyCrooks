@@ -12,6 +12,7 @@ public class MainMenuManager : MonoBehaviour
     public GameObject settingsCanvas;
     public GameObject creditsCanvas;
 
+    private bool settingsTrue;
 	/// <summary>
 	/// Get the UiPanels for the menu and activate the MainMenu-panel.
 	/// </summary>
@@ -24,11 +25,19 @@ public class MainMenuManager : MonoBehaviour
 		ActivatePanel("MainMenu");
 	}
 
+    private void Update()
+    {
+        if (settingsTrue && Input.GetButtonDown("Cancel"))
+        {
+            MainMenu();
+            settingsTrue = false;
+        }
+    }
 
-	/// <summary>
-	/// Load the Player Connect-scene. Should be called by the menu buttons.
-	/// </summary>
-	public void NewGame()
+    /// <summary>
+    /// Load the Player Connect-scene. Should be called by the menu buttons.
+    /// </summary>
+    public void NewGame()
 	{
 		AudioManager.GetInstance.PlayOneShot("event:/MainMenu/menuAccept");
 		GameStateManager.GetInstance.SetState(GameState.PlayerConnect);
@@ -36,6 +45,7 @@ public class MainMenuManager : MonoBehaviour
 
 	//Forward
 	public void Settings() {
+        settingsTrue = true;
 		ActivatePanel("Settings");
         GameObject.Find("EventSystem").GetComponent<EventSystem>().SetSelectedGameObject(settingsCanvas, null);
 		AudioManager.GetInstance.PlayOneShot("event:/MainMenu/menuAccept");
@@ -43,6 +53,7 @@ public class MainMenuManager : MonoBehaviour
 
 	//Forward
 	public void Credits() {
+        settingsTrue = true;
 		ActivatePanel("Credits");
         GameObject.Find("EventSystem").GetComponent<EventSystem>().SetSelectedGameObject(creditsCanvas, null);
 		AudioManager.GetInstance.PlayOneShot("event:/MainMenu/menuAccept");
