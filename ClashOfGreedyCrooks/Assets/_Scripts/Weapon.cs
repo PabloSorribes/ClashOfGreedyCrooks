@@ -17,6 +17,7 @@ public class Weapon : MonoBehaviour
 	public bool blindFolded;
 
 	public Projectile proj;
+    public ParticleSystem particle;
 	private Transform bulletSpawnPoint;
 	private GameObject bulletspawned;
 
@@ -35,7 +36,9 @@ public class Weapon : MonoBehaviour
 
 		bulletspawned = Instantiate(proj.gameObject, bulletSpawnPoint.position, bulletSpawnPoint.transform.rotation);
 
-		if (blindFolded)
+        Destroy(Instantiate(particle.gameObject, bulletSpawnPoint.position, bulletSpawnPoint.transform.rotation) as GameObject, 1.5f);
+
+        if (blindFolded)
 		{
 			bulletspawned.transform.Rotate(new Vector3(0.0f, Random.Range(spreadMin, spreadMax), 0.0f));
 		}

@@ -2153,6 +2153,7 @@ MonoBehaviour:
   spreadMax: 0
   blindFolded: 0
   proj: {fileID: 114516239739587234, guid: 86250b48a164e5145895993e04389c18, type: 2}
+  particle: {fileID: 198186542613970122, guid: e10829b57aa20ad45a681542886b89dc, type: 2}
 --- !u!114 &114549594721437188
 MonoBehaviour:
   m_ObjectHideFlags: 1
