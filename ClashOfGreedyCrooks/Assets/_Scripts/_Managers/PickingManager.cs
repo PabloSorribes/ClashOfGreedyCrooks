@@ -137,6 +137,9 @@ public class PickingManager : MonoBehaviour
             totalCards = pickingResources.cards.Length;
 
         pickingResources.cards[nextCard].GetComponent<CardComponent>().locked.SetActive(true);
+
+		AudioManager.GetInstance.PlayOneShot3D("event:/Picking/pickingCardLocked", pickingResources.cards[nextCard].transform.position);
+
         nextCard++;
         if (nextCard == totalCards)
         {
