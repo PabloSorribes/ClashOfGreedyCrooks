@@ -213,7 +213,7 @@ public class PickingManager : MonoBehaviour
         newPlayer.GetComponent<PlayerHealth>().SetStartHealth(championScript.Health * 10);
 		newPlayer.GetComponentInChildren<Weapon>().damage = championScript.Damage + 5f;
 		newPlayer.GetComponent<PlayerController>().attackSpeed = (1f / championScript.AttackSpeed) * 2f;
-        newPlayer.GetComponent<PlayerController>().speed = championScript.Movement * 0.5f + 3f;
+        newPlayer.GetComponent<PlayerController>().speed = (championScript.Movement * 0.5f) + 3f;
 
         //Bildfold
         if (champion.GetComponent<Penalty>().specialPenalties[0])
