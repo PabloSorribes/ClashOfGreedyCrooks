@@ -49,6 +49,7 @@ public class ArenaManager : MonoBehaviour
 	{
 		TimeManager.GetInstance.StartFreezeFrame(1f);
 		CameraShake.GetInstance.DoShake();
+		AudioManager.GetInstance.HandlePlayerDeath();
 
 		playersAlive--;
 		//players[playersAlive] = playerThatDied.GetComponent<PlayerInfo>();

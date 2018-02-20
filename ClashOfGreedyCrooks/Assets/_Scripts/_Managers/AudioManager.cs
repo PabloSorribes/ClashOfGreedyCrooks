@@ -5,9 +5,11 @@ using UnityEngine;
 public class AudioManager : GenericSingleton<AudioManager>
 {
 
-	private FMODUnity.StudioEventEmitter musicMainMenu;
-	private FMODUnity.StudioEventEmitter musicPicking;
-	private FMODUnity.StudioEventEmitter musicArena;
+	private FMODUnity.StudioEventEmitter mu_MainMenu;
+	private FMODUnity.StudioEventEmitter mu_Picking;
+	private FMODUnity.StudioEventEmitter mu_Arena;
+
+	private FMODUnity.StudioEventEmitter a_ambience;
 
 	#region BUSSES
 	public enum AudioBusses { mainBus, musicBus, sfxBus }
@@ -24,19 +26,24 @@ public class AudioManager : GenericSingleton<AudioManager>
 	private void Awake()
 	{
 		InitializeBuses();
-		InitializeMusic();
+		InitializeAudio();
 	}
 
-	private void InitializeMusic()
+	private void InitializeAudio()
 	{
-		musicMainMenu = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
-		musicMainMenu.Event = "event:/Music/musicMainMenu";
+		#region Music Emitters
+		mu_MainMenu = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
+		mu_MainMenu.Event = "event:/Music/musicMainMenu";
 
-		musicPicking = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
-		musicPicking.Event = "event:/Music/musicPicking";
+		mu_Picking = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
+		mu_Picking.Event = "event:/Music/musicPicking";
 
-		musicArena = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
-		musicArena.Event = "event:/Music/musicArena";
+		mu_Arena = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
+		mu_Arena.Event = "event:/Music/musicArena";
+		#endregion Music Emitters
+
+		a_ambience = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
+		a_ambience.Event = "event:/ambienceMain";
 	}
 
 	private void InitializeBuses()
@@ -65,20 +72,41 @@ public class AudioManager : GenericSingleton<AudioManager>
 		switch (newGameState)
 		{
 			case GameState.MainMenu:
-				PlayMusic(musicMainMenu, musicPicking, musicArena);
+				PlayMusic(mu_MainMenu, mu_Picking, mu_Arena);
 				break;
+
 			case GameState.PlayerConnect:
-				PlayMusic(musicMainMenu, musicPicking, musicArena);
+				PlayMusic(mu_MainMenu, mu_Picking, mu_Arena);
 				break;
+
 			case GameState.Picking:
-				PlayMusic(musicPicking, musicMainMenu, musicArena);
+				PlayMusic(mu_Picking, mu_MainMenu, mu_Arena);
+
+				PlayEmitterOnce(a_ambience);
+				a_ambience.SetParameter("state", 0f);
 				break;
+
 			case GameState.Arena:
-				PlayMusic(musicArena, musicMainMenu, musicPicking);
+				PlayMusic(mu_Arena, mu_MainMenu, mu_Picking);
+
+				PlayEmitterOnce(a_ambience);
+				a_ambience.SetParameter("state", 1f);
 				break;
+
 			default:
 				break;
 		}
+	}
+
+	public void HandlePlayerDeath()
+	{
+		PlayOneShot("event:/Arena/arenaCrowdShouts");
+		//TODO: Make the crowds go wild here (trigger/play crowd one-shot events).
+	}
+
+	public void HandleWin()
+	{
+		//TODO: Change music to WinMusic & fiddle with snapshots.
 	}
 
 	public void PlayMusic(FMODUnity.StudioEventEmitter musicToPlay, FMODUnity.StudioEventEmitter musicToStop1, FMODUnity.StudioEventEmitter musicToStop2)
@@ -223,11 +251,18 @@ public class AudioManager : GenericSingleton<AudioManager>
 
 	public FMODUnity.StudioEventEmitter InitializeAudioOnObject(GameObject gameObject, string eventPath)
 	{
-
 		var fmodEventEmitter = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
 		fmodEventEmitter.Event = eventPath;
 		return fmodEventEmitter;
 		//TODO: Add the created event to an array or something.
+	}
+
+	public void PlayEmitterOnce(FMODUnity.StudioEventEmitter p_fmodComponent)
+	{
+		if (!p_fmodComponent.IsPlaying())
+		{
+			p_fmodComponent.Play();
+		}
 	}
 
 	/// <summary>
@@ -239,7 +274,6 @@ public class AudioManager : GenericSingleton<AudioManager>
 	/// <param name="p_fmodComponent"></param>
 	public void PlayStopSound(FMODUnity.StudioEventEmitter p_fmodComponent, bool p_playStop)
 	{
-
 		if (p_playStop)
 		{
 			p_fmodComponent.Play();
