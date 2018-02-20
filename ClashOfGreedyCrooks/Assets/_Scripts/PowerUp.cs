@@ -41,7 +41,7 @@ public class PowerUp : MonoBehaviour {
     {
         timeNow = TimeManager.GetInstance.trackTime;
 
-        if (timeNow <= 50f && powerSpawned == false)
+        if (timeNow <= powerUpSpawns && powerSpawned == false)
         {
             PowerNumber = GetNewPowerUp();
             GeneratePowerUp();
@@ -75,13 +75,7 @@ public class PowerUp : MonoBehaviour {
             }
             if(PowerNumber == 4)
             {
-                for (int i = 0; i < GetComponent<Penalty>().specialPenalties.Length; i++)
-                {
-                    if (GetComponent<Penalty>().specialPenalties[i] == true)
-                    {
-
-                    }
-                }
+                
             }
             
             
