@@ -15,19 +15,28 @@ public class PowerUp : MonoBehaviour {
 
     float timeNow;
 
+    float powerUpSpawns;
+
+    int flashTimes;
+
     public void Start()
     {
-        
+        powerUpSpawns = Random.Range(25, 50);
+        powerSpawned = false;
+
         PowerUpChilds = new GameObject[transform.childCount];
 
         for (int i = 0; i < transform.childCount; i++)
         {
             PowerUpChilds[i] = transform.GetChild(i).gameObject;
         }
-
-        
-        
     }
+
+    private void OnEnable()
+    {
+        //TODO: Insert Particle here.
+    }
+
     private void LateUpdate()
     {
         timeNow = TimeManager.GetInstance.trackTime;
@@ -35,7 +44,7 @@ public class PowerUp : MonoBehaviour {
         if (timeNow <= 50f && powerSpawned == false)
         {
             PowerNumber = GetNewPowerUp();
-            GeneratePowerUp(PowerNumber);
+            GeneratePowerUp();
             powerSpawned = true;
         }
             
@@ -64,7 +73,17 @@ public class PowerUp : MonoBehaviour {
                 other.GetComponent<PlayerController>().speed *= Movement;
 
             }
+            if(PowerNumber == 4)
+            {
+                for (int i = 0; i < GetComponent<Penalty>().specialPenalties.Length; i++)
+                {
+                    if (GetComponent<Penalty>().specialPenalties[i] == true)
+                    {
 
+                    }
+                }
+            }
+            
             
 
             PowerUpChilds[PowerNumber].SetActive(false);
@@ -80,10 +99,28 @@ public class PowerUp : MonoBehaviour {
         return powerUpNumber;
     }
 
-    void GeneratePowerUp(int number)
+    void GeneratePowerUp()
     {
-        PowerUpChilds[number].SetActive(true);
-    }
 
+        PowerUpChilds[PowerNumber].SetActive(true);
+
+        Invoke("FlashPowerUp", 0.1f);
+       
+     }
+
+    void FlashPowerUp()
+    {
+        if(flashTimes < 5)
+        {
+            PowerUpChilds[PowerNumber].SetActive(false);
+            Invoke("GeneratePowerUp", 0.1f);
+            flashTimes++;
+        }
+    }
+    
+    void SpawnParticles()
+    {
+        //TODO: Create spawn particle effect with symbol.
+    }
 
 }
