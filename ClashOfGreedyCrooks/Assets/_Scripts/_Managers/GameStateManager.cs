@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-//TODO: Move global enums to own script?
 public enum GameState { MainMenu, PlayerConnect, Picking, Arena };
 public enum OurPauseState { Paused, NotPaused };
 

@@ -34,11 +34,6 @@ public class PowerUp : MonoBehaviour {
         }
     }
 
-    private void OnEnable()
-    {
-        //TODO: Insert Particle here.
-    }
-
     private void LateUpdate()
     {
         timeNow = TimeManager.GetInstance.trackTime;
@@ -112,7 +107,6 @@ public class PowerUp : MonoBehaviour {
                 break;
         }
     }
-    
 
     int GetNewPowerUp()
     {
@@ -124,11 +118,9 @@ public class PowerUp : MonoBehaviour {
 
     void GeneratePowerUp()
     {
-
         PowerUpChilds[PowerNumber].SetActive(true);
 
         Invoke("FlashPowerUp", 0.1f);
-       
      }
 
     void FlashPowerUp()

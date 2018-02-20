@@ -134,7 +134,7 @@ public class PlayerHealth : MonoBehaviour
 	private void HurtSound()
 	{
 		float parameter = 0;
-		//TODO: Get the name-variable of the Champion-script and switch the parameter depending on the name of the Champ.
+
 		if (champName == "TheBride")
 			parameter = 0;
 		if (champName == "TheQueen")
