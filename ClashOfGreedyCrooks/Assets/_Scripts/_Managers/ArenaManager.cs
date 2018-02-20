@@ -63,6 +63,8 @@ public class ArenaManager : MonoBehaviour
 
 	private void TriggerEndOfRound()
 	{
+		AudioManager.GetInstance.HandleWin();
+
 		//foreach (var player in PlayerManager.spawnedPlayers)
 		//{
 		//	if (player.GetComponent<PlayerInfo>().IsAlive)

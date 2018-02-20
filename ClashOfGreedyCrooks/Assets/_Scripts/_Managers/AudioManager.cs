@@ -101,7 +101,6 @@ public class AudioManager : GenericSingleton<AudioManager>
 	public void HandlePlayerDeath()
 	{
 		PlayOneShot("event:/Arena/arenaCrowdShouts");
-		//TODO: Make the crowds go wild here (trigger/play crowd one-shot events).
 	}
 
 	public void HandleWin()
