@@ -24,7 +24,9 @@ public class DeathCircle : MonoBehaviour
 	public float FadeInStrength;
 
 	public int deathZoneDamage = 15;
-	private float contractionSpeed = 2f;
+
+    //If you change this you need to change shrinkSpeed
+    private float contractionSpeed = 2f;
 
 	private Vector3 targetScale;
 	private Vector3 baseScale;
@@ -32,20 +34,22 @@ public class DeathCircle : MonoBehaviour
 
     [Header("The radius of the DeathCircle")]
     public float radiusPsc = 30;
+    public float minRadius;
     private float radiusPs;
 
-    public float minRadius;
+    //If you change this you need to change contractionSpeed
+    private float shrinkSpeed = 0.7f;
 
     public ParticleSystem ps;
     public ParticleSystem psc;
+
 	private bool emitPs;
-	private bool particleFade;
+    private bool emitPsc;
 
     private bool startAfter;
 
 	[HideInInspector]
 	public bool roundIsOver = false;
-    private bool emitPsc;
 
     private void Awake()
 	{
@@ -55,9 +59,6 @@ public class DeathCircle : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		//ps = GetComponent<ParticleSystem>();
-        //psc = GetComponentInChildren<ParticleSystem>();
-
 		baseScale = transform.localScale;
 		transform.localScale = baseScale * startSize;
 		currScale = startSize;
@@ -82,12 +83,6 @@ public class DeathCircle : MonoBehaviour
 		emission.enabled = emitPs;
         emissionPsc.enabled = emitPsc;
 
-		if (particleFade && startColorAplha <= 1)
-		{
-			StartCircleFadeIn();
-			main.startColor = new Color(255, 255, 255, startColorAplha);
-		}
-
 		if (!roundIsOver)
 		{
 			transform.localScale = Vector3.MoveTowards(transform.localScale, targetScale, contractionSpeed * Time.deltaTime);
@@ -107,8 +102,6 @@ public class DeathCircle : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.DownArrow))
 		{
 			ChangeSize(true);
-
-
 		}
 	}
 
@@ -124,10 +117,8 @@ public class DeathCircle : MonoBehaviour
 
 		targetScale = baseScale * currScale;
 
-
 		emitPs = true;
         emitPsc = true;
-		particleFade = true;
 	}
 
     private void AfterTrails()

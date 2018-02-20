@@ -1063,7 +1063,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4811612957175654, guid: 2344964078033bc439e92113f01e0565, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4811612957175654, guid: 2344964078033bc439e92113f01e0565, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1088,6 +1088,21 @@ Prefab:
     - target: {fileID: 4811612957175654, guid: 2344964078033bc439e92113f01e0565, type: 2}
       propertyPath: m_RootOrder
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 198881282338286826, guid: 2344964078033bc439e92113f01e0565,
+        type: 2}
+      propertyPath: LightsModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198881282338286826, guid: 2344964078033bc439e92113f01e0565,
+        type: 2}
+      propertyPath: randomSeed
+      value: 1797301446
+      objectReference: {fileID: 0}
+    - target: {fileID: 198881282338286826, guid: 2344964078033bc439e92113f01e0565,
+        type: 2}
+      propertyPath: SubModule.enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2344964078033bc439e92113f01e0565, type: 2}
