@@ -19,6 +19,8 @@ public class PowerUp : MonoBehaviour {
 
     int flashTimes;
 
+    bool penaltyRemoved;
+
     public void Start()
     {
         powerUpSpawns = Random.Range(30, 50);
@@ -75,16 +77,18 @@ public class PowerUp : MonoBehaviour {
             }
             if (PowerNumber == 4)
             {
-                for (int i = 0; i < other.GetComponent<Penalty>().specialPenalties.Length; i++)
+                for (int i = 0; i < other.GetComponentInChildren<Penalty>().specialPenalties.Length; i++)
                 {
                     
-                   if(other.GetComponent<Penalty>().specialPenalties[i])
+                   if(other.GetComponentInChildren<Penalty>().specialPenalties[i] == true)
                     {
                         RemovePenalty(other.gameObject, i);
-                        return;
+
+                        penaltyRemoved = true;
                     }
                 }
-                
+
+                if (penaltyRemoved == false)
                     other.GetComponent<PlayerHealth>().Heal(Health);
             }
             
@@ -112,7 +116,8 @@ public class PowerUp : MonoBehaviour {
 
     int GetNewPowerUp()
     {
-        int powerUpNumber = (int)Random.Range(0, 4);
+        int powerUpNumber = (int)Random.Range(0, 4.99f);
+        Debug.Log(powerUpNumber);
 
         return powerUpNumber;
     }
