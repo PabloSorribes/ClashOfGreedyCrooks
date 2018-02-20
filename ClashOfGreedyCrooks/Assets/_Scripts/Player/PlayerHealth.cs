@@ -114,19 +114,24 @@ public class PlayerHealth : MonoBehaviour
 
 		}
 	}
-    public void Heal(float amount)
-    {
-        currentHealth += amount;
-        CalculateHealthPrecentage();
-        HurtSound();
+	public void Heal(float amount)
+	{
+		currentHealth += amount;
+		CalculateHealthPrecentage();
+		HealSound();
 
-        if (currentHealth >= maxHealth)
-        {
-            currentHealth = maxHealth;
-        }
-    }
+		if (currentHealth >= maxHealth)
+		{
+			currentHealth = maxHealth;
+		}
+	}
 
-    private void HurtSound()
+	private void HealSound()
+	{
+		AudioManager.GetInstance.PlayOneShot3D("event:/Arena/playerHeal", transform.position);
+	}
+
+	private void HurtSound()
 	{
 		float parameter = 0;
 		//TODO: Get the name-variable of the Champion-script and switch the parameter depending on the name of the Champ.
@@ -158,7 +163,7 @@ public class PlayerHealth : MonoBehaviour
 		//Debug.Log(healthPrecentage);
 		healthBar.value = healthPrecentage;
 	}
-	
+
 	private void DeathParticles()
 	{
 		Destroy(Instantiate(ps.gameObject, this.transform.position, Quaternion.FromToRotation(Vector3.forward, Vector3.up)) as GameObject, 2f);

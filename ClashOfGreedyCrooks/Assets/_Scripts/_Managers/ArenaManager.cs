@@ -53,6 +53,8 @@ public class ArenaManager : MonoBehaviour
 
 	public void HandlePlayerDeath(PlayerInfo playerThatDied)
 	{
+		AudioManager.GetInstance.HandleWin();
+
 		TimeManager.GetInstance.StartFreezeFrame(1f);
 		CameraShake.GetInstance.DoShake();
 
