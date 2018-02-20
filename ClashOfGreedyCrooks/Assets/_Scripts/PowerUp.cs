@@ -21,7 +21,7 @@ public class PowerUp : MonoBehaviour {
 
     public void Start()
     {
-        powerUpSpawns = Random.Range(25, 50);
+        powerUpSpawns = Random.Range(30, 50);
         powerSpawned = false;
 
         PowerUpChilds = new GameObject[transform.childCount];
@@ -73,22 +73,46 @@ public class PowerUp : MonoBehaviour {
                 other.GetComponent<PlayerController>().speed *= Movement;
 
             }
-            if(PowerNumber == 4)
+            if (PowerNumber == 4)
             {
+                for (int i = 0; i < other.GetComponent<Penalty>().specialPenalties.Length; i++)
+                {
+                    
+                   if(other.GetComponent<Penalty>().specialPenalties[i])
+                    {
+                        RemovePenalty(other.gameObject, i);
+                        return;
+                    }
+                }
                 
+                    other.GetComponent<PlayerHealth>().Heal(Health);
             }
             
-            
-
             PowerUpChilds[PowerNumber].SetActive(false);
             Destroy(this.gameObject);
+        }
+    }
+
+    void RemovePenalty(GameObject player, int Penalty)
+    {
+        switch (Penalty)
+        {
+            case 0: 
+                player.GetComponentInChildren<Weapon>().blindFolded = false;
+                break;
+            case 1:
+                player.GetComponent<PlayerController>().speed *= -1;
+                break;
+            case 2:
+                player.transform.localScale = Vector3.one;
+                break;
         }
     }
     
 
     int GetNewPowerUp()
     {
-        int powerUpNumber = (int)Random.Range(0, 3);
+        int powerUpNumber = (int)Random.Range(0, 4);
 
         return powerUpNumber;
     }

@@ -17,6 +17,8 @@ public class NewCameraController : MonoBehaviour
 	private Vector3 velocity;
 	private Camera cam;
 
+    
+
 	void Start()
 	{
 		cam = GetComponent<Camera>();
@@ -79,9 +81,12 @@ public class NewCameraController : MonoBehaviour
 			bounds.Encapsulate(targets[i].position);
 		}
 
+        Debug.Log(bounds);
+
 		if (bounds.size.x > bounds.size.z)
 		{
-			return bounds.size.x;
+            
+			return bounds.size.x -7;
 		}
 		else
 			return bounds.size.z;
