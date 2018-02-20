@@ -63,11 +63,11 @@ public class PlayerController : MonoBehaviour
 
 	private void AimPlayer()
 	{
-		if (directionalInputLeftStick.magnitude > 0)
+		if (directionalInputRightStick.magnitude > 0)
 		{
 
 			//Convert directional input to rotation in degrees
-			inputAngle = Mathf.Atan2(directionalInputLeftStick.x, directionalInputLeftStick.z) * Mathf.Rad2Deg;
+			inputAngle = Mathf.Atan2(directionalInputRightStick.x, directionalInputRightStick.z) * Mathf.Rad2Deg;
 
 			//Make the aiming more accurate(slower) on smaller inputs
 			float aimSpeedMod = 1f;

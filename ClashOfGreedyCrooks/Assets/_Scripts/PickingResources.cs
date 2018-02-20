@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PickingResources : MonoBehaviour {
 
@@ -211,4 +210,6 @@ public class PickingResources : MonoBehaviour {
             cards[i].xboxButton.sprite = buttons[i];
         }
     }
+
+    
 }

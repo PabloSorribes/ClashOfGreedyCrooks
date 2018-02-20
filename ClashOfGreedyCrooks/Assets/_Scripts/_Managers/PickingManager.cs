@@ -84,7 +84,6 @@ public class PickingManager : MonoBehaviour
 				if (pickingResources.avatarSymbols[i].name == PlayerManager.connectedPlayers[playerIndex].AvatarSymbol)
 					card.GetComponent<CardComponent>().avatarSymbol.sprite = pickingResources.avatarSymbols[i];
 			}
-
 			a_pickChamp.Play();
 		}
 
@@ -171,7 +170,6 @@ public class PickingManager : MonoBehaviour
 					SpawnPlayer(i, j);
 				}
 		}
-
 		a_pickingToArena.Play();
 		PlayerManager.SendInfoToInputManager();
 		GameStateManager.GetInstance.SetState(GameState.Arena);

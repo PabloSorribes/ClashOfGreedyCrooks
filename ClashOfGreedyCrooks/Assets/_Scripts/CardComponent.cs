@@ -48,7 +48,7 @@ public class CardComponent : MonoBehaviour {
         else
         {
             pickingCooldown = true;
-            Invoke("ResetPickingCooldown", 1f);
+            Invoke("ResetPickingCooldown", .2f);
             return true;
         }
     }
@@ -56,5 +56,15 @@ public class CardComponent : MonoBehaviour {
     private void ResetPickingCooldown()
     {
         pickingCooldown = false;
+    }
+
+    public void SetTextColor(Text text, int value)
+    {
+        if (value > 7)
+            text.color = Color.green;
+        else if (value > 4 && value < 8)
+            text.color = Color.yellow;
+        else if (value < 4)
+            text.color = Color.red;
     }
 }
