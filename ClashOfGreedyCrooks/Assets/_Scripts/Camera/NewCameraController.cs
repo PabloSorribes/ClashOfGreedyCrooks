@@ -81,7 +81,7 @@ public class NewCameraController : MonoBehaviour
 			bounds.Encapsulate(targets[i].position);
 		}
 
-        Debug.Log(bounds);
+        //Debug.Log(bounds);
 
 		if (bounds.size.x > bounds.size.z)
 		{
