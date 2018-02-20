@@ -112,11 +112,12 @@ public class PlayerHealth : MonoBehaviour
 			KillPlayer();
 		}
 	}
+
     public void Heal(float amount)
     {
         currentHealth += amount;
         CalculateHealthPrecentage();
-        HurtSound();
+        HealSound();
 
         if (currentHealth >= maxHealth)
         {
@@ -124,10 +125,15 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+	private void HealSound()
+	{
+		AudioManager.GetInstance.PlayOneShot3D("event:/Arena/playerHeal", transform.position);
+	}
+
     private void HurtSound()
 	{
 		float parameter = 0;
-		//TODO: Get the name-variable of the Champion-script and switch the parameter depending on the name of the Champ.
+
 		if (champName == "TheBride")
 			parameter = 0;
 		if (champName == "TheQueen")
@@ -148,6 +154,7 @@ public class PlayerHealth : MonoBehaviour
 	{
 		currentHealth -= deathZoneDamage;
 		CalculateHealthPrecentage();
+		HurtSound();
 	}
 
 	private void CalculateHealthPrecentage()
@@ -156,16 +163,6 @@ public class PlayerHealth : MonoBehaviour
 		//Debug.Log(healthPrecentage);
 		healthBar.value = healthPrecentage;
 	}
-	//TODO: Talk to ArenaManager and what values should i send?
-	//private void OnDestroy()
-	//{
-	//	a_deathSound.Play();
-	//	DeathParticles();
-	//	if (ArenaManager.GetInstance != null)
-	//	{
-	//		ArenaManager.GetInstance.HandlePlayerDeath(gameObject);
-	//	}
-	//}
 
 	private void DeathParticles()
 	{
