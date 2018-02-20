@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: dded9795aa29bfb4d9709d5a2d2192fb
-timeCreated: 1519032272
+guid: f2da770ea878899459b4190f862eb3e6
+timeCreated: 1519115404
 licenseType: Pro
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: Bouey
+    100000: Corgi_Launcher_New_Obj:Launcher
     100002: Hoff:Head
     100004: Hoff:HeadTop_End
     100006: Hoff:Hips
@@ -71,10 +71,10 @@ ModelImporter:
     100126: Hoff:Spine
     100128: Hoff:Spine1
     100130: Hoff:Spine2
-    100132: Hoff_Retopo:polySurface1
-    100134: //RootNode
+    100132: //RootNode
+    100134: Hoff_Retopo:polySurface1
     100136: HoffRetopo:The_Hoff_Hair
-    400000: Bouey
+    400000: Corgi_Launcher_New_Obj:Launcher
     400002: Hoff:Head
     400004: Hoff:HeadTop_End
     400006: Hoff:Hips
@@ -140,18 +140,18 @@ ModelImporter:
     400126: Hoff:Spine
     400128: Hoff:Spine1
     400130: Hoff:Spine2
-    400132: Hoff_Retopo:polySurface1
-    400134: //RootNode
+    400132: //RootNode
+    400134: Hoff_Retopo:polySurface1
     400136: HoffRetopo:The_Hoff_Hair
     2100000: Hoff_Retopo_initialShadingGroup3
     2100002: lambert4
-    2100004: 'Material #482'
-    2300000: Bouey
-    3300000: Bouey
+    2100004: lambert5
+    2300000: Corgi_Launcher_New_Obj:Launcher
+    3300000: Corgi_Launcher_New_Obj:Launcher
     4300000: Hoff_Retopo:polySurface1
     4300002: HoffRetopo:The_Hoff_Hair
-    4300004: Bouey
-    7400000: Hoff_Run_Bouy
+    4300004: Corgi_Launcher_New_Obj:Launcher
+    7400000: Hoff_Launcher_Idle
     9500000: //RootNode
     13700000: Hoff_Retopo:polySurface1
     13700002: HoffRetopo:The_Hoff_Hair
@@ -183,10 +183,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Hoff_Run_Bouy
+      name: Hoff_Launcher_Idle
       takeName: Take 001
       firstFrame: 1
-      lastFrame: 15
+      lastFrame: 167
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
