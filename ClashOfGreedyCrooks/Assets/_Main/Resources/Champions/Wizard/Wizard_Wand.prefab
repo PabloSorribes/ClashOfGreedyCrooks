@@ -2215,7 +2215,7 @@ MonoBehaviour:
   spreadMax: 0
   blindFolded: 0
   proj: {fileID: 114599780837969056, guid: d1481c10b76fac141a9316f83e71a34e, type: 2}
-  particle: {fileID: 198186542613970122, guid: e10829b57aa20ad45a681542886b89dc, type: 2}
+  particle: {fileID: 198218391584963194, guid: 8336415eba71b8e42ab8b848d3279878, type: 2}
 --- !u!137 &137132173429060450
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
