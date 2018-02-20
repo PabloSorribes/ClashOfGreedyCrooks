@@ -11,18 +11,34 @@ public class PowerUp : MonoBehaviour {
 
     int PowerNumber;
 
+    bool powerSpawned;
+
+    float timeNow;
 
     public void Start()
     {
+        
         PowerUpChilds = new GameObject[transform.childCount];
 
         for (int i = 0; i < transform.childCount; i++)
         {
             PowerUpChilds[i] = transform.GetChild(i).gameObject;
         }
-        PowerNumber = GetNewPowerUp();
-        GeneratePowerUp(PowerNumber);
+
         
+        
+    }
+    private void LateUpdate()
+    {
+        timeNow = TimeManager.GetInstance.trackTime;
+
+        if (timeNow <= 50f && powerSpawned == false)
+        {
+            PowerNumber = GetNewPowerUp();
+            GeneratePowerUp(PowerNumber);
+            powerSpawned = true;
+        }
+            
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -30,25 +46,28 @@ public class PowerUp : MonoBehaviour {
         {
             if (PowerNumber == 0)
             {
-                PowerUps.GetComponentInChildren<Weapon>().damage += Damage;
+                other.GetComponentInChildren<Weapon>().damage *= Damage;
 
             }
             if (PowerNumber == 1)
             {
-                PowerUps.GetComponent<PlayerController>().attackSpeed += AttackSpeed;
+                other.GetComponent<PlayerController>().attackSpeed /= AttackSpeed;
 
             }
             if (PowerNumber == 2)
             {
-                PowerUps.GetComponent<PlayerHealth>().currentHealth += Health;
+                other.GetComponent<PlayerHealth>().Heal(Health);
 
             }
             if (PowerNumber == 3)
             {
-                PowerUps.GetComponent<PlayerController>().speed += Movement;
+                other.GetComponent<PlayerController>().speed *= Movement;
 
             }
 
+            
+
+            PowerUpChilds[PowerNumber].SetActive(false);
             Destroy(this.gameObject);
         }
     }
@@ -56,7 +75,7 @@ public class PowerUp : MonoBehaviour {
 
     int GetNewPowerUp()
     {
-        int powerUpNumber = (int)Random.Range(1, 3);
+        int powerUpNumber = (int)Random.Range(0, 3);
 
         return powerUpNumber;
     }

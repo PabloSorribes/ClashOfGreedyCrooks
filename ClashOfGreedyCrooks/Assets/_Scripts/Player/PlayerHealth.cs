@@ -112,8 +112,19 @@ public class PlayerHealth : MonoBehaviour
 			KillPlayer();
 		}
 	}
+    public void Heal(float amount)
+    {
+        currentHealth += amount;
+        CalculateHealthPrecentage();
+        HurtSound();
 
-	private void HurtSound()
+        if (currentHealth >= maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+    }
+
+    private void HurtSound()
 	{
 		float parameter = 0;
 		//TODO: Get the name-variable of the Champion-script and switch the parameter depending on the name of the Champ.
