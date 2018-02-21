@@ -151,7 +151,7 @@ public class PickingManager : MonoBehaviour
     }
 
 	/// <summary>
-	/// Uses the "countdown_allready"-file. Show before entering Arena.
+	/// Creates a Sprite-object, with an attached AnimatorController. Uses the "countdown_allready"-file. Shows before entering Arena.
 	/// </summary>
 	private void EndText()
     {
