@@ -7,9 +7,9 @@ using UnityEngine;
 /// </summary>
 public class Projectile : MonoBehaviour
 {
-	private float projectileSpeed = 20;
-	private float damage = 20;
-	private float bulletLifeTime = 1.2f;
+	private float projectileSpeed;
+	private float damage;
+	private float bulletLifeTime;
 
 	private GameObject player;
 
@@ -20,11 +20,12 @@ public class Projectile : MonoBehaviour
 		Destroy(gameObject, bulletLifeTime);
 	}
 
-	public void ProjectileSetup(float damage, float projectileSpeed, GameObject player)
+	public void ProjectileSetup(float damage, float projectileSpeed, float bulletLifeTime, GameObject player)
 	{
 		this.damage = damage;
 		this.projectileSpeed = projectileSpeed;
 		this.player = player;
+        this.bulletLifeTime = bulletLifeTime;
 
 		player.GetComponent<PlayerInfo>().TotalShotsFired++;
 	}

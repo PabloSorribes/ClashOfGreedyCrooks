@@ -5,8 +5,9 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
 	public new string name;
-	public float damage = 20f;
-	public float projectileSpeed = 20f;
+	[HideInInspector] public float damage;
+	public float projectileSpeed;
+    public float bulletLifeTime;
 
 	[Header("This is the min & max spread of projectiles")]
 	[Range(-15, 0)]
@@ -61,7 +62,7 @@ public class Weapon : MonoBehaviour
 			bulletspawned.transform.Rotate(new Vector3(0.0f, Random.Range(spreadMin, spreadMax), 0.0f));
 		}
 
-		bulletspawned.GetComponent<Projectile>().ProjectileSetup(damage, projectileSpeed, player);
+		bulletspawned.GetComponent<Projectile>().ProjectileSetup(damage, projectileSpeed, bulletLifeTime, player);
 	}
 
 }
