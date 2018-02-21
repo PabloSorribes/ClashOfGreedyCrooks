@@ -704,7 +704,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1621480359558630
 GameObject:
   m_ObjectHideFlags: 1
@@ -2180,6 +2180,7 @@ MonoBehaviour:
   damage: 20
   projectileSpeed: 30
   bulletLifeTime: 0.2
+  magSize: 0
   spreadMin: -15
   spreadMax: 15
   blindFolded: 0

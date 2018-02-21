@@ -67,7 +67,7 @@ public class AudioManager : GenericSingleton<AudioManager>
 		OnGameStateChanged(GameStateManager.GetInstance.GetState());
 		GameStateManager.GetInstance.GameStateChanged += OnGameStateChanged;
 
-		//MuteAudio(AudioBusses.musicBus, true);
+		MuteAudio(AudioBusses.musicBus, true);
 	}
 
 	//private void Update()
