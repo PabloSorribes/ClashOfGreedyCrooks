@@ -16,9 +16,9 @@ public class DeathCircle : MonoBehaviour
 		}
 	}
 
-	private float startSize = 1;
-	private float maxSize = 5;
-	private float minSize = 0.3f;
+	private float startSize = 1f;
+	private float maxSize = 5f;
+	private float minSize = 0.4f;
 
 	private float startColorAplha = 0.1f;
 	public float FadeInStrength;
@@ -26,7 +26,7 @@ public class DeathCircle : MonoBehaviour
 	public int deathZoneDamage = 15;
 
     //If you change this you need to change shrinkSpeed
-    private float contractionSpeed = 2f;
+    private float contractionSpeed = 1f;
 
 	private Vector3 targetScale;
 	private Vector3 baseScale;

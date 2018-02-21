@@ -96,7 +96,7 @@ Transform:
   m_GameObject: {fileID: 1032463038774666}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -1, z: 0}
-  m_LocalScale: {x: 57, y: 57, z: 57}
+  m_LocalScale: {x: 22, y: 22, z: 22}
   m_Children:
   - {fileID: 4367785151571464}
   - {fileID: 4218234474404624}
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FadeInStrength: 0.2
   deathZoneDamage: 15
-  radiusPsc: 30
+  radiusPsc: 22
   minRadius: 8
   ps: {fileID: 198881282338286826}
   psc: {fileID: 198710731527716482}
@@ -131,7 +131,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &198710731527716482
 ParticleSystem:
