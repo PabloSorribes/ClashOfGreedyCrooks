@@ -19,17 +19,13 @@ public class EndOfRoundScreen : MonoBehaviour
 
 		for (int i = 0; i < connectedPlayers.Length; i++)
 		{
-			//GameObject tempPlayerScore = Resources.Load("UI/playerScoreHorizontal") as GameObject;
 			playerScoreHorizontal[i] = Instantiate(Resources.Load("UI/playerScoreHorizontal") as GameObject, transform.Find("PlayerScoreBoard").GetChild(0));
 
-			Sprite playerColor = Resources.Load<Sprite>("UI/PlayerColors/" + connectedPlayers[i].AvatarColor);
-			Sprite playerAvatar = Resources.Load<Sprite>("UI/Avatars/" + connectedPlayers[i].AvatarSymbol);
+			//Sprite playerColor = Resources.Load<Sprite>("UI/PlayerColors/" + connectedPlayers[i].AvatarColor);
+			//Sprite playerAvatar = Resources.Load<Sprite>("UI/Avatars/" + connectedPlayers[i].AvatarSymbol);
 
-			Debug.Log(i + "color: " + playerColor);
-			Debug.Log(i + "avatar: " + playerAvatar);
-
-			playerScoreHorizontal[i].transform.Find("PlayerColor").GetChild(0).GetComponent<Image>().sprite = playerColor;
-			playerScoreHorizontal[i].transform.Find("PlayerColor").transform.GetComponent<Image>().sprite = playerAvatar;
+			playerScoreHorizontal[i].transform.Find("Player").Find("PlayerColor").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/PlayerColors/" + connectedPlayers[i].AvatarColor);
+			playerScoreHorizontal[i].transform.Find("Player").Find("PlayerAvatar").transform.GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Avatars/" + connectedPlayers[i].AvatarSymbol);
 			playerScoreHorizontal[i].transform.Find("Wins").GetComponent<Text>().text = connectedPlayers[i].NumberOfWins.ToString();
 			playerScoreHorizontal[i].transform.Find("Kills").GetComponent<Text>().text = connectedPlayers[i].TotalKills.ToString();
 			playerScoreHorizontal[i].transform.Find("Damage").GetComponent<Text>().text = connectedPlayers[i].TotalDamage.ToString();

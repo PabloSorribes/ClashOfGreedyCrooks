@@ -78,7 +78,10 @@ public class PickingManager : MonoBehaviour
 			PlayerManager.connectedPlayers[playerIndex].HasChampion = true;
             CardComponent cc = card.GetComponent<CardComponent>();
             cc.avatarColor.sprite = pickingResources.avatarColors[playerIndex];
-            for (int i = 0; i < pickingResources.avatarSymbols.Length; i++)
+			PlayerManager.connectedPlayers[playerIndex].AvatarColor = cc.avatarColor.sprite.name;
+
+
+			for (int i = 0; i < pickingResources.avatarSymbols.Length; i++)
 			{
 				if (pickingResources.avatarSymbols[i].name == PlayerManager.connectedPlayers[playerIndex].AvatarSymbol)
 					card.GetComponent<CardComponent>().avatarSymbol.sprite = pickingResources.avatarSymbols[i];
