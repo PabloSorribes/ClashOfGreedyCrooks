@@ -23,7 +23,7 @@ public class TimeManager : MonoBehaviour
 	public System.Action TimeIsUp;
     private Image circleTimer;
 
-    public GameObject pauseMenu;
+    private GameObject pauseMenu;
 	private bool isPaused;
 
 	//Freeze frame variables
@@ -45,6 +45,9 @@ public class TimeManager : MonoBehaviour
         startTime = trackTime;
 		timeEnded = false;
 		timer.text = "" /*+ Mathf.Floor(trackTime)*/;
+
+        pauseMenu = GameObject.Find("PauseMenuHolder").transform.GetChild(0).gameObject;
+        pauseMenu.SetActive(false);
 	}
 
 	// Update is called once per frame
@@ -84,7 +87,7 @@ public class TimeManager : MonoBehaviour
 		countdownFinished = true;
 	}
 
-	private void PauseGame()
+	public void PauseGame()
 	{
 		if (!isPaused)
 		{

@@ -154,7 +154,9 @@ public class InputManager : GenericSingleton<InputManager>
 
 					if (prevState[i].Buttons.Start == ButtonState.Released && state[i].Buttons.Start == ButtonState.Pressed)
 					{
-						//TODO: Trigger PauseMenu in Arena (Not be able to trigger in score screen)
+                        //TODO: Trigger PauseMenu in Arena (Not be able to trigger in score screen)
+
+                        TimeManager.GetInstance.PauseGame();
 
 						//ArenaManager.GetInstance.ReturnToPicking();
 					}

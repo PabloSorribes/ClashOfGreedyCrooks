@@ -2,6 +2,13 @@
 
 public class PauseController : MonoBehaviour {
 
+    public GameObject eventSystem;
+
+    private void Start()
+    {
+        Instantiate(eventSystem.gameObject);
+    }
+
     private void OnEnable()
     {
         GameStateManager.GetInstance.SetPausedState(OurPauseState.Paused);
