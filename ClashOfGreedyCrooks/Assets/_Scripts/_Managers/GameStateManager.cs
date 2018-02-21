@@ -7,21 +7,21 @@ public enum OurPauseState { Paused, NotPaused };
 public class GameStateManager : GenericSingleton<GameStateManager>
 {
 
-	private GameState gameState;
-	private OurPauseState pauseState;
+    private GameState gameState;
+    private OurPauseState pauseState;
 
-	public System.Action<GameState> GameStateChanged;
+    public System.Action<GameState> GameStateChanged;
 
     private ScreenFade screenFade;
     private string sceneToLoad;
 
     private int temp_DeathCircleDamage;
 
-	private void Awake()
-	{
-		gameState = (GameState)SceneManager.GetActiveScene().buildIndex;
-		SceneManager.sceneLoaded += OnSceneChanged;
-	}
+    private void Awake()
+    {
+        gameState = (GameState)SceneManager.GetActiveScene().buildIndex;
+        SceneManager.sceneLoaded += OnSceneChanged;
+    }
 
     private void Start()
     {
@@ -42,8 +42,8 @@ public class GameStateManager : GenericSingleton<GameStateManager>
     {
         if (gameState == GameState.Picking)
         {
-			StartCountdown(0);
-		}
+            StartCountdown(0);
+        }
         if (gameState == GameState.Arena)
         {
             StartCountdown(3);
@@ -63,101 +63,105 @@ public class GameStateManager : GenericSingleton<GameStateManager>
     /// </summary>
     /// <returns></returns>
     public GameState GetState()
-	{
-		GameState tempState = gameState;
-		return tempState;
-	}
+    {
+        GameState tempState = gameState;
+        return tempState;
+    }
 
-	/// <summary>
-	/// Changes the scene
-	/// </summary>
-	/// <param name="newState"></param>
-	public void SetState(GameState newState)
-	{
+    /// <summary>
+    /// Changes the scene
+    /// </summary>
+    /// <param name="newState"></param>
+    public void SetState(GameState newState)
+    {
         screenFade.SetDir(BlackScreen.Out);
 
         if (newState == GameState.MainMenu)
-			OnMainMenuState();
-		else if (newState == GameState.PlayerConnect)
-			OnPlayerConnectState();
-		else if (newState == GameState.Picking)
-			OnPickingState();
-		else if (newState == GameState.Arena)
-			OnArenaState();
+            OnMainMenuState();
+        else if (newState == GameState.PlayerConnect)
+            OnPlayerConnectState();
+        else if (newState == GameState.Picking)
+            OnPickingState();
+        else if (newState == GameState.Arena)
+            OnArenaState();
 
-		Time.timeScale = 1f;
-	}
+        Time.timeScale = 1f;
+    }
 
-	private void OnMainMenuState()
-	{
+    private void OnMainMenuState()
+    {
         sceneToLoad = "MainMenu";
-	}
+    }
 
-	private void OnPlayerConnectState()
-	{        
+    private void OnPlayerConnectState()
+    {
         sceneToLoad = "PlayerConnect";
-	}
+    }
 
-	private void OnPickingState()
-	{
+    private void OnPickingState()
+    {
         sceneToLoad = "Picking";
-	}
+    }
 
-	private void OnArenaState()
-	{
-        sceneToLoad = "LoadingScreen";
+    private void OnArenaState()
+    {
+        //sceneToLoad = "LoadingScreen";
         //sceneToLoad = "Arena01";
-	}
+    }
 
-	/// <summary>
-	/// Pause or unpause the game
-	/// </summary>
-	/// <param name="newState"></param>
-	public void SetPausedState(OurPauseState newState)
-	{
-		if (newState == OurPauseState.Paused)
-			OnPausedState();
-		else if (newState == OurPauseState.NotPaused)
-			OnNotPausedState();
+    /// <summary>
+    /// Pause or unpause the game
+    /// </summary>
+    /// <param name="newState"></param>
+    public void SetPausedState(OurPauseState newState)
+    {
+        if (newState == OurPauseState.Paused)
+            OnPausedState();
+        else if (newState == OurPauseState.NotPaused)
+            OnNotPausedState();
 
-		pauseState = newState;
-	}
+        pauseState = newState;
+    }
 
-	/// <summary>
-	/// Subscribed method for SceneLoaded Event. Runs when new scene is loaded.
-	/// </summary>
-	/// <param name="newScene"></param>
-	/// <param name="loadingMode"></param>
-	private void OnSceneChanged(Scene newScene, LoadSceneMode loadingMode)
-	{
-		gameState = (GameState)newScene.buildIndex;
+    /// <summary>
+    /// Subscribed method for SceneLoaded Event. Runs when new scene is loaded.
+    /// </summary>
+    /// <param name="newScene"></param>
+    /// <param name="loadingMode"></param>
+    private void OnSceneChanged(Scene newScene, LoadSceneMode loadingMode)
+    {
+        if (newScene.buildIndex != 4)
+        {
 
-		if (GameStateChanged != null)
-		{
-			GameStateChanged(gameState);
-            screenFade.SetDir(BlackScreen.In);
-		}
-		//Debug.Log("(GSM) State Changed: " + gameState);
-	}
+            gameState = (GameState)newScene.buildIndex;
 
-	private void OnPausedState()
-	{
+            if (GameStateChanged != null)
+            {
+                GameStateChanged(gameState);
+                screenFade.SetDir(BlackScreen.In);
+            }
+        }
+        //Debug.Log("(GSM) State Changed: " + gameState);
+    }
+
+    private void OnPausedState()
+    {
         Time.timeScale = 0;
         InputManager.GetInstance.freezeInput = true;
 
-		//TODO: Rewrite to handle this better
-		DeathCircle.GetInstance.roundIsOver = true;
-		temp_DeathCircleDamage = DeathCircle.GetInstance.deathZoneDamage;
-		DeathCircle.GetInstance.deathZoneDamage = 0;
+        //TODO: Rewrite to handle this better
+        DeathCircle.GetInstance.roundIsOver = true;
+        temp_DeathCircleDamage = DeathCircle.GetInstance.deathZoneDamage;
+        DeathCircle.GetInstance.deathZoneDamage = 0;
     }
 
-	private void OnNotPausedState()
-	{
+    private void OnNotPausedState()
+    {
         Time.timeScale = 1;
         InputManager.GetInstance.freezeInput = false;
 
-		//TODO: Rewrite to handle this better
-		DeathCircle.GetInstance.roundIsOver = false;
+        //TODO: Rewrite to handle this better
+        DeathCircle.GetInstance.roundIsOver = false;
         DeathCircle.GetInstance.deathZoneDamage = temp_DeathCircleDamage;
     }
 }

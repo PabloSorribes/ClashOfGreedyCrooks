@@ -1,6 +1,7 @@
 ﻿using FMODUnity;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PickingManager : MonoBehaviour
 {
@@ -184,7 +185,10 @@ public class PickingManager : MonoBehaviour
 		}
 		a_pickingToArena.Play();
 		PlayerManager.SendInfoToInputManager();
-		GameStateManager.GetInstance.SetState(GameState.Arena);
+
+        SceneManager.LoadScene("LoadingScreen");
+        //GameStateManager.GetInstance.screenFade.SetDir(BlackScreen.Out);
+        //GameStateManager.GetInstance.SetState(GameState.Arena);
     }
 
 	/// <summary>

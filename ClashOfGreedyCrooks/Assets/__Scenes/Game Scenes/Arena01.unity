@@ -422,6 +422,21 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: -0.3450084
       objectReference: {fileID: 0}
+    - target: {fileID: 65831109823370216, guid: f4e3c8b521cb45f498fa8e3fff79390e,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 64214713733695040, guid: f4e3c8b521cb45f498fa8e3fff79390e,
+        type: 2}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 64214713733695040, guid: f4e3c8b521cb45f498fa8e3fff79390e,
+        type: 2}
+      propertyPath: m_CookingOptions
+      value: -2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f4e3c8b521cb45f498fa8e3fff79390e, type: 2}
   m_IsPrefabParent: 0

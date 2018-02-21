@@ -54,6 +54,7 @@ public class LoadingScreenControl : MonoBehaviour {
     void LoadArena()
     {
         operation.allowSceneActivation = true;
+        GameStateManager.GetInstance.SetState(GameState.Arena);
     }
     
    

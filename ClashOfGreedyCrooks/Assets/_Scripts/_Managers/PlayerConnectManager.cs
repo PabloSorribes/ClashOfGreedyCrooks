@@ -21,6 +21,7 @@ public class PlayerConnectManager : MonoBehaviour
     private GameObject startGameText, backText;
     private bool noConnections;
     private bool allReady;
+    
 
     public bool SetTrueFor1PlayerTesting;
 
