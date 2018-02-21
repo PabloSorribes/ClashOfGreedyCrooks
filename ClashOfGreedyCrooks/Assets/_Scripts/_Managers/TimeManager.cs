@@ -23,9 +23,6 @@ public class TimeManager : MonoBehaviour
 	public System.Action TimeIsUp;
     private Image circleTimer;
 
-    private GameObject pauseMenu;
-	private bool isPaused;
-
 	//Freeze frame variables
 	private float normalTimeScale = 1;
 	private float slowMoTimeScale = 0.2f;
@@ -45,9 +42,6 @@ public class TimeManager : MonoBehaviour
         startTime = trackTime;
 		timeEnded = false;
 		timer.text = "" /*+ Mathf.Floor(trackTime)*/;
-
-        pauseMenu = GameObject.Find("PauseMenuHolder").transform.GetChild(0).gameObject;
-        pauseMenu.SetActive(false);
 	}
 
 	// Update is called once per frame
@@ -58,13 +52,6 @@ public class TimeManager : MonoBehaviour
 			trackTime -= Time.deltaTime;
 			timer.text = ""/* + Mathf.Floor(trackTime)*/;
             circleTimer.fillAmount = Mathf.Abs((trackTime / startTime) - 1f);
-		}
-
-		//TODO: Add controller support
-		if (Input.GetKeyDown(KeyCode.Escape))
-		{
-			PauseGame();
-            print("Dis does work!");
 		}
 
 		//Fire event of TimeIsUp on a single frame
@@ -86,29 +73,6 @@ public class TimeManager : MonoBehaviour
 		timer.gameObject.SetActive(true);
 		countdownFinished = true;
 	}
-
-	public void PauseGame()
-	{
-		if (!isPaused)
-		{
-			isPaused = true;
-
-            pauseMenu.SetActive(true);
-            print("Nope");
-			//TODO: This should be set by the player, by getting an Event Delegate 
-			//from the GameStateManager which says if the game is paused or not.
-			//player.GetComponent<Shooting>().enabled = false;
-		}
-
-		else
-		{
-			isPaused = false;
-
-            pauseMenu.SetActive(true);
-
-            //player.GetComponent<Shooting>().enabled = true;
-        }
-    }
 
 	/// <summary>
 	/// Slows down the game. <paramref name="timeToFreeze"/> is the amount of seconds that the slowMo should be.

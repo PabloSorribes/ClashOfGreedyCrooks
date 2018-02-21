@@ -7,163 +7,188 @@ public enum OurPauseState { Paused, NotPaused };
 public class GameStateManager : GenericSingleton<GameStateManager>
 {
 
-	private GameState gameState;
-	private OurPauseState pauseState;
+    private GameState gameState;
+    private OurPauseState pauseState;
 
-	public System.Action<GameState> GameStateChanged;
+    public System.Action<GameState> GameStateChanged;
 
-	private ScreenFade screenFade;
-	private string sceneToLoad;
+    private ScreenFade screenFade;
+    private string sceneToLoad;
 
-	private int temp_DeathCircleDamage;
+    private int temp_DeathCircleDamage;
 
-	private void Awake()
-	{
-		gameState = (GameState)SceneManager.GetActiveScene().buildIndex;
-		SceneManager.sceneLoaded += OnSceneChanged;
-	}
+    private GameObject pauseMenu;
 
-	private void Start()
-	{
-		GameObject screenFadePrefab = Resources.Load("ScreenFade") as GameObject;
-		GameObject newScreenFade = Instantiate(screenFadePrefab);
-		screenFade = newScreenFade.GetComponent<ScreenFade>();
-		screenFade.FadeOutComplete += ScreenFadeOutComplete;
-		screenFade.FadeInComplete += ScreenFadeInComplete;
-		screenFade.SetDir(BlackScreen.In);
-	}
+    private void Awake()
+    {
+        gameState = (GameState)SceneManager.GetActiveScene().buildIndex;
+        SceneManager.sceneLoaded += OnSceneChanged;
+    }
 
-	private void ScreenFadeOutComplete()
-	{
-		SceneManager.LoadScene(sceneToLoad);
-	}
+    private void Start()
+    {
+        GameObject screenFadePrefab = Resources.Load("ScreenFade") as GameObject;
+        GameObject newScreenFade = Instantiate(screenFadePrefab);
+        screenFade = newScreenFade.GetComponent<ScreenFade>();
+        screenFade.FadeOutComplete += ScreenFadeOutComplete;
+        screenFade.FadeInComplete += ScreenFadeInComplete;
+        screenFade.SetDir(BlackScreen.In);
+    }
 
-	private void ScreenFadeInComplete()
-	{
-		if (gameState == GameState.Picking)
-		{
-			StartCountdown(0);
-		}
-		if (gameState == GameState.Arena)
-		{
-			StartCountdown(3);
-		}
-	}
+    private void ScreenFadeOutComplete()
+    {
+        SceneManager.LoadScene(sceneToLoad);
+    }
 
-	private void StartCountdown(int time)
-	{
-		GameObject countdownPrefab = Resources.Load("Countdown") as GameObject;
-		GameObject newCountdown = Instantiate(countdownPrefab);
-		newCountdown.GetComponent<Countdown>().InitializeCountdown(time);
-		InputManager.GetInstance.freezeInput = true;
-	}
+    private void ScreenFadeInComplete()
+    {
+        if (gameState == GameState.Picking)
+        {
+            pauseMenu = GameObject.Find("PauseMenuHolder").transform.GetChild(0).gameObject;
+            StartCountdown(0);
+        }
+        if (gameState == GameState.Arena)
+        {
+            pauseMenu = GameObject.Find("PauseMenuHolder").transform.GetChild(0).gameObject;
+            StartCountdown(3);
+        }
+    }
 
-	/// <summary>
-	/// Get the current State
-	/// </summary>
-	/// <returns></returns>
-	public GameState GetState()
-	{
-		GameState tempState = gameState;
-		return tempState;
-	}
+    private void StartCountdown(int time)
+    {
+        GameObject countdownPrefab = Resources.Load("Countdown") as GameObject;
+        GameObject newCountdown = Instantiate(countdownPrefab);
+        newCountdown.GetComponent<Countdown>().InitializeCountdown(time);
+        InputManager.GetInstance.freezeInput = true;
+    }
 
-	/// <summary>
-	/// Changes the scene
-	/// </summary>
-	/// <param name="newState"></param>
-	public void SetState(GameState newState)
-	{
-		screenFade.SetDir(BlackScreen.Out);
+    /// <summary>
+    /// Get the current State
+    /// </summary>
+    /// <returns></returns>
+    public GameState GetState()
+    {
+        GameState tempState = gameState;
+        return tempState;
+    }
 
-		if (newState == GameState.MainMenu)
-			OnMainMenuState();
-		else if (newState == GameState.PlayerConnect)
-			OnPlayerConnectState();
-		else if (newState == GameState.Picking)
-			OnPickingState();
-		else if (newState == GameState.Arena)
-			OnArenaState();
-		else if (newState == GameState.LoadingScreen)
-			OnLoadingScreenState();
+    /// <summary>
+    /// Changes the scene
+    /// </summary>
+    /// <param name="newState"></param>
+    public void SetState(GameState newState)
+    {
+        screenFade.SetDir(BlackScreen.Out);
 
-		Time.timeScale = 1f;
-	}
+        if (newState == GameState.MainMenu)
+            OnMainMenuState();
+        else if (newState == GameState.PlayerConnect)
+            OnPlayerConnectState();
+        else if (newState == GameState.Picking)
+            OnPickingState();
+        else if (newState == GameState.Arena)
+            OnArenaState();
+        else if (newState == GameState.LoadingScreen)
+            OnLoadingScreenState();
 
-	private void OnMainMenuState()
-	{
-		sceneToLoad = "MainMenu";
-	}
+        Time.timeScale = 1f;
+    }
 
-	private void OnPlayerConnectState()
-	{
-		sceneToLoad = "PlayerConnect";
-	}
+    private void OnMainMenuState()
+    {
+        sceneToLoad = "MainMenu";
+    }
 
-	private void OnPickingState()
-	{
-		sceneToLoad = "Picking";
-	}
+    private void OnPlayerConnectState()
+    {
+        sceneToLoad = "PlayerConnect";
+    }
 
-	private void OnArenaState()
-	{
-		sceneToLoad = "Arena01";
-	}
+    private void OnPickingState()
+    {
+        sceneToLoad = "Picking";
+    }
 
-	private void OnLoadingScreenState()
-	{
-		sceneToLoad = "LoadingScreen";
-	}
+    private void OnArenaState()
+    {
+        sceneToLoad = "Arena01";
+    }
 
-	/// <summary>
-	/// Pause or unpause the game
-	/// </summary>
-	/// <param name="newState"></param>
-	public void SetPausedState(OurPauseState newState)
-	{
-		if (newState == OurPauseState.Paused)
-			OnPausedState();
-		else if (newState == OurPauseState.NotPaused)
-			OnNotPausedState();
+    private void OnLoadingScreenState()
+    {
+        sceneToLoad = "LoadingScreen";
+    }
 
-		pauseState = newState;
-	}
+    /// <summary>
+    /// Pause or unpause the game
+    /// </summary>
+    /// <param name="newState"></param>
+    public void SetPausedState(OurPauseState newState)
+    {
+        if (newState == OurPauseState.Paused)
+            OnPausedState();
+        else if (newState == OurPauseState.NotPaused)
+            OnNotPausedState();
 
-	/// <summary>
-	/// Subscribed method for SceneLoaded Event. Runs when new scene is loaded.
-	/// </summary>
-	/// <param name="newScene"></param>
-	/// <param name="loadingMode"></param>
-	private void OnSceneChanged(Scene newScene, LoadSceneMode loadingMode)
-	{
-		gameState = (GameState)newScene.buildIndex;
+        pauseState = newState;
+    }
 
-		if (GameStateChanged != null)
-		{
-			GameStateChanged(gameState);
-			screenFade.SetDir(BlackScreen.In);
-		}
-		//Debug.Log("(GSM) State Changed: " + gameState);
-	}
+    /// <summary>
+    /// Subscribed method for SceneLoaded Event. Runs when new scene is loaded.
+    /// </summary>
+    /// <param name="newScene"></param>
+    /// <param name="loadingMode"></param>
+    private void OnSceneChanged(Scene newScene, LoadSceneMode loadingMode)
+    {
+        gameState = (GameState)newScene.buildIndex;
 
-	private void OnPausedState()
-	{
-		Time.timeScale = 0;
-		InputManager.GetInstance.freezeInput = true;
+        if (GameStateChanged != null)
+        {
+            GameStateChanged(gameState);
+            screenFade.SetDir(BlackScreen.In);
+        }
+    }
 
-		//TODO: Rewrite to handle this better
-		DeathCircle.GetInstance.roundIsOver = true;
-		temp_DeathCircleDamage = DeathCircle.GetInstance.deathZoneDamage;
-		DeathCircle.GetInstance.deathZoneDamage = 0;
-	}
+    public void PauseGame()
+    {
+        if (pauseState == OurPauseState.NotPaused)
+            SetPausedState(OurPauseState.Paused);
+        else
+            SetPausedState(OurPauseState.NotPaused);
+    }
 
-	private void OnNotPausedState()
-	{
-		Time.timeScale = 1;
-		InputManager.GetInstance.freezeInput = false;
+    private void OnPausedState()
+    {
+        Time.timeScale = 0;
 
-		//TODO: Rewrite to handle this better
-		DeathCircle.GetInstance.roundIsOver = false;
-		DeathCircle.GetInstance.deathZoneDamage = temp_DeathCircleDamage;
-	}
+        InputManager.GetInstance.freezeInput = true;
+        if (gameState == GameState.Arena)
+        {
+            //TODO: Rewrite to handle this better
+            DeathCircle.GetInstance.roundIsOver = true;
+            temp_DeathCircleDamage = DeathCircle.GetInstance.deathZoneDamage;
+            DeathCircle.GetInstance.deathZoneDamage = 0;
+        }
+
+        pauseMenu.SetActive(true);
+    }
+
+    private void OnNotPausedState()
+    {
+        if (gameState == GameState.Arena)
+        {
+            //TODO: Rewrite to handle this better
+            DeathCircle.GetInstance.roundIsOver = false;
+            DeathCircle.GetInstance.deathZoneDamage = temp_DeathCircleDamage;
+        }
+        pauseMenu.SetActive(false);
+        Time.timeScale = .02f;
+        Invoke("Unfreeze", .01f);
+    }
+
+    private void Unfreeze()
+    {
+        InputManager.GetInstance.freezeInput = false;
+        Time.timeScale = 1;
+    }
 }

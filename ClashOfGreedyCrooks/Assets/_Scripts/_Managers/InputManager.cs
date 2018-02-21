@@ -109,7 +109,7 @@ public class InputManager : GenericSingleton<InputManager>
 
 					if (prevState[i].Buttons.Start == ButtonState.Released && state[i].Buttons.Start == ButtonState.Pressed)
 					{
-						TimeManager.GetInstance.PauseGame();
+                        GameStateManager.GetInstance.PauseGame();
 					}
 
 					break;
@@ -160,8 +160,8 @@ public class InputManager : GenericSingleton<InputManager>
 						if (ArenaManager.GetInstance.roundHasEnded)
 							ArenaManager.GetInstance.NextRound();
 						else
-							TimeManager.GetInstance.PauseGame();
-					}
+                            GameStateManager.GetInstance.PauseGame();
+                    }
 
 					break;
 
