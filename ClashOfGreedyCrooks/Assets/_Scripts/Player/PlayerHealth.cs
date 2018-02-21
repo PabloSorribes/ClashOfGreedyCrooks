@@ -6,11 +6,8 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
 	private Rigidbody rb;
-
 	private Slider healthBar;
-
 	public ParticleSystem ps;
-	private bool emit;
 
 	private float maxHealth = 100f;
 	public float currentHealth;
@@ -20,16 +17,11 @@ public class PlayerHealth : MonoBehaviour
 	private float timer;
 	public bool insideDeathCircle;
 
-	private float playerSizeToken;
-
 	private string champName;
-
-	FMODUnity.StudioEventEmitter a_deathSound;
+	private float parameterFmod;
 
 	void Start()
 	{
-		InitializeAudio();
-
 		rb = GetComponent<Rigidbody>();
 
 		currentHealth = maxHealth;
@@ -37,13 +29,26 @@ public class PlayerHealth : MonoBehaviour
 		healthBar = transform.Find("HealthBar").GetChild(0).GetComponent<Slider>();
 
 		champName = GetComponentInChildren<Champion>().name;
+
+		parameterFmod = GetFmodParameter();
 	}
 
-	private void InitializeAudio()
+	private float GetFmodParameter()
 	{
-		a_deathSound = AudioManager.GetInstance.InitializeAudioOnObject(this.gameObject, "event:/Arena/playerDeath");
-		a_deathSound.Preload = true;
+		float parameter = 0;
+
+		if (champName == "TheBride")
+			parameter = 0;
+		if (champName == "TheQueen")
+			parameter = 1;
+		if (champName == "TheHoff")
+			parameter = 2;
+		if (champName == "TheWizard")
+			parameter = 3;
+
+		return parameter;
 	}
+
 
 	public void SetStartHealth(float startHealth)
 	{
@@ -83,18 +88,18 @@ public class PlayerHealth : MonoBehaviour
 
 	private void KillPlayer()
 	{
-		a_deathSound.Play();
+		KillSound();
 		DeathParticles();
-		Camera.main.GetComponent<NewCameraController>().RemoveTarget(gameObject.name);
 
+		Camera.main.GetComponent<NewCameraController>().RemoveTarget(gameObject.name);
 		ArenaManager.GetInstance.HandlePlayerDeath(gameObject.GetComponent<PlayerInfo>());
 
 		Destroy(gameObject);
 	}
 
-	private void WellFedToken()
+	private void DeathParticles()
 	{
-		transform.localScale *= playerSizeToken;
+		Destroy(Instantiate(ps.gameObject, this.transform.position, Quaternion.FromToRotation(Vector3.forward, Vector3.up)) as GameObject, 2f);
 	}
 
 	/// <summary>
@@ -111,9 +116,9 @@ public class PlayerHealth : MonoBehaviour
 		{
 			playerThatShot.TotalKills++;
 			KillPlayer();
-
 		}
 	}
+
 	public void Heal(float amount)
 	{
 		currentHealth += amount;
@@ -124,27 +129,6 @@ public class PlayerHealth : MonoBehaviour
 		{
 			currentHealth = maxHealth;
 		}
-	}
-
-	private void HealSound()
-	{
-		AudioManager.GetInstance.PlayOneShot3D("event:/Arena/playerHeal", transform.position);
-	}
-
-	private void HurtSound()
-	{
-		float parameter = 0;
-
-		if (champName == "TheBride")
-			parameter = 0;
-		if (champName == "TheQueen")
-			parameter = 1;
-		if (champName == "TheHoff")
-			parameter = 2;
-		if (champName == "TheWizard")
-			parameter = 3;
-
-		AudioManager.GetInstance.PlayOneShot3D("event:/Arena/playerHurt", transform.position, "champ", parameter);
 	}
 
 	/// <summary>
@@ -164,8 +148,18 @@ public class PlayerHealth : MonoBehaviour
 		healthBar.value = healthPrecentage;
 	}
 
-	private void DeathParticles()
+	private void KillSound()
 	{
-		Destroy(Instantiate(ps.gameObject, this.transform.position, Quaternion.FromToRotation(Vector3.forward, Vector3.up)) as GameObject, 2f);
+		AudioManager.GetInstance.PlayOneShot3D("event:/Arena/playerDeath", this.transform.position, "champ", parameterFmod);
+	}
+
+	private void HurtSound()
+	{
+		AudioManager.GetInstance.PlayOneShot3D("event:/Arena/playerHurt", transform.position, "champ", parameterFmod);
+	}
+
+	private void HealSound()
+	{
+		AudioManager.GetInstance.PlayOneShot3D("event:/Arena/playerHeal", transform.position);
 	}
 }
