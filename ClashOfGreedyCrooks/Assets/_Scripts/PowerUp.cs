@@ -23,7 +23,7 @@ public class PowerUp : MonoBehaviour {
 
     public void Start()
     {
-        powerUpSpawns = Random.Range(30, 50);
+        powerUpSpawns = Random.Range(23, 35);
         powerSpawned = false;
 
         PowerUpChilds = new GameObject[transform.childCount];
@@ -37,6 +37,7 @@ public class PowerUp : MonoBehaviour {
     private void LateUpdate()
     {
         timeNow = TimeManager.GetInstance.trackTime;
+        Debug.Log(timeNow);
 
         if (timeNow <= powerUpSpawns && powerSpawned == false)
         {
