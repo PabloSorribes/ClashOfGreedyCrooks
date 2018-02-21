@@ -71,7 +71,8 @@ public class Projectile : MonoBehaviour
                 break;
         }
 
-        CollisionParticles();
+		//TODO: Removed for trailer-purposes
+        //CollisionParticles();
     }
 
     private void CollisionParticles()
