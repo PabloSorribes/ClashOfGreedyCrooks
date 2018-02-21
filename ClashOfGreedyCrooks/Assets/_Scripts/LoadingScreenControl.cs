@@ -12,6 +12,8 @@ public class LoadingScreenControl : MonoBehaviour {
     public Slider slider;
     int loadSceen = 3;
 
+    bool AddLoadingTimeisLoaded;
+
     private void Start()
     {
         Invoke("StartGame", 1);
@@ -39,8 +41,8 @@ public class LoadingScreenControl : MonoBehaviour {
         {
             
             Debug.Log(slider.value);
-            slider.value += 70f;
-           
+                slider.value = 50f;
+  
             if (operation.progress == 0.9f)
             {
                 slider.value = 100f;
