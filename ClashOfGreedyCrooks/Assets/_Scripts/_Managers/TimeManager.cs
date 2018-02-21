@@ -72,7 +72,7 @@ public class TimeManager : MonoBehaviour
 		{
 			timeEnded = true;
 			trackTime = 0;
-			timer.text = "" + Mathf.Floor(trackTime);
+			timer.text = ""/* + Mathf.Floor(trackTime)*/;
 
 			if (TimeIsUp != null)
 			{
