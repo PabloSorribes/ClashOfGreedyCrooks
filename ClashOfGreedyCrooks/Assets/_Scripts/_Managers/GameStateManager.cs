@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum GameState { MainMenu, PlayerConnect, Picking, Arena };
+public enum GameState { MainMenu, PlayerConnect, Picking, Arena, LoadingScreen };
 public enum OurPauseState { Paused, NotPaused };
 
 public class GameStateManager : GenericSingleton<GameStateManager>
@@ -76,14 +76,16 @@ public class GameStateManager : GenericSingleton<GameStateManager>
     {
         screenFade.SetDir(BlackScreen.Out);
 
-        if (newState == GameState.MainMenu)
-            OnMainMenuState();
-        else if (newState == GameState.PlayerConnect)
-            OnPlayerConnectState();
-        else if (newState == GameState.Picking)
-            OnPickingState();
-        else if (newState == GameState.Arena)
-            OnArenaState();
+		if (newState == GameState.MainMenu)
+			OnMainMenuState();
+		else if (newState == GameState.PlayerConnect)
+			OnPlayerConnectState();
+		else if (newState == GameState.Picking)
+			OnPickingState();
+		else if (newState == GameState.Arena)
+			OnArenaState();
+		else if (newState == GameState.LoadingScreen)
+			OnLoadingScreenState();
 
         Time.timeScale = 1f;
     }
@@ -105,15 +107,19 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 
     private void OnArenaState()
     {
-        //sceneToLoad = "LoadingScreen";
-        //sceneToLoad = "Arena01";
-    }
+		sceneToLoad = "Arena01";
+	}
 
-    /// <summary>
-    /// Pause or unpause the game
-    /// </summary>
-    /// <param name="newState"></param>
-    public void SetPausedState(OurPauseState newState)
+	private void OnLoadingScreenState()
+	{
+		sceneToLoad = "LoadingScreen";
+	}
+
+	/// <summary>
+	/// Pause or unpause the game
+	/// </summary>
+	/// <param name="newState"></param>
+	public void SetPausedState(OurPauseState newState)
     {
         if (newState == OurPauseState.Paused)
             OnPausedState();
@@ -130,8 +136,8 @@ public class GameStateManager : GenericSingleton<GameStateManager>
     /// <param name="loadingMode"></param>
     private void OnSceneChanged(Scene newScene, LoadSceneMode loadingMode)
     {
-        if (newScene.buildIndex != 4)
-        {
+        //if (newScene.buildIndex != 4)
+        //{
 
             gameState = (GameState)newScene.buildIndex;
 
@@ -140,7 +146,7 @@ public class GameStateManager : GenericSingleton<GameStateManager>
                 GameStateChanged(gameState);
                 screenFade.SetDir(BlackScreen.In);
             }
-        }
+        //}
         //Debug.Log("(GSM) State Changed: " + gameState);
     }
 

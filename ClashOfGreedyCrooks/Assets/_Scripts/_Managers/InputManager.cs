@@ -161,6 +161,9 @@ public class InputManager : GenericSingleton<InputManager>
 					}
 
 					break;
+
+				default:
+					break;
 			}
 		}
 	}

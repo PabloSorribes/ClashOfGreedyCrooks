@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
 		if (!cooldown)
 		{
 			//Make player really slow when shooting
-			moveSpeed = 0.25f;
+			//moveSpeed = 0.25f;
 			//change shoot animation speed depending on attackspeed
 			animator.speed = 1 / attackSpeed;
 

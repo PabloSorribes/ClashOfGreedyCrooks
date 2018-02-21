@@ -134,7 +134,7 @@ public class ArenaManager : MonoBehaviour
 		DestroyLastPlayer();
 
 		PlayerManager.NextPickingPhase();
-		GameStateManager.GetInstance.SetState(GameState.MainMenu);
+		GameStateManager.GetInstance.SetState(GameState.Picking);
 	}
 
 	public void ReturnToMainMenu()
@@ -142,6 +142,7 @@ public class ArenaManager : MonoBehaviour
 		DestroyLastPlayer();
 
 		PlayerManager.Reset();
+		GameStateManager.GetInstance.SetState(GameState.MainMenu);
 	}
 
 	private void DestroyLastPlayer()
