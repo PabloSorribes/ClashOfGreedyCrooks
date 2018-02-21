@@ -41,7 +41,10 @@ public class ArenaManager : MonoBehaviour
 
 		//Set spawnpoints for each player
 		for (int i = 0; i < spawnedPlayers.Length; i++)
+        {
 			spawnedPlayers[i].transform.position = spawnPositionParent.transform.GetChild(i).transform.position;
+            spawnedPlayers[i].transform.rotation = spawnPositionParent.transform.GetChild(i).transform.rotation;
+        }
 
 		playersAlive = spawnedPlayers.Length;
 		roundHasEnded = false;
