@@ -25,8 +25,17 @@ public class AudioManager : GenericSingleton<AudioManager>
 
 	private void Awake()
 	{
+		AudioPlaysInBackground();
 		InitializeBuses();
 		InitializeAudio();
+	}
+
+	/// <summary>
+	/// Makes Audio run in background (when Alt-Tabbing for live-mixing and so on).
+	/// </summary>
+	private void AudioPlaysInBackground()
+	{
+		Application.runInBackground = true;
 	}
 
 	private void InitializeAudio()

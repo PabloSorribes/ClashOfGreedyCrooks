@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 65287538083629388}
   - component: {fileID: 114516239739587234}
   m_Layer: 0
-  m_Name: Bouy Projectile
+  m_Name: Bouy_Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

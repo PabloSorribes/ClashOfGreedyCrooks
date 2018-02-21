@@ -30,6 +30,24 @@ public class Weapon : MonoBehaviour
 		bulletSpawnPoint = transform.Find("Muzzle");
 	}
 
+	private void InitializeAudio()
+	{
+		string eventPath = "event:/Arena/playerShootBuoy";
+
+		if (name == "Buoy")
+			eventPath = "event:/Arena/playerShootBuoy";
+		if (name == "Katana")
+			eventPath = "event:/Arena/playerShootKatana";
+		if (name == "CorgiLauncher")
+			eventPath = "event:/Arena/playerShootLauncher";
+		if (name == "Wand")
+			eventPath = "event:/Arena/playerShootWand";
+
+		a_shoot = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
+		a_shoot.Event = eventPath;
+		a_shoot.Preload = true;
+	}
+
 	public void Shoot(GameObject player)
 	{
 		a_shoot.Play();
@@ -46,10 +64,4 @@ public class Weapon : MonoBehaviour
 		bulletspawned.GetComponent<Projectile>().ProjectileSetup(damage, projectileSpeed, player);
 	}
 
-	private void InitializeAudio()
-	{
-		a_shoot = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
-		a_shoot.Event = "event:/Arena/playerShoot";
-		a_shoot.Preload = true;
-	}
 }

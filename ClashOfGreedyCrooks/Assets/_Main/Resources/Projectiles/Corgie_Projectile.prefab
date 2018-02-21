@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 65453261051037002}
   - component: {fileID: 114447920984803674}
   m_Layer: 0
-  m_Name: Corgie Projectile
+  m_Name: Corgie_Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
