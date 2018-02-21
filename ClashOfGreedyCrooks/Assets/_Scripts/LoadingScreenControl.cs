@@ -40,7 +40,7 @@ public class LoadingScreenControl : MonoBehaviour {
         while (!operation.isDone)
         {
             
-            Debug.Log(slider.value);
+            //Debug.Log(slider.value);
                 slider.value = 50f;
   
             if (operation.progress == 0.9f)

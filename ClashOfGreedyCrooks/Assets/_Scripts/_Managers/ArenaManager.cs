@@ -16,6 +16,7 @@ public class ArenaManager : MonoBehaviour
 	private GameObject spawnPositionParent;
 
 	[HideInInspector]
+	private bool gameHasBeenWon = false;
 	public bool roundHasEnded;
 	private bool hasTriggered = false;
 
@@ -41,10 +42,10 @@ public class ArenaManager : MonoBehaviour
 
 		//Set spawnpoints for each player
 		for (int i = 0; i < spawnedPlayers.Length; i++)
-        {
+		{
 			spawnedPlayers[i].transform.position = spawnPositionParent.transform.GetChild(i).transform.position;
-            spawnedPlayers[i].transform.rotation = spawnPositionParent.transform.GetChild(i).transform.rotation;
-        }
+			spawnedPlayers[i].transform.rotation = spawnPositionParent.transform.GetChild(i).transform.rotation;
+		}
 
 		playersAlive = spawnedPlayers.Length;
 		roundHasEnded = false;
@@ -80,21 +81,22 @@ public class ArenaManager : MonoBehaviour
 	{
 		for (int i = 0; i < connectedPlayers.Length; i++)
 		{
-			if (connectedPlayers[i].Player == player.Player)
+			if (connectedPlayers[i].Gamepad == player.Gamepad)
 			{
 				connectedPlayers[i].TotalDamage = player.TotalDamage;
 				connectedPlayers[i].TotalHits = player.TotalHits;
 				connectedPlayers[i].TotalKills = player.TotalKills;
 				connectedPlayers[i].TotalShotsFired = player.TotalShotsFired;
 				connectedPlayers[i].NumberOfWins = player.NumberOfWins;
+
+				
 			}
 		}
-
 	}
 
 	private void TriggerEndOfRound()
 	{
-		bool gameHasBeenWon = false;
+		gameHasBeenWon = false;
 		PlayerInfo lastPlayerAlive = FindObjectOfType<PlayerInfo>();
 		lastPlayerAlive.NumberOfWins++;
 
@@ -130,14 +132,22 @@ public class ArenaManager : MonoBehaviour
 	{
 		if (!hasTriggered)
 		{
-			ReturnToPicking();
-			hasTriggered = true;
+			if (!gameHasBeenWon)
+			{
+				ReturnToPicking();
+				hasTriggered = true;
+			}
+			else
+			{
+				ReturnToMainMenu();
+				hasTriggered = true;
+			}
 		}
 	}
 
 	public void ReturnToPicking()
 	{
-		//DestroyLastPlayer();
+		DestroyLastPlayer();
 
 		PlayerManager.NextPickingPhase();
 		GameStateManager.GetInstance.SetState(GameState.Picking);
@@ -145,7 +155,7 @@ public class ArenaManager : MonoBehaviour
 
 	public void ReturnToMainMenu()
 	{
-		//DestroyLastPlayer();
+		DestroyLastPlayer();
 
 		PlayerManager.Reset();
 		GameStateManager.GetInstance.SetState(GameState.MainMenu);

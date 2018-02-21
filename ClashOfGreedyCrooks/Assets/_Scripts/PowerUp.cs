@@ -37,7 +37,6 @@ public class PowerUp : MonoBehaviour {
     private void LateUpdate()
     {
         timeNow = TimeManager.GetInstance.trackTime;
-        Debug.Log(timeNow);
 
         if (timeNow <= powerUpSpawns && powerSpawned == false)
         {
@@ -112,7 +111,7 @@ public class PowerUp : MonoBehaviour {
     int GetNewPowerUp()
     {
         int powerUpNumber = (int)Random.Range(0, 4.99f);
-        Debug.Log(powerUpNumber);
+        //Debug.Log(powerUpNumber);
 
         return powerUpNumber;
     }

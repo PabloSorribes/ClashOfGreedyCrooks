@@ -40,7 +40,7 @@ public class PlayerInfo : MonoBehaviour
 			if (totalShotsFired == 0f || totalHits == 0f)
 				return 0f;
 			else
-				return accuracy = totalShotsFired / totalHits;
+				return accuracy = totalHits / totalShotsFired * 100f;
 		}
 	}
 
