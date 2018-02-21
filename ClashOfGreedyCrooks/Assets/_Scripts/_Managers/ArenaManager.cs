@@ -15,11 +15,16 @@ public class ArenaManager : MonoBehaviour
 
 	private GameObject spawnPositionParent;
 
+	[HideInInspector]
+	public bool roundHasEnded;
+	private bool hasTriggered = false;
+
 	private int playersAlive;
 	private GameObject[] spawnedPlayers;
 	private PlayerInfo[] connectedPlayers;
 
 	private GameObject EndOfRoundScreenCanvas;
+
 
 	private void Awake()
 	{
@@ -39,6 +44,8 @@ public class ArenaManager : MonoBehaviour
 			spawnedPlayers[i].transform.position = spawnPositionParent.transform.GetChild(i).transform.position;
 
 		playersAlive = spawnedPlayers.Length;
+		roundHasEnded = false;
+		hasTriggered = false;
 	}
 
 	public void HandleEndTime()
@@ -77,13 +84,6 @@ public class ArenaManager : MonoBehaviour
 				connectedPlayers[i].TotalKills = player.TotalKills;
 				connectedPlayers[i].TotalShotsFired = player.TotalShotsFired;
 				connectedPlayers[i].NumberOfWins = player.NumberOfWins;
-
-				//Debug.Log(player.Player + " hits: " + connectedPlayers[i].TotalHits);
-				//Debug.Log(i + "shots" + connectedPlayers[i].TotalShotsFired);
-				//Debug.Log(i + "kills" + connectedPlayers[i].TotalKills);
-				//Debug.Log(i + "dmg" + connectedPlayers[i].TotalDamage);
-				//Debug.Log(i + "wins" + connectedPlayers[i].NumberOfWins);
-
 			}
 		}
 
@@ -91,6 +91,7 @@ public class ArenaManager : MonoBehaviour
 
 	private void TriggerEndOfRound()
 	{
+		bool gameHasBeenWon = false;
 		PlayerInfo lastPlayerAlive = FindObjectOfType<PlayerInfo>();
 		lastPlayerAlive.NumberOfWins++;
 
@@ -100,31 +101,51 @@ public class ArenaManager : MonoBehaviour
 		{
 			if (connectedPlayers[i].NumberOfWins >= 3)
 			{
-
-				//TODO: Someone has Won
+				gameHasBeenWon = true;
+				//TODO: Someone has Won the whole game
 			}
 		}
 
-		EndOfRoundScreenCanvas = Instantiate(Resources.Load("UI/EndOfRoundScreenCanvas") as GameObject);
+		if (!gameHasBeenWon)
+			EndOfRoundScreenCanvas = Instantiate(Resources.Load("UI/EndOfRoundScreenCanvas") as GameObject);
+		else
+			//EndOfRoundScreenCanvas = Instantiate(Resources.Load("UI/WinScreenCanvas") as GameObject);
 
 		EndOfRoundScreenCanvas.GetComponent<EndOfRoundScreen>().playerThatWon = lastPlayerAlive;
+
+		roundHasEnded = true;
 
 		//TODO: Rewrite to handle this better @fippan
 		DeathCircle.GetInstance.roundIsOver = true;
 		DeathCircle.GetInstance.deathZoneDamage = 0;
 	}
 
-	private void Update()
+	public void NextRound()
 	{
-		if (Input.GetKeyDown(KeyCode.I))
+		if (!hasTriggered)
 		{
 			ReturnToPicking();
+			hasTriggered = true;
 		}
 	}
 
 	public void ReturnToPicking()
 	{
+		DestroyLastPlayer();
 
+		PlayerManager.NextPickingPhase();
+		GameStateManager.GetInstance.SetState(GameState.MainMenu);
+	}
+
+	public void ReturnToMainMenu()
+	{
+		DestroyLastPlayer();
+
+		PlayerManager.Reset();
+	}
+
+	private void DestroyLastPlayer()
+	{
 		GameObject lastPlayerAlive = GameObject.FindGameObjectWithTag("Player");
 		if (lastPlayerAlive != null)
 		{
@@ -132,16 +153,5 @@ public class ArenaManager : MonoBehaviour
 
 			Destroy(lastPlayerAlive);
 		}
-
-		PlayerManager.NextPickingPhase();
-
-		GameStateManager.GetInstance.SetState(GameState.Picking);
-	}
-
-	public void ReturnToMainMenu()
-	{
-		//Resets playerinfo etc.
-		PlayerManager.Reset();
-		//TODO: Code to reset arrays and go back to main menu after a game is finished with one player having 3 wins.
 	}
 }
