@@ -155,11 +155,7 @@ public class PickingResources : MonoBehaviour {
             avatarSymbol.AddComponent<SpriteRenderer>();
             avatarSymbol.GetComponent<SpriteRenderer>().sortingOrder = -1;
             avatarSymbol.transform.position = pos;
-            for (int j = 0; j < avatarSymbols.Length; j++)
-            {
-                if (avatarSymbols[j].name == PlayerManager.players[i].AvatarSymbol)
-                    avatarSymbol.GetComponent<SpriteRenderer>().sprite = avatarSymbols[j];
-            }
+            avatarSymbol.GetComponent<SpriteRenderer>().sprite = avatarSymbols[i];
         }
     }
 

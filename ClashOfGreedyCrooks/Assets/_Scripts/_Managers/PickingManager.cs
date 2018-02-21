@@ -81,11 +81,11 @@ public class PickingManager : MonoBehaviour
 			PlayerManager.connectedPlayers[playerIndex].AvatarColor = cc.avatarColor.sprite.name;
 
 
-			for (int i = 0; i < pickingResources.avatarSymbols.Length; i++)
-			{
-				if (pickingResources.avatarSymbols[i].name == PlayerManager.connectedPlayers[playerIndex].AvatarSymbol)
-					card.GetComponent<CardComponent>().avatarSymbol.sprite = pickingResources.avatarSymbols[i];
-			}
+			//for (int i = 0; i < pickingResources.avatarSymbols.Length; i++)
+			//{
+				//if (pickingResources.avatarSymbols[i].name == PlayerManager.connectedPlayers[playerIndex].AvatarSymbol)
+					card.GetComponent<CardComponent>().avatarSymbol.sprite = pickingResources.avatarSymbols[playerIndex];
+			//}
 			a_pickChamp.Play();
 		}
 
@@ -100,13 +100,15 @@ public class PickingManager : MonoBehaviour
             card.GetComponent<MoveCard>().target = pickingResources.pickingPositions.Find("Picked").GetChild(playerIndex).position;
             PlayerManager.connectedPlayers[playerIndex].HasChampion = true;
 			PlayerManager.connectedPlayers[targetChampion.LastPlayerIndex].HasChampion = false;
-			for (int j = 0; j < pickingResources.avatarSymbols.Length; j++)
-			{
-				if (pickingResources.avatarSymbols[j].name == PlayerManager.connectedPlayers[playerIndex].AvatarSymbol)
-					card.GetComponent<CardComponent>().avatarSymbol.sprite = pickingResources.avatarSymbols[j];
-			}
+            CardComponent cc = card.GetComponent<CardComponent>();
+            cc.avatarColor.sprite = pickingResources.avatarColors[playerIndex];
+            //for (int i = 0; i < pickingResources.avatarSymbols.Length; i++)
+            //{
+            //if (pickingResources.avatarSymbols[i].name == PlayerManager.connectedPlayers[playerIndex].AvatarSymbol)
+            card.GetComponent<CardComponent>().avatarSymbol.sprite = pickingResources.avatarSymbols[playerIndex];
+            //}
 
-			a_pickPenalty.Play();
+            a_pickPenalty.Play();
 			a_pickChamp.Play();
 		}
 
@@ -216,12 +218,8 @@ public class PickingManager : MonoBehaviour
 
         //Player stats
         Transform healthBarAvatar = newPlayer.transform.Find("HealthBar/Slider/ColorHolder");
-        healthBarAvatar.Find("PlayerColor").GetComponent<Image>().sprite = pickingResources.avatarColors[playerIndex];
-        for (int j = 0; j < pickingResources.avatarSymbols.Length; j++)
-        {
-            if (pickingResources.avatarSymbols[j].name == PlayerManager.connectedPlayers[playerIndex].AvatarSymbol)
-                healthBarAvatar.Find("PlayerIcon").GetComponent<Image>().sprite = pickingResources.avatarSymbols[playerIndex];
-        }       
+        healthBarAvatar.Find("PlayerColor").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/PlayerColors/" + PlayerManager.connectedPlayers[playerIndex].AvatarColor);
+        healthBarAvatar.Find("PlayerIcon").GetComponent<Image>().sprite = pickingResources.avatarSymbols[playerIndex]; 
         newPlayer.GetComponent<PlayerHealth>().SetStartHealth(championScript.Health * 10);
 		newPlayer.GetComponentInChildren<Weapon>().damage = championScript.Damage + 5f;
 		newPlayer.GetComponent<PlayerController>().attackSpeed = (1f / championScript.AttackSpeed) * 2f;
