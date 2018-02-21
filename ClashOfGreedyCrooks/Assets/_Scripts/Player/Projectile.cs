@@ -13,6 +13,11 @@ public class Projectile : MonoBehaviour
 
 	private GameObject player;
 
+    public ParticleSystem collisionParticle;
+
+    public enum ProjectileType { buoy, katana, launcher, wand }
+    public ProjectileType projectileType;
+
 	private void Update()
 	{
 		transform.Translate(Vector3.forward * Time.deltaTime * projectileSpeed);
@@ -47,4 +52,30 @@ public class Projectile : MonoBehaviour
 			Destroy(gameObject);
 		}
 	}
+
+    private void OnDestroy()
+    {
+        switch (projectileType)
+        {
+            case ProjectileType.buoy:
+                break;
+            case ProjectileType.katana:
+                break;
+            case ProjectileType.launcher:
+                //AoE explsopssss
+                //Instantiate a box/sphere collider
+                break;
+            case ProjectileType.wand:
+                break;
+            default:
+                break;
+        }
+
+        CollisionParticles();
+    }
+
+    private void CollisionParticles()
+    {
+        Destroy(Instantiate(collisionParticle.gameObject, this.transform.position, Quaternion.FromToRotation(Vector3.forward, Vector3.up)) as GameObject, 1.5f);
+    }
 }

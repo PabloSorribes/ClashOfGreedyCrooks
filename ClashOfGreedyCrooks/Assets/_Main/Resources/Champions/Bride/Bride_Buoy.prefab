@@ -1648,7 +1648,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1139069026026010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.76, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4504553698424584}
@@ -2180,6 +2180,7 @@ MonoBehaviour:
   damage: 20
   projectileSpeed: 12
   bulletLifeTime: 0.8
+  magSize: 0
   spreadMin: -15
   spreadMax: 15
   blindFolded: 0

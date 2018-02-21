@@ -250,6 +250,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e66cebb80315e344c82635a31c05730c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collisionParticle: {fileID: 198238784327168616, guid: de581428ec28e2247a1edb8a290c6417,
+    type: 2}
+  projectileType: 3
 --- !u!120 &120189875182253706
 LineRenderer:
   m_ObjectHideFlags: 1
