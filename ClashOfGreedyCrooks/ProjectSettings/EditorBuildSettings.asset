@@ -17,3 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/__Scenes/Game Scenes/Arena01.unity
     guid: 4756c5946b6519448815a1d6bb56c78e
+  - enabled: 1
+    path: Assets/__Scenes/Game Scenes/LoadingScreen.unity
+    guid: 0fa6e623bdf4e2b44ba2c24e658c4706

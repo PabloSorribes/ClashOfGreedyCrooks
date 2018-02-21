@@ -105,7 +105,8 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 
 	private void OnArenaState()
 	{
-        sceneToLoad = "Arena01";
+        sceneToLoad = "LoadingScreen";
+        //sceneToLoad = "Arena01";
 	}
 
 	/// <summary>
