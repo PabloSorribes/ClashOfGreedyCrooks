@@ -2191,8 +2191,9 @@ MonoBehaviour:
   name: Buoy
   damage: 20
   projectileSpeed: 12
-  spreadMin: 0
-  spreadMax: 0
+  bulletLifeTime: 0.8
+  spreadMin: -15
+  spreadMax: 15
   blindFolded: 0
   proj: {fileID: 114516239739587234, guid: 86250b48a164e5145895993e04389c18, type: 2}
   particle: {fileID: 198186542613970122, guid: e10829b57aa20ad45a681542886b89dc, type: 2}
@@ -2208,14 +2209,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: TheWizard
-  healthMin: 8
-  healthMax: 10
-  movementMin: 2
-  movementMax: 10
-  damageMin: 1
-  damageMax: 7
-  attackSpeedMin: 8
-  attackSpeedMax: 10
+  healthMin: 3
+  healthMax: 6
+  movementMin: 3
+  movementMax: 6
+  damageMin: 2
+  damageMax: 5
+  attackSpeedMin: 3
+  attackSpeedMax: 6
 --- !u!137 &137050038330551346
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

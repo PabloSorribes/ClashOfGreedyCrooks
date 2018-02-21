@@ -2131,8 +2131,9 @@ MonoBehaviour:
   name: Buoy
   damage: 20
   projectileSpeed: 12
-  spreadMin: 0
-  spreadMax: 0
+  bulletLifeTime: 0.8
+  spreadMin: -15
+  spreadMax: 15
   blindFolded: 0
   proj: {fileID: 114516239739587234, guid: 86250b48a164e5145895993e04389c18, type: 2}
   particle: {fileID: 198186542613970122, guid: e10829b57aa20ad45a681542886b89dc, type: 2}
@@ -2148,14 +2149,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: TheQueen
-  healthMin: 6
-  healthMax: 8
-  movementMin: 3
-  movementMax: 5
-  damageMin: 5
-  damageMax: 10
-  attackSpeedMin: 5
-  attackSpeedMax: 10
+  healthMin: 5
+  healthMax: 7
+  movementMin: 5
+  movementMax: 7
+  damageMin: 2
+  damageMax: 5
+  attackSpeedMin: 3
+  attackSpeedMax: 6
 --- !u!137 &137228154921076796
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

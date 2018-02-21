@@ -2159,14 +2159,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: TheBride
-  healthMin: 9
-  healthMax: 10
-  movementMin: 5
-  movementMax: 8
-  damageMin: 5
-  damageMax: 10
-  attackSpeedMin: 5
-  attackSpeedMax: 8
+  healthMin: 7
+  healthMax: 9
+  movementMin: 7
+  movementMax: 9
+  damageMin: 6
+  damageMax: 8
+  attackSpeedMin: 8
+  attackSpeedMax: 10
 --- !u!114 &114812189553084368
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2180,9 +2180,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Katana
   damage: 20
-  projectileSpeed: 20
-  spreadMin: 0
-  spreadMax: 0
+  projectileSpeed: 30
+  bulletLifeTime: 0.2
+  spreadMin: -15
+  spreadMax: 15
   blindFolded: 0
   proj: {fileID: 114563189090400412, guid: 99c42d12596ea4646b6360eb79f97851, type: 2}
   particle: {fileID: 198763197927530442, guid: be500ba5bb3f1f64baeee58c29f31be7, type: 2}

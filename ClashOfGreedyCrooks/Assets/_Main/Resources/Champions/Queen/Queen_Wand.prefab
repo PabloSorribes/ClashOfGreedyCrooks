@@ -2191,8 +2191,9 @@ MonoBehaviour:
   name: Wand
   damage: 20
   projectileSpeed: 20
-  spreadMin: 0
-  spreadMax: 0
+  bulletLifeTime: 0.5
+  spreadMin: -15
+  spreadMax: 15
   blindFolded: 0
   proj: {fileID: 114599780837969056, guid: d1481c10b76fac141a9316f83e71a34e, type: 2}
   particle: {fileID: 198218391584963194, guid: 8336415eba71b8e42ab8b848d3279878, type: 2}
@@ -2208,14 +2209,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: TheQueen
-  healthMin: 6
-  healthMax: 8
-  movementMin: 3
-  movementMax: 5
-  damageMin: 5
-  damageMax: 10
+  healthMin: 5
+  healthMax: 7
+  movementMin: 5
+  movementMax: 7
+  damageMin: 3
+  damageMax: 6
   attackSpeedMin: 5
-  attackSpeedMax: 10
+  attackSpeedMax: 9
 --- !u!114 &114338259770166084
 MonoBehaviour:
   m_ObjectHideFlags: 1

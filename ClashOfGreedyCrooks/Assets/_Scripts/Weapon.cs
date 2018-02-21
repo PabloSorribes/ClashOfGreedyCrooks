@@ -8,6 +8,8 @@ public class Weapon : MonoBehaviour
 	[HideInInspector] public float damage;
 	public float projectileSpeed;
     public float bulletLifeTime;
+    public int magSize;
+    private int projectilesInMag;
 
 	[Header("This is the min & max spread of projectiles")]
 	[Range(-15, 0)]

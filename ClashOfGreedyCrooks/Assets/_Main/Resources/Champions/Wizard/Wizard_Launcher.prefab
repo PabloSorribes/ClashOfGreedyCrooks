@@ -2177,14 +2177,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: TheWizard
-  healthMin: 8
-  healthMax: 10
-  movementMin: 2
-  movementMax: 10
-  damageMin: 1
-  damageMax: 7
-  attackSpeedMin: 8
-  attackSpeedMax: 10
+  healthMin: 3
+  healthMax: 6
+  movementMin: 3
+  movementMax: 6
+  damageMin: 7
+  damageMax: 10
+  attackSpeedMin: 2
+  attackSpeedMax: 4
 --- !u!114 &114726061089121798
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2198,9 +2198,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: CorgiLauncher
   damage: 20
-  projectileSpeed: 12
-  spreadMin: 0
-  spreadMax: 0
+  projectileSpeed: 20
+  bulletLifeTime: 0.5
+  spreadMin: -15
+  spreadMax: 15
   blindFolded: 0
   proj: {fileID: 114447920984803674, guid: fa3f814ae0275ec4496cc525d51424bb, type: 2}
   particle: {fileID: 198824846911112138, guid: 57d78c564fdb03e498e18a32de98fa39, type: 2}

@@ -2148,9 +2148,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Katana
   damage: 20
-  projectileSpeed: 20
-  spreadMin: 0
-  spreadMax: 0
+  projectileSpeed: 30
+  bulletLifeTime: 0.2
+  spreadMin: -15
+  spreadMax: 15
   blindFolded: 0
   proj: {fileID: 114563189090400412, guid: 99c42d12596ea4646b6360eb79f97851, type: 2}
   particle: {fileID: 198763197927530442, guid: be500ba5bb3f1f64baeee58c29f31be7, type: 2}
@@ -2178,13 +2179,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: TheHoff
-  healthMin: 5
-  healthMax: 8
-  movementMin: 5
-  movementMax: 9
-  damageMin: 4
-  damageMax: 7
-  attackSpeedMin: 5
+  healthMin: 8
+  healthMax: 10
+  movementMin: 8
+  movementMax: 10
+  damageMin: 6
+  damageMax: 8
+  attackSpeedMin: 8
   attackSpeedMax: 10
 --- !u!137 &137232039766014850
 SkinnedMeshRenderer:
