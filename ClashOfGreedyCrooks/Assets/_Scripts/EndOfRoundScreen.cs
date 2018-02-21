@@ -22,14 +22,18 @@ public class EndOfRoundScreen : MonoBehaviour
 			//GameObject tempPlayerScore = Resources.Load("UI/playerScoreHorizontal") as GameObject;
 			playerScoreHorizontal[i] = Instantiate(Resources.Load("UI/playerScoreHorizontal") as GameObject, transform.Find("PlayerScoreBoard").GetChild(0));
 
-			playerScoreHorizontal[i].transform.Find("PlayerColor").transform.GetComponent<Image>().sprite = Resources.Load("UI/Avatars" + connectedPlayers[i].AvatarSymbol) as Sprite; 
-			playerScoreHorizontal[i].transform.Find("PlayerColor").GetChild(0).GetComponent<Image>().sprite = Resources.Load("UI/PlayerColors" + connectedPlayers[i].AvatarColor) as Sprite;
+			Sprite playerColor = Resources.Load<Sprite>("UI/PlayerColors/" + connectedPlayers[i].AvatarColor);
+			Sprite playerAvatar = Resources.Load<Sprite>("UI/Avatars/" + connectedPlayers[i].AvatarSymbol);
+
+			Debug.Log(i + "color: " + playerColor);
+			Debug.Log(i + "avatar: " + playerAvatar);
+
+			playerScoreHorizontal[i].transform.Find("PlayerColor").GetChild(0).GetComponent<Image>().sprite = playerColor;
+			playerScoreHorizontal[i].transform.Find("PlayerColor").transform.GetComponent<Image>().sprite = playerAvatar;
 			playerScoreHorizontal[i].transform.Find("Wins").GetComponent<Text>().text = connectedPlayers[i].NumberOfWins.ToString();
 			playerScoreHorizontal[i].transform.Find("Kills").GetComponent<Text>().text = connectedPlayers[i].TotalKills.ToString();
 			playerScoreHorizontal[i].transform.Find("Damage").GetComponent<Text>().text = connectedPlayers[i].TotalDamage.ToString();
 			playerScoreHorizontal[i].transform.Find("Accuracy").GetComponent<Text>().text = connectedPlayers[i].Accuracy.ToString();
-			//playerScoreHorizontal[i].transform.Find("Accuracy").GetComponent<Text>().text = (connectedPlayers[i].TotalShotsFired / connectedPlayers[i].TotalHits).ToString();
-
 		}
 
 
