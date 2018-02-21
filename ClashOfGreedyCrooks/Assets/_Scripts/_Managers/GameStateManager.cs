@@ -42,15 +42,15 @@ public class GameStateManager : GenericSingleton<GameStateManager>
     {
         if (gameState == GameState.Picking)
         {
-            StartCountdown(3, "Start picking!");
-        }
+			StartCountdown(0);
+		}
         if (gameState == GameState.Arena)
         {
-            StartCountdown(3, "Fight!");
+            StartCountdown(3);
         }
     }
 
-    private void StartCountdown(int time, string endText)
+    private void StartCountdown(int time)
     {
         GameObject countdownPrefab = Resources.Load("Countdown") as GameObject;
         GameObject newCountdown = Instantiate(countdownPrefab);

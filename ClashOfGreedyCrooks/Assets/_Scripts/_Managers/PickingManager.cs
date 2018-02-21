@@ -159,9 +159,13 @@ public class PickingManager : MonoBehaviour
         readyObj.AddComponent<SpriteRenderer>();
         readyObj.GetComponent<SpriteRenderer>().sortingOrder = 10;
         readyObj.GetComponent<SpriteRenderer>().sprite = pickingResources.readySprite;
-        Vector3 pos = new Vector3(0f, 10f, 0f);
+
+		RuntimeAnimatorController animController = Resources.Load("Animations/UI_Countdown_Controller") as RuntimeAnimatorController;
+		readyObj.AddComponent<Animator>().runtimeAnimatorController = animController;
+		readyObj.GetComponent<Animator>().SetTrigger("EndAllready");
+
+		Vector3 pos = new Vector3(0f, 10f, 0f);
         readyObj.transform.position = pos;
-        readyObj.transform.localScale = readyObj.transform.localScale * .6f;
         Invoke("EndOfPhase", timeToEnterArena);
     }
 

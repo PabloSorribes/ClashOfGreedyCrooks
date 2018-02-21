@@ -30,17 +30,23 @@ public class Countdown : MonoBehaviour {
     {
         if (time == 0)
         {
-			AudioManager.GetInstance.PlayOneShot("event:/Arena/countDown", "end", 1f);
 			CancelInvoke();
             if (GameStateManager.GetInstance.GetState() == GameState.Picking)
+			{
                 countdownImageHolder.sprite = images[4];
-            else if (GameStateManager.GetInstance.GetState() == GameState.Arena)
+				Invoke("EndCountdown", 1.5f);
+				countdownImageHolder.GetComponent<Animator>().SetTrigger("EndPicking");
+			}
+			else if (GameStateManager.GetInstance.GetState() == GameState.Arena)
+			{
                 countdownImageHolder.sprite = images[3];
+				AudioManager.GetInstance.PlayOneShot("event:/Arena/countDown", "end", 1f);
+				Invoke("EndCountdown", 1f);
+				countdownImageHolder.GetComponent<Animator>().SetTrigger("EndArena");
+			}
 
 			countdownImageHolder.SetNativeSize();
-            countdownImageHolder.GetComponent<Animator>().SetTrigger("End");
-            Invoke("EndCountdown", 1f);
-            InputManager.GetInstance.freezeInput = false;
+            
             return;
         }
 
@@ -56,6 +62,8 @@ public class Countdown : MonoBehaviour {
     {
 		if (GameStateManager.GetInstance.GetState() == GameState.Arena)
 			TimeManager.GetInstance.EnableTimer();
+
+		InputManager.GetInstance.freezeInput = false;
 
 		Destroy(gameObject);
     }
