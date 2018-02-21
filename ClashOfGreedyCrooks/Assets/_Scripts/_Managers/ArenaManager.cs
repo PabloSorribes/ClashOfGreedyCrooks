@@ -112,7 +112,8 @@ public class ArenaManager : MonoBehaviour
 		if (!gameHasBeenWon)
 			EndOfRoundScreenCanvas = Instantiate(Resources.Load("UI/EndOfRoundScreenCanvas") as GameObject);
 		else
-			//EndOfRoundScreenCanvas = Instantiate(Resources.Load("UI/WinScreenCanvas") as GameObject);
+			Debug.Log("PLAYER HAS WON");
+		//EndOfRoundScreenCanvas = Instantiate(Resources.Load("UI/WinScreenCanvas") as GameObject);
 
 		EndOfRoundScreenCanvas.GetComponent<EndOfRoundScreen>().playerThatWon = lastPlayerAlive;
 
@@ -121,6 +122,8 @@ public class ArenaManager : MonoBehaviour
 		//TODO: Rewrite to handle this better @fippan
 		DeathCircle.GetInstance.roundIsOver = true;
 		DeathCircle.GetInstance.deathZoneDamage = 0;
+
+		DestroyLastPlayer();
 	}
 
 	public void NextRound()
@@ -134,7 +137,7 @@ public class ArenaManager : MonoBehaviour
 
 	public void ReturnToPicking()
 	{
-		DestroyLastPlayer();
+		//DestroyLastPlayer();
 
 		PlayerManager.NextPickingPhase();
 		GameStateManager.GetInstance.SetState(GameState.Picking);
@@ -142,7 +145,7 @@ public class ArenaManager : MonoBehaviour
 
 	public void ReturnToMainMenu()
 	{
-		DestroyLastPlayer();
+		//DestroyLastPlayer();
 
 		PlayerManager.Reset();
 		GameStateManager.GetInstance.SetState(GameState.MainMenu);

@@ -13,15 +13,16 @@ public class PlayerHealth : MonoBehaviour
 	public float currentHealth;
 
 	[Header("DEATH CIRCLE VALUES")]
-	public float hurtCooldown = 2;
+	private float hurtCooldown = 1.2f;
 	private float timer;
-	public bool insideDeathCircle;
+	public bool insideDeathCircle = true;
 
 	private string champName;
 	private float parameterFmod;
 
 	void Start()
 	{
+		insideDeathCircle = true;
 		rb = GetComponent<Rigidbody>();
 
 		currentHealth = maxHealth;

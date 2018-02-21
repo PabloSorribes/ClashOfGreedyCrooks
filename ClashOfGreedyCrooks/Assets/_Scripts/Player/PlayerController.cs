@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 	public float speed = 5f;
-	private float aimSpeed = 0.3f;
+	private float aimSpeed = 0.5f;
 	private float inputAngle = 0f;
 	private float viewAngle = 0f;
 
@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
 	private void MovePlayer()
 	{
 		movement = directionalInputLeftStick * moveSpeed;
-		rb.velocity = Vector3.Lerp(rb.velocity, movement, 0.7f);
+		rb.velocity = Vector3.Lerp(rb.velocity, movement, 0.3f);
 
 		if (directionalInputLeftStick != Vector3.zero && !cooldown)
 		{
@@ -72,9 +72,9 @@ public class PlayerController : MonoBehaviour
 			//Make the aiming more accurate(slower) on smaller inputs
 			float aimSpeedMod = 1f;
 			if (Mathf.Abs(Mathf.DeltaAngle(viewAngle, inputAngle)) < 10f)
-				aimSpeedMod = 0.5f;
-			else if (Mathf.Abs(Mathf.DeltaAngle(viewAngle, inputAngle)) < 25f)
-				aimSpeedMod = 0.75f;
+				aimSpeedMod = 0.25f;
+			//else if (Mathf.Abs(Mathf.DeltaAngle(viewAngle, inputAngle)) < 25f)
+			//	aimSpeedMod = 0.5f;
 
 			//Smoothly apply the input rotation to the view rotation and rotate the player
 			viewAngle = Mathf.LerpAngle(viewAngle, inputAngle, aimSpeed * aimSpeedMod);
@@ -87,8 +87,8 @@ public class PlayerController : MonoBehaviour
 	{
 		if (!cooldown)
 		{
-			//Make player really slow when shooting
-			//moveSpeed = 0.25f;
+			//Make player slow when shooting
+			moveSpeed = moveSpeed * 0.65f;
 			//change shoot animation speed depending on attackspeed
 			animator.speed = 1 / attackSpeed;
 

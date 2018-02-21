@@ -143,13 +143,16 @@ public class InputManager : GenericSingleton<InputManager>
 
 
 					if (prevState[i].Buttons.A == ButtonState.Released && state[i].Buttons.A == ButtonState.Pressed)
-						players[i].Shoot();
+						if (players[i] != null)
+							players[i].Shoot();
 
 					if (state[i].Triggers.Right >= 0.1f)
-						players[i].Shoot();
+						if (players[i] != null)
+							players[i].Shoot();
 
 					if (prevState[i].Buttons.RightShoulder == ButtonState.Released && state[i].Buttons.RightShoulder == ButtonState.Pressed)
-						players[i].Shoot();
+						if (players[i] != null)
+							players[i].Shoot();
 
 
 					if (prevState[i].Buttons.Start == ButtonState.Released && state[i].Buttons.Start == ButtonState.Pressed)
