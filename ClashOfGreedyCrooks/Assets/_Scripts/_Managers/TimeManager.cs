@@ -56,7 +56,7 @@ public class TimeManager : MonoBehaviour
 		if (!timeEnded && countdownFinished)
 		{
 			trackTime -= Time.deltaTime;
-			timer.text = "" + Mathf.Floor(trackTime);
+			timer.text = ""/* + Mathf.Floor(trackTime)*/;
             circleTimer.fillAmount = Mathf.Abs((trackTime / startTime) - 1f);
 		}
 
