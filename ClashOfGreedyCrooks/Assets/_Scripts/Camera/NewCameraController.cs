@@ -17,8 +17,10 @@ public class NewCameraController : MonoBehaviour
 	private Vector3 velocity;
 	private Camera cam;
 
+    private Vector3 victoryPos;
+    private Vector3 victoryRot;
+    private bool victoryBool;
     
-
 	void Start()
 	{
 		cam = GetComponent<Camera>();
@@ -31,6 +33,14 @@ public class NewCameraController : MonoBehaviour
 
 	private void LateUpdate()
 	{
+        if (victoryBool)
+        {
+            transform.position = Vector3.Lerp(transform.position, victoryPos, 0.01f);
+            transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, victoryRot, 0.01f);
+            return;
+        }
+
+
 		if (targets.Count == 0)
 			return;
 
@@ -103,5 +113,16 @@ public class NewCameraController : MonoBehaviour
 
 		}
 	}
+
+    public void OnVictory(Transform winner)
+    {
+        winner.GetComponent<PlayerController>().victorious = true;
+        winner.GetComponent<PlayerController>().animator.SetBool("taunt", true);
+        winner.position = Vector3.zero;
+        winner.eulerAngles = new Vector3(0f, 180f, 0f);
+        victoryPos = new Vector3(0f, 1f, -5f);
+        victoryRot = Vector3.zero;
+        victoryBool = true;
+    }
 
 }

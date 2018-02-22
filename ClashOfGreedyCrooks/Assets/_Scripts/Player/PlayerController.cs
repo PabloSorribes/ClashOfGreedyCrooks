@@ -17,10 +17,12 @@ public class PlayerController : MonoBehaviour
 	private Vector3 directionalInputLeftStick;
 	private Vector3 directionalInputRightStick;
 
-	private Weapon weapon;
+    public bool victorious;
+
+    private Weapon weapon;
 	private Rigidbody rb;
 
-	private Animator animator;
+	public Animator animator;
 	private AnimatorOverrideController animatorOverride;
 
 
@@ -41,6 +43,8 @@ public class PlayerController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+        if (victorious)
+            return;
 		MovePlayer();
 		AimPlayer();
 	}
