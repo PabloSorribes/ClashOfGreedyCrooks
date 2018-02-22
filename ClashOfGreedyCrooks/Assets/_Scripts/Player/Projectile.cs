@@ -79,6 +79,7 @@ public class Projectile : MonoBehaviour
 		}
 	}
 
+
 	private void OnDestroy()
 	{
         CollisionParticles();
@@ -97,10 +98,36 @@ public class Projectile : MonoBehaviour
 			default:
 				break;
 		}
-                
+
+		AudioManager.GetInstance.PlayOneShot3D("event:/Arena/projectileCollision", transform.position, "champ", GetFmodParameter());
 	}
 
-    private void CollisionParticles()
+	private float GetFmodParameter()
+	{
+		float parameter = 0;
+
+		switch (projectileType)
+		{
+			case ProjectileType.buoy:
+				parameter = 0;
+				break;
+			case ProjectileType.katana:
+				parameter = 1;
+				break;
+			case ProjectileType.launcher:
+				parameter = 2;
+				break;
+			case ProjectileType.wand:
+				parameter = 3;
+				break;
+			default:
+				break;
+		}
+		return parameter;
+	}
+
+
+	private void CollisionParticles()
 	{
 		Destroy(Instantiate(collisionParticle.gameObject, this.transform.position, Quaternion.FromToRotation(Vector3.forward, Vector3.up)) as GameObject, 1.5f);
 	}
