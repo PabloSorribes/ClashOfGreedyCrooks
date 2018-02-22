@@ -22,6 +22,21 @@ public class Projectile : MonoBehaviour
 	{
 		transform.Translate(Vector3.forward * Time.deltaTime * projectileSpeed);
 
+		switch (projectileType)
+		{
+			case ProjectileType.buoy:
+				//transform.eulerAngles += Vector3.up;
+				break;
+			case ProjectileType.katana:
+				break;
+			case ProjectileType.launcher:
+				break;
+			case ProjectileType.wand:
+				break;
+			default:
+				break;
+		}
+
 		Destroy(gameObject, bulletLifeTime);
 	}
 

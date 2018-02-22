@@ -62,7 +62,7 @@ public class PickingResources : MonoBehaviour {
         championPrefabs = new GameObject[4];
         for (int i = 0; i < arrayPos.Length; i++)
         {
-            arrayPos[i] = i;
+            arrayPos[i] = 0;
         }
         Shuffle(arrayPos);
         championPrefabs[0] = queen[arrayPos[0]];
