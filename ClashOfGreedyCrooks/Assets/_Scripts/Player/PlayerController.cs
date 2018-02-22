@@ -44,7 +44,10 @@ public class PlayerController : MonoBehaviour
 	private void FixedUpdate()
 	{
         if (victorious)
+        {
+            speed = 0;
             return;
+        }
 		MovePlayer();
 		AimPlayer();
 	}
