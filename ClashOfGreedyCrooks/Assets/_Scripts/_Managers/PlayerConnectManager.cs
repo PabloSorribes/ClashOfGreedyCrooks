@@ -150,7 +150,10 @@ public class PlayerConnectManager : MonoBehaviour
     public void RemovePlayer(int gamepadIndex)
     {
         if (noConnections)
+		{
+			AudioManager.GetInstance.PlayOneShot("event:/MainMenu/menuDecline");
             GameStateManager.GetInstance.SetState(GameState.MainMenu);
+		}
 
         for (int i = 0; i < PlayerManager.players.Length; i++)
             if (PlayerManager.players[i].Gamepad == gamepadIndex)
