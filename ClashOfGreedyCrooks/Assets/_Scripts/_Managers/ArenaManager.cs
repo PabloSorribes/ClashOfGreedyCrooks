@@ -64,7 +64,7 @@ public class ArenaManager : MonoBehaviour
 
 	public void HandlePlayerDeath(PlayerInfo playerThatDied)
 	{
-		//AudioManager.GetInstance.HandleWin();
+		AudioManager.GetInstance.HandlePlayerDeath();
 
 		TimeManager.GetInstance.StartFreezeFrame(1f);
 		CameraShake.GetInstance.DoShake();
@@ -135,6 +135,8 @@ public class ArenaManager : MonoBehaviour
 		//TODO: Rewrite to handle this better @fippan
 		DeathCircle.GetInstance.roundIsOver = true;
 		DeathCircle.GetInstance.deathZoneDamage = 0;
+
+		AudioManager.GetInstance.OnWin();
 
 		DestroyLastPlayer();
 	}
