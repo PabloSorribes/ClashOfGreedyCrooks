@@ -216,53 +216,6 @@ MonoBehaviour:
   ps: {fileID: 0}
   psc: {fileID: 0}
   roundIsOver: 0
---- !u!1001 &119639686
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4159102020284884, guid: de581428ec28e2247a1edb8a290c6417, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -10.81
-      objectReference: {fileID: 0}
-    - target: {fileID: 4159102020284884, guid: de581428ec28e2247a1edb8a290c6417, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 1.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 4159102020284884, guid: de581428ec28e2247a1edb8a290c6417, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 3.59
-      objectReference: {fileID: 0}
-    - target: {fileID: 4159102020284884, guid: de581428ec28e2247a1edb8a290c6417, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4159102020284884, guid: de581428ec28e2247a1edb8a290c6417, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4159102020284884, guid: de581428ec28e2247a1edb8a290c6417, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4159102020284884, guid: de581428ec28e2247a1edb8a290c6417, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4159102020284884, guid: de581428ec28e2247a1edb8a290c6417, type: 2}
-      propertyPath: m_RootOrder
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 198238784327168616, guid: de581428ec28e2247a1edb8a290c6417,
-        type: 2}
-      propertyPath: CollisionModule.plane0
-      value: 
-      objectReference: {fileID: 1355913362}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: de581428ec28e2247a1edb8a290c6417, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &211906629
 GameObject:
   m_ObjectHideFlags: 0
@@ -888,6 +841,48 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1b4a0325b3f400748b32570aa85cd16d, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &1567745825
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4411887725674126, guid: ec83ab2cad333434497e034dbc4d6b30, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -5.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 4411887725674126, guid: ec83ab2cad333434497e034dbc4d6b30, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 3.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 4411887725674126, guid: ec83ab2cad333434497e034dbc4d6b30, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 14.827034
+      objectReference: {fileID: 0}
+    - target: {fileID: 4411887725674126, guid: ec83ab2cad333434497e034dbc4d6b30, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4411887725674126, guid: ec83ab2cad333434497e034dbc4d6b30, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4411887725674126, guid: ec83ab2cad333434497e034dbc4d6b30, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4411887725674126, guid: ec83ab2cad333434497e034dbc4d6b30, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4411887725674126, guid: ec83ab2cad333434497e034dbc4d6b30, type: 2}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: ec83ab2cad333434497e034dbc4d6b30, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1938084262
 GameObject:

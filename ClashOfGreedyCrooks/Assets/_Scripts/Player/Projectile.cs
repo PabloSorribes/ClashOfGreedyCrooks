@@ -52,34 +52,35 @@ public class Projectile : MonoBehaviour
 
 			other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage, player.GetComponent<PlayerInfo>());
 
-			Destroy(gameObject);
+            Destroy(gameObject);
 		}
 	}
 
 	private void OnDestroy()
 	{
-		switch (projectileType)
+        CollisionParticles();
+
+        switch (projectileType)
 		{
 			case ProjectileType.buoy:
 				break;
 			case ProjectileType.katana:
 				break;
 			case ProjectileType.launcher:
-				//AoE explsopssss
-				//Instantiate a box/sphere collider
+                //AoE explsopssss
 				break;
 			case ProjectileType.wand:
 				break;
 			default:
 				break;
 		}
-
-		//TODO: Removed for trailer-purposes
-		//CollisionParticles();
+                
 	}
 
-	private void CollisionParticles()
+    private void CollisionParticles()
 	{
 		Destroy(Instantiate(collisionParticle.gameObject, this.transform.position, Quaternion.FromToRotation(Vector3.forward, Vector3.up)) as GameObject, 1.5f);
 	}
+
+    
 }
