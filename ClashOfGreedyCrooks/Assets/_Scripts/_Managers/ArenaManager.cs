@@ -113,7 +113,7 @@ public class ArenaManager : MonoBehaviour
 
 		for (int i = 0; i < connectedPlayers.Length; i++)
 		{
-			if (connectedPlayers[i].numberOfWins >= 3)
+			if (connectedPlayers[i].numberOfWins >= 2)
 			{
 				gameHasBeenWon = true;
 				//TODO: Someone has Won the whole game
@@ -125,7 +125,7 @@ public class ArenaManager : MonoBehaviour
 		else
 		{
 			Debug.Log("PLAYER HAS WON");
-			EndOfRoundScreenCanvas = Instantiate(Resources.Load("UI/WinScreenCanvas") as GameObject);
+			EndOfRoundScreenCanvas = Instantiate(Resources.Load("UI/EndOfRoundScreenCanvas") as GameObject);
 		}
 
 		EndOfRoundScreenCanvas.GetComponent<EndOfRoundScreen>().playerThatWon = lastPlayerAlive;
@@ -170,7 +170,7 @@ public class ArenaManager : MonoBehaviour
 	{
 		DestroyLastPlayer();
 
-		PlayerManager.Reset();
+		//PlayerManager.Reset();
 		GameStateManager.GetInstance.SetState(GameState.MainMenu);
 	}
 

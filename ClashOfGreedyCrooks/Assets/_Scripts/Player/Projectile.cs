@@ -13,10 +13,10 @@ public class Projectile : MonoBehaviour
 
 	private GameObject player;
 
-    public ParticleSystem collisionParticle;
+	public ParticleSystem collisionParticle;
 
-    public enum ProjectileType { buoy, katana, launcher, wand }
-    public ProjectileType projectileType;
+	public enum ProjectileType { buoy, katana, launcher, wand }
+	public ProjectileType projectileType;
 
 	private void Update()
 	{
@@ -30,7 +30,7 @@ public class Projectile : MonoBehaviour
 		this.damage = damage;
 		this.projectileSpeed = projectileSpeed;
 		this.player = player;
-        this.bulletLifeTime = bulletLifeTime;
+		this.bulletLifeTime = bulletLifeTime;
 
 		player.GetComponent<PlayerInfo>().totalShotsFired++;
 	}
@@ -44,8 +44,11 @@ public class Projectile : MonoBehaviour
 
 		if (other.gameObject.tag == "Player" && other.gameObject != player)
 		{
-			player.GetComponent<PlayerInfo>().totalHits++;
-			player.GetComponent<PlayerInfo>().totalDamage += damage;
+			if (player.GetComponent<PlayerInfo>() != null)
+			{
+				player.GetComponent<PlayerInfo>().totalHits++;
+				player.GetComponent<PlayerInfo>().totalDamage += damage;
+			}
 
 			other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage, player.GetComponent<PlayerInfo>());
 
@@ -53,30 +56,30 @@ public class Projectile : MonoBehaviour
 		}
 	}
 
-    private void OnDestroy()
-    {
-        switch (projectileType)
-        {
-            case ProjectileType.buoy:
-                break;
-            case ProjectileType.katana:
-                break;
-            case ProjectileType.launcher:
-                //AoE explsopssss
-                //Instantiate a box/sphere collider
-                break;
-            case ProjectileType.wand:
-                break;
-            default:
-                break;
-        }
+	private void OnDestroy()
+	{
+		switch (projectileType)
+		{
+			case ProjectileType.buoy:
+				break;
+			case ProjectileType.katana:
+				break;
+			case ProjectileType.launcher:
+				//AoE explsopssss
+				//Instantiate a box/sphere collider
+				break;
+			case ProjectileType.wand:
+				break;
+			default:
+				break;
+		}
 
 		//TODO: Removed for trailer-purposes
 		//CollisionParticles();
 	}
 
-    private void CollisionParticles()
-    {
-        Destroy(Instantiate(collisionParticle.gameObject, this.transform.position, Quaternion.FromToRotation(Vector3.forward, Vector3.up)) as GameObject, 1.5f);
-    }
+	private void CollisionParticles()
+	{
+		Destroy(Instantiate(collisionParticle.gameObject, this.transform.position, Quaternion.FromToRotation(Vector3.forward, Vector3.up)) as GameObject, 1.5f);
+	}
 }

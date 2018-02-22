@@ -50,8 +50,8 @@ public class PickingResources : MonoBehaviour {
         buttons = Resources.LoadAll("UI/XboxButtons", typeof(Sprite)).Cast<Sprite>().ToArray();
         backgroundFrame = Resources.Load<Sprite>("UI/Frames/Cardslot_frame");
         playerPrefab = Resources.Load("PlayerPrefab") as GameObject;
-        avatarSymbols = Resources.LoadAll("UI/Avatars", typeof(Sprite)).Cast<Sprite>().ToArray();
-        avatarColors = Resources.LoadAll("UI/PlayerColors", typeof(Sprite)).Cast<Sprite>().ToArray();
+        //avatarSymbols = Resources.LoadAll("UI/Avatars", typeof(Sprite)).Cast<Sprite>().ToArray();
+        //avatarColors = Resources.LoadAll("UI/PlayerColors", typeof(Sprite)).Cast<Sprite>().ToArray();
         penaltySprites = Resources.LoadAll("UI/Penalties", typeof(Sprite)).Cast<Sprite>().ToArray();
         readySprite = Resources.Load<Sprite>("UI/Picking/countdown_allready");
         LoadChampions();
@@ -149,15 +149,18 @@ public class PickingResources : MonoBehaviour {
             avatarColor.GetComponent<SpriteRenderer>().sortingOrder = -2;
             avatarColor.transform.position = pos;
             avatarColor.transform.localScale = avatarColor.transform.localScale * 2.2f;
-            avatarColor.GetComponent<SpriteRenderer>().sprite = avatarColors[i];
+			//avatarColor.GetComponent<SpriteRenderer>().sprite = avatarColors[i];
+			avatarColor.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("UI/PlayerColors/" + PlayerManager.connectedPlayers[i].AvatarColor);
 
-            GameObject avatarSymbol = new GameObject();
+
+			GameObject avatarSymbol = new GameObject();
             avatarSymbol.AddComponent<SpriteRenderer>();
             avatarSymbol.GetComponent<SpriteRenderer>().sortingOrder = -1;
             avatarSymbol.transform.position = pos;
-            avatarSymbol.GetComponent<SpriteRenderer>().sprite = avatarSymbols[i];
-        }
-    }
+			//avatarSymbol.GetComponent<SpriteRenderer>().sprite = avatarSymbols[i];
+			avatarSymbol.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("UI/Avatars/" + PlayerManager.connectedPlayers[i].AvatarSymbol);
+		}
+	}
 
     private void InstantiateCards()
     {

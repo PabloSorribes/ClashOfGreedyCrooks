@@ -80,7 +80,6 @@ public static class PlayerManager
 		for (int i = 0; i < connectedPlayers.Length; i++)
 		{
 			connectedPlayers[i].HasChampion = false;
-			connectedPlayers[i].ChoosingPenalty = false;
 		}
 	}
 

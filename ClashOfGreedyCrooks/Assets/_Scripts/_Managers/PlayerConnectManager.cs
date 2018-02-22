@@ -51,8 +51,8 @@ public class PlayerConnectManager : MonoBehaviour
 
     private void LoadResources()
     {
-        avatarColors = Resources.LoadAll("UI/Avatars", typeof(Sprite)).Cast<Sprite>().ToArray();
-        avatarSymbols = Resources.LoadAll("UI/PlayerColors", typeof(Sprite)).Cast<Sprite>().ToArray();
+        avatarColors = Resources.LoadAll("UI/PlayerColors", typeof(Sprite)).Cast<Sprite>().ToArray();
+        avatarSymbols = Resources.LoadAll("UI/Avatars", typeof(Sprite)).Cast<Sprite>().ToArray();
     }
 
 	private void InitializeAudio() 
@@ -138,6 +138,7 @@ public class PlayerConnectManager : MonoBehaviour
         PlayerManager.players[playerIndex].Player = playerIndex;
         PlayerManager.players[playerIndex].Gamepad = gamepadIndex;
         PlayerManager.players[playerIndex].AvatarSymbol = playerSlots[playerIndex].Find("Symbol").GetComponent<Image>().sprite.name;
+		PlayerManager.players[playerIndex].AvatarColor = avatarColors[playerIndex].name;
 
 		a_connectController.Play();
     }

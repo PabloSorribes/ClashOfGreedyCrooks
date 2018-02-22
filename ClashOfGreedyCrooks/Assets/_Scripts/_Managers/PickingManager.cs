@@ -77,14 +77,14 @@ public class PickingManager : MonoBehaviour
 			targetChampion.PlayerIndex = playerIndex;
 			PlayerManager.connectedPlayers[playerIndex].HasChampion = true;
             CardComponent cc = card.GetComponent<CardComponent>();
-            cc.avatarColor.sprite = pickingResources.avatarColors[playerIndex];
-			PlayerManager.connectedPlayers[playerIndex].AvatarColor = cc.avatarColor.sprite.name;
+            cc.avatarColor.sprite = Resources.Load<Sprite>("UI/PlayerColors/" + PlayerManager.connectedPlayers[playerIndex].AvatarColor);
+			//PlayerManager.connectedPlayers[playerIndex].AvatarColor = cc.avatarColor.sprite.name;
 
 
 			//for (int i = 0; i < pickingResources.avatarSymbols.Length; i++)
 			//{
-				//if (pickingResources.avatarSymbols[i].name == PlayerManager.connectedPlayers[playerIndex].AvatarSymbol)
-					card.GetComponent<CardComponent>().avatarSymbol.sprite = pickingResources.avatarSymbols[playerIndex];
+			//if (pickingResources.avatarSymbols[i].name == PlayerManager.connectedPlayers[playerIndex].AvatarSymbol)
+			card.GetComponent<CardComponent>().avatarSymbol.sprite = Resources.Load<Sprite>("UI/Avatars/" + PlayerManager.connectedPlayers[playerIndex].AvatarSymbol);
 			//}
 			a_pickChamp.Play();
 		}
@@ -101,14 +101,14 @@ public class PickingManager : MonoBehaviour
             PlayerManager.connectedPlayers[playerIndex].HasChampion = true;
 			PlayerManager.connectedPlayers[targetChampion.LastPlayerIndex].HasChampion = false;
             CardComponent cc = card.GetComponent<CardComponent>();
-            cc.avatarColor.sprite = pickingResources.avatarColors[playerIndex];
-            //for (int i = 0; i < pickingResources.avatarSymbols.Length; i++)
-            //{
-            //if (pickingResources.avatarSymbols[i].name == PlayerManager.connectedPlayers[playerIndex].AvatarSymbol)
-            card.GetComponent<CardComponent>().avatarSymbol.sprite = pickingResources.avatarSymbols[playerIndex];
-            //}
+            cc.avatarColor.sprite = Resources.Load<Sprite>("UI/PlayerColors/" + PlayerManager.connectedPlayers[playerIndex].AvatarColor);
+			//for (int i = 0; i < pickingResources.avatarSymbols.Length; i++)
+			//{
+			//if (pickingResources.avatarSymbols[i].name == PlayerManager.connectedPlayers[playerIndex].AvatarSymbol)
+			card.GetComponent<CardComponent>().avatarSymbol.sprite = Resources.Load<Sprite>("UI/Avatars/" + PlayerManager.connectedPlayers[playerIndex].AvatarSymbol);
+			//}
 
-            a_pickPenalty.Play();
+			a_pickPenalty.Play();
 			a_pickChamp.Play();
 		}
 
@@ -219,11 +219,11 @@ public class PickingManager : MonoBehaviour
         //Player stats
         Transform healthBarAvatar = newPlayer.transform.Find("HealthBar/Slider/ColorHolder");
         healthBarAvatar.Find("PlayerColor").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/PlayerColors/" + PlayerManager.connectedPlayers[playerIndex].AvatarColor);
-        healthBarAvatar.Find("PlayerIcon").GetComponent<Image>().sprite = pickingResources.avatarSymbols[playerIndex]; 
-        newPlayer.GetComponent<PlayerHealth>().SetStartHealth(championScript.Health * 10);
-		newPlayer.GetComponentInChildren<Weapon>().damage = championScript.Damage + 5f;
-		newPlayer.GetComponent<PlayerController>().attackSpeed = (1f / championScript.AttackSpeed) * 2f;
-        newPlayer.GetComponent<PlayerController>().speed = (championScript.Movement * 0.5f) + 3f;
+        healthBarAvatar.Find("PlayerIcon").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Avatars/" + PlayerManager.connectedPlayers[playerIndex].AvatarSymbol);
+		newPlayer.GetComponent<PlayerHealth>().SetStartHealth(championScript.Health * 10 + 70);
+		newPlayer.GetComponentInChildren<Weapon>().damage = championScript.Damage * 0.8f + 8f;
+		newPlayer.GetComponent<PlayerController>().attackSpeed = (1f / championScript.AttackSpeed) + 0.2f;
+        newPlayer.GetComponent<PlayerController>().speed = (championScript.Movement * 0.35f) + 3f;
 
         //Bildfold
         if (champion.GetComponent<Penalty>().specialPenalties[0])
@@ -235,7 +235,7 @@ public class PickingManager : MonoBehaviour
 
         //Fat
         if (champion.GetComponent<Penalty>().specialPenalties[2])
-            newPlayer.transform.localScale = newPlayer.transform.localScale * 1.5f;
+            champion.transform.localScale = newPlayer.transform.localScale * 1.5f;
         
         newPlayer.name = "Player " + playerIndex;
 		PlayerManager.spawnedPlayers[playerIndex] = newPlayer;
