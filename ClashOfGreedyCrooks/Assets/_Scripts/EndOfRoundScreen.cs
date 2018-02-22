@@ -48,10 +48,10 @@ public class EndOfRoundScreen : MonoBehaviour
 			playerScoreHorizontal[i].transform.Find("Player").Find("PlayerAvatar").transform.GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Avatars/" + connectedPlayers[i].AvatarSymbol);
 			playerScoreHorizontal[i].transform.Find("Wins").GetComponent<Text>().text = connectedPlayers[i].numberOfWins.ToString();
 			playerScoreHorizontal[i].transform.Find("Kills").GetComponent<Text>().text = connectedPlayers[i].totalKills.ToString();
-			playerScoreHorizontal[i].transform.Find("Damage").GetComponent<Text>().text = connectedPlayers[i].totalDamage.ToString();
+			playerScoreHorizontal[i].transform.Find("Damage").GetComponent<Text>().text = Mathf.Floor(connectedPlayers[i].totalDamage).ToString();
 			//playerScoreHorizontal[i].transform.Find("Accuracy").GetComponent<Text>().text = connectedPlayers[i].Accuracy + "%";
 			//playerScoreHorizontal[i].transform.Find("Accuracy").GetComponent<Text>().text = ((connectedPlayers[i].TotalHits / connectedPlayers[i].TotalShotsFired) * 100f) + "%";
-			playerScoreHorizontal[i].transform.Find("Accuracy").GetComponent<Text>().text = accuracy + " %";
+			playerScoreHorizontal[i].transform.Find("Accuracy").GetComponent<Text>().text = Mathf.Floor(accuracy) + " %";
 
 			if (connectedPlayers[i].Player == winnerPlayerIndex)
 			{

@@ -116,6 +116,7 @@ public class NewCameraController : MonoBehaviour
 
     public void OnVictory(Transform winner)
     {
+        winner.Find("HealthBar").gameObject.SetActive(false);
         winner.GetComponent<PlayerController>().victorious = true;
         winner.GetComponent<PlayerController>().animator.SetBool("taunt", true);
         winner.position = Vector3.zero;

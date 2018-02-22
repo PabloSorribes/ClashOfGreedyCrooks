@@ -116,17 +116,15 @@ public class ArenaManager : MonoBehaviour
 
 
 		if (!gameHasBeenWon)
-			EndOfRoundScreenCanvas = Instantiate(Resources.Load("UI/EndOfRoundScreenCanvas") as GameObject);
+        {
+            GameObject.Find("CameraHolder").transform.GetChild(0).GetComponent<NewCameraController>().OnVictory(lastPlayerAlive.transform);
+            StartCoroutine(ShowEndScreen(lastPlayerAlive, lastPlayerAliveInfo));
+        }
 		else
-			EndOfRoundScreenCanvas = Instantiate(Resources.Load("UI/EndOfRoundScreenCanvas") as GameObject);
-
-
-
-		EndOfRoundScreenCanvas.GetComponent<EndOfRoundScreen>().SetRoundWinner(lastPlayerAliveInfo.AvatarColor, lastPlayerAliveInfo.AvatarSymbol,
-			lastPlayerAlive.GetComponentInChildren<Champion>().name, lastPlayerAliveInfo.Player);
-
-
-		roundHasEnded = true;
+        {
+            GameObject.Find("CameraHolder").transform.GetChild(0).GetComponent<NewCameraController>().OnVictory(lastPlayerAlive.transform);
+            StartCoroutine(ShowEndScreen(lastPlayerAlive, lastPlayerAliveInfo));
+        }
 
 		//TODO: Rewrite to handle this better @fippan
 		DeathCircle.GetInstance.roundIsOver = true;
@@ -134,11 +132,27 @@ public class ArenaManager : MonoBehaviour
 
 		AudioManager.GetInstance.OnWin();
 
-		DestroyLastPlayer();
 	}
+
+    IEnumerator ShowEndScreen(GameObject lastPlayerAlive, PlayerInfo lastPlayerAliveInfo)
+    {
+        yield return new WaitForSeconds(3f);
+
+        if (!gameHasBeenWon)
+        {
+            EndOfRoundScreenCanvas = Instantiate(Resources.Load("UI/EndOfRoundScreenCanvas") as GameObject);
+            EndOfRoundScreenCanvas.GetComponent<EndOfRoundScreen>().SetRoundWinner(lastPlayerAliveInfo.AvatarColor, lastPlayerAliveInfo.AvatarSymbol,
+			    lastPlayerAlive.GetComponentInChildren<Champion>().name, lastPlayerAliveInfo.Player);
+        }
+        else
+            EndOfRoundScreenCanvas = Instantiate(Resources.Load("UI/EndOfGame") as GameObject);
+        
+		roundHasEnded = true;
+    }
 
 	public void NextRound()
 	{
+		DestroyLastPlayer();
 		if (!hasTriggered)
 		{
 			if (!gameHasBeenWon)
