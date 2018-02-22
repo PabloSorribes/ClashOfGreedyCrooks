@@ -237,7 +237,10 @@ public class PickingManager : MonoBehaviour
         if (champion.GetComponent<Penalty>().specialPenalties[2])
             champion.transform.localScale = newPlayer.transform.localScale * 1.5f;
         
-        newPlayer.name = "Player " + playerIndex;
+		newPlayer.transform.Find("PlayerNav").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("UI/PlayerNav/" + playerIndex.ToString());
+
+		newPlayer.name = "Player " + playerIndex;
 		PlayerManager.spawnedPlayers[playerIndex] = newPlayer;
+
 	}
 }
