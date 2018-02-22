@@ -80,6 +80,7 @@ public class TimeManager : MonoBehaviour
 	/// <param name="timeToFreeze"></param>
 	public void StartFreezeFrame(float timeToFreeze)
 	{
+		AudioManager.GetInstance.OnSlowMoBegin();
 		StartCoroutine(FreezeFrameLength(timeToFreeze));
 		Time.timeScale = Mathf.Lerp(normalTimeScale, slowMoTimeScale, lerpTime);
 	}
@@ -88,5 +89,6 @@ public class TimeManager : MonoBehaviour
 	{
 		yield return new WaitForSecondsRealtime(waitTime);
 		Time.timeScale = 1;
+		AudioManager.GetInstance.OnSlowMoEnd();
 	}
 }

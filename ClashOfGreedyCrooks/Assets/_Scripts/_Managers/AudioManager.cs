@@ -11,6 +11,8 @@ public class AudioManager : GenericSingleton<AudioManager>
 
 	private FMODUnity.StudioEventEmitter a_ambience;
 
+	private FMODUnity.StudioEventEmitter s_onSlowMo;
+
 	#region BUSSES
 	public enum AudioBusses { mainBus, musicBus, sfxBus }
 
@@ -53,6 +55,9 @@ public class AudioManager : GenericSingleton<AudioManager>
 
 		a_ambience = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
 		a_ambience.Event = "event:/ambienceMain";
+
+		s_onSlowMo = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
+		s_onSlowMo.Event = "snapshot:/onSlowMo";
 	}
 
 	private void InitializeBuses()
@@ -116,7 +121,17 @@ public class AudioManager : GenericSingleton<AudioManager>
 		PlayOneShot("event:/Arena/arenaCrowdShouts");
 	}
 
-	public void HandleWin()
+	public void OnSlowMoBegin()
+	{
+		s_onSlowMo.Play();
+	}
+
+	public void OnSlowMoEnd()
+	{
+		s_onSlowMo.Stop();
+	}
+
+	public void OnWin()
 	{
 		//TODO: Change music to WinMusic & fiddle with snapshots.
 	}
