@@ -18,6 +18,14 @@ public class Projectile : MonoBehaviour
 	public enum ProjectileType { buoy, katana, launcher, wand }
 	public ProjectileType projectileType;
 
+	private Vector3 rotDirection;
+
+	private void Start()
+	{
+		rotDirection = new Vector3(0, (int)Random.Range(-2, 2), 0);
+		print(rotDirection);
+	}
+
 	private void Update()
 	{
 		transform.Translate(Vector3.forward * Time.deltaTime * projectileSpeed);
@@ -25,7 +33,7 @@ public class Projectile : MonoBehaviour
 		switch (projectileType)
 		{
 			case ProjectileType.buoy:
-				//transform.eulerAngles += Vector3.up;
+				//transform.eulerAngles += rotDirection;
 				break;
 			case ProjectileType.katana:
 				break;

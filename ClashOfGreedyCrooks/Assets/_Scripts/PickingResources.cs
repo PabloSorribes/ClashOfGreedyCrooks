@@ -57,12 +57,16 @@ public class PickingResources : MonoBehaviour {
         LoadChampions();
     }
 
+	/// <summary>
+	/// Combines champions with weapons. Hax here if you want to hard code a weapon.
+	/// </summary>
     private void LoadChampions()
     {
         championPrefabs = new GameObject[4];
         for (int i = 0; i < arrayPos.Length; i++)
         {
-            arrayPos[i] = 0;
+			//TODO: If you wanna hard code a champion, set this number between 0-3
+            arrayPos[i] = i;
         }
         Shuffle(arrayPos);
         championPrefabs[0] = queen[arrayPos[0]];
