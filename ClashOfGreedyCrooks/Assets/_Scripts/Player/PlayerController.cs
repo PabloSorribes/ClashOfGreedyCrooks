@@ -45,7 +45,10 @@ public class PlayerController : MonoBehaviour
 	{
         if (victorious)
         {
+            rb.velocity = Vector3.zero; 
             speed = 0;
+            moveSpeed = 0;
+            movement = Vector3.zero;
             return;
         }
 		MovePlayer();
