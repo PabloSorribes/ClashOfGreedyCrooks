@@ -7,7 +7,7 @@ public class PowerUp : MonoBehaviour {
 
     private GameObject[] PowerUpChilds;
 
-    float Health = 20f, Damage = 2f, AttackSpeed = 1.5f, Movement = 1.5f;
+    float Health = 20f, Damage = 1.5f, AttackSpeed = 1.2f, Movement = 1.2f;
 
     int PowerNumber;
 
