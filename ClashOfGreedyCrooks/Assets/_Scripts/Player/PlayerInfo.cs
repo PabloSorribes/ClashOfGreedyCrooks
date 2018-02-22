@@ -21,27 +21,27 @@ public class PlayerInfo : MonoBehaviour
 	public string AvatarSymbol { get; set; }
 
 	//Score data
-	private int numberOfWins;
-	private int totalKills;
-	private int totalHits;
-	private float totalDamage;
-	private int totalShotsFired;
-	private float accuracy;
+	//private int numberOfWins;
+	//private int totalKills;
+	//private int totalHits;
+	//private float totalDamage;
+	//private int totalShotsFired;
+	//private float accuracy;
 
-	public int NumberOfWins { get; set; }
-	public int TotalKills { get; set; }
-	public int TotalHits { get; set; }
-	public float TotalDamage { get; set; }
-	public int TotalShotsFired { get; set; }
-	public float Accuracy
-	{
-		get
-		{
-			if (totalShotsFired == 0f || totalHits == 0f)
-				return 0f;
-			else
-				return accuracy = totalHits / totalShotsFired * 100f;
-		}
-	}
+	public int numberOfWins = 0;
+	public int totalKills = 0;
+	public int totalHits = 0;
+	public float totalDamage = 0f;
+	public int totalShotsFired = 0;
+	//public float accuracy
+	//{
+	//	get
+	//	{
+	//		if (TotalShotsFired != 0f)
+	//			return TotalHits / TotalShotsFired * 100f;
+	//		else
+	//			return 0;
+	//	}
+	//}
 
 }

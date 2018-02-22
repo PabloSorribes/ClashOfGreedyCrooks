@@ -64,32 +64,37 @@ public class ArenaManager : MonoBehaviour
 
 	public void HandlePlayerDeath(PlayerInfo playerThatDied)
 	{
-		AudioManager.GetInstance.HandlePlayerDeath();
+		//AudioManager.GetInstance.HandleWin();
 
 		TimeManager.GetInstance.StartFreezeFrame(1f);
 		CameraShake.GetInstance.DoShake();
 
 		UpdatePlayerScoreStats(playerThatDied);
 
+		Destroy(playerThatDied.gameObject);
 		playersAlive--;
 
 		if (playersAlive <= 1)
-			TriggerEndOfRound();
+			Invoke("TriggerEndOfRound", 0.2f);
 	}
 
 	public void UpdatePlayerScoreStats(PlayerInfo player)
 	{
 		for (int i = 0; i < connectedPlayers.Length; i++)
 		{
-			if (connectedPlayers[i].Gamepad == player.Gamepad)
+			if (connectedPlayers[i].Player == player.Player)
 			{
-				connectedPlayers[i].TotalDamage = player.TotalDamage;
-				connectedPlayers[i].TotalHits = player.TotalHits;
-				connectedPlayers[i].TotalKills = player.TotalKills;
-				connectedPlayers[i].TotalShotsFired = player.TotalShotsFired;
-				connectedPlayers[i].NumberOfWins = player.NumberOfWins;
+				connectedPlayers[i].totalDamage += player.totalDamage;
+				connectedPlayers[i].totalHits += player.totalHits;
+				connectedPlayers[i].totalKills += player.totalKills;
+				connectedPlayers[i].totalShotsFired += player.totalShotsFired;
+				connectedPlayers[i].numberOfWins += player.numberOfWins;
 
-				
+				//Debug.Log("Player " + i + ": TotalDamage: " + connectedPlayers[i].TotalDamage);
+				//Debug.Log("Player " + i + ": TotalHits: " + connectedPlayers[i].TotalHits);
+				//Debug.Log("Player " + i + ": TotalKills: " + connectedPlayers[i].TotalKills);
+				//Debug.Log("Player " + i + ": TotalShotsFired: " + connectedPlayers[i].TotalShotsFired);
+				//Debug.Log("Player " + i + ": NumberOfWins: " + connectedPlayers[i].NumberOfWins);
 			}
 		}
 	}
@@ -97,14 +102,18 @@ public class ArenaManager : MonoBehaviour
 	private void TriggerEndOfRound()
 	{
 		gameHasBeenWon = false;
-		PlayerInfo lastPlayerAlive = FindObjectOfType<PlayerInfo>();
-		lastPlayerAlive.NumberOfWins++;
+
+		var lastPlayers = FindObjectsOfType<PlayerController>();
+		Debug.Log("End Of Round Players Left: " + lastPlayers.Length);
+
+		PlayerInfo lastPlayerAlive = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>();
+		lastPlayerAlive.numberOfWins++;
 
 		UpdatePlayerScoreStats(lastPlayerAlive);
 
 		for (int i = 0; i < connectedPlayers.Length; i++)
 		{
-			if (connectedPlayers[i].NumberOfWins >= 3)
+			if (connectedPlayers[i].numberOfWins >= 3)
 			{
 				gameHasBeenWon = true;
 				//TODO: Someone has Won the whole game
@@ -112,13 +121,11 @@ public class ArenaManager : MonoBehaviour
 		}
 
 		if (!gameHasBeenWon)
-		{
 			EndOfRoundScreenCanvas = Instantiate(Resources.Load("UI/EndOfRoundScreenCanvas") as GameObject);
-		}
 		else
 		{
 			Debug.Log("PLAYER HAS WON");
-			//EndOfRoundScreenCanvas = Instantiate(Resources.Load("UI/WinScreenCanvas") as GameObject);
+			EndOfRoundScreenCanvas = Instantiate(Resources.Load("UI/WinScreenCanvas") as GameObject);
 		}
 
 		EndOfRoundScreenCanvas.GetComponent<EndOfRoundScreen>().playerThatWon = lastPlayerAlive;
@@ -128,8 +135,6 @@ public class ArenaManager : MonoBehaviour
 		//TODO: Rewrite to handle this better @fippan
 		DeathCircle.GetInstance.roundIsOver = true;
 		DeathCircle.GetInstance.deathZoneDamage = 0;
-
-		AudioManager.GetInstance.OnWin();
 
 		DestroyLastPlayer();
 	}
@@ -169,11 +174,15 @@ public class ArenaManager : MonoBehaviour
 
 	private void DestroyLastPlayer()
 	{
+		var lastPlayersAlive = FindObjectsOfType<PlayerController>();
+		Debug.Log("number of players left: " + lastPlayersAlive.Length);
+
 		GameObject lastPlayerAlive = GameObject.FindGameObjectWithTag("Player");
 		if (lastPlayerAlive != null)
 		{
+			//print("lastPlayerAlive: " + lastPlayerAlive.name);
 			Camera.main.GetComponent<NewCameraController>().RemoveTarget(lastPlayerAlive.name);
-
+			Debug.Log("Player Destroyed: " + lastPlayerAlive.name);
 			Destroy(lastPlayerAlive);
 		}
 	}

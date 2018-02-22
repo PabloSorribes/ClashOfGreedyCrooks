@@ -32,7 +32,7 @@ public class Projectile : MonoBehaviour
 		this.player = player;
         this.bulletLifeTime = bulletLifeTime;
 
-		player.GetComponent<PlayerInfo>().TotalShotsFired++;
+		player.GetComponent<PlayerInfo>().totalShotsFired++;
 	}
 
 	public void OnTriggerEnter(Collider other)
@@ -44,8 +44,8 @@ public class Projectile : MonoBehaviour
 
 		if (other.gameObject.tag == "Player" && other.gameObject != player)
 		{
-			player.GetComponent<PlayerInfo>().TotalHits++;
-			player.GetComponent<PlayerInfo>().TotalDamage += damage;
+			player.GetComponent<PlayerInfo>().totalHits++;
+			player.GetComponent<PlayerInfo>().totalDamage += damage;
 
 			other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage, player.GetComponent<PlayerInfo>());
 

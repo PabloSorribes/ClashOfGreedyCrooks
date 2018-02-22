@@ -70,10 +70,10 @@ public class PlayerHealth : MonoBehaviour
 
 		KeepRigidBodyAwake();
 
-		if (currentHealth <= 0)
-		{
-			KillPlayer();
-		}
+		//if (currentHealth <= 0)
+		//{
+		//	KillPlayer();
+		//}
 	}
 
 	/// <summary>
@@ -95,7 +95,7 @@ public class PlayerHealth : MonoBehaviour
 		Camera.main.GetComponent<NewCameraController>().RemoveTarget(gameObject.name);
 		ArenaManager.GetInstance.HandlePlayerDeath(gameObject.GetComponent<PlayerInfo>());
 
-		Destroy(gameObject);
+		//Destroy(gameObject);
 	}
 
 	private void DeathParticles()
@@ -115,7 +115,9 @@ public class PlayerHealth : MonoBehaviour
 
 		if (currentHealth <= 0)
 		{
-			playerThatShot.TotalKills++;
+			//if (playerThatShot != null)
+				playerThatShot.totalKills++;
+
 			KillPlayer();
 		}
 	}
