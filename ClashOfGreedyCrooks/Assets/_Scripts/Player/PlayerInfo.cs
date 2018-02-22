@@ -28,10 +28,17 @@ public class PlayerInfo : MonoBehaviour
 	//private int totalShotsFired;
 	//private float accuracy;
 
+	[HideInInspector]
+	public string championName;
+	[HideInInspector]
 	public int numberOfWins = 0;
+	[HideInInspector]
 	public int totalKills = 0;
+	[HideInInspector]
 	public int totalHits = 0;
+	[HideInInspector]
 	public float totalDamage = 0f;
+	[HideInInspector]
 	public int totalShotsFired = 0;
 	//public float accuracy
 	//{

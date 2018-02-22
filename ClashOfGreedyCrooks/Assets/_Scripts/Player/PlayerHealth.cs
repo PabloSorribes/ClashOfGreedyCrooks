@@ -54,10 +54,8 @@ public class PlayerHealth : MonoBehaviour
 	public void SetStartHealth(float startHealth)
 	{
 		maxHealth = currentHealth = startHealth;
-		//CalculateHealthPrecentage();
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 		timer += Time.deltaTime;
@@ -69,11 +67,6 @@ public class PlayerHealth : MonoBehaviour
 		}
 
 		KeepRigidBodyAwake();
-
-		//if (currentHealth <= 0)
-		//{
-		//	KillPlayer();
-		//}
 	}
 
 	/// <summary>
@@ -94,8 +87,6 @@ public class PlayerHealth : MonoBehaviour
 
 		Camera.main.GetComponent<NewCameraController>().RemoveTarget(gameObject.name);
 		ArenaManager.GetInstance.HandlePlayerDeath(gameObject.GetComponent<PlayerInfo>());
-
-		//Destroy(gameObject);
 	}
 
 	private void DeathParticles()
@@ -115,7 +106,7 @@ public class PlayerHealth : MonoBehaviour
 
 		if (currentHealth <= 0)
 		{
-			//if (playerThatShot != null)
+			if (playerThatShot != null)
 				playerThatShot.totalKills++;
 
 			KillPlayer();
@@ -142,6 +133,10 @@ public class PlayerHealth : MonoBehaviour
 	{
 		currentHealth -= deathZoneDamage;
 		CalculateHealthPrecentage();
+		HurtSound();
+
+		if (currentHealth <= 0)
+			KillPlayer();
 	}
 
 	private void CalculateHealthPrecentage()

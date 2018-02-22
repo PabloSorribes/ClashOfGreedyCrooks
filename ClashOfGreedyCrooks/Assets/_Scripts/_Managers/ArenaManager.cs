@@ -90,12 +90,10 @@ public class ArenaManager : MonoBehaviour
 				connectedPlayers[i].totalShotsFired += player.totalShotsFired;
 				connectedPlayers[i].numberOfWins += player.numberOfWins;
 
-				//Debug.Log("Player " + i + ": TotalDamage: " + connectedPlayers[i].TotalDamage);
-				//Debug.Log("Player " + i + ": TotalHits: " + connectedPlayers[i].TotalHits);
-				//Debug.Log("Player " + i + ": TotalKills: " + connectedPlayers[i].TotalKills);
-				//Debug.Log("Player " + i + ": TotalShotsFired: " + connectedPlayers[i].TotalShotsFired);
-				//Debug.Log("Player " + i + ": NumberOfWins: " + connectedPlayers[i].NumberOfWins);
+				player.AvatarColor = connectedPlayers[i].AvatarColor;
+				player.AvatarSymbol = connectedPlayers[i].AvatarSymbol;
 			}
+
 		}
 	}
 
@@ -103,32 +101,30 @@ public class ArenaManager : MonoBehaviour
 	{
 		gameHasBeenWon = false;
 
-		var lastPlayers = FindObjectsOfType<PlayerController>();
-		Debug.Log("End Of Round Players Left: " + lastPlayers.Length);
+		GameObject lastPlayerAlive = GameObject.FindGameObjectWithTag("Player");
 
-		PlayerInfo lastPlayerAlive = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>();
-		lastPlayerAlive.numberOfWins++;
+		Debug.Log("winner: " + lastPlayerAlive.name);
 
-		UpdatePlayerScoreStats(lastPlayerAlive);
+		PlayerInfo lastPlayerAliveInfo = lastPlayerAlive.GetComponent<PlayerInfo>();
+		lastPlayerAliveInfo.numberOfWins++;
+
+		UpdatePlayerScoreStats(lastPlayerAliveInfo);
 
 		for (int i = 0; i < connectedPlayers.Length; i++)
-		{
-			if (connectedPlayers[i].numberOfWins >= 2)
-			{
+			if (connectedPlayers[i].numberOfWins >= 3)
 				gameHasBeenWon = true;
-				//TODO: Someone has Won the whole game
-			}
-		}
+
 
 		if (!gameHasBeenWon)
 			EndOfRoundScreenCanvas = Instantiate(Resources.Load("UI/EndOfRoundScreenCanvas") as GameObject);
 		else
-		{
-			Debug.Log("PLAYER HAS WON");
 			EndOfRoundScreenCanvas = Instantiate(Resources.Load("UI/EndOfRoundScreenCanvas") as GameObject);
-		}
 
-		EndOfRoundScreenCanvas.GetComponent<EndOfRoundScreen>().playerThatWon = lastPlayerAlive;
+
+
+		EndOfRoundScreenCanvas.GetComponent<EndOfRoundScreen>().SetRoundWinner(lastPlayerAliveInfo.AvatarColor, lastPlayerAliveInfo.AvatarSymbol,
+			lastPlayerAlive.GetComponentInChildren<Champion>().name, lastPlayerAliveInfo.Player);
+
 
 		roundHasEnded = true;
 
@@ -176,15 +172,11 @@ public class ArenaManager : MonoBehaviour
 
 	private void DestroyLastPlayer()
 	{
-		var lastPlayersAlive = FindObjectsOfType<PlayerController>();
-		Debug.Log("number of players left: " + lastPlayersAlive.Length);
-
 		GameObject lastPlayerAlive = GameObject.FindGameObjectWithTag("Player");
 		if (lastPlayerAlive != null)
 		{
-			//print("lastPlayerAlive: " + lastPlayerAlive.name);
 			Camera.main.GetComponent<NewCameraController>().RemoveTarget(lastPlayerAlive.name);
-			Debug.Log("Player Destroyed: " + lastPlayerAlive.name);
+
 			Destroy(lastPlayerAlive);
 		}
 	}
