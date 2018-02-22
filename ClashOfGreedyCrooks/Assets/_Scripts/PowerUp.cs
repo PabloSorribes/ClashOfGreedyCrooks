@@ -103,7 +103,7 @@ public class PowerUp : MonoBehaviour {
                 player.GetComponent<PlayerController>().speed *= -1;
                 break;
             case 2:
-                player.transform.localScale = Vector3.one;
+                player.transform.Find("Champion").GetChild(0).transform.localScale = Vector3.one;
                 break;
         }
     }

@@ -6,27 +6,29 @@ public class PauseController : MonoBehaviour {
 
     private void Start()
     {
-        Instantiate(eventSystem.gameObject);
+        //Instantiate(eventSystem.gameObject);
     }
 
     private void OnEnable()
     {
-        GameStateManager.GetInstance.SetPausedState(OurPauseState.Paused);
+        //GameStateManager.GetInstance.SetPausedState(OurPauseState.Paused);
     }
 
     public void BackToMainMenu()
     {
-        PlayerManager.Reset();
+        //PlayerManager.Reset();
         GameStateManager.GetInstance.SetState(GameState.MainMenu);
     }
 
     public void Back()
     {
-        gameObject.SetActive(false);
-    }
+		GameStateManager.GetInstance.PauseGame();
 
-    private void OnDisable()
+		//gameObject.SetActive(false);
+	}
+
+	private void OnDisable()
     {
-        GameStateManager.GetInstance.SetPausedState(OurPauseState.NotPaused);
+        //GameStateManager.GetInstance.SetPausedState(OurPauseState.NotPaused);
     }
 }
