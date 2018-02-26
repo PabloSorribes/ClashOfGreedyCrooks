@@ -6,7 +6,7 @@ public class PauseController : MonoBehaviour
 	public UnityEngine.EventSystems.EventSystem eventSystem;
 	public GameObject firstSelectedItem;
 
-	private void Start()
+	public void InitializePauseMenu()
 	{
 		eventSystem.SetSelectedGameObject(null);
 		eventSystem.SetSelectedGameObject(firstSelectedItem);
@@ -17,6 +17,7 @@ public class PauseController : MonoBehaviour
 		if (GameStateManager.GetInstance.GetState() == GameState.Arena)
 			ArenaManager.GetInstance.DestroyLastPlayers();
 
+		GameStateManager.GetInstance.PauseToggle();
 		GameStateManager.GetInstance.SetState(GameState.MainMenu);
 	}
 

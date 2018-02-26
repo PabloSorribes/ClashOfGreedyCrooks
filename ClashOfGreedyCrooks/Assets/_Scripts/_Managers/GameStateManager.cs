@@ -160,6 +160,8 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 		}
 
 		pauseMenu.SetActive(true);
+		pauseMenu.GetComponent<PauseController>().InitializePauseMenu();
+
 		pauseState = OurPauseState.Paused;
 	}
 
@@ -172,10 +174,11 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 			DeathCircle.GetInstance.deathZoneDamage = temp_DeathCircleDamage;
 		}
 
-		InputManager.GetInstance.freezeInput = false;
-		Time.timeScale = 1f;
 
 		pauseMenu.SetActive(false);
 		pauseState = OurPauseState.NotPaused;
+
+		Time.timeScale = 1f;
+		InputManager.GetInstance.freezeInput = false;
 	}
 }
