@@ -21,7 +21,7 @@ public class DeathCircle : MonoBehaviour
 	private float minSize = 0.4f;
 
 	private float startColorAplha = 0.1f;
-	public float FadeInStrength;
+	public float fadeInStrength;
 
 	public int deathZoneDamage = 15;
 
@@ -129,7 +129,7 @@ public class DeathCircle : MonoBehaviour
 
 	private void StartCircleFadeIn()
 	{
-		startColorAplha += startColorAplha * FadeInStrength * Time.deltaTime;
+		startColorAplha += startColorAplha * fadeInStrength * Time.deltaTime;
 	}
 
 	private void OnTriggerEnter(Collider other)
