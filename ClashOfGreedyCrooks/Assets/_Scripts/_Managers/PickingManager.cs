@@ -78,14 +78,7 @@ public class PickingManager : MonoBehaviour
 			PlayerManager.connectedPlayers[playerIndex].HasChampion = true;
             CardComponent cc = card.GetComponent<CardComponent>();
             cc.avatarColor.sprite = Resources.Load<Sprite>("UI/PlayerColors/" + PlayerManager.connectedPlayers[playerIndex].AvatarColor);
-			//PlayerManager.connectedPlayers[playerIndex].AvatarColor = cc.avatarColor.sprite.name;
-
-
-			//for (int i = 0; i < pickingResources.avatarSymbols.Length; i++)
-			//{
-			//if (pickingResources.avatarSymbols[i].name == PlayerManager.connectedPlayers[playerIndex].AvatarSymbol)
 			card.GetComponent<CardComponent>().avatarSymbol.sprite = Resources.Load<Sprite>("UI/Avatars/" + PlayerManager.connectedPlayers[playerIndex].AvatarSymbol);
-			//}
 			a_pickChamp.Play();
 		}
 
@@ -102,11 +95,7 @@ public class PickingManager : MonoBehaviour
 			PlayerManager.connectedPlayers[targetChampion.LastPlayerIndex].HasChampion = false;
             CardComponent cc = card.GetComponent<CardComponent>();
             cc.avatarColor.sprite = Resources.Load<Sprite>("UI/PlayerColors/" + PlayerManager.connectedPlayers[playerIndex].AvatarColor);
-			//for (int i = 0; i < pickingResources.avatarSymbols.Length; i++)
-			//{
-			//if (pickingResources.avatarSymbols[i].name == PlayerManager.connectedPlayers[playerIndex].AvatarSymbol)
 			card.GetComponent<CardComponent>().avatarSymbol.sprite = Resources.Load<Sprite>("UI/Avatars/" + PlayerManager.connectedPlayers[playerIndex].AvatarSymbol);
-			//}
 
 			a_pickPenalty.Play();
 			a_pickChamp.Play();
@@ -220,7 +209,9 @@ public class PickingManager : MonoBehaviour
         Transform healthBarAvatar = newPlayer.transform.Find("HealthBar/Slider/ColorHolder");
         healthBarAvatar.Find("PlayerColor").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/PlayerColors/" + PlayerManager.connectedPlayers[playerIndex].AvatarColor);
         healthBarAvatar.Find("PlayerIcon").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Avatars/" + PlayerManager.connectedPlayers[playerIndex].AvatarSymbol);
-		newPlayer.GetComponent<PlayerHealth>().SetStartHealth(championScript.Health * 10 + 70);
+        healthBarAvatar.Find("PlayerIcon").GetComponent<Image>().preserveAspect = true;
+
+        newPlayer.GetComponent<PlayerHealth>().SetStartHealth(championScript.Health * 10 + 70);
 		newPlayer.GetComponentInChildren<Weapon>().damage = championScript.Damage * 0.8f + 8f;
 		newPlayer.GetComponent<PlayerController>().attackSpeed = (1f / championScript.AttackSpeed) + 0.2f;
         newPlayer.GetComponent<PlayerController>().speed = (championScript.Movement * 0.35f) + 3f;

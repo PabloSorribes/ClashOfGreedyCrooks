@@ -87,6 +87,39 @@ public class PlayerConnectManager : MonoBehaviour
             playerSlots[i] = playerSlot.GetChild(i);
     }
 
+    private bool changeSymbolCooldown;
+    public void ChangeSymbol(float input, int gamepadIndex)
+    {
+        if (changeSymbolCooldown)
+            return;
+        else
+        {
+            changeSymbolCooldown = true;
+            Invoke("ResetSymbolCooldown", .3f);
+        }
+
+        for (int i = 0; i < PlayerManager.players.Length; i++)
+        {
+            PlayerInfo player = PlayerManager.players[i];
+            Sprite symbol = playerSlots[player.Player].Find("Symbol").GetComponent<Image>().sprite;
+            if (player.Connected && player.Gamepad == gamepadIndex && !player.Ready)
+                for (int j = 0; j < avatarSymbols.Length; j++)
+                    if (player.AvatarSymbol == avatarSymbols[j].name)
+                    {
+                        int selection = j;
+                        selection = ((selection + avatarSymbols.Length + (int)Mathf.Sign(input)) % avatarSymbols.Length);
+                        playerSlots[player.Player].Find("Symbol").GetComponent<Image>().sprite = avatarSymbols[selection];
+                        player.AvatarSymbol = avatarSymbols[selection].name;
+                        return;
+                    }
+        }
+    }
+
+    private void ResetSymbolCooldown()
+    {
+        changeSymbolCooldown = false;
+    }
+
     /// <summary>
     /// Called from InputManager.
     /// </summary>
@@ -189,7 +222,18 @@ public class PlayerConnectManager : MonoBehaviour
 
     private void Ready(int pos)
     {
-        PlayerManager.players[pos].Ready = true;
+        PlayerInfo player = PlayerManager.players[pos];
+        string symbol = playerSlots[pos].Find("Symbol").GetComponent<Image>().sprite.name;
+        for (int i = 0; i < PlayerManager.players.Length; i++)
+        {
+            if (i != pos && PlayerManager.players[i].AvatarSymbol == symbol && PlayerManager.players[i].Ready)
+            {
+                Debug.Log("Symbol already taken!");
+                return;
+            }
+        }
+        player.Ready = true;
+        player.AvatarSymbol = symbol;
         playerSlots[pos].Find("Ready").gameObject.SetActive(true);
 
         a_ready.Play();
