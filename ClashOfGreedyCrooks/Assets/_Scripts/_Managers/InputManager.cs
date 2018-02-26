@@ -73,9 +73,31 @@ public class InputManager : GenericSingleton<InputManager>
 		{
 			prevState[i] = state[i];
 			state[i] = GamePad.GetState((PlayerIndex)i, GamePadDeadZone.None);
+            
+            float deadzoneRightStick = 0.4f;
+            float deadzoneLeftStick = 0.2f;
 
-			//TODO: Modify to handle inputs with events instead of calling specific functions in other scripts.
-			switch (gameState)
+            Vector3 leftStick = new Vector3(state[i].ThumbSticks.Left.X, 0f, state[i].ThumbSticks.Left.Y);
+            Vector3 rightStick = new Vector3(state[i].ThumbSticks.Right.X, 0f, state[i].ThumbSticks.Right.Y);
+
+            //Make sure leftstick diagonal input is never more than 1
+            if (leftStick.magnitude > 1f)
+                leftStick /= leftStick.magnitude;
+
+            //Leftstick scaled radial deadzone implementation
+            if (leftStick.magnitude < deadzoneLeftStick)
+                leftStick = Vector3.zero;
+            else
+                leftStick = leftStick.normalized * ((leftStick.magnitude - deadzoneLeftStick) / (1 - deadzoneLeftStick));
+
+            //Rightstick scaled radial deadzone implementation
+            if (rightStick.magnitude < deadzoneRightStick)
+                rightStick = Vector3.zero;
+            else
+                rightStick = rightStick.normalized * ((rightStick.magnitude - deadzoneRightStick) / (1 - deadzoneRightStick));
+
+            //TODO: Modify to handle inputs with events instead of calling specific functions in other scripts.
+            switch (gameState)
 			{
 				case GameState.MainMenu:
 					break;
@@ -90,6 +112,8 @@ public class InputManager : GenericSingleton<InputManager>
 
 					if (prevState[i].Buttons.Start == ButtonState.Released && state[i].Buttons.Start == ButtonState.Pressed)
 						PlayerConnectManager.GetInstance.AddPlayer((int)gamepadIndex[i]);
+
+                    PlayerConnectManager.GetInstance.ChangeSymbol(leftStick, i);
 
 					break;
 
@@ -112,34 +136,36 @@ public class InputManager : GenericSingleton<InputManager>
                         GameStateManager.GetInstance.PauseGame();
 					}
 
-					break;
+                    break;
 
 				case GameState.Arena:
 
-					float deadzoneRightStick = 0.4f;
-					float deadzoneLeftStick = 0.2f;
+                    /*
+                    float deadzoneRightStick = 0.4f;
+                    float deadzoneLeftStick = 0.2f;
 
-					Vector3 leftStick = new Vector3(state[i].ThumbSticks.Left.X, 0f, state[i].ThumbSticks.Left.Y);
-					Vector3 rightStick = new Vector3(state[i].ThumbSticks.Right.X, 0f, state[i].ThumbSticks.Right.Y);
+                    Vector3 leftStick = new Vector3(state[i].ThumbSticks.Left.X, 0f, state[i].ThumbSticks.Left.Y);
+                    Vector3 rightStick = new Vector3(state[i].ThumbSticks.Right.X, 0f, state[i].ThumbSticks.Right.Y);
 
-					//Make sure leftstick diagonal input is never more than 1
-					if (leftStick.magnitude > 1f)
-						leftStick /= leftStick.magnitude;
+                    //Make sure leftstick diagonal input is never more than 1
+                    if (leftStick.magnitude > 1f)
+                        leftStick /= leftStick.magnitude;
 
-					//Leftstick scaled radial deadzone implementation
-					if (leftStick.magnitude < deadzoneLeftStick)
-						leftStick = Vector3.zero;
-					else
-						leftStick = leftStick.normalized * ((leftStick.magnitude - deadzoneLeftStick) / (1 - deadzoneLeftStick));
+                    //Leftstick scaled radial deadzone implementation
+                    if (leftStick.magnitude < deadzoneLeftStick)
+                        leftStick = Vector3.zero;
+                    else
+                        leftStick = leftStick.normalized * ((leftStick.magnitude - deadzoneLeftStick) / (1 - deadzoneLeftStick));
 
-					//Rightstick scaled radial deadzone implementation
-					if (rightStick.magnitude < deadzoneRightStick)
-						rightStick = Vector3.zero;
-					else
-						rightStick = rightStick.normalized * ((rightStick.magnitude - deadzoneRightStick) / (1 - deadzoneRightStick));
+                    //Rightstick scaled radial deadzone implementation
+                    if (rightStick.magnitude < deadzoneRightStick)
+                        rightStick = Vector3.zero;
+                    else
+                        rightStick = rightStick.normalized * ((rightStick.magnitude - deadzoneRightStick) / (1 - deadzoneRightStick));
+                    */
 
-					//Send directional input data to each player
-					players[i].SetDirectionalInput(leftStick, rightStick);
+                    //Send directional input data to each player
+                    players[i].SetDirectionalInput(leftStick, rightStick);
 
 
 					if (prevState[i].Buttons.A == ButtonState.Released && state[i].Buttons.A == ButtonState.Pressed)
