@@ -7,53 +7,36 @@ using UnityEngine;
 /// </summary>
 public class Projectile : MonoBehaviour
 {
-	private float projectileSpeed;
 	private float damage;
-	private float bulletLifeTime;
-
+	private float projectileSpeed;
+	private float projectileLifeTime;
 	private GameObject player;
 
-	public ParticleSystem collisionParticle;
-
+	//For defining different movement & destroy-behaviours
 	public enum ProjectileType { buoy, katana, launcher, wand }
 	public ProjectileType projectileType;
-
-	private Vector3 rotDirection;
-
-	private void Start()
-	{
-		rotDirection = new Vector3(0, (int)Random.Range(-2, 2), 0);
-		print(rotDirection);
-	}
+	public ParticleSystem collisionParticle;
 
 	private void Update()
 	{
 		transform.Translate(Vector3.forward * Time.deltaTime * projectileSpeed);
 
-		switch (projectileType)
-		{
-			case ProjectileType.buoy:
-				//transform.eulerAngles += rotDirection;
-				break;
-			case ProjectileType.katana:
-				break;
-			case ProjectileType.launcher:
-				break;
-			case ProjectileType.wand:
-				break;
-			default:
-				break;
-		}
-
-		Destroy(gameObject, bulletLifeTime);
+		Destroy(gameObject, projectileLifeTime);
 	}
 
-	public void ProjectileSetup(float damage, float projectileSpeed, float bulletLifeTime, GameObject player)
+	/// <summary>
+	/// Values here are set by the Weapon.cs which has the Projectile-prefab attached to it.
+	/// </summary>
+	/// <param name="damage"></param>
+	/// <param name="projectileSpeed"></param>
+	/// <param name="projectileLifeTime"></param>
+	/// <param name="player"></param>
+	public void ProjectileSetup(float damage, float projectileSpeed, float projectileLifeTime, GameObject player)
 	{
 		this.damage = damage;
 		this.projectileSpeed = projectileSpeed;
+		this.projectileLifeTime = projectileLifeTime;
 		this.player = player;
-		this.bulletLifeTime = bulletLifeTime;
 
 		player.GetComponent<PlayerInfo>().totalShotsFired++;
 	}
@@ -79,7 +62,6 @@ public class Projectile : MonoBehaviour
 		}
 	}
 
-
 	private void OnDestroy()
 	{
         CollisionParticles();
@@ -91,7 +73,7 @@ public class Projectile : MonoBehaviour
 			case ProjectileType.katana:
 				break;
 			case ProjectileType.launcher:
-                //AoE explsopssss
+                //TODO: AoE explosion damage.
 				break;
 			case ProjectileType.wand:
 				break;
@@ -100,6 +82,11 @@ public class Projectile : MonoBehaviour
 		}
 
 		AudioManager.GetInstance.PlayOneShot3D("event:/Arena/projectileCollision", transform.position, "champ", GetFmodParameter());
+	}
+
+	private void CollisionParticles()
+	{
+		Destroy(Instantiate(collisionParticle.gameObject, this.transform.position, Quaternion.FromToRotation(Vector3.forward, Vector3.up)) as GameObject, 1.5f);
 	}
 
 	private float GetFmodParameter()
@@ -125,12 +112,4 @@ public class Projectile : MonoBehaviour
 		}
 		return parameter;
 	}
-
-
-	private void CollisionParticles()
-	{
-		Destroy(Instantiate(collisionParticle.gameObject, this.transform.position, Quaternion.FromToRotation(Vector3.forward, Vector3.up)) as GameObject, 1.5f);
-	}
-
-    
 }

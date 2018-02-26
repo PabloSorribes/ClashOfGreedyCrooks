@@ -223,7 +223,7 @@ public class AudioManager : GenericSingleton<AudioManager>
 	/// <param name="eventPath"></param>
 	public void PlayOneShot(string eventPath)
 	{
-		CreateFmodEventInstance(eventPath).start();
+		FMODUnity.RuntimeManager.PlayOneShot(eventPath);
 	}
 
 	/// <summary>
@@ -238,13 +238,11 @@ public class AudioManager : GenericSingleton<AudioManager>
 
 		eventInstance.setParameterValue(parameterName, parameterValue);
 		eventInstance.start();
-
-		//For 3D-sound
-		//eventInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+		eventInstance.release();
 	}
 
 	/// <summary>
-	/// For playing 3D-events at a set position. "<paramref name="position"/>" could be your transform.position.
+	/// For playing 3D-events at a set position, without setting a parameter. "<paramref name="position"/>" could be your transform.position.
 	/// </summary>
 	/// <param name="eventPath"></param>
 	/// <param name="parameterName"></param>
@@ -252,11 +250,6 @@ public class AudioManager : GenericSingleton<AudioManager>
 	public void PlayOneShot3D(string eventPath, Vector3 position)
 	{
 		FMODUnity.RuntimeManager.PlayOneShot(eventPath, position);
-
-		//var eventInstance = CreateFmodEventInstance(eventName);
-
-		//eventInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(position));
-		//eventInstance.start();
 	}
 
 	/// <summary>
@@ -272,8 +265,7 @@ public class AudioManager : GenericSingleton<AudioManager>
 		eventInstance.setParameterValue(parameterName, parameterValue);
 		eventInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(position));
 		eventInstance.start();
-
-		FMODUnity.RuntimeManager.PlayOneShot("hej", transform.position);
+		eventInstance.release();
 	}
 
 	public FMODUnity.StudioEventEmitter InitializeAudioOnObject(GameObject gameObject, string eventPath)

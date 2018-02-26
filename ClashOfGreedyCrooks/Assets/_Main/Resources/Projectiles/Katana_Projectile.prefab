@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114563189090400412}
   - component: {fileID: 54725769880133472}
   m_Layer: 0
-  m_Name: KatanaShot
+  m_Name: Katana_Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,9 +82,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e66cebb80315e344c82635a31c05730c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectileType: 1
   collisionParticle: {fileID: 198670214340555868, guid: ec83ab2cad333434497e034dbc4d6b30,
     type: 2}
-  projectileType: 1
 --- !u!198 &198209987543424018
 ParticleSystem:
   m_ObjectHideFlags: 1

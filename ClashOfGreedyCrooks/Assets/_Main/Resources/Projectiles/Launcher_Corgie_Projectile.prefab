@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 114447920984803674}
   - component: {fileID: 54159042491160530}
   m_Layer: 0
-  m_Name: Corgie_Projectile
+  m_Name: Launcher_Corgie_Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -360,9 +360,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e66cebb80315e344c82635a31c05730c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectileType: 2
   collisionParticle: {fileID: 198238784327168616, guid: de581428ec28e2247a1edb8a290c6417,
     type: 2}
-  projectileType: 2
 --- !u!137 &137197170130479992
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

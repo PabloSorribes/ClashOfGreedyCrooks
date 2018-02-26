@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114599780837969056}
   - component: {fileID: 54641574789847984}
   m_Layer: 0
-  m_Name: LightningBolt_Projectile
+  m_Name: Wand_LightningBolt_Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -250,9 +250,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e66cebb80315e344c82635a31c05730c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectileType: 3
   collisionParticle: {fileID: 198533715291997848, guid: e9f10bd69bc661243a84ec815a923a52,
     type: 2}
-  projectileType: 3
 --- !u!120 &120189875182253706
 LineRenderer:
   m_ObjectHideFlags: 1
