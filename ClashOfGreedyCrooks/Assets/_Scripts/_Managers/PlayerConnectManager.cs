@@ -110,6 +110,8 @@ public class PlayerConnectManager : MonoBehaviour
                         selection = ((selection + avatarSymbols.Length + (int)Mathf.Sign(input)) % avatarSymbols.Length);
                         playerSlots[player.Player].Find("Symbol").GetComponent<Image>().sprite = avatarSymbols[selection];
                         player.AvatarSymbol = avatarSymbols[selection].name;
+
+						AudioManager.GetInstance.PlayOneShot("event:/PlayerConnect/avatarScroll");
                         return;
                     }
         }
@@ -224,6 +226,7 @@ public class PlayerConnectManager : MonoBehaviour
             if (i != pos && PlayerManager.players[i].AvatarSymbol == symbol && PlayerManager.players[i].Ready)
             {
                 Debug.Log("Symbol already taken!");
+				AudioManager.GetInstance.PlayOneShot("event:/PlayerConnect/avatarDenied");
                 return;
             }
         }
