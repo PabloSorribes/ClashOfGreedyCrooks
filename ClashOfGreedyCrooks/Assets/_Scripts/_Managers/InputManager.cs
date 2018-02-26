@@ -160,7 +160,7 @@ public class InputManager : GenericSingleton<InputManager>
 
 
 				if (prevState[gamepad].Buttons.Start == ButtonState.Released && state[gamepad].Buttons.Start == ButtonState.Pressed)
-					GameStateManager.GetInstance.PauseGame();
+					GameStateManager.GetInstance.PauseToggle();
 
 				break;
 
@@ -170,23 +170,15 @@ public class InputManager : GenericSingleton<InputManager>
 				players[gamepad].SetDirectionalInput(leftStick, rightStick);
 
 				if (state[gamepad].Triggers.Right >= 0.1f)
-				{
 					if (players[gamepad] != null)
-					{
 						players[gamepad].Shoot();
-					}
-				}
 
 				if (prevState[gamepad].Buttons.Start == ButtonState.Released && state[gamepad].Buttons.Start == ButtonState.Pressed)
 				{
 					if (ArenaManager.GetInstance.roundHasEnded)
-					{
 						ArenaManager.GetInstance.NextRound();
-					}
 					else
-					{
-						GameStateManager.GetInstance.PauseGame();
-					}
+						GameStateManager.GetInstance.PauseToggle();
 				}
 
 				break;

@@ -3,22 +3,25 @@
 public class PauseController : MonoBehaviour
 {
 
+	public UnityEngine.EventSystems.EventSystem eventSystem;
+	public GameObject firstSelectedItem;
+
+	private void Start()
+	{
+		eventSystem.SetSelectedGameObject(null);
+		eventSystem.SetSelectedGameObject(firstSelectedItem);
+	}
+
 	public void BackToMainMenu()
 	{
-		//PlayerManager.Reset();
+		if (GameStateManager.GetInstance.GetState() == GameState.Arena)
+			ArenaManager.GetInstance.DestroyLastPlayers();
 
 		GameStateManager.GetInstance.SetState(GameState.MainMenu);
 	}
 
 	public void Back()
 	{
-		GameStateManager.GetInstance.PauseGame();
-
-		//gameObject.SetActive(false);
-	}
-
-	private void OnDisable()
-	{
-		//GameStateManager.GetInstance.SetPausedState(OurPauseState.NotPaused);
+		GameStateManager.GetInstance.PauseToggle();
 	}
 }

@@ -122,7 +122,6 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 		sceneToLoad = "LoadingScreen";
 	}
 
-
 	/// <summary>
 	/// Subscribed method for SceneLoaded Event. Runs when new scene is loaded.
 	/// </summary>
@@ -139,37 +138,15 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 		}
 	}
 
-	public void PauseGame()
+	public void PauseToggle()
 	{
 		if (pauseState == OurPauseState.NotPaused)
-		{
-			OnPausedState();
-			//SetPausedState(OurPauseState.Paused);
-		}
+			SetPaused();
 		else if (pauseState == OurPauseState.Paused)
-		{
-			OnNotPausedState();
-			//SetPausedState(OurPauseState.NotPaused);
-
-			//pauseState = newState;
-		}
+			SetUnpaused();
 	}
 
-	/// <summary>
-	/// Pause or unpause the game
-	/// </summary>
-	/// <param name="newState"></param>
-	private void SetPausedState(OurPauseState newState)
-	{
-		if (newState == OurPauseState.Paused)
-			OnPausedState();
-		else if (newState == OurPauseState.NotPaused)
-			OnNotPausedState();
-
-		pauseState = newState;
-	}
-
-	private void OnPausedState()
+	private void SetPaused()
 	{
 		Time.timeScale = 0;
 
@@ -183,9 +160,10 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 		}
 
 		pauseMenu.SetActive(true);
+		pauseState = OurPauseState.Paused;
 	}
 
-	private void OnNotPausedState()
+	private void SetUnpaused()
 	{
 		if (gameState == GameState.Arena)
 		{
@@ -193,14 +171,11 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 			DeathCircle.GetInstance.roundIsOver = false;
 			DeathCircle.GetInstance.deathZoneDamage = temp_DeathCircleDamage;
 		}
-		pauseMenu.SetActive(false);
-		Time.timeScale = .02f;
-		Invoke("Unfreeze", .01f);
-	}
 
-	private void Unfreeze()
-	{
 		InputManager.GetInstance.freezeInput = false;
-		Time.timeScale = 1;
+		Time.timeScale = 1f;
+
+		pauseMenu.SetActive(false);
+		pauseState = OurPauseState.NotPaused;
 	}
 }

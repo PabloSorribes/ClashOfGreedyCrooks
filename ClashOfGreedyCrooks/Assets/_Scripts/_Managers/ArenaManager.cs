@@ -13,6 +13,7 @@ public class ArenaManager : MonoBehaviour
 		}
 	}
 
+	private GameObject cam;
 	private GameObject spawnPositionParent;
 
 	[HideInInspector]
@@ -39,6 +40,7 @@ public class ArenaManager : MonoBehaviour
 		spawnPositionParent = GameObject.Find("SpawnPoints");
 		spawnedPlayers = PlayerManager.spawnedPlayers;
 		connectedPlayers = PlayerManager.connectedPlayers;
+		cam = Camera.main.gameObject;
 
 		//Set spawnpoints for each player
 		for (int i = 0; i < spawnedPlayers.Length; i++)
@@ -114,8 +116,8 @@ public class ArenaManager : MonoBehaviour
 			if (connectedPlayers[i].numberOfWins >= 1)
 				gameHasBeenWon = true;
 
-        GameObject.Find("CameraHolder").transform.GetChild(0).GetComponent<NewCameraController>().OnVictory(lastPlayerAlive.transform);
-        StartCoroutine(ShowEndScreen(lastPlayerAlive, lastPlayerAliveInfo));
+		GameObject.Find("CameraHolder").transform.GetChild(0).GetComponent<NewCameraController>().OnVictory(lastPlayerAlive.transform);
+		StartCoroutine(ShowEndScreen(lastPlayerAlive, lastPlayerAliveInfo));
 
 		//TODO: Rewrite to handle this better @fippan
 		DeathCircle.GetInstance.roundIsOver = true;
@@ -124,35 +126,35 @@ public class ArenaManager : MonoBehaviour
 		AudioManager.GetInstance.OnWin();
 	}
 
-    IEnumerator ShowEndScreen(GameObject lastPlayerAlive, PlayerInfo lastPlayerAliveInfo)
-    {
-        yield return new WaitForSeconds(3f);
+	IEnumerator ShowEndScreen(GameObject lastPlayerAlive, PlayerInfo lastPlayerAliveInfo)
+	{
+		yield return new WaitForSeconds(3f);
 
-        if (!gameHasBeenWon)
-        {
-            EndOfRoundScreenCanvas = Instantiate(Resources.Load("UI/EndOfRoundScreenCanvas") as GameObject);
-            EndOfRoundScreenCanvas.GetComponent<EndOfRoundScreen>().SetRoundWinner(lastPlayerAliveInfo.AvatarColor, lastPlayerAliveInfo.AvatarSymbol,
-			    lastPlayerAlive.GetComponentInChildren<Champion>().name, lastPlayerAliveInfo.Player);
-        }
-        else
-        {
-            EndOfRoundScreenCanvas = Instantiate(Resources.Load("UI/EndOfGame") as GameObject);
-            Invoke("EndOfGameScore", 3f);
-        }
-        
+		if (!gameHasBeenWon)
+		{
+			EndOfRoundScreenCanvas = Instantiate(Resources.Load("UI/EndOfRoundScreenCanvas") as GameObject);
+			EndOfRoundScreenCanvas.GetComponent<EndOfRoundScreen>().SetRoundWinner(lastPlayerAliveInfo.AvatarColor, lastPlayerAliveInfo.AvatarSymbol,
+				lastPlayerAlive.GetComponentInChildren<Champion>().name, lastPlayerAliveInfo.Player);
+		}
+		else
+		{
+			EndOfRoundScreenCanvas = Instantiate(Resources.Load("UI/EndOfGame") as GameObject);
+			Invoke("EndOfGameScore", 3f);
+		}
+
 		roundHasEnded = true;
-    }
+	}
 
-    private void EndOfGameScore()
-    {
-        EndOfRoundScreenCanvas.transform.Find("Background").gameObject.SetActive(true);
-        EndOfRoundScreenCanvas.transform.Find("PlayerScoreBoard").gameObject.SetActive(true);
-        EndOfRoundScreenCanvas.GetComponent<EndOfRoundScreen>().SetEndOfGame();
-    }
+	private void EndOfGameScore()
+	{
+		EndOfRoundScreenCanvas.transform.Find("Background").gameObject.SetActive(true);
+		EndOfRoundScreenCanvas.transform.Find("PlayerScoreBoard").gameObject.SetActive(true);
+		EndOfRoundScreenCanvas.GetComponent<EndOfRoundScreen>().SetEndOfGame();
+	}
 
 	public void NextRound()
 	{
-		DestroyLastPlayer();
+		DestroyLastPlayers();
 		if (!hasTriggered)
 		{
 			if (!gameHasBeenWon)
@@ -170,7 +172,7 @@ public class ArenaManager : MonoBehaviour
 
 	public void ReturnToPicking()
 	{
-		DestroyLastPlayer();
+		DestroyLastPlayers();
 
 		PlayerManager.NextPickingPhase();
 		GameStateManager.GetInstance.SetState(GameState.Picking);
@@ -178,20 +180,25 @@ public class ArenaManager : MonoBehaviour
 
 	public void ReturnToMainMenu()
 	{
-		DestroyLastPlayer();
+		DestroyLastPlayers();
 
-		//PlayerManager.Reset();
 		GameStateManager.GetInstance.SetState(GameState.MainMenu);
 	}
 
-	private void DestroyLastPlayer()
+	public void DestroyLastPlayers()
 	{
-		GameObject lastPlayerAlive = GameObject.FindGameObjectWithTag("Player");
-		if (lastPlayerAlive != null)
-		{
-			Camera.main.GetComponent<NewCameraController>().RemoveTarget(lastPlayerAlive.name);
+		GameObject[] lastPlayersAlive = GameObject.FindGameObjectsWithTag("Player");
 
-			Destroy(lastPlayerAlive);
+		if (lastPlayersAlive.Length != 0)
+		{
+			foreach (GameObject player in lastPlayersAlive)
+			{
+				if (GameStateManager.GetInstance.GetState() == GameState.Arena)
+					cam.GetComponent<NewCameraController>().RemoveTarget(player.name);
+
+				Destroy(player);
+			}
+
 		}
 	}
 }
