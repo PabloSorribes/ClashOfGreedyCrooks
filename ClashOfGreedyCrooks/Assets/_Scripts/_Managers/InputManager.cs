@@ -128,12 +128,12 @@ public class InputManager : GenericSingleton<InputManager>
 					PlayerConnectManager.GetInstance.RemovePlayer((int)gamepadIndex[gamepad]);
 
 				if (prevState[gamepad].Buttons.Start == ButtonState.Released && state[gamepad].Buttons.Start == ButtonState.Pressed)
-					PlayerConnectManager.GetInstance.AddPlayer((int)gamepadIndex[gamepad]);
+                    PlayerConnectManager.GetInstance.GoToPickingPhase();
 
 
-				if (leftStick.x != 0 && !leftStickHold)
+                if (leftStick.x != 0 && !leftStickHold)
 				{
-					//PlayerConnectManager.GetInstance.ChangeSymbol(leftStick.x, i);
+					PlayerConnectManager.GetInstance.ChangeSymbol(leftStick.x, (int)gamepadIndex[gamepad]);
 
 					leftStickHold = true;
 				}

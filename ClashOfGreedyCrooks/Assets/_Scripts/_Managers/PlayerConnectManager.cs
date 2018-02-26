@@ -127,12 +127,7 @@ public class PlayerConnectManager : MonoBehaviour
     public void AddPlayer(int gamepadIndex)
     {
         if (allReady)
-            for (int i = 0; i < PlayerManager.players.Length; i++)
-                if (PlayerManager.players[i].Gamepad == gamepadIndex && PlayerManager.players[i].Ready)
-                {
-                    GoToPickingPhase();
-                    return;
-                }
+            return;
 
         //Check if gamepad is connected. If connected set ready. Else if connected and ready end function.
         for (int i = 0; i < PlayerManager.players.Length; i++)
@@ -293,8 +288,11 @@ public class PlayerConnectManager : MonoBehaviour
 
     public void GoToPickingPhase()
     {
-		a_playerConnectToPicking.Play();
-        PlayerManager.SaveConnectedPlayers();
-        GameStateManager.GetInstance.SetState(GameState.Picking);
+        if (allReady)
+        {
+		    a_playerConnectToPicking.Play();
+            PlayerManager.SaveConnectedPlayers();
+            GameStateManager.GetInstance.SetState(GameState.Picking);
+        }
     }
 }
