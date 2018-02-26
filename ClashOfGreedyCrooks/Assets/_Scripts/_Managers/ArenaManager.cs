@@ -111,27 +111,17 @@ public class ArenaManager : MonoBehaviour
 		UpdatePlayerScoreStats(lastPlayerAliveInfo);
 
 		for (int i = 0; i < connectedPlayers.Length; i++)
-			if (connectedPlayers[i].numberOfWins >= 3)
+			if (connectedPlayers[i].numberOfWins >= 1)
 				gameHasBeenWon = true;
 
-
-		if (!gameHasBeenWon)
-        {
-            GameObject.Find("CameraHolder").transform.GetChild(0).GetComponent<NewCameraController>().OnVictory(lastPlayerAlive.transform);
-            StartCoroutine(ShowEndScreen(lastPlayerAlive, lastPlayerAliveInfo));
-        }
-		else
-        {
-            GameObject.Find("CameraHolder").transform.GetChild(0).GetComponent<NewCameraController>().OnVictory(lastPlayerAlive.transform);
-            StartCoroutine(ShowEndScreen(lastPlayerAlive, lastPlayerAliveInfo));
-        }
+        GameObject.Find("CameraHolder").transform.GetChild(0).GetComponent<NewCameraController>().OnVictory(lastPlayerAlive.transform);
+        StartCoroutine(ShowEndScreen(lastPlayerAlive, lastPlayerAliveInfo));
 
 		//TODO: Rewrite to handle this better @fippan
 		DeathCircle.GetInstance.roundIsOver = true;
 		DeathCircle.GetInstance.deathZoneDamage = 0;
 
 		AudioManager.GetInstance.OnWin();
-
 	}
 
     IEnumerator ShowEndScreen(GameObject lastPlayerAlive, PlayerInfo lastPlayerAliveInfo)
@@ -145,9 +135,19 @@ public class ArenaManager : MonoBehaviour
 			    lastPlayerAlive.GetComponentInChildren<Champion>().name, lastPlayerAliveInfo.Player);
         }
         else
+        {
             EndOfRoundScreenCanvas = Instantiate(Resources.Load("UI/EndOfGame") as GameObject);
+            Invoke("EndOfGameScore", 3f);
+        }
         
 		roundHasEnded = true;
+    }
+
+    private void EndOfGameScore()
+    {
+        EndOfRoundScreenCanvas.transform.Find("Background").gameObject.SetActive(true);
+        EndOfRoundScreenCanvas.transform.Find("PlayerScoreBoard").gameObject.SetActive(true);
+        EndOfRoundScreenCanvas.GetComponent<EndOfRoundScreen>().SetEndOfGame();
     }
 
 	public void NextRound()

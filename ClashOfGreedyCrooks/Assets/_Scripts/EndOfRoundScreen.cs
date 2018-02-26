@@ -10,6 +10,8 @@ public class EndOfRoundScreen : MonoBehaviour
 	private string winnerName;
 	private int winnerPlayerIndex;
 
+    private bool endOfGame;
+
 	private PlayerInfo[] connectedPlayers;
 	private GameObject[] playerScoreHorizontal;
 
@@ -19,18 +21,27 @@ public class EndOfRoundScreen : MonoBehaviour
 		this.winnerAvatar = winnerAvatar;
 		this.winnerName = winnerName;
 		this.winnerPlayerIndex = winnerPlayerIndex;
-
+        
 		FillScoreScreen();
 	}
+
+    public void SetEndOfGame()
+    {
+        endOfGame = true;
+        FillScoreScreen();
+    }
 
 	private void FillScoreScreen()
 	{
 		connectedPlayers = PlayerManager.connectedPlayers;
 		playerScoreHorizontal = new GameObject[connectedPlayers.Length];
 
-		transform.Find("RoundWinner").GetChild(0).Find("PlayerColor").gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/PlayerColors/" + winnerColor);
-		transform.Find("RoundWinner").GetChild(0).Find("PlayerAvatar").gameObject.transform.GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Avatars/" + winnerAvatar);
-		transform.Find("RoundWinner").GetChild(0).Find("PlayerName").gameObject.GetComponent<Text>().text = winnerName;
+        if (!endOfGame)
+        {
+		    transform.Find("RoundWinner").GetChild(0).Find("PlayerColor").gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/PlayerColors/" + winnerColor);
+		    transform.Find("RoundWinner").GetChild(0).Find("PlayerAvatar").gameObject.transform.GetComponent<Image>().sprite = Resources.Load<Sprite>("UI/Avatars/" + winnerAvatar);
+		    transform.Find("RoundWinner").GetChild(0).Find("PlayerName").gameObject.GetComponent<Text>().text = winnerName;
+        }
 
 
 		for (int i = 0; i < connectedPlayers.Length; i++)
