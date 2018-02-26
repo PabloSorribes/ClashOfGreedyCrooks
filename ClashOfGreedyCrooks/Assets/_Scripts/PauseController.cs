@@ -1,34 +1,24 @@
 ﻿using UnityEngine;
 
-public class PauseController : MonoBehaviour {
+public class PauseController : MonoBehaviour
+{
 
-    public GameObject eventSystem;
+	public void BackToMainMenu()
+	{
+		//PlayerManager.Reset();
 
-    private void Start()
-    {
-        //Instantiate(eventSystem.gameObject);
-    }
+		GameStateManager.GetInstance.SetState(GameState.MainMenu);
+	}
 
-    private void OnEnable()
-    {
-        //GameStateManager.GetInstance.SetPausedState(OurPauseState.Paused);
-    }
-
-    public void BackToMainMenu()
-    {
-        //PlayerManager.Reset();
-        GameStateManager.GetInstance.SetState(GameState.MainMenu);
-    }
-
-    public void Back()
-    {
+	public void Back()
+	{
 		GameStateManager.GetInstance.PauseGame();
 
 		//gameObject.SetActive(false);
 	}
 
 	private void OnDisable()
-    {
-        //GameStateManager.GetInstance.SetPausedState(OurPauseState.NotPaused);
-    }
+	{
+		//GameStateManager.GetInstance.SetPausedState(OurPauseState.NotPaused);
+	}
 }
