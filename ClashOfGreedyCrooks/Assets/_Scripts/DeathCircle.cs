@@ -42,6 +42,7 @@ public class DeathCircle : MonoBehaviour
 
     public ParticleSystem ps;
     public ParticleSystem psc;
+	public ParticleSystem playerDeathCircleDamageEffect;
 
 	private bool emitPs;
     private bool emitPsc;
@@ -146,10 +147,6 @@ public class DeathCircle : MonoBehaviour
 		{
 			Debug.Log("Take DAMAGE!");
 			other.GetComponent<PlayerHealth>().insideDeathCircle = false;
-
-			//TODO: destroy-instantiate a particle effect on "other"
-			
-			AudioManager.GetInstance.PlayOneShot3D("event:/Arena/deathCircleTriggerExit", other.transform.position);
 
 			//TODO: Make death circle activate an Invoke or a CoRoutine in PlayerHealth. 
 			//Test if it still works when two players are outside, and one of them re-enters inside death circle.

@@ -114,12 +114,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41bd28975c260614b9b420f8dfbce1b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FadeInStrength: 0.2
+  fadeInStrength: 0
   deathZoneDamage: 15
   radiusPsc: 22
   minRadius: 8
   ps: {fileID: 198881282338286826}
   psc: {fileID: 198710731527716482}
+  playerDeathCircleDamageEffect: {fileID: 198000012942003240, guid: ecdd96beb7f93494880c052dfccf9dc1,
+    type: 2}
   roundIsOver: 0
 --- !u!135 &135329413771263456
 SphereCollider:

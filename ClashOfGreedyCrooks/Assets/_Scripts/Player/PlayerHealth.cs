@@ -20,6 +20,8 @@ public class PlayerHealth : MonoBehaviour
 	private string champName;
 	private float parameterFmod;
 
+	private ParticleSystem deathCircleParticles;
+
 	void Start()
 	{
 		insideDeathCircle = true;
@@ -32,6 +34,8 @@ public class PlayerHealth : MonoBehaviour
 		champName = GetComponentInChildren<Champion>().name;
 
 		parameterFmod = GetFmodParameter();
+
+		deathCircleParticles = Resources.Load<ParticleSystem>("Particles/SmallExplosionEffect");
 	}
 
 	private float GetFmodParameter()
@@ -92,6 +96,7 @@ public class PlayerHealth : MonoBehaviour
 	private void DeathParticles()
 	{
 		Destroy(Instantiate(ps.gameObject, this.transform.position, Quaternion.FromToRotation(Vector3.forward, Vector3.up)) as GameObject, 2f);
+		DeathCircleHurtParticles();
 	}
 
 	/// <summary>
@@ -134,6 +139,8 @@ public class PlayerHealth : MonoBehaviour
 		currentHealth -= deathZoneDamage;
 		CalculateHealthPrecentage();
 		HurtSound();
+		DeathCircleDamageSound();
+		DeathCircleHurtParticles();
 
 		if (currentHealth <= 0)
 			KillPlayer();
@@ -142,8 +149,17 @@ public class PlayerHealth : MonoBehaviour
 	private void CalculateHealthPrecentage()
 	{
 		float healthPrecentage = currentHealth / maxHealth;
-		//Debug.Log(healthPrecentage);
 		healthBar.value = healthPrecentage;
+	}
+
+	private void DeathCircleHurtParticles()
+	{
+		Destroy(Instantiate(deathCircleParticles.gameObject, this.transform.position, Quaternion.FromToRotation(Vector3.forward, Vector3.up)) as GameObject, 1.0f);
+	}
+
+	private void DeathCircleDamageSound()
+	{
+		AudioManager.GetInstance.PlayOneShot3D("event:/Arena/deathCircleDamagePlayer", this.transform.position);
 	}
 
 	private void KillSound()
