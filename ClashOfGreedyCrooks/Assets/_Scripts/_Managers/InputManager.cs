@@ -15,6 +15,10 @@ public class InputManager : GenericSingleton<InputManager>
 	private GamePadState[] state = new GamePadState[4];
 	private GamePadState[] prevState = new GamePadState[4];
 
+	Vector3 leftStick;
+	Vector3 rightStick;
+
+	private bool leftStickHold = false;
 	public bool freezeInput;
 
 	private void Start()
@@ -63,8 +67,6 @@ public class InputManager : GenericSingleton<InputManager>
 
 	void Update()
 	{
-		DebugKeys();
-
 		if (freezeInput)
 			return;
 
@@ -73,33 +75,13 @@ public class InputManager : GenericSingleton<InputManager>
 		{
 			prevState[i] = state[i];
 			state[i] = GamePad.GetState((PlayerIndex)i, GamePadDeadZone.None);
-            
-            float deadzoneRightStick = 0.4f;
-            float deadzoneLeftStick = 0.2f;
 
-            Vector3 leftStick = new Vector3(state[i].ThumbSticks.Left.X, 0f, state[i].ThumbSticks.Left.Y);
-            Vector3 rightStick = new Vector3(state[i].ThumbSticks.Right.X, 0f, state[i].ThumbSticks.Right.Y);
+			CalculateDirectionalInput(i);
 
-            //Make sure leftstick diagonal input is never more than 1
-            if (leftStick.magnitude > 1f)
-                leftStick /= leftStick.magnitude;
-
-            //Leftstick scaled radial deadzone implementation
-            if (leftStick.magnitude < deadzoneLeftStick)
-                leftStick = Vector3.zero;
-            else
-                leftStick = leftStick.normalized * ((leftStick.magnitude - deadzoneLeftStick) / (1 - deadzoneLeftStick));
-
-            //Rightstick scaled radial deadzone implementation
-            if (rightStick.magnitude < deadzoneRightStick)
-                rightStick = Vector3.zero;
-            else
-                rightStick = rightStick.normalized * ((rightStick.magnitude - deadzoneRightStick) / (1 - deadzoneRightStick));
-
-            //TODO: Modify to handle inputs with events instead of calling specific functions in other scripts.
-            switch (gameState)
+			//TODO: Modify to handle inputs with events instead of calling specific functions in other scripts.
+			switch (gameState)
 			{
-				case GameState.MainMenu:
+				default:
 					break;
 
 				case GameState.PlayerConnect:
@@ -113,7 +95,17 @@ public class InputManager : GenericSingleton<InputManager>
 					if (prevState[i].Buttons.Start == ButtonState.Released && state[i].Buttons.Start == ButtonState.Pressed)
 						PlayerConnectManager.GetInstance.AddPlayer((int)gamepadIndex[i]);
 
-                    PlayerConnectManager.GetInstance.ChangeSymbol(leftStick, i);
+
+					if (leftStick.x != 0 && !leftStickHold)
+					{
+						PlayerConnectManager.GetInstance.ChangeSymbol(leftStick.x, i);
+
+						leftStickHold = true;
+					}
+					else
+					{
+						leftStickHold = false;
+					}
 
 					break;
 
@@ -131,92 +123,74 @@ public class InputManager : GenericSingleton<InputManager>
 					if (prevState[i].Buttons.Y == ButtonState.Released && state[i].Buttons.Y == ButtonState.Pressed)
 						PickingManager.GetInstance.PickChampion(i, 3);
 
-					if (prevState[i].Buttons.Start == ButtonState.Released && state[i].Buttons.Start == ButtonState.Pressed)
-					{
-                        GameStateManager.GetInstance.PauseGame();
-					}
 
-                    break;
+					if (prevState[i].Buttons.Start == ButtonState.Released && state[i].Buttons.Start == ButtonState.Pressed)
+						GameStateManager.GetInstance.PauseGame();
+
+					break;
 
 				case GameState.Arena:
 
-                    /*
-                    float deadzoneRightStick = 0.4f;
-                    float deadzoneLeftStick = 0.2f;
-
-                    Vector3 leftStick = new Vector3(state[i].ThumbSticks.Left.X, 0f, state[i].ThumbSticks.Left.Y);
-                    Vector3 rightStick = new Vector3(state[i].ThumbSticks.Right.X, 0f, state[i].ThumbSticks.Right.Y);
-
-                    //Make sure leftstick diagonal input is never more than 1
-                    if (leftStick.magnitude > 1f)
-                        leftStick /= leftStick.magnitude;
-
-                    //Leftstick scaled radial deadzone implementation
-                    if (leftStick.magnitude < deadzoneLeftStick)
-                        leftStick = Vector3.zero;
-                    else
-                        leftStick = leftStick.normalized * ((leftStick.magnitude - deadzoneLeftStick) / (1 - deadzoneLeftStick));
-
-                    //Rightstick scaled radial deadzone implementation
-                    if (rightStick.magnitude < deadzoneRightStick)
-                        rightStick = Vector3.zero;
-                    else
-                        rightStick = rightStick.normalized * ((rightStick.magnitude - deadzoneRightStick) / (1 - deadzoneRightStick));
-                    */
-
-                    //Send directional input data to each player
-                    players[i].SetDirectionalInput(leftStick, rightStick);
-
-
-					if (prevState[i].Buttons.A == ButtonState.Released && state[i].Buttons.A == ButtonState.Pressed)
-						if (players[i] != null)
-							players[i].Shoot();
+					//Send directional input data to each player
+					players[i].SetDirectionalInput(leftStick, rightStick);
 
 					if (state[i].Triggers.Right >= 0.1f)
+					{
 						if (players[i] != null)
+						{
 							players[i].Shoot();
-
-					if (prevState[i].Buttons.RightShoulder == ButtonState.Released && state[i].Buttons.RightShoulder == ButtonState.Pressed)
-						if (players[i] != null)
-							players[i].Shoot();
-
+						}
+					}
 
 					if (prevState[i].Buttons.Start == ButtonState.Released && state[i].Buttons.Start == ButtonState.Pressed)
 					{
 						if (ArenaManager.GetInstance.roundHasEnded)
+						{
 							ArenaManager.GetInstance.NextRound();
+						}
 						else
-                            GameStateManager.GetInstance.PauseGame();
-                    }
+						{
+							GameStateManager.GetInstance.PauseGame();
+						}
+					}
 
 					break;
 
-				default:
-					break;
 			}
 		}
+	}
+
+	/// <summary>
+	/// Gets values from gamepad analog sticks and calculates deadzones
+	/// </summary>
+	/// <param name="i"></param>
+	private void CalculateDirectionalInput(int i)
+	{
+		float deadzoneRightStick = 0.4f;
+		float deadzoneLeftStick = 0.2f;
+
+		leftStick = new Vector3(state[i].ThumbSticks.Left.X, 0f, state[i].ThumbSticks.Left.Y);
+		rightStick = new Vector3(state[i].ThumbSticks.Right.X, 0f, state[i].ThumbSticks.Right.Y);
+
+		//Make sure leftstick diagonal input is never more than 1
+		if (leftStick.magnitude > 1f)
+			leftStick /= leftStick.magnitude;
+
+		//Leftstick scaled radial deadzone implementation
+		if (leftStick.magnitude < deadzoneLeftStick)
+			leftStick = Vector3.zero;
+		else
+			leftStick = leftStick.normalized * ((leftStick.magnitude - deadzoneLeftStick) / (1 - deadzoneLeftStick));
+
+		//Rightstick scaled radial deadzone implementation
+		if (rightStick.magnitude < deadzoneRightStick)
+			rightStick = Vector3.zero;
+		else
+			rightStick = rightStick.normalized * ((rightStick.magnitude - deadzoneRightStick) / (1 - deadzoneRightStick));
 	}
 
 	public void SetPlayerReferences(PlayerController[] players)
 	{
 		players.CopyTo(this.players, 0);
-	}
-
-	/// <summary>
-	/// Keys to load scenes and other debug stuff.
-	/// </summary>
-	private void DebugKeys()
-	{
-		if (Input.GetKeyDown(KeyCode.Alpha1))
-			GameStateManager.GetInstance.SetState(GameState.MainMenu);
-
-		if (Input.GetKeyDown(KeyCode.Alpha2))
-			GameStateManager.GetInstance.SetState(GameState.PlayerConnect);
-
-		if (Input.GetKeyDown(KeyCode.Alpha3))
-			GameStateManager.GetInstance.SetState(GameState.Picking);
-
-		if (Input.GetKeyDown(KeyCode.Alpha4))
-			GameStateManager.GetInstance.SetState(GameState.Arena);
 	}
 }
