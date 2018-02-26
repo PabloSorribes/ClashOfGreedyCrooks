@@ -147,7 +147,7 @@ public class DeathCircle : MonoBehaviour
 			Debug.Log("Take DAMAGE!");
 			other.GetComponent<PlayerHealth>().insideDeathCircle = false;
 
-			AudioManager.GetInstance.PlayOneShot("event:/Arena/deathCircleTriggerExit");
+			AudioManager.GetInstance.PlayOneShot3D("event:/Arena/deathCircleTriggerExit", other.transform.position);
 
 			//TODO: Make death circle activate an Invoke or a CoRoutine in PlayerHealth. 
 			//Test if it still works when two players are outside, and one of them re-enters inside death circle.
