@@ -230,6 +230,7 @@ public class PlayerConnectManager : MonoBehaviour
         player.Ready = true;
         player.AvatarSymbol = symbol;
         playerSlots[pos].Find("Ready").gameObject.SetActive(true);
+        playerSlots[pos].Find("Locked").gameObject.SetActive(true);
 
         a_ready.Play();
     }
@@ -238,6 +239,7 @@ public class PlayerConnectManager : MonoBehaviour
     {
         PlayerManager.players[pos].Ready = false;
         playerSlots[pos].Find("Ready").gameObject.SetActive(false);
+        playerSlots[pos].Find("Locked").gameObject.SetActive(false);
 
         a_unReady.Play();
     }
