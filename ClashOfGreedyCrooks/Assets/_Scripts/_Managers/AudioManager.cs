@@ -131,7 +131,9 @@ public class AudioManager : GenericSingleton<AudioManager>
 
 	public void OnWin()
 	{
+		PlayMusic(mu_MainMenu, mu_Picking, mu_Arena);
 		//TODO: Change music to WinMusic & fiddle with snapshots.
+		PlayOneShot("event:/Arena/arenaCrowdShouts");
 	}
 
 	public void PlayMusic(FMODUnity.StudioEventEmitter musicToPlay, FMODUnity.StudioEventEmitter musicToStop1, FMODUnity.StudioEventEmitter musicToStop2)

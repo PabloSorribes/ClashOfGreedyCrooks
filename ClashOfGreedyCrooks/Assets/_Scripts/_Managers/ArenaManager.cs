@@ -105,16 +105,17 @@ public class ArenaManager : MonoBehaviour
 
 		GameObject lastPlayerAlive = GameObject.FindGameObjectWithTag("Player");
 
-		Debug.Log("winner: " + lastPlayerAlive.name);
-
 		PlayerInfo lastPlayerAliveInfo = lastPlayerAlive.GetComponent<PlayerInfo>();
 		lastPlayerAliveInfo.numberOfWins++;
 
 		UpdatePlayerScoreStats(lastPlayerAliveInfo);
 
 		for (int i = 0; i < connectedPlayers.Length; i++)
-			if (connectedPlayers[i].numberOfWins >= 1)
+			if (connectedPlayers[i].numberOfWins >= 3)
+			{
 				gameHasBeenWon = true;
+				AudioManager.GetInstance.OnWin();
+			}
 
 		GameObject.Find("CameraHolder").transform.GetChild(0).GetComponent<CameraController>().OnVictory(lastPlayerAlive.transform);
 		StartCoroutine(ShowEndScreen(lastPlayerAlive, lastPlayerAliveInfo));
@@ -122,8 +123,6 @@ public class ArenaManager : MonoBehaviour
 		//TODO: Rewrite to handle this better @fippan
 		DeathCircle.GetInstance.roundIsOver = true;
 		DeathCircle.GetInstance.deathZoneDamage = 0;
-
-		AudioManager.GetInstance.OnWin();
 	}
 
 	IEnumerator ShowEndScreen(GameObject lastPlayerAlive, PlayerInfo lastPlayerAliveInfo)
