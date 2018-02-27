@@ -1,5 +1,4 @@
-﻿using FMODUnity;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class PickingManager : MonoBehaviour
@@ -15,9 +14,10 @@ public class PickingManager : MonoBehaviour
 
 	private PickingResources pickingResources;
 
-	StudioEventEmitter a_pickChamp;
-	StudioEventEmitter a_pickPenalty;
-	StudioEventEmitter a_pickingToArena;
+	private string pickChampSound = "event:/Picking/pickChamp";
+	private string pickPenaltySound = "event:/Picking/pickPenalty";
+	private string allPlayersReadySound = "event:/Picking/pickingAllPlayersReady";
+	private string pickingToArenaSound = "event:/Picking/pickingToArena";
 
 	private float timeToEnterArena = 1.5f;
 
@@ -28,20 +28,7 @@ public class PickingManager : MonoBehaviour
 
 	private void Start()
 	{
-		InitializeAudio();
 		pickingResources = GetComponent<PickingResources>();
-	}
-
-	private void InitializeAudio()
-	{
-		a_pickChamp = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
-		a_pickChamp.Event = "event:/Picking/pickChamp";
-
-		a_pickPenalty = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
-		a_pickPenalty.Event = "event:/Picking/pickPenalty";
-
-		a_pickingToArena = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
-		a_pickingToArena.Event = "event:/Picking/pickingToArena";
 	}
 
 	/// <summary>
@@ -54,7 +41,9 @@ public class PickingManager : MonoBehaviour
 		for (int i = 0; i < PlayerManager.connectedPlayers.Length; i++)
 			if (PlayerManager.connectedPlayers[i].Gamepad == gamepadIndex)
 				if (PlayerManager.connectedPlayers[i].HasChampion)
+				{
 					return;
+				}
 				else
 				{
 					OnPickChampion(i, button);
@@ -79,7 +68,9 @@ public class PickingManager : MonoBehaviour
             CardComponent cc = card.GetComponent<CardComponent>();
             cc.avatarColor.sprite = Resources.Load<Sprite>("UI/PlayerColors/" + PlayerManager.connectedPlayers[playerIndex].AvatarColor);
 			card.GetComponent<CardComponent>().avatarSymbol.sprite = Resources.Load<Sprite>("UI/Avatars/" + PlayerManager.connectedPlayers[playerIndex].AvatarSymbol);
-			a_pickChamp.Play();
+
+			//TODO: 3D-sound
+			AudioManager.GetInstance.PlayOneShot(pickChampSound);
 		}
 
 		//Menu for penalties
@@ -97,8 +88,8 @@ public class PickingManager : MonoBehaviour
             cc.avatarColor.sprite = Resources.Load<Sprite>("UI/PlayerColors/" + PlayerManager.connectedPlayers[playerIndex].AvatarColor);
 			card.GetComponent<CardComponent>().avatarSymbol.sprite = Resources.Load<Sprite>("UI/Avatars/" + PlayerManager.connectedPlayers[playerIndex].AvatarSymbol);
 
-			a_pickPenalty.Play();
-			a_pickChamp.Play();
+			AudioManager.GetInstance.PlayOneShot(pickPenaltySound);
+			//AudioManager.GetInstance.PlayOneShot(pickChampSound);
 		}
 
 		if (IsAllChampionsPicked())
@@ -155,7 +146,7 @@ public class PickingManager : MonoBehaviour
 		readyObj.AddComponent<Animator>().runtimeAnimatorController = animController;
 		readyObj.GetComponent<Animator>().SetTrigger("EndAllready");
 
-		AudioManager.GetInstance.PlayOneShot("event:/Picking/pickingAllPlayersReady");
+		AudioManager.GetInstance.PlayOneShot(allPlayersReadySound);
 
 		Vector3 pos = new Vector3(0f, 10f, 0f);
         readyObj.transform.position = pos;
@@ -175,7 +166,8 @@ public class PickingManager : MonoBehaviour
 					SpawnPlayer(i, j);
 				}
 		}
-		a_pickingToArena.Play();
+
+		AudioManager.GetInstance.PlayOneShot(pickingToArenaSound);
 		PlayerManager.SendInfoToInputManager();
 
 		GameStateManager.GetInstance.SetState(GameState.LoadingScreen);
@@ -218,7 +210,7 @@ public class PickingManager : MonoBehaviour
 		newPlayer.GetComponent<PlayerController>().attackSpeed = (1f / championScript.AttackSpeed) + 0.2f;
         newPlayer.GetComponent<PlayerController>().speed = (championScript.Movement * 0.35f) + 3f;
 
-        //Bildfold
+        //Blindfold
         if (champion.GetComponent<Penalty>().specialPenalties[0])
             newPlayer.GetComponentInChildren<Weapon>().blindFolded = true;
 
