@@ -66,7 +66,7 @@ public class PickingResources : MonoBehaviour {
         for (int i = 0; i < arrayPos.Length; i++)
         {
 			//TODO: If you wanna hard code a champion, set this number between 0-3
-            arrayPos[i] = 3;
+            arrayPos[i] = i;
         }
         Shuffle(arrayPos);
         championPrefabs[0] = queen[arrayPos[0]];
