@@ -971,7 +971,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5495ae739b16603469ca5b38a9d1f445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trackTime: 35
+  trackTime: 30
   timer: {fileID: 1969482262}
 --- !u!4 &456817896
 Transform:

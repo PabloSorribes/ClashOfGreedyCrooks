@@ -21,6 +21,14 @@ public class PauseController : MonoBehaviour
 		GameStateManager.GetInstance.SetState(GameState.MainMenu);
 	}
 
+	/// <summary>
+	/// Show controls menu.
+	/// </summary>
+	public void Controls()
+	{
+		//TODO: Add functionality to show the Control-scheme menu.
+	}
+
 	public void Back()
 	{
 		GameStateManager.GetInstance.PauseToggle();

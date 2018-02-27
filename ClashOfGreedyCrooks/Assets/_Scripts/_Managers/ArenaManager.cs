@@ -27,6 +27,8 @@ public class ArenaManager : MonoBehaviour
 
 	private GameObject EndOfRoundScreenCanvas;
 
+	private int amountOfRoundsForWin = 3;
+
 
 	private void Awake()
 	{
@@ -111,7 +113,7 @@ public class ArenaManager : MonoBehaviour
 		UpdatePlayerScoreStats(lastPlayerAliveInfo);
 
 		for (int i = 0; i < connectedPlayers.Length; i++)
-			if (connectedPlayers[i].numberOfWins >= 3)
+			if (connectedPlayers[i].numberOfWins >= amountOfRoundsForWin)
 			{
 				gameHasBeenWon = true;
 				AudioManager.GetInstance.OnWin();
