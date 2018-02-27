@@ -106,35 +106,25 @@ public class PlayerConnectManager : MonoBehaviour
     /// <param name="gamepadIndex"></param>
     public void AddPlayer(int gamepadIndex)
     {
-        if (allReady)
-            return;
-
-        //Check if gamepad is connected. If connected set ready. Else if connected and ready end function.
         for (int i = 0; i < PlayerManager.players.Length; i++)
-        {
             if (PlayerManager.players[i].Gamepad == gamepadIndex)
-            {
-                if (!PlayerManager.players[i].Ready)
+                if (PlayerManager.players[i].Ready)
+                    return;
+                else if (!PlayerManager.players[i].Ready)
                 {
                     Ready(i);
                     ReadyCheck();
                     return;
                 }
-                else if (PlayerManager.players[i].Ready)
-                    return;
-            }
-        }
 
         //Assign gamepad to first available player slot.
         for (int i = 0; i < PlayerManager.players.Length; i++)
-        {
             if (!PlayerManager.players[i].Connected)
             {
                 OnAddPlayer(i, gamepadIndex);
                 ReadyCheck();
                 return;
             }
-        }
     }
 
     public void OnAddPlayer(int playerIndex, int gamepadIndex)
