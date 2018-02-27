@@ -142,7 +142,7 @@ public class PickingManager : MonoBehaviour
     }
 
 	/// <summary>
-	/// Creates a Sprite-object, with an attached AnimatorController. Uses the "countdown_allready"-file. Shows before entering Arena.
+	/// Creates a Sprite-object, with an attached AnimatorController and plays a timed sound. Uses the "countdown_allready"-file. Shows before entering Arena.
 	/// </summary>
 	private void EndText()
     {
@@ -154,6 +154,8 @@ public class PickingManager : MonoBehaviour
 		RuntimeAnimatorController animController = Resources.Load("Animations/UI_Countdown_Controller") as RuntimeAnimatorController;
 		readyObj.AddComponent<Animator>().runtimeAnimatorController = animController;
 		readyObj.GetComponent<Animator>().SetTrigger("EndAllready");
+
+		AudioManager.GetInstance.PlayOneShot("event:/Picking/pickingAllPlayersReady");
 
 		Vector3 pos = new Vector3(0f, 10f, 0f);
         readyObj.transform.position = pos;
