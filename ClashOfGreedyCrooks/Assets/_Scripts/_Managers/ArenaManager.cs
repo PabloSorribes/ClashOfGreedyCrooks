@@ -116,7 +116,7 @@ public class ArenaManager : MonoBehaviour
 			if (connectedPlayers[i].numberOfWins >= 1)
 				gameHasBeenWon = true;
 
-		GameObject.Find("CameraHolder").transform.GetChild(0).GetComponent<NewCameraController>().OnVictory(lastPlayerAlive.transform);
+		GameObject.Find("CameraHolder").transform.GetChild(0).GetComponent<CameraController>().OnVictory(lastPlayerAlive.transform);
 		StartCoroutine(ShowEndScreen(lastPlayerAlive, lastPlayerAliveInfo));
 
 		//TODO: Rewrite to handle this better @fippan
@@ -194,7 +194,7 @@ public class ArenaManager : MonoBehaviour
 			foreach (GameObject player in lastPlayersAlive)
 			{
 				if (GameStateManager.GetInstance.GetState() == GameState.Arena)
-					cam.GetComponent<NewCameraController>().RemoveTarget(player.name);
+					cam.GetComponent<CameraController>().RemoveTarget(player.name);
 
 				Destroy(player);
 			}

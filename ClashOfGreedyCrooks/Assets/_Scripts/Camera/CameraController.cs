@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
-public class NewCameraController : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
 	public List<Transform> targets;
 

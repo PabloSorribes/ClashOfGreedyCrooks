@@ -38,7 +38,7 @@ public class DeathCircle : MonoBehaviour
     private float radiusPs;
 
     //If you change this you need to change contractionSpeed
-    private float shrinkSpeed = 0.7f;
+    //private float shrinkSpeed = 0.7f;
 
     public ParticleSystem ps;
     public ParticleSystem psc;
@@ -98,12 +98,6 @@ public class DeathCircle : MonoBehaviour
                 startAfter = false;
             }
         }
-
-		//DEBUG: To trigger the shrinking manualy
-		if (Input.GetKeyDown(KeyCode.DownArrow))
-		{
-			ChangeSize(true);
-		}
 	}
 
 

@@ -89,7 +89,7 @@ public class PlayerHealth : MonoBehaviour
 		KillSound();
 		DeathParticles();
 
-		Camera.main.GetComponent<NewCameraController>().RemoveTarget(gameObject.name);
+		Camera.main.GetComponent<CameraController>().RemoveTarget(gameObject.name);
 		ArenaManager.GetInstance.HandlePlayerDeath(gameObject.GetComponent<PlayerInfo>());
 	}
 
