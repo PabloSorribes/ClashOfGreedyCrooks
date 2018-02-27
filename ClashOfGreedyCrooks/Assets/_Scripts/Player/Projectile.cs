@@ -50,7 +50,7 @@ public class Projectile : MonoBehaviour
 
 		if (other.gameObject.tag == "Player" && other.gameObject != player)
 		{
-			if (player.GetComponent<PlayerInfo>() != null)
+			if (player != null)
 			{
 				player.GetComponent<PlayerInfo>().totalHits++;
 				player.GetComponent<PlayerInfo>().totalDamage += damage;

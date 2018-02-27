@@ -129,8 +129,10 @@ public class PlayerController : MonoBehaviour
 		{
 			//Make player slow when shooting
 			moveSpeed = moveSpeed * 0.65f;
+
 			//change shoot animation speed depending on attackspeed
-			animator.speed = 1 / attackSpeed;
+			if (animator != null)
+				animator.speed = 1 / attackSpeed;
 
 			animator.SetTrigger("toShooting");
 
