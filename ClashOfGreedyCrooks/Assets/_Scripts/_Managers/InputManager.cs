@@ -8,6 +8,7 @@ public class InputManager : GenericSingleton<InputManager>
 {
 	private GameState gameState;
 
+	//Reference to Spawned Players 
 	private PlayerController[] players = new PlayerController[4];
 
 	//Gamepad variables
@@ -15,8 +16,8 @@ public class InputManager : GenericSingleton<InputManager>
 	private GamePadState[] state = new GamePadState[4];
 	private GamePadState[] prevState = new GamePadState[4];
 
-	Vector3 leftStick;
-	Vector3 rightStick;
+	Vector3 leftStick = Vector3.zero;
+	Vector3 rightStick = Vector3.zero;
 
 	private bool leftStickHold = false;
 	public bool freezeInput;
@@ -40,7 +41,6 @@ public class InputManager : GenericSingleton<InputManager>
 	/// </summary>
 	private void AddConnectedGamepads()
 	{
-		//TODO: Expand to detect disconnected/newly connected gamepads and adapt accordingly.
 		for (int i = 0; i <= 3; ++i)
 		{
 			//Note: "PlayerIndex" enum type corresponds to "gamepadIndex" variable in this project since it can't be renamed (XInput).
@@ -57,7 +57,6 @@ public class InputManager : GenericSingleton<InputManager>
 
 	void FixedUpdate()
 	{
-		//TODO: Make into own function to be able to trigger Vibration on demand.
 		for (int i = 0; i < gamepadIndex.Count; ++i)
 		{
 			//SetVibration should be sent in a slower rate.
@@ -128,10 +127,10 @@ public class InputManager : GenericSingleton<InputManager>
 					PlayerConnectManager.GetInstance.RemovePlayer((int)gamepadIndex[gamepad]);
 
 				if (prevState[gamepad].Buttons.Start == ButtonState.Released && state[gamepad].Buttons.Start == ButtonState.Pressed)
-                    PlayerConnectManager.GetInstance.GoToPickingPhase();
+					PlayerConnectManager.GetInstance.GoToPickingPhase();
 
 
-                if (leftStick.x != 0 && !leftStickHold)
+				if (leftStick.x != 0 && !leftStickHold)
 				{
 					PlayerConnectManager.GetInstance.ChangeSymbol(leftStick.x, (int)gamepadIndex[gamepad]);
 
@@ -160,7 +159,7 @@ public class InputManager : GenericSingleton<InputManager>
 
 
 				if (prevState[gamepad].Buttons.Start == ButtonState.Released && state[gamepad].Buttons.Start == ButtonState.Pressed)
-					GameStateManager.GetInstance.PauseToggle();
+					StartCoroutine(Pause(gamepad));
 
 				break;
 
@@ -176,13 +175,36 @@ public class InputManager : GenericSingleton<InputManager>
 				if (prevState[gamepad].Buttons.Start == ButtonState.Released && state[gamepad].Buttons.Start == ButtonState.Pressed)
 				{
 					if (ArenaManager.GetInstance.roundHasEnded)
+					{
 						ArenaManager.GetInstance.NextRound();
+					}
 					else
-						GameStateManager.GetInstance.PauseToggle();
+					{
+						StartCoroutine(Pause(gamepad));
+					}
 				}
 
 				break;
+		}
+	}
 
+	IEnumerator Pause(int gamepad)
+	{
+		GameStateManager.GetInstance.PauseToggle();
+		yield return new WaitForSecondsRealtime(0.15f);
+
+		while (GameStateManager.GetInstance.GetPauseState() == OurPauseState.Paused)
+		{
+			prevState[gamepad] = state[gamepad];
+			state[gamepad] = GamePad.GetState((PlayerIndex)gamepad, GamePadDeadZone.None);
+
+			if (prevState[gamepad].Buttons.Start == ButtonState.Released && state[gamepad].Buttons.Start == ButtonState.Pressed)
+			{
+				GameStateManager.GetInstance.PauseToggle();
+				yield break;
+			}
+
+			yield return null;
 		}
 	}
 

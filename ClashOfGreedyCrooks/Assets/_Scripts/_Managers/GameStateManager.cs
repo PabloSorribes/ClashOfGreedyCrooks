@@ -81,6 +81,7 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 	/// <param name="newState"></param>
 	public void SetState(GameState newState)
 	{
+
 		screenFade.SetDir(BlackScreen.Out);
 
 		if (newState == GameState.MainMenu)
@@ -138,6 +139,12 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 		}
 	}
 
+	public OurPauseState GetPauseState()
+	{
+		OurPauseState tempPauseState = pauseState;
+		return tempPauseState;
+	}
+
 	public void PauseToggle()
 	{
 		if (pauseState == OurPauseState.NotPaused)
@@ -148,9 +155,10 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 
 	private void SetPaused()
 	{
+		InputManager.GetInstance.freezeInput = true;
+
 		Time.timeScale = 0;
 
-		InputManager.GetInstance.freezeInput = true;
 		if (gameState == GameState.Arena)
 		{
 			//TODO: Rewrite to handle this better
@@ -179,6 +187,12 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 		pauseState = OurPauseState.NotPaused;
 
 		Time.timeScale = 1f;
-		InputManager.GetInstance.freezeInput = false;
+		Invoke("Unfreeze", 0.2f);
+	}
+
+	private void Unfreeze()
+	{
+		if (!screenFade.Fading)
+			InputManager.GetInstance.freezeInput = false;
 	}
 }
