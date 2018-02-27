@@ -14,10 +14,13 @@ public class PickingManager : MonoBehaviour
 
 	private PickingResources pickingResources;
 
+	#region Audio Strings
 	private string pickChampSound = "event:/Picking/pickChamp";
 	private string pickPenaltySound = "event:/Picking/pickPenalty";
+	private string cardLockedSound = "event:/Picking/pickingCardLocked";
 	private string allPlayersReadySound = "event:/Picking/pickingAllPlayersReady";
 	private string pickingToArenaSound = "event:/Picking/pickingToArena";
+	#endregion Audio Strings
 
 	private float timeToEnterArena = 1.5f;
 
@@ -70,8 +73,7 @@ public class PickingManager : MonoBehaviour
             cc.avatarColor.sprite = Resources.Load<Sprite>("UI/PlayerColors/" + PlayerManager.connectedPlayers[playerIndex].AvatarColor);
 			card.GetComponent<CardComponent>().avatarSymbol.sprite = Resources.Load<Sprite>("UI/Avatars/" + PlayerManager.connectedPlayers[playerIndex].AvatarSymbol);
 
-			//TODO: 3D-sound
-			AudioManager.GetInstance.PlayOneShot(pickChampSound);
+			AudioManager.GetInstance.PlayOneShotAttached(pickChampSound, pickingResources.cards[nextCard].gameObject);
 		}
 
 		//Menu for penalties
@@ -89,7 +91,7 @@ public class PickingManager : MonoBehaviour
             cc.avatarColor.sprite = Resources.Load<Sprite>("UI/PlayerColors/" + PlayerManager.connectedPlayers[playerIndex].AvatarColor);
 			card.GetComponent<CardComponent>().avatarSymbol.sprite = Resources.Load<Sprite>("UI/Avatars/" + PlayerManager.connectedPlayers[playerIndex].AvatarSymbol);
 
-			AudioManager.GetInstance.PlayOneShot(pickPenaltySound);
+			AudioManager.GetInstance.PlayOneShotAttached(pickPenaltySound, pickingResources.cards[nextCard].gameObject);
 		}
 
 		if (IsAllChampionsPicked())
@@ -122,7 +124,7 @@ public class PickingManager : MonoBehaviour
 
         pickingResources.cards[nextCard].GetComponent<CardComponent>().locked.SetActive(true);
 
-		AudioManager.GetInstance.PlayOneShot3D("event:/Picking/pickingCardLocked", pickingResources.cards[nextCard].transform.position);
+		AudioManager.GetInstance.PlayOneShot3D(cardLockedSound, pickingResources.cards[nextCard].transform.position);
 
         nextCard++;
         if (nextCard == totalCards)

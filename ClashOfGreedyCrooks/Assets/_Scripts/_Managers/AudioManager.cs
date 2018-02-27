@@ -254,6 +254,18 @@ public class AudioManager : GenericSingleton<AudioManager>
 		eventInstance.release();
 	}
 
+	public void PlayOneShotAttached(string eventPath, GameObject gameObject)
+	{
+		var transform = gameObject.GetComponent<Transform>();
+		var rb = gameObject.GetComponent<Rigidbody>();
+
+		var eventInstance = CreateFmodEventInstance(eventPath);
+
+		eventInstance.start();
+		FMODUnity.RuntimeManager.AttachInstanceToGameObject(eventInstance, transform, rb);
+		eventInstance.release();
+	}
+
 	/// <summary>
 	/// For playing 3D-events at a set position, without setting a parameter. "<paramref name="position"/>" could be your transform.position.
 	/// </summary>
