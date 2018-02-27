@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
 	[HideInInspector]
 	public bool victorious;
 
+	private ParticleSystem dustParticle;
 	private Weapon weapon;
 	private Rigidbody rb;
 
@@ -43,6 +44,9 @@ public class PlayerController : MonoBehaviour
 
 		rb = GetComponent<Rigidbody>();
 		weapon = GetComponentInChildren<Weapon>();
+
+		dustParticle = transform.Find("Dust particle").GetComponent<ParticleSystem>();
+		dustParticle.Stop();
 
 		DontDestroyOnLoad(gameObject);
 	}
@@ -87,10 +91,16 @@ public class PlayerController : MonoBehaviour
 		if (directionalInputLeftStick != Vector3.zero && !cooldown)
 		{
 			animator.SetBool("isRunning", true);
+
+			if (!dustParticle.isPlaying)
+				dustParticle.Play();
 		}
 		else
 		{
 			animator.SetBool("isRunning", false);
+
+			if (dustParticle.isPlaying)
+				dustParticle.Stop();
 		}
 
 	}
