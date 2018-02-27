@@ -139,7 +139,6 @@ public class DeathCircle : MonoBehaviour
 	{
 		if (other.gameObject.tag == "Player")
 		{
-			Debug.Log("Take DAMAGE!");
 			other.GetComponent<PlayerHealth>().insideDeathCircle = false;
 
 			//TODO: Make death circle activate an Invoke or a CoRoutine in PlayerHealth. 
