@@ -21,15 +21,14 @@ public class PlayerConnectManager : MonoBehaviour
     private GameObject startGameText, backText;
     private bool noConnections;
     private bool allReady;
-    
 
     public bool SetTrueFor1PlayerTesting;
 
-	StudioEventEmitter a_connectController;
-	StudioEventEmitter a_disconnectController;
-	StudioEventEmitter a_ready;
-	StudioEventEmitter a_unReady;
-	StudioEventEmitter a_playerConnectToPicking;
+	private string connectSound = "event:/PlayerConnect/connectController";
+	private string disconnectSound = "event:/PlayerConnect/disconnectController";
+	private string readySound = "event:/PlayerConnect/ready";
+	private string unReadySound = "event:/PlayerConnect/unready";
+	private string playerConnectToPickingSound = "event:/PlayerConnect/playerConnectToPicking";
 
 	private void Awake()
     {
@@ -39,7 +38,6 @@ public class PlayerConnectManager : MonoBehaviour
     private void Start()
     {
         LoadResources();
-		InitializeAudio();
         InstantiateCanvas();
         startGameText = canvas.transform.Find("StartGame").gameObject;
         backText = canvas.transform.Find("Back").gameObject;
@@ -54,24 +52,6 @@ public class PlayerConnectManager : MonoBehaviour
         avatarColors = Resources.LoadAll("UI/PlayerColors", typeof(Sprite)).Cast<Sprite>().ToArray();
         avatarSymbols = Resources.LoadAll("UI/Avatars", typeof(Sprite)).Cast<Sprite>().ToArray();
     }
-
-	private void InitializeAudio() 
-	{
-		a_connectController = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
-		a_connectController.Event = "event:/PlayerConnect/connectController";
-
-		a_disconnectController = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
-		a_disconnectController.Event = "event:/PlayerConnect/disconnectController";
-
-		a_ready = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
-		a_ready.Event = "event:/PlayerConnect/ready";
-
-		a_unReady = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
-		a_unReady.Event = "event:/PlayerConnect/unready";
-
-		a_playerConnectToPicking = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
-		a_playerConnectToPicking.Event = "event:/PlayerConnect/playerConnectToPicking";
-	}
 
 	private void InstantiateCanvas()
     {
@@ -169,7 +149,7 @@ public class PlayerConnectManager : MonoBehaviour
         PlayerManager.players[playerIndex].AvatarSymbol = playerSlots[playerIndex].Find("Symbol").GetComponent<Image>().sprite.name;
 		PlayerManager.players[playerIndex].AvatarColor = avatarColors[playerIndex].name;
 
-		a_connectController.Play();
+		AudioManager.GetInstance.PlayOneShot(connectSound);
     }
 
     /// <summary>
@@ -213,7 +193,7 @@ public class PlayerConnectManager : MonoBehaviour
                 PlayerManager.players[i].Gamepad = 99;
             }
 
-		a_disconnectController.Play();
+		AudioManager.GetInstance.PlayOneShot(disconnectSound);
     }
 
     private void Ready(int pos)
@@ -234,8 +214,8 @@ public class PlayerConnectManager : MonoBehaviour
         playerSlots[pos].Find("Ready").gameObject.SetActive(true);
         playerSlots[pos].Find("Locked").gameObject.SetActive(true);
 
-        a_ready.Play();
-    }
+		AudioManager.GetInstance.PlayOneShot(readySound);
+	}
 
     private void UnReady(int pos)
     {
@@ -243,7 +223,7 @@ public class PlayerConnectManager : MonoBehaviour
         playerSlots[pos].Find("Ready").gameObject.SetActive(false);
         playerSlots[pos].Find("Locked").gameObject.SetActive(false);
 
-        a_unReady.Play();
+		AudioManager.GetInstance.PlayOneShot(unReadySound);
     }
 
     private void ReadyCheck()
@@ -294,7 +274,7 @@ public class PlayerConnectManager : MonoBehaviour
     {
         if (allReady)
         {
-		    a_playerConnectToPicking.Play();
+			AudioManager.GetInstance.PlayOneShot(playerConnectToPickingSound);
             PlayerManager.SaveConnectedPlayers();
             GameStateManager.GetInstance.SetState(GameState.Picking);
         }
