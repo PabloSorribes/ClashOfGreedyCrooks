@@ -6,7 +6,6 @@ public enum OurPauseState { Paused, NotPaused };
 
 public class GameStateManager : GenericSingleton<GameStateManager>
 {
-
 	private GameState gameState;
 	private OurPauseState pauseState;
 
@@ -26,6 +25,9 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 		pauseState = OurPauseState.NotPaused;
 
 		SceneManager.sceneLoaded += OnSceneChanged;
+
+		//Hide mouse cursor
+		Cursor.visible = false;
 	}
 
 	private void Start()
