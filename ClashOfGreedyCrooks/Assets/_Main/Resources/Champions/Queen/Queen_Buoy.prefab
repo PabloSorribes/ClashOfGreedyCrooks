@@ -1352,7 +1352,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1923254661017616}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.08, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4857134187416286}
@@ -1997,7 +1997,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1014417142604576}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.097, y: 1.1318501, z: 1.069}
+  m_LocalPosition: {x: 0, y: 1, z: 0.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4449875678177950}
@@ -2166,6 +2166,7 @@ MonoBehaviour:
   spreadMin: -15
   spreadMax: 15
   blindFolded: 0
+  victorious: 0
   proj: {fileID: 114338765415136048, guid: 86250b48a164e5145895993e04389c18, type: 2}
   particle: {fileID: 198186542613970122, guid: e10829b57aa20ad45a681542886b89dc, type: 2}
 --- !u!114 &114862324166509072
