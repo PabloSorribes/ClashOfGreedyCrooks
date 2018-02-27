@@ -12,7 +12,7 @@ public class Projectile : MonoBehaviour
 	private float projectileLifeTime;
 	private GameObject player;
 
-	//For defining different movement & destroy-behaviours
+	//For defining different movement & destroy-behaviours, as well as sounds.
 	public enum ProjectileType { buoy, katana, launcher, wand }
 	public ProjectileType projectileType;
 	public ParticleSystem collisionParticle;
@@ -66,6 +66,7 @@ public class Projectile : MonoBehaviour
 	{
         CollisionParticles();
 
+		//TODO: Add different behaviours for the projectile types.
         switch (projectileType)
 		{
 			case ProjectileType.buoy:
