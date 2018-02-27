@@ -132,9 +132,10 @@ public class PlayerController : MonoBehaviour
 
 			//change shoot animation speed depending on attackspeed
 			if (animator != null)
+            {
 				animator.speed = 1 / attackSpeed;
-
-			animator.SetTrigger("toShooting");
+			    animator.SetTrigger("toShooting");
+            }
 
 			weapon.Shoot(gameObject);
 			cooldown = true;
@@ -144,7 +145,9 @@ public class PlayerController : MonoBehaviour
 
 	private void CooldownTimer()
 	{
-		animator.speed = 1f;
+        if (animator != null)
+            animator.speed = 1f;
+
 		moveSpeed = speed;
 		cooldown = false;
 	}
