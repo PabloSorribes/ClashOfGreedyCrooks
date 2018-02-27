@@ -10,6 +10,7 @@ public class InputManager : GenericSingleton<InputManager>
 
 	//Reference to Spawned Players 
 	private PlayerController[] players = new PlayerController[4];
+	private bool[] leftTriggerIn = new bool[4];
 
 	//Gamepad variables
 	private List<PlayerIndex> gamepadIndex = new List<PlayerIndex>();
@@ -52,6 +53,8 @@ public class InputManager : GenericSingleton<InputManager>
 				Debug.Log(string.Format("GamePad found {0}", testGamepadIndex));
 				gamepadIndex.Add(testGamepadIndex);
 			}
+
+			leftTriggerIn[i] = false;
 		}
 	}
 
@@ -169,8 +172,19 @@ public class InputManager : GenericSingleton<InputManager>
 				players[gamepad].SetDirectionalInput(leftStick, rightStick);
 
 				if (state[gamepad].Triggers.Right >= 0.1f)
-					if (players[gamepad] != null)
-						players[gamepad].Shoot();
+					players[gamepad].Shoot();
+
+				if (state[gamepad].Triggers.Left >= 0.1f && !leftTriggerIn[gamepad])
+				{
+					players[gamepad].SnipeModeToggle();
+					leftTriggerIn[gamepad] = true;
+				}
+				else if (state[gamepad].Triggers.Left < 0.1f && leftTriggerIn[gamepad])
+				{
+					players[gamepad].SnipeModeToggle();
+					leftTriggerIn[gamepad] = false;
+				}
+
 
 				if (prevState[gamepad].Buttons.Start == ButtonState.Released && state[gamepad].Buttons.Start == ButtonState.Pressed)
 				{
@@ -188,6 +202,7 @@ public class InputManager : GenericSingleton<InputManager>
 		}
 	}
 
+	//Calling this Coroutine to be able to unpause by pressing the "Start" button again. (Update doesn't run when Timescale = 0)
 	IEnumerator Pause(int gamepad)
 	{
 		GameStateManager.GetInstance.PauseToggle();
