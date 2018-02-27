@@ -101,7 +101,6 @@ public class PlayerConnectManager : MonoBehaviour
         for (int i = 0; i < PlayerManager.players.Length; i++)
         {
             PlayerInfo player = PlayerManager.players[i];
-            Sprite symbol = playerSlots[player.Player].Find("Symbol").GetComponent<Image>().sprite;
             if (player.Connected && player.Gamepad == gamepadIndex && !player.Ready)
                 for (int j = 0; j < avatarSymbols.Length; j++)
                     if (player.AvatarSymbol == avatarSymbols[j].name)
