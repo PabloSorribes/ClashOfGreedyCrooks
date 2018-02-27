@@ -81,7 +81,6 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 	/// <param name="newState"></param>
 	public void SetState(GameState newState)
 	{
-
 		screenFade.SetDir(BlackScreen.Out);
 
 		if (newState == GameState.MainMenu)
@@ -161,7 +160,7 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 
 		if (gameState == GameState.Arena)
 		{
-			//TODO: Rewrite to handle this better
+			//TODO: Rewrite to handle this better. Hack to avoid DeathCircle from killing players when game is paused.
 			DeathCircle.GetInstance.roundIsOver = true;
 			temp_DeathCircleDamage = DeathCircle.GetInstance.deathZoneDamage;
 			DeathCircle.GetInstance.deathZoneDamage = 0;
@@ -171,6 +170,8 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 		pauseMenu.GetComponent<PauseController>().InitializePauseMenu();
 
 		pauseState = OurPauseState.Paused;
+
+		AudioManager.GetInstance.OnPauseBegin();
 	}
 
 	private void SetUnpaused()
@@ -182,9 +183,10 @@ public class GameStateManager : GenericSingleton<GameStateManager>
 			DeathCircle.GetInstance.deathZoneDamage = temp_DeathCircleDamage;
 		}
 
-
 		pauseMenu.SetActive(false);
 		pauseState = OurPauseState.NotPaused;
+
+		AudioManager.GetInstance.OnPauseEnd();
 
 		Time.timeScale = 1f;
 		Invoke("Unfreeze", 0.2f);

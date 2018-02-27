@@ -11,6 +11,7 @@ public class AudioManager : GenericSingleton<AudioManager>
 
 	private FMODUnity.StudioEventEmitter a_ambience;
 
+	private FMODUnity.StudioEventEmitter s_onPause;
 	private FMODUnity.StudioEventEmitter s_onSlowMo;
 
 	#region BUSSES
@@ -55,6 +56,9 @@ public class AudioManager : GenericSingleton<AudioManager>
 
 		a_ambience = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
 		a_ambience.Event = "event:/ambienceMain";
+
+		s_onPause = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
+		s_onPause.Event = "snapshot:/onPause";
 
 		s_onSlowMo = gameObject.AddComponent<FMODUnity.StudioEventEmitter>();
 		s_onSlowMo.Event = "snapshot:/onSlowMo";
@@ -129,10 +133,19 @@ public class AudioManager : GenericSingleton<AudioManager>
 		s_onSlowMo.Stop();
 	}
 
+	public void OnPauseBegin()
+	{
+		s_onPause.Play();
+	}
+
+	public void OnPauseEnd()
+	{
+		s_onPause.Stop();
+	}
+
 	public void OnWin()
 	{
 		PlayMusic(mu_MainMenu, mu_Picking, mu_Arena);
-		//TODO: Change music to WinMusic & fiddle with snapshots.
 		PlayOneShot("event:/Arena/arenaCrowdShouts");
 	}
 
