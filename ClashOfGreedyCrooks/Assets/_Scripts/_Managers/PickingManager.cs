@@ -49,7 +49,8 @@ public class PickingManager : MonoBehaviour
 				}
 				else
 				{
-					OnPickChampion(i, button);
+                    InputManager.GetInstance.Rumble(gamepadIndex, .5f, 1f, .1f);
+                    OnPickChampion(i, button);
 					return;
 				}
 	}
@@ -125,6 +126,8 @@ public class PickingManager : MonoBehaviour
         pickingResources.cards[nextCard].GetComponent<CardComponent>().locked.SetActive(true);
 
 		AudioManager.GetInstance.PlayOneShot3D(cardLockedSound, pickingResources.cards[nextCard].transform.position);
+
+        InputManager.GetInstance.Rumble(PlayerManager.players[nextCard].Gamepad, .5f, 1f, .1f);
 
         nextCard++;
         if (nextCard == totalCards)

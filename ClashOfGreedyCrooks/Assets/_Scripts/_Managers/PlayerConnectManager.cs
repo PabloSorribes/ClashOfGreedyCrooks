@@ -112,6 +112,7 @@ public class PlayerConnectManager : MonoBehaviour
                     return;
                 else if (!PlayerManager.players[i].Ready)
                 {
+                    InputManager.GetInstance.Rumble(gamepadIndex, .5f, 1f, .1f);
                     Ready(i);
                     ReadyCheck();
                     return;
@@ -121,6 +122,7 @@ public class PlayerConnectManager : MonoBehaviour
         for (int i = 0; i < PlayerManager.players.Length; i++)
             if (!PlayerManager.players[i].Connected)
             {
+                InputManager.GetInstance.Rumble(gamepadIndex, .5f, 1f, .1f);
                 OnAddPlayer(i, gamepadIndex);
                 ReadyCheck();
                 return;
