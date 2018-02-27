@@ -28,19 +28,26 @@ public class Countdown : MonoBehaviour {
 
 	private void CountdownTimer()
     {
+		float timeForPickYourCrookAnimation = 2f;
+
         if (time == 0)
         {
 			CancelInvoke();
+
+			//"Pick your Crook!"-text (countdown_pick.png).
             if (GameStateManager.GetInstance.GetState() == GameState.Picking)
 			{
-                countdownImageHolder.sprite = images[4];
-				Invoke("EndCountdown", 1.5f);
+				AudioManager.GetInstance.PlayOneShot("event:/Picking/pickingPickYourCrook");
+				countdownImageHolder.sprite = images[4];
+				Invoke("EndCountdown", timeForPickYourCrookAnimation);
 				countdownImageHolder.GetComponent<Animator>().SetTrigger("EndPicking");
 			}
+
+			//"Fight!"-text (countdown_fight.png).
 			else if (GameStateManager.GetInstance.GetState() == GameState.Arena)
 			{
-                countdownImageHolder.sprite = images[3];
 				AudioManager.GetInstance.PlayOneShot("event:/Arena/countDown", "end", 1f);
+                countdownImageHolder.sprite = images[3];
 				Invoke("EndCountdown", 1f);
 				countdownImageHolder.GetComponent<Animator>().SetTrigger("EndArena");
 			}

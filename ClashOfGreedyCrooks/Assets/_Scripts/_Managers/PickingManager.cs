@@ -58,6 +58,7 @@ public class PickingManager : MonoBehaviour
 
         if (!card.GetComponent<CardComponent>().CanPick())
             return;
+
 		//Pick from pool
 		if (!targetChampion.Picked)
 		{
@@ -89,7 +90,6 @@ public class PickingManager : MonoBehaviour
 			card.GetComponent<CardComponent>().avatarSymbol.sprite = Resources.Load<Sprite>("UI/Avatars/" + PlayerManager.connectedPlayers[playerIndex].AvatarSymbol);
 
 			AudioManager.GetInstance.PlayOneShot(pickPenaltySound);
-			//AudioManager.GetInstance.PlayOneShot(pickChampSound);
 		}
 
 		if (IsAllChampionsPicked())
