@@ -61,6 +61,7 @@ public class ArenaManager : MonoBehaviour
 
 	private void ShrinkDeathCircle()
 	{
+		AudioManager.GetInstance.PlayOneShot("event:/Arena/deathCircleStart");
 		DeathCircle.GetInstance.ChangeSize(true);
 	}
 
@@ -95,7 +96,6 @@ public class ArenaManager : MonoBehaviour
 				player.AvatarColor = connectedPlayers[i].AvatarColor;
 				player.AvatarSymbol = connectedPlayers[i].AvatarSymbol;
 			}
-
 		}
 	}
 
