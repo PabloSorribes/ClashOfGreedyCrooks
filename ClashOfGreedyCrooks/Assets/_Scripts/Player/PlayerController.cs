@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
 	private Vector3 directionalInputLeftStick;
 	private Vector3 directionalInputRightStick;
 
+    private ParticleSystem dustParticle;
+
     public bool victorious;
 
     private Weapon weapon;
@@ -24,8 +26,7 @@ public class PlayerController : MonoBehaviour
 
 	public Animator animator;
 	private AnimatorOverrideController animatorOverride;
-
-
+    
 	private void Start()
 	{
 		animator = GetComponentInChildren<Animator>();
@@ -37,6 +38,9 @@ public class PlayerController : MonoBehaviour
 
 		rb = GetComponent<Rigidbody>();
 		weapon = GetComponentInChildren<Weapon>();
+
+        dustParticle = transform.Find("Dust particle").GetComponent<ParticleSystem>();
+        dustParticle.Stop();
 
 		DontDestroyOnLoad(gameObject);
 	}
@@ -63,11 +67,15 @@ public class PlayerController : MonoBehaviour
 		if (directionalInputLeftStick != Vector3.zero && !cooldown)
 		{
 			animator.SetBool("isRunning", true);
+            if (!dustParticle.isPlaying)
+                dustParticle.Play();
 		}
 		else
 		{
 			animator.SetBool("isRunning", false);
-		}
+            if (dustParticle.isPlaying)
+                dustParticle.Stop();
+        }
 
 	}
 

@@ -19,7 +19,9 @@ public class Weapon : MonoBehaviour
 
 	public bool blindFolded;
 
-	public Projectile proj;
+    public bool victorious;
+
+    public Projectile proj;
     public ParticleSystem particle;
 	private Transform bulletSpawnPoint;
 	private GameObject bulletspawned;
@@ -53,6 +55,9 @@ public class Weapon : MonoBehaviour
 
 	public void Shoot(GameObject player)
 	{
+        if (victorious)
+            return;
+
 		a_shoot.Play();
 
 		bulletspawned = Instantiate(proj.gameObject, bulletSpawnPoint.position, bulletSpawnPoint.transform.rotation);
