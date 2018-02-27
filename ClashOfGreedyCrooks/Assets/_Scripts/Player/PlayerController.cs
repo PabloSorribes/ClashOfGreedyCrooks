@@ -80,7 +80,6 @@ public class PlayerController : MonoBehaviour
 			snipeSpeedModifier = 1f;
 			snipeAimModifier = 1f;
 		}
-
 	}
 
 	private void MovePlayer()

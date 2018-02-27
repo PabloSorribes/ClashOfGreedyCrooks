@@ -87,7 +87,7 @@ public class Projectile : MonoBehaviour
 
 	private void CollisionParticles()
 	{
-		Destroy(Instantiate(collisionParticle.gameObject, this.transform.position, Quaternion.FromToRotation(Vector3.forward, Vector3.up)) as GameObject, 1.5f);
+		Destroy(Instantiate(collisionParticle.gameObject, this.transform.GetChild(0).position, Quaternion.FromToRotation(Vector3.forward, Vector3.up)) as GameObject, 1.5f);
 	}
 
 	private float GetFmodParameter()
