@@ -70,6 +70,8 @@ public class Weapon : MonoBehaviour
 		}
 
 		bulletspawned.GetComponent<Projectile>().ProjectileSetup(damage, projectileSpeed, bulletLifeTime, player);
-	}
+
+        InputManager.GetInstance.Rumble(GetComponentInParent<PlayerInfo>().Gamepad, .5f, 1f, .1f);
+    }
 
 }

@@ -91,7 +91,9 @@ public class PlayerHealth : MonoBehaviour
 
 		Camera.main.GetComponent<CameraController>().RemoveTarget(gameObject.name);
 		ArenaManager.GetInstance.HandlePlayerDeath(gameObject.GetComponent<PlayerInfo>());
-	}
+
+        InputManager.GetInstance.Rumble(GetComponent<PlayerInfo>().Gamepad, .5f, 1f, 1f);
+    }
 
 	private void DeathParticles()
 	{
@@ -108,6 +110,8 @@ public class PlayerHealth : MonoBehaviour
 		currentHealth -= damage;
 		CalculateHealthPrecentage();
 		HurtSound();
+
+        InputManager.GetInstance.Rumble(GetComponent<PlayerInfo>().Gamepad, .5f, 1f, .2f);
 
 		if (currentHealth <= 0)
 		{
@@ -142,7 +146,9 @@ public class PlayerHealth : MonoBehaviour
 		DeathCircleDamageSound();
 		DeathCircleHurtParticles();
 
-		if (currentHealth <= 0)
+        InputManager.GetInstance.Rumble(GetComponent<PlayerInfo>().Gamepad, .5f, 1f, .2f);
+
+        if (currentHealth <= 0)
 			KillPlayer();
 	}
 

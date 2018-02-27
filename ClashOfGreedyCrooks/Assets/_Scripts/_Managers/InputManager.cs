@@ -58,15 +58,15 @@ public class InputManager : GenericSingleton<InputManager>
 		}
 	}
 
-	void FixedUpdate()
-	{
-		for (int i = 0; i < gamepadIndex.Count; ++i)
-		{
-			//SetVibration should be sent in a slower rate.
-			//Set vibration according to triggers. FOR FUTURE REFERENCE.
-			GamePad.SetVibration((PlayerIndex)i, state[i].Triggers.Left, state[i].Triggers.Right);
-		}
-	}
+	//void FixedUpdate()
+	//{
+	//	for (int i = 0; i < gamepadIndex.Count; ++i)
+	//	{
+	//		//SetVibration should be sent in a slower rate.
+	//		//Set vibration according to triggers. FOR FUTURE REFERENCE.
+	//		GamePad.SetVibration((PlayerIndex)i, state[i].Triggers.Left, state[i].Triggers.Right);
+	//	}
+	//}
 
 	void Update()
 	{
@@ -227,4 +227,23 @@ public class InputManager : GenericSingleton<InputManager>
 	{
 		players.CopyTo(this.players, 0);
 	}
+
+    public void Rumble(int gamePadIndex, float amountLeftMotor, float amountRightMotor, float duration)
+    {
+        StartCoroutine(StartRumble(gamePadIndex, amountLeftMotor, amountRightMotor, duration));
+    }
+
+    public IEnumerator StartRumble(int index, float leftMotor, float rightMotor, float duration)
+    {
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            GamePad.SetVibration((PlayerIndex)index, leftMotor, rightMotor);
+            elapsed += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        GamePad.SetVibration((PlayerIndex)index, 0f, 0f);
+    }
 }
