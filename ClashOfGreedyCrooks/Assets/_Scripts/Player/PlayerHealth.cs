@@ -116,7 +116,10 @@ public class PlayerHealth : MonoBehaviour
 		if (currentHealth <= 0)
 		{
 			if (playerThatShot != null)
+            {
 				playerThatShot.totalKills++;
+                InputManager.GetInstance.Rumble(playerThatShot.Gamepad, .5f, 1f, .4f);
+            }
 
 			KillPlayer();
 		}

@@ -131,18 +131,9 @@ public class InputManager : GenericSingleton<InputManager>
 
 				if (prevState[gamepad].Buttons.Start == ButtonState.Released && state[gamepad].Buttons.Start == ButtonState.Pressed)
 					PlayerConnectManager.GetInstance.GoToPickingPhase();
-
-
-				if (leftStick.x != 0 && !leftStickHold)
-				{
+                
+                if (leftStick.x != 0)
 					PlayerConnectManager.GetInstance.ChangeSymbol(leftStick.x, (int)gamepadIndex[gamepad]);
-
-					leftStickHold = true;
-				}
-				else
-				{
-					leftStickHold = false;
-				}
 
 				break;
 
@@ -241,7 +232,7 @@ public class InputManager : GenericSingleton<InputManager>
         {
             GamePad.SetVibration((PlayerIndex)index, leftMotor, rightMotor);
             elapsed += Time.unscaledDeltaTime;
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
 
         GamePad.SetVibration((PlayerIndex)index, 0f, 0f);

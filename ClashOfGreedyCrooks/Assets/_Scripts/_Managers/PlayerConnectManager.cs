@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System.Collections;
 
 public class PlayerConnectManager : MonoBehaviour
 {
@@ -66,15 +67,15 @@ public class PlayerConnectManager : MonoBehaviour
             playerSlots[i] = playerSlot.GetChild(i);
     }
 
-    private bool changeSymbolCooldown;
+    private bool[] changeSymbolCooldown = new bool[4];
     public void ChangeSymbol(float input, int gamepadIndex)
     {
-        if (changeSymbolCooldown)
+        if (changeSymbolCooldown[gamepadIndex])
             return;
         else
         {
-            changeSymbolCooldown = true;
-            Invoke("ResetSymbolCooldown", .3f);
+            changeSymbolCooldown[gamepadIndex] = true;
+            StartCoroutine(ResetSymbolCooldown(gamepadIndex));
         }
 
         for (int i = 0; i < PlayerManager.players.Length; i++)
@@ -95,9 +96,10 @@ public class PlayerConnectManager : MonoBehaviour
         }
     }
 
-    private void ResetSymbolCooldown()
+    private IEnumerator ResetSymbolCooldown(int index)
     {
-        changeSymbolCooldown = false;
+        yield return new WaitForSeconds(.3f);
+        changeSymbolCooldown[index] = false;
     }
 
     /// <summary>

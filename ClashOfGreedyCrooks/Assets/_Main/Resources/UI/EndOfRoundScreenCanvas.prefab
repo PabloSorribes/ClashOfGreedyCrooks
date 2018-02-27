@@ -521,7 +521,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 25bbaba3a28529b47b0e25691389bf30, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -827,7 +827,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c081c52a408cd994aa336fa45154ebbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerThatWon: {fileID: 0}
 --- !u!114 &114682329559144498
 MonoBehaviour:
   m_ObjectHideFlags: 1
